@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tunza Esports - Article</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.3/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5KwQWwSNclpbuF5t4nQkP/yKxHMZz0Qc9uYQ7WzPz2Q/Z+2X0Z6w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        .article-content {
+            padding: 40px;
+            max-width: 900px;
+            margin: 100px auto 0 auto;
+            border-radius: 12px;
+            /* The box-shadow has been removed to make the background completely transparent */
+            line-height: 1.6;
+        }
+
+        .article-image-container {
+            width: 100%;
+            height: 500px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .article-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .article-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .article-meta {
+            font-family: 'Oxanium', sans-serif;
+            color: #ccc;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .article-body p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: #fff;
+        }
+
+        /* Basic responsiveness */
+        @media (max-width: 768px) {
+            .article-content {
+                padding: 20px;
+            }
+            .article-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="header">
+        <nav>
+            <a href="index.html" class="logo"><img src="images/tunzalogo.png" alt="Tunza Esports Logo"></a>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li class="has-dropdown">
+                        <a href="#">Our Services</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="esports-tournament-organization.html">Esports Tournament Organization</a></li>
+                            <li><a href="esports-broadcasting.html">Esports Broadcasting</a></li>
+                            <li><a href="video-gaming-events.html">Video Gaming Events</a></li>
+                            <li><a href="consultation.html">Consultation</a></li>
+                            <li><a href="bootcamps-training-programs.html">Training Programs</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-dropdown">
+                        <a href="#">Our Products</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="kuer.html">KUER</a></li>
+                            <li><a href="ker.html">KER</a></li>
+                            <li><a href="tunzatourna.html">TunzaTourna</a></li>
+                            <li><a href="shop.html">Shop</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Gallery</a></li>
+                </ul>
+                <a href="shop.html" class="shop-button">Shop Now</a>
+            </div>
+        </nav>
+    </section>
+
+    <main class="news-body">
+        <div class="article-content">
+            <!-- Article content will be dynamically loaded here -->
+            <div class="article-image-container">
+                <img id="article-image" src="" alt="Article Image" class="article-image">
+            </div>
+            <h1 class="article-title" id="article-title"></h1>
+            <p class="article-meta" id="article-date"></p>
+            <div class="article-body" id="article-body"></div>
+        </div>
+    </main>
+
+    <div class="spacer-before-partners"></div>
+
+    <section class="partners-section">
+        <h2>Our Partners, clients, friends</h2>
+        <div class="partners-carousel-track">
+            <div class="partner-logo-placeholder"></div>
+            <div class="partner-logo-placeholder"></div>
+            <div class="partner-logo-placeholder"></div>
+            <div class="partner-logo-placeholder"></div>
+            <div class="partner-logo-placeholder"></div>
+            <div class="partner-logo-placeholder"></div>
+            <div class="partner-logo-placeholder"></div>
+            <div class="partner-logo-placeholder"></div>
+            <div class="partner-logo-placeholder"></div>
+            <div class="partner-logo-placeholder"></div>
+            <div class="partner-logo-placeholder"></div>
+            <div class="partner-logo-placeholder"></div>
+            <div class="partner-logo-placeholder"></div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>About Us</h4>
+                <ul>
+                    <li><a href="index.html">Home Page</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="coming-soon.html">Tunza Tourna</a></li>
+                    <li><a href="coming-soon.html">Shop</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Tournaments</h4>
+                <ul>
+                    <li><a href="#">Kenya University Esports Rankings</a></li>
+                </ul>
+            </div>
+            <div class="footer-column footer-logo-column">
+                <img src="images/TunzaLogo.png" alt="Tunza Esports Logo">
+                <p>Shaping the future of Kenya's Esports</p>
+                <p>info@tunzaesports.org</p>
+                <p>P.O BOX 45085-00100</p>
+                <p>Nairobi, Kenya</p>
+                <p>+254 107717520</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="copyright-text">&copy; 2025 Tunza Esports. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Use a self-executing anonymous function to keep variables out of the global scope.
+        (function() {
+            // Existing JS code for nav bar
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.header nav');
+                if (navbar) {
+                    if (window.scrollY > 0) {
+                        navbar.style.top = window.scrollY + 'px';
+                    } else {
+                        navbar.style.top = '0px';
+                    }
+                }
+            });
+
+            window.addEventListener('DOMContentLoaded', function() {
+                const navbar = document.querySelector('.header nav');
+                if (navbar) {
+                    if (window.scrollY > 0) {
+                        navbar.style.top = window.scrollY + 'px';
+                    } else {
+                        navbar.style.top = '0px';
+                    }
+                }
+            });
+
+            // --- START OF THE CORRECTED CAROUSEL SCRIPT ---
+            const carouselTrack = document.querySelector('.partners-carousel-track');
+            if (carouselTrack) {
+                carouselTrack.innerHTML += carouselTrack.innerHTML;
+                let scrollAmount = 0;
+                const scrollSpeed = 0.5;
+                let animationFrameId;
+
+                function autoScroll() {
+                    scrollAmount += scrollSpeed;
+                    const originalContentWidth = carouselTrack.scrollWidth / 2;
+                    if (scrollAmount >= originalContentWidth) {
+                        scrollAmount = 0;
+                    }
+                    carouselTrack.scrollLeft = scrollAmount;
+                    animationFrameId = requestAnimationFrame(autoScroll);
+                }
+
+                autoScroll();
+
+                carouselTrack.addEventListener('mouseenter', () => {
+                    cancelAnimationFrame(animationFrameId);
+                });
+
+                carouselTrack.addEventListener('mouseleave', () => {
+                    autoScroll();
+                });
+            }
+            // --- END OF THE CORRECTED CAROUSEL SCRIPT ---
+
+            // --- START OF THE DYNAMIC ARTICLE LOADING SCRIPT ---
+
+            // This is the same newsArticles array from news.html
+            // It's duplicated here so this page can load independently.
+            const newsArticles = [
+                {
+                    id: 9,
+                    title: "Tunza Esports Triumphs at National Finals!",
+                    date: "October 20, 2025",
+                    snippet: "Our top players clinched the title in a thrilling conclusion to the national tournament.",
+                    content: `
+                        <p>The cheers were deafening as our team emerged victorious from the grand finals of the National Esports Championship. It was a culmination of months of hard work, strategic planning, and unwavering team synergy.</p>
+                        <p>The final match was a nail-biting, back-and-forth battle that showcased the incredible talent and determination of both teams. In the end, our squad's impeccable execution and clutch plays secured them the championship title and a place in the history books.</p>
+                        <p>This victory isn't just for us; it's a win for the entire Tunza Esports community. We are incredibly proud of our team and grateful for the support of our fans. This is a testament to the growth of esports in Kenya and a sign of even greater things to come!</p>
+                    `,
+                    tags: ["Tournament News", "Community News"],
+                    imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=CHAMPIONSHIP+WIN"
+                },
+                {
+                    id: 1,
+                    title: "Quantum Computing in Esports",
+                    date: "September 1, 2025",
+                    snippet: "New breakthroughs in quantum computing are set to revolutionize how we play and analyze games.",
+                    content: `
+                        <p>The world of esports is on the brink of a technological revolution, and the driving force behind it is quantum computing. While still in its nascent stages, quantum technology promises to transform everything from game development to competitive strategy.</p>
+                        <p>Imagine a game engine that can calculate millions of variables in real-time, creating unparalleled levels of complexity and realism. Or an AI opponent that learns and adapts to your play style with a speed and precision that's currently impossible. This is the future quantum computing offers.</p>
+                        <p>At Tunza Esports, we are closely monitoring these developments. Our R&D team is already exploring how quantum algorithms could be applied to game analytics, helping professional players and teams gain a decisive edge. We believe that this technology will not only elevate the professional scene but also create new, exciting experiences for casual gamers. Stay tuned for more updates on our journey into the quantum world of gaming!</p>
+                    `,
+                    tags: ["Product Updates", "Community News"],
+                    imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+1"
+                },
+                {
+                    id: 2,
+                    title: "New Tournament Announced",
+                    date: "August 28, 2025",
+                    snippet: "Tunza Esports is proud to announce the latest national tournament for all aspiring pro players.",
+                    content: `
+                        <p>Get your keyboards ready! Tunza Esports is thrilled to announce our next major national tournament, set to kick off in October. This event will feature titles like Valorant, League of Legends, and FIFA, with a prize pool that's bigger than ever before.</p>
+                        <p>This tournament is open to all players, from seasoned veterans to newcomers looking to make their mark on the esports scene. We are committed to providing a fair and competitive environment for all participants. Details regarding registration, rules, and the full schedule will be released on our website and social media channels in the coming weeks.</p>
+                        <p>We can't wait to see you compete and witness the amazing talent that Kenya has to offer. Let the games begin!</p>
+                    `,
+                    tags: ["Tournament News"],
+                    imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+2"
+                },
+                {
+                    id: 3,
+                    title: "The Future of VR Gaming",
+                    date: "August 25, 2025",
+                    snippet: "Dive into the world of virtual reality and how it's shaping the next generation of competitive gaming.",
+                    content: `
+                        <p>Virtual Reality (VR) is no longer a futuristic pipe dream; it's a rapidly growing segment of the gaming industry. As VR technology becomes more accessible and powerful, its potential for competitive esports is becoming clearer.</p>
+                        <p>VR esports offers a level of immersion and physical engagement that traditional gaming cannot match. Games like Echo Arena and Beat Saber are already proving that VR can support a thriving competitive community. At Tunza, we are actively exploring how to integrate VR into our tournament offerings and create new, unforgettable experiences for our players.</p>
+                        <p>This is just the beginning. The future of gaming is deeply immersive, and we are excited to lead the charge into this new frontier. Stay tuned for our upcoming VR gaming events!</p>
+                    `,
+                    tags: ["Community News"],
+                    imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+3"
+                },
+                {
+                    id: 4,
+                    title: "Tunza Esports Partners With Local Gaming Cafe",
+                    date: "August 5, 2025",
+                    snippet: "Tunza Esports is excited to announce a new partnership with The Gamers Hub, a local gaming cafe, to host community events and weekly tournaments.",
+                    content: `
+                        <p>Tunza Esports is thrilled to announce a new partnership with The Gamers Hub, a local gaming cafe in Nairobi. This collaboration is designed to bring the esports community closer together by providing a dedicated space for gamers to meet, practice, and compete.</p>
+                        <p>Starting this month, we will be hosting weekly tournaments and special events at The Gamers Hub. This is a fantastic opportunity for aspiring players to get a taste of competitive gaming in a fun, relaxed environment. We believe that local partnerships like this are key to nurturing grassroots talent and expanding the esports ecosystem in Kenya.</p>
+                        <p>We invite everyone to come down and check out our first community night on August 15th. There will be free-to-play sessions, mini-tournaments, and a chance to meet some of your favorite local esports personalities!</p>
+                    `,
+                    tags: ["Partnership"],
+                    imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+4"
+                },
+                {
+                    id: 5,
+                    title: "KUER Season 3: Registrations Now Open",
+                    date: "August 1, 2025",
+                    snippet: "The new season of the Kenya University Esports Rankings (KUER) is officially accepting registrations.",
+                    content: `
+                        <p>Calling all university gamers! Registrations for the highly anticipated third season of the Kenya University Esports Rankings (KUER) are now officially open. This season promises to be the most competitive yet, with new teams, a larger prize pool, and expanded game titles.</p>
+                        <p>KUER has become a cornerstone of the collegiate esports scene in Kenya, providing a structured platform for student athletes to showcase their skills and represent their institutions. We've seen incredible growth in participation and skill level over the past two seasons, and we can't wait to see what this season holds.</p>
+                        <p>To register your team and for more information on rules and eligibility, please visit the KUER section of our website. Don't miss your chance to claim the top spot and earn the title of Kenya's best university esports team!</p>
+                    `,
+                    tags: ["Product Updates", "Tournament News"],
+                    imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+5"
+                },
+                {
+                    id: 6,
+                    title: "New Training Program Launched for Valorant Players",
+                    date: "July 28, 2025",
+                    snippet: "Tunza Esports introduces a new training program designed to help players of all skill levels improve their game.",
+                    content: `
+                        <p>Ready to level up your Valorant game? Tunza Esports is proud to announce the launch of our new intensive training program, "Ascend," designed specifically for aspiring Valorant professionals and serious players.</p>
+                        <p>The program, developed by our team of expert coaches and analysts, focuses on core mechanics, strategic decision-making, and teamwork. Participants will receive personalized feedback, access to scrims, and exclusive workshops on everything from aim training to map control.</p>
+                        <p>Whether you're stuck in a rank or aiming for the top of the leaderboards, our program provides the tools and guidance you need to succeed. Limited spots are available, so sign up soon to secure your spot!</p>
+                    `,
+                    tags: ["Community News"],
+                    imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+6"
+                },
+                {
+                    id: 7,
+                    title: "Video Game Events: FIFA Tournament Highlights",
+                    date: "July 25, 2025",
+                    snippet: "A recap of the most exciting moments from our recent FIFA tournament, showcasing some of Kenya's best FIFA players.",
+                    content: `
+                        <p>Our recent FIFA tournament was an absolute blast! The competition was fierce, the goals were spectacular, and the atmosphere was electric. We saw some incredible plays and nail-biting finishes that kept everyone on the edge of their seats.</p>
+                        <p>Congratulations to all the participants and especially to our champions. Their skill and dedication were on full display, and they truly deserved the win. This event once again proved the passion and talent within the Kenyan FIFA community.</p>
+                        <p>If you missed the action, don't worry! You can watch the full highlights reel on our YouTube channel. We're already planning our next FIFA event, so stay tuned for details!</p>
+                    `,
+                    tags: ["Partnership", "Tournament News"],
+                    imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+7"
+                },
+                {
+                    id: 8,
+                    title: "Tunza Esports Joins Global Esports Federation",
+                    date: "July 20, 2025",
+                    snippet: "Tunza Esports is proud to become a member of the Global Esports Federation (GEF).",
+                    content: `
+                        <p>In a major milestone for our organization, Tunza Esports has officially joined the Global Esports Federation (GEF). This membership solidifies our commitment to promoting esports as a legitimate sport and a valuable industry in Kenya and beyond.</p>
+                        <p>The GEF is a leading international body dedicated to fostering the development of the esports community worldwide. By joining forces, we gain access to a global network of resources, best practices, and opportunities that will help us grow and professionalize the esports scene in our region.</p>
+                        <p>This partnership is a huge step forward for us and for the entire Kenyan esports community. We look forward to collaborating with our new partners to create a brighter future for all gamers.</p>
+                    `,
+                    tags: ["Community News"],
+                    imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+8"
+                },
+            ];
+
+            // Function to get the article ID from the URL
+            function getArticleIdFromUrl() {
+                const urlParams = new URLSearchParams(window.location.search);
+                return parseInt(urlParams.get('id'));
+            }
+
+            // Function to find and display the article
+            function displayArticle() {
+                const articleId = getArticleIdFromUrl();
+                const article = newsArticles.find(a => a.id === articleId);
+
+                const titleElement = document.getElementById('article-title');
+                const dateElement = document.getElementById('article-date');
+                const bodyElement = document.getElementById('article-body');
+                const imageElement = document.getElementById('article-image');
+
+                if (article) {
+                    titleElement.textContent = article.title;
+                    dateElement.textContent = `Published on: ${article.date}`;
+                    bodyElement.innerHTML = article.content;
+                    imageElement.src = article.imageUrl;
+                    imageElement.alt = article.title;
+                } else {
+                    titleElement.textContent = "Article Not Found";
+                    dateElement.textContent = "";
+                    bodyElement.innerHTML = `<p>The article you are looking for does not exist.</p>`;
+                    imageElement.style.display = 'none'; // Hide the image placeholder
+                }
+            }
+
+            window.addEventListener('load', displayArticle);
+            
+        })();
+    </script>
+</body>
+</html>

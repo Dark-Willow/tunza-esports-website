@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tunza Esports - News</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.3/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5KwQWwSNclpbuF5t4nQkP/yKxHMZz0Qc9uYQ7WzPz2Q/Z+2X0Z6w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        /* New style to ensure images fit well inside the cards */
+        .news-image {
+            width: 100%;
+            height: 200px; /* You can adjust this height */
+            object-fit: cover;
+            border-radius: 8px 8px 0 0;
+        }
+    </style>
+</head>
+<body>
+    <section class="header">
+        <nav>
+            <a href="index.html" class="logo"><img src="images/tunzalogo.png" alt="Tunza Esports Logo"></a>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li class="has-dropdown">
+                        <a href="#">Our Services</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="esports-tournament-organization.html">Esports Tournament Organization</a></li>
+                            <li><a href="esports-broadcasting.html">Esports Broadcasting</a></li>
+                            <li><a href="video-gaming-events.html">Video Gaming Events</a></li>
+                            <li><a href="consultation.html">Consultation</a></li>
+                            <li><a href="bootcamps-training-programs.html">Training Programs</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-dropdown">
+                        <a href="#">Our Products</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="kuer.html">KUER</a></li>
+                            <li><a href="ker.html">KER</a></li>
+                            <li><a href="tunzatourna.html">TunzaTourna</a></li>
+                            <li><a href="shop.html">Shop</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Gallery</a></li>
+                </ul>
+                <a href="shop.html" class="shop-button">Shop Now</a>
+            </div>
+        </nav>
+    </section>
+
+    <section class="news-hero-section">
+        <div class="breadcrumb">
+            <a href="index.html">Home</a> > News
+        </div>
+        <h1 class="service-main-heading">Latest News</h1>
+    </section>
+
+    <main class="news-body">
+        <div class="news-content-wrapper">
+            <aside class="news-sidebar">
+                <div class="search-section">
+                    <h3>Search News</h3>
+                    <input type="text" placeholder="Keyword Search" class="keyword-search">
+                    <button class="search-button">Search</button>
+                </div>
+                <div class="filter-section">
+                    <h3>Filter by Tag</h3>
+                    <div class="tag-list">
+                        <span class="tag active" data-tag-name="All">All</span>
+                        <span class="tag" data-tag-name="Tournament News">Tournament News</span>
+                        <span class="tag" data-tag-name="Product Updates">Product Updates</span>
+                        <span class="tag" data-tag-name="Community News">Community News</span>
+                        <span class="tag" data-tag-name="Partnership">Partnership</span>
+                    </div>
+                </div>
+            </aside>
+            <div class="articles-container">
+                <div class="news-content-grid" id="news-articles-container">
+                    <!-- News articles will be dynamically inserted here -->
+                </div>
+                <div class="load-more-container">
+                    <button class="load-more-button">Load More</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="spacer-before-partners"></div>
+
+    <section class="newsletter-outer">
+        <p class="newsletter-pre-heading">Subscribe To Our Newsletter Today!</p>
+        <h2 class="newsletter-main-heading">Get Gaming Guide and Information</h2>
+        <div class="newsletter-card">
+            <h3>Hello guys! Get the latest information from us</h3>
+            <div class="newsletter-form-container">
+                <input type="email" placeholder="Enter your email here" class="email-input">
+                <button class="subscribe-button">Subscribe</button>
+            </div>
+            <p class="newsletter-card-disclaimer">Stay ahead in the game. Get exclusive tips, updates, and strategy guides straight to your inbox. No spam, just pure gaming goodness.</p>
+        </div>
+    </section>
+
+    <section class="partners-section">
+        <h2>Our Partners, clients, friends</h2>
+        <div class="partners-carousel-track">
+            <div class="partner-logo-placeholder"></div>
+            <div class="partner-logo-placeholder"></div>
+            <div class="partner-logo-placeholder"></div>
+            <div class="partner-logo-placeholder"></div>
+            <div class="partner-logo-placeholder"></div>
+            <div class="partner-logo-placeholder"></div>
+            <div class="partner-logo-placeholder"></div>
+            <div class="partner-logo-placeholder"></div>
+            <div class="partner-logo-placeholder"></div>
+            <div class="partner-logo-placeholder"></div>
+            <div class="partner-logo-placeholder"></div>
+            <div class="partner-logo-placeholder"></div>
+            <div class="partner-logo-placeholder"></div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>About Us</h4>
+                <ul>
+                    <li><a href="index.html">Home Page</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="coming-soon.html">Tunza Tourna</a></li>
+                    <li><a href="coming-soon.html">Shop</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Tournaments</h4>
+                <ul>
+                    <li><a href="#">Kenya University Esports Rankings</a></li>
+                </ul>
+            </div>
+            <div class="footer-column footer-logo-column">
+                <img src="images/TunzaLogo.png" alt="Tunza Esports Logo">
+                <p>Shaping the future of Kenya's Esports</p>
+                <p>info@tunzaesports.org</p>
+                <p>P.O BOX 45085-00100</p>
+                <p>Nairobi, Kenya</p>
+                <p>+254 107717520</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="copyright-text">&copy; 2025 Tunza Esports. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Use a self-executing anonymous function to keep variables out of the global scope.
+        (function() {
+            // Existing JS code for nav bar
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.header nav');
+                if (navbar) {
+                    if (window.scrollY > 0) {
+                        navbar.style.top = window.scrollY + 'px';
+                    } else {
+                        navbar.style.top = '0px';
+                    }
+                }
+            });
+
+            window.addEventListener('DOMContentLoaded', function() {
+                const navbar = document.querySelector('.header nav');
+                if (navbar) {
+                    if (window.scrollY > 0) {
+                        navbar.style.top = window.scrollY + 'px';
+                    } else {
+                        navbar.style.top = '0px';
+                    }
+                }
+            });
+
+            // --- START OF THE CORRECTED CAROUSEL SCRIPT ---
+            const carouselTrack = document.querySelector('.partners-carousel-track');
+            if (carouselTrack) {
+                carouselTrack.innerHTML += carouselTrack.innerHTML;
+                let scrollAmount = 0;
+                const scrollSpeed = 0.5;
+                let animationFrameId;
+
+                function autoScroll() {
+                    scrollAmount += scrollSpeed;
+                    const originalContentWidth = carouselTrack.scrollWidth / 2;
+                    if (scrollAmount >= originalContentWidth) {
+                        scrollAmount = 0;
+                    }
+                    carouselTrack.scrollLeft = scrollAmount;
+                    animationFrameId = requestAnimationFrame(autoScroll);
+                }
+
+                autoScroll();
+
+                carouselTrack.addEventListener('mouseenter', () => {
+                    cancelAnimationFrame(animationFrameId);
+                });
+
+                carouselTrack.addEventListener('mouseleave', () => {
+                    autoScroll();
+                });
+            }
+            // --- END OF THE CORRECTED CAROUSEL SCRIPT ---
+
+            // --- START OF THE DYNAMIC NEWS SECTION SCRIPT ---
+
+            // CMS Logic: This is your database of news articles.
+            // To add a new article, just add a new object to this array.
+            const newsArticles = [
+                {
+                    id: 9,
+                    title: "Tunza Esports Triumphs at National Finals!",
+                    date: "October 20, 2025",
+                    snippet: "Our top players clinched the title in a thrilling conclusion to the national tournament.",
+                    content: `
+                        <p>The cheers were deafening as our team emerged victorious from the grand finals of the National Esports Championship. It was a culmination of months of hard work, strategic planning, and unwavering team synergy.</p>
+                        <p>The final match was a nail-biting, back-and-forth battle that showcased the incredible talent and determination of both teams. In the end, our squad's impeccable execution and clutch plays secured them the championship title and a place in the history books.</p>
+                        <p>This victory isn't just for us; it's a win for the entire Tunza Esports community. We are incredibly proud of our team and grateful for the support of our fans. This is a testament to the growth of esports in Kenya and a sign of even greater things to come!</p>
+                    `,
+                    tags: ["Tournament News", "Community News"],
+                    imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=CHAMPIONSHIP+WIN"
+                },
+                {
+                    id: 1,
+                    title: "Quantum Computing in Esports",
+                    date: "September 1, 2025",
+                    snippet: "New breakthroughs in quantum computing are set to revolutionize how we play and analyze games.",
+                    content: `
+                        <p>The world of esports is on the brink of a technological revolution, and the driving force behind it is quantum computing. While still in its nascent stages, quantum technology promises to transform everything from game development to competitive strategy.</p>
+                        <p>Imagine a game engine that can calculate millions of variables in real-time, creating unparalleled levels of complexity and realism. Or an AI opponent that learns and adapts to your play style with a speed and precision that's currently impossible. This is the future quantum computing offers.</p>
+                        <p>At Tunza Esports, we are closely monitoring these developments. Our R&D team is already exploring how quantum algorithms could be applied to game analytics, helping professional players and teams gain a decisive edge. We believe that this technology will not only elevate the professional scene but also create new, exciting experiences for casual gamers. Stay tuned for more updates on our journey into the quantum world of gaming!</p>
+                    `,
+                    tags: ["Product Updates", "Community News"],
+                    imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+1"
+                },
+                {
+                    id: 2,
+                    title: "New Tournament Announced",
+                    date: "August 28, 2025",
+                    snippet: "Tunza Esports is proud to announce the latest national tournament for all aspiring pro players.",
+                    content: `
+                        <p>Get your keyboards ready! Tunza Esports is thrilled to announce our next major national tournament, set to kick off in October. This event will feature titles like Valorant, League of Legends, and FIFA, with a prize pool that's bigger than ever before.</p>
+                        <p>This tournament is open to all players, from seasoned veterans to newcomers looking to make their mark on the esports scene. We are committed to providing a fair and competitive environment for all participants. Details regarding registration, rules, and the full schedule will be released on our website and social media channels in the coming weeks.</p>
+                        <p>We can't wait to see you compete and witness the amazing talent that Kenya has to offer. Let the games begin!</p>
+                    `,
+                    tags: ["Tournament News"],
+                    imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+2"
+                },
+                {
+                    id: 3,
+                    title: "The Future of VR Gaming",
+                    date: "August 25, 2025",
+                    snippet: "Dive into the world of virtual reality and how it's shaping the next generation of competitive gaming.",
+                    content: `
+                        <p>Virtual Reality (VR) is no longer a futuristic pipe dream; it's a rapidly growing segment of the gaming industry. As VR technology becomes more accessible and powerful, its potential for competitive esports is becoming clearer.</p>
+                        <p>VR esports offers a level of immersion and physical engagement that traditional gaming cannot match. Games like Echo Arena and Beat Saber are already proving that VR can support a thriving competitive community. At Tunza, we are actively exploring how to integrate VR into our tournament offerings and create new, unforgettable experiences for our players.</p>
+                        <p>This is just the beginning. The future of gaming is deeply immersive, and we are excited to lead the charge into this new frontier. Stay tuned for our upcoming VR gaming events!</p>
+                    `,
+                    tags: ["Community News"],
+                    imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+3"
+                },
+                {
+                    id: 4,
+                    title: "Tunza Esports Partners With Local Gaming Cafe",
+                    date: "August 5, 2025",
+                    snippet: "Tunza Esports is excited to announce a new partnership with The Gamers Hub, a local gaming cafe, to host community events and weekly tournaments.",
+                    content: `
+                        <p>Tunza Esports is thrilled to announce a new partnership with The Gamers Hub, a local gaming cafe in Nairobi. This collaboration is designed to bring the esports community closer together by providing a dedicated space for gamers to meet, practice, and compete.</p>
+                        <p>Starting this month, we will be hosting weekly tournaments and special events at The Gamers Hub. This is a fantastic opportunity for aspiring players to get a taste of competitive gaming in a fun, relaxed environment. We believe that local partnerships like this are key to nurturing grassroots talent and expanding the esports ecosystem in Kenya.</p>
+                        <p>We invite everyone to come down and check out our first community night on August 15th. There will be free-to-play sessions, mini-tournaments, and a chance to meet some of your favorite local esports personalities!</p>
+                    `,
+                    tags: ["Partnership"],
+                    imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+4"
+                },
+                {
+                    id: 5,
+                    title: "KUER Season 3: Registrations Now Open",
+                    date: "August 1, 2025",
+                    snippet: "The new season of the Kenya University Esports Rankings (KUER) is officially accepting registrations.",
+                    content: `
+                        <p>Calling all university gamers! Registrations for the highly anticipated third season of the Kenya University Esports Rankings (KUER) are now officially open. This season promises to be the most competitive yet, with new teams, a larger prize pool, and expanded game titles.</p>
+                        <p>KUER has become a cornerstone of the collegiate esports scene in Kenya, providing a structured platform for student athletes to showcase their skills and represent their institutions. We've seen incredible growth in participation and skill level over the past two seasons, and we can't wait to see what this season holds.</p>
+                        <p>To register your team and for more information on rules and eligibility, please visit the KUER section of our website. Don't miss your chance to claim the top spot and earn the title of Kenya's best university esports team!</p>
+                    `,
+                    tags: ["Product Updates", "Tournament News"],
+                    imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+5"
+                },
+                {
+                    id: 6,
+                    title: "New Training Program Launched for Valorant Players",
+                    date: "July 28, 2025",
+                    snippet: "Tunza Esports introduces a new training program designed to help players of all skill levels improve their game.",
+                    content: `
+                        <p>Ready to level up your Valorant game? Tunza Esports is proud to announce the launch of our new intensive training program, "Ascend," designed specifically for aspiring Valorant professionals and serious players.</p>
+                        <p>The program, developed by our team of expert coaches and analysts, focuses on core mechanics, strategic decision-making, and teamwork. Participants will receive personalized feedback, access to scrims, and exclusive workshops on everything from aim training to map control.</p>
+                        <p>Whether you're stuck in a rank or aiming for the top of the leaderboards, our program provides the tools and guidance you need to succeed. Limited spots are available, so sign up soon to secure your spot!</p>
+                    `,
+                    tags: ["Community News"],
+                    imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+6"
+                },
+                {
+                    id: 7,
+                    title: "Video Game Events: FIFA Tournament Highlights",
+                    date: "July 25, 2025",
+                    snippet: "A recap of the most exciting moments from our recent FIFA tournament, showcasing some of Kenya's best FIFA players.",
+                    content: `
+                        <p>Our recent FIFA tournament was an absolute blast! The competition was fierce, the goals were spectacular, and the atmosphere was electric. We saw some incredible plays and nail-biting finishes that kept everyone on the edge of their seats.</p>
+                        <p>Congratulations to all the participants and especially to our champions. Their skill and dedication were on full display, and they truly deserved the win. This event once again proved the passion and talent within the Kenyan FIFA community.</p>
+                        <p>If you missed the action, don't worry! You can watch the full highlights reel on our YouTube channel. We're already planning our next FIFA event, so stay tuned for details!</p>
+                    `,
+                    tags: ["Partnership", "Tournament News"],
+                    imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+7"
+                },
+                {
+                    id: 8,
+                    title: "Tunza Esports Joins Global Esports Federation",
+                    date: "July 20, 2025",
+                    snippet: "Tunza Esports is proud to become a member of the Global Esports Federation (GEF).",
+                    content: `
+                        <p>In a major milestone for our organization, Tunza Esports has officially joined the Global Esports Federation (GEF). This membership solidifies our commitment to promoting esports as a legitimate sport and a valuable industry in Kenya and beyond.</p>
+                        <p>The GEF is a leading international body dedicated to fostering the development of the esports community worldwide. By joining forces, we gain access to a global network of resources, best practices, and opportunities that will help us grow and professionalize the esports scene in our region.</p>
+                        <p>This partnership is a huge step forward for us and for the entire Kenyan esports community. We look forward to collaborating with our new partners to create a brighter future for all gamers.</p>
+                    `,
+                    tags: ["Community News"],
+                    imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+8"
+                },
+            ];
+
+            // Get elements from the DOM
+            const articlesContainer = document.getElementById('news-articles-container');
+            const searchInput = document.querySelector('.keyword-search');
+            const searchButton = document.querySelector('.search-button');
+            const tags = document.querySelectorAll('.tag');
+            const loadMoreButton = document.querySelector('.load-more-button');
+
+            // Configuration for "Load More" functionality
+            const articlesPerPage = 6;
+            let currentPage = 1;
+            let filteredArticles = [];
+
+            // Function to render news cards to the DOM
+            function renderNewsCards(articles) {
+                articlesContainer.innerHTML = '';
+                articles.forEach(article => {
+                    const card = document.createElement('div');
+                    card.className = "news-card";
+                    card.setAttribute('data-tags', article.tags.join(','));
+                    card.innerHTML = `
+                        <img src="${article.imageUrl}" alt="${article.title} thumbnail" class="news-image">
+                        <div class="news-content">
+                            <h3 class="news-title">${article.title}</h3>
+                            <p class="news-date">${article.date}</p>
+                            <p class="news-snippet">${article.snippet}</p>
+                            <a href="article.html?id=${article.id}" class="read-more-button">Read More</a>
+                        </div>
+                    `;
+                    articlesContainer.appendChild(card);
+                });
+            }
+
+            // Function to filter articles based on search term and active tag
+            function filterAndSearch() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const activeTag = document.querySelector('.tag.active')?.getAttribute('data-tag-name');
+
+                // Filter the newsArticles array
+                filteredArticles = newsArticles.filter(article => {
+                    const titleMatches = article.title.toLowerCase().includes(searchTerm);
+                    const snippetMatches = article.snippet.toLowerCase().includes(searchTerm);
+                    const tagMatches = activeTag === "All" || article.tags.includes(activeTag);
+
+                    return (titleMatches || snippetMatches) && tagMatches;
+                });
+                
+                currentPage = 1;
+                displayArticles();
+            }
+
+            // Function to display articles for the current page
+            function displayArticles() {
+                const start = 0;
+                const end = currentPage * articlesPerPage;
+                const articlesToDisplay = filteredArticles.slice(start, end);
+
+                renderNewsCards(articlesToDisplay);
+                updateLoadMoreButton();
+            }
+
+            // Function to update the visibility of the "Load More" button
+            function updateLoadMoreButton() {
+                if (filteredArticles.length > currentPage * articlesPerPage) {
+                    loadMoreButton.style.display = 'block';
+                } else {
+                    loadMoreButton.style.display = 'none';
+                }
+            }
+
+            // Event listener for the "Load More" button
+            loadMoreButton.addEventListener('click', () => {
+                currentPage++;
+                displayArticles();
+            });
+
+            // Event listeners for search and filter
+            searchButton.addEventListener('click', filterAndSearch);
+            searchInput.addEventListener('keyup', (e) => {
+                if (e.key === 'Enter') {
+                    filterAndSearch();
+                }
+            });
+
+            tags.forEach(tag => {
+                tag.addEventListener('click', () => {
+                    tags.forEach(t => t.classList.remove('active'));
+                    tag.classList.add('active');
+                    filterAndSearch();
+                });
+            });
+
+            // Initial render on page load
+            filterAndSearch();
+            // --- END OF THE DYNAMIC NEWS SECTION SCRIPT ---
+        })();
+    </script>
+</body>
+</html>
