@@ -236,42 +236,36 @@
                 }
                 ];
 
-                // Get the container element where the news cards will be placed.
-                const newsContainer = document.getElementById('news-cards-container');
+               
+            const newsContainer = document.getElementById('news-cards-container');
 
-                // Function to render the news cards dynamically from the data.
-                function renderNewsCards(news) {
-                    // Clear any existing placeholder content
-                    newsContainer.innerHTML = ''; 
+            function renderNewsCards(news) {
+                if (!newsContainer) return;
+                newsContainer.innerHTML = '';
+                
+                news.forEach(item => {
+                    // Create an anchor tag that wraps the entire card
+                    const newsLink = document.createElement('a');
+                    newsLink.href = item.link;
+                    newsLink.className = "news-card";
 
-                    // Loop through each news item and create a new card element.
-                    news.forEach(item => {
-                        // Create an anchor tag to wrap the entire news card.
-                        const newsLink = document.createElement('a');
-                        newsLink.href = item.link;
-                        newsLink.className = "news-card-link";
-                        
-                        const newsCard = document.createElement('div');
-                        newsCard.className = "news-card";
-                        newsCard.innerHTML = `
-                            <div class="news-image-placeholder"></div>
+                    // Use backticks (`) for a multi-line string to make it clean
+                    newsLink.innerHTML = `
+                        <img src="${item.imageUrl}" alt="${item.title}" class="w-full h-48 object-cover">
+                        <div class="news-card-content">
                             <h3 class="news-card-title">${item.title}</h3>
                             <p class="news-card-text">${item.snippet}</p>
                             <p class="news-card-date">${item.date}</p>
-                        `;
-                        // Append the news card content to the new link element.
-                        newsLink.appendChild(newsCard);
-                        // Append the new link element to the container.
-                        newsContainer.appendChild(newsLink);
-                    });
-                }
-                
-                // Call the function to render the news cards on page load.
-                renderNewsCards(homepageNewsData);
-                // --- END OF THE DYNAMIC NEWS SECTION SCRIPT ---
-            });
-        })();
+                        </div>
+                    `;
+                    newsContainer.appendChild(newsLink);
+                });
+            }
+
+            renderNewsCards(homepageNewsData);
+        });
     </script>
 </body>
 </html>
+
 
