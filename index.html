@@ -217,6 +217,7 @@
                         "title": "Tunza Esports renews KUER Season 3",
                         "snippet": "New breakthroughs in quantum computing are set to revolutionize how we play and analyze games.",
                         "date": "September 1, 2025",
+                        "imageUrl": "images/KUER-x-Tnza.png",
                         "link": "news.html"
                     },
                     {
@@ -251,6 +252,7 @@
                         const newsCard = document.createElement('div');
                         newsCard.className = "news-card";
                         newsCard.innerHTML = `
+                            <div class="news-image-placeholder"></div>
                             <h3 class="news-card-title">${item.title}</h3>
                             <p class="news-card-text">${item.snippet}</p>
                             <p class="news-card-date">${item.date}</p>
@@ -270,4 +272,5 @@
     </script>
 </body>
 </html>
+
 
