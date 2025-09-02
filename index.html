@@ -1,34 +1,34 @@
----
-permalink: /
-redirect_from:
-  - /index.html
-layout: null
----
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <title>Tunza Esports - Home</title>
 
-  <!-- Google Fonts -->
+  <!-- ✅ Tell search engines the preferred homepage URL is the root (/) -->
+  <link rel="canonical" href="https://www.tunzaesports.org/">
+  <meta property="og:url" content="https://www.tunzaesports.org/">
+  <meta property="og:title" content="Tunza Esports - Shaping The Future of Kenya's Esports">
+  <meta property="og:description" content="News, tournaments, and events from Tunza Esports — shaping the future of Kenya's esports.">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Google Fonts for Oxanium and Syne -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet" />
 
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <!-- Main CSS -->
+  <!-- Main CSS (root-relative is safer if you reuse header/footer in subfolders) -->
   <link rel="stylesheet" href="/css/style.css" />
 
+  <!-- Ensure the news image box always has size -->
   <style>
-    /* Ensure news image area always has size */
     .news-image-placeholder {
       width: 100%;
-      aspect-ratio: 3 / 2;
+      aspect-ratio: 3 / 2;          /* fallback: use height: 220px; if needed */
       background-size: cover;
       background-position: center;
       border-radius: 12px;
@@ -37,61 +37,62 @@ layout: null
   </style>
 </head>
 <body>
-  <!-- Header / Nav -->
+  <!-- Header section with the main navigation bar -->
   <section class="header">
     <nav>
+      <!-- ✅ Home goes to root (/) -->
       <a href="/" class="logo"><img src="/images/tunzalogo.png" alt="Tunza Esports Logo" /></a>
       <div class="nav-links">
         <ul>
+          <!-- ✅ Home goes to root (/) -->
           <li><a href="/">Home</a></li>
-          <li><a href="/about-us/">About Us</a></li>
-
+          <li><a href="about-us.html">About Us</a></li>
           <li class="has-dropdown">
             <a href="#">Our Services</a>
             <ul class="dropdown-menu">
-              <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
-              <li><a href="/esports-broadcasting/">Esports Broadcasting</a></li>
-              <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
-              <li><a href="/consultation/">Consultation</a></li>
-              <li><a href="/bootcamps-training-programs/">Bootcamps & Training Programs</a></li>
+              <li><a href="esports-tournament-organization.html">Esports Tournament Organization</a></li>
+              <li><a href="esports-broadcasting.html">Esports Broadcasting</a></li>
+              <li><a href="video-gaming-events.html">Video Gaming Events</a></li>
+              <li><a href="consultation.html">Consultation</a></li>
+              <li><a href="bootcamps-training-programs.html">Bootcamps & Training Programs</a></li>
             </ul>
           </li>
-
           <li class="has-dropdown">
             <a href="#">Our Products</a>
             <ul class="dropdown-menu">
-              <li><a href="/ker/">KER</a></li>
-              <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
-              <li><a href="/tunzatourna/">TunzaTourna</a></li>
-              <li><a href="/shop/">Shop</a></li>
+              <li><a href="ker.html">KER</a></li>
+              <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank">KUER</a></li>
+              <li><a href="Tunzatourna.html">TunzaTourna</a></li>
+              <li><a href="coming-soon.html">Shop</a></li>
             </ul>
           </li>
-
-          <li><a href="/news/">News</a></li>
-          <li><a href="/contact/">Contact Us</a></li>
-          <li><a href="/gallery/">Gallery</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
         </ul>
-        <a href="/shop/" class="shop-button">Shop Now</a>
+        <a href="shop.html" class="shop-button">Shop Now</a>
       </div>
     </nav>
   </section>
 
-  <!-- Hero -->
+  <!-- Hero section with the main headline -->
   <section class="home-hero-section">
     <div class="hero-content">
       <h1>Shaping The Future of Kenya's Esports</h1>
     </div>
   </section>
 
-  <!-- Dynamic News -->
+  <!-- Dynamic News section -->
   <section class="news-section">
     <div class="container">
       <h2 class="news-heading">Lots of interesting information from us</h2>
-      <div class="news-grid" id="news-cards-container"></div>
+      <div class="news-grid" id="news-cards-container">
+        <!-- News cards will be dynamically inserted here by JavaScript -->
+      </div>
     </div>
   </section>
 
-  <!-- Newsletter -->
+  <!-- Newsletter subscription section -->
   <section class="newsletter-outer">
     <p class="newsletter-pre-heading">Subscribe To Our Newsletter Today!</p>
     <h2 class="newsletter-main-heading">Get Gaming Guide and Information</h2>
@@ -107,7 +108,7 @@ layout: null
 
   <div class="spacer-before-partners"></div>
 
-  <!-- Partners -->
+  <!-- Partners carousel section -->
   <section class="partners-section">
     <h2>Our Partners, clients, friends</h2>
     <div class="partners-carousel-track">
@@ -126,28 +127,29 @@ layout: null
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- Footer section with navigation and contact information -->
   <footer>
     <div class="footer-content">
       <div class="footer-column">
         <h4>About Us</h4>
         <ul>
+          <!-- ✅ Home goes to root (/) -->
           <li><a href="/">Home Page</a></li>
-          <li><a href="/contact/">Contact Us</a></li>
-          <li><a href="/privacy-policy/">Privacy Policy</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
         </ul>
       </div>
       <div class="footer-column">
         <h4>Resources</h4>
         <ul>
-          <li><a href="/tunzatourna/">Tunza Tourna</a></li>
-          <li><a href="/shop/">Shop</a></li>
+          <li><a href="coming-soon.html">Tunza Tourna</a></li>
+          <li><a href="coming-soon.html">Shop</a></li>
         </ul>
       </div>
       <div class="footer-column">
         <h4>Tournaments</h4>
         <ul>
-          <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
+          <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank">Kenya University Esports Rankings (KUER)</a></li>
         </ul>
       </div>
       <div class="footer-column footer-logo-column">
@@ -165,100 +167,141 @@ layout: null
   </footer>
 
   <script>
+    // Use a self-executing anonymous function to keep variables out of the global scope.
     (function () {
-      // Stick the nav on scroll
+      // Existing JS code for nav bar (keep as is)
       window.addEventListener("scroll", function () {
         const navbar = document.querySelector(".header nav");
-        if (!navbar) return;
-        navbar.style.top = (window.scrollY > 0) ? (window.scrollY + "px") : "0px";
+        if (navbar) {
+          if (window.scrollY > 0) {
+            navbar.style.top = window.scrollY + "px";
+          } else {
+            navbar.style.top = "0px";
+          }
+        }
       });
+
       window.addEventListener("DOMContentLoaded", function () {
         const navbar = document.querySelector(".header nav");
         if (navbar) {
-          navbar.style.top = (window.scrollY > 0) ? (window.scrollY + "px") : "0px";
+          if (window.scrollY > 0) {
+            navbar.style.top = window.scrollY + "px";
+          } else {
+            navbar.style.top = "0px";
+          }
         }
 
-        // Partners carousel
+        // --- START OF THE CORRECTED CAROUSEL SCRIPT ---
         const carouselTrack = document.querySelector(".partners-carousel-track");
+
         if (carouselTrack) {
-          carouselTrack.innerHTML += carouselTrack.innerHTML; // duplicate for seamless loop
+          // Duplicate the content to create a seamless, infinite loop.
+          carouselTrack.innerHTML += carouselTrack.innerHTML;
+
           let scrollAmount = 0;
           const scrollSpeed = 0.5;
-          let raf;
+          let animationFrameId;
+
           function autoScroll() {
             scrollAmount += scrollSpeed;
-            const w = carouselTrack.scrollWidth / 2;
-            if (scrollAmount >= w) scrollAmount = 0;
-            carouselTrack.scrollLeft = scrollAmount;
-            raf = requestAnimationFrame(autoScroll);
-          }
-          autoScroll();
-          carouselTrack.addEventListener("mouseenter", () => cancelAnimationFrame(raf));
-          carouselTrack.addEventListener("mouseleave", () => autoScroll());
-        }
+            const originalContentWidth = carouselTrack.scrollWidth / 2;
 
-        // --- Dynamic News on Home ---
+            if (scrollAmount >= originalContentWidth) {
+              scrollAmount = 0;
+            }
+            carouselTrack.scrollLeft = scrollAmount;
+            animationFrameId = requestAnimationFrame(autoScroll);
+          }
+
+          autoScroll();
+          carouselTrack.addEventListener("mouseenter", () => {
+            cancelAnimationFrame(animationFrameId);
+          });
+          carouselTrack.addEventListener("mouseleave", () => {
+            autoScroll();
+          });
+        } else {
+          console.warn("Carousel track element not found. Skipping carousel setup.");
+        }
+        // --- END OF THE CORRECTED CAROUSEL SCRIPT ---
+
+        // --- START OF THE DYNAMIC NEWS SECTION SCRIPT ---
+        // Data for the news cards. Edit this object to change the content on the homepage.
         const homepageNewsData = [
           {
-            id: 9,
-            title: "Tunza Esports Renews KUER Season 3 With a Fresh Format",
-            snippet: "For the first time, KUER will run in two separate periods.",
+            title: "Tunza Esports renews KUER Season 3",
+            snippet: "New breakthroughs in quantum computing are set to revolutionize how we play and analyze games.",
             date: "September 1, 2025",
-            link: "/article/?id=9",
+            link: "news.html",
+            imageUrl: "/images/KUER-x-Tunza.png" // your uploaded image (root-relative, case-sensitive)
+          },
+          {
+            title: "New Tournament Announced",
+            snippet: "Tunza Esports is proud to announce the latest national tournament for all aspiring pro players.",
+            date: "August 28, 2025",
+            link: "news.html",
             imageUrl: "/images/KUER-x-Tunza.png"
           },
           {
-            id: 1,
-            title: "Tunza Esports x B34R CL4N — Elevating CODM in Uni Esports",
-            snippet: "Partnership brings pro support into KUER CODM competitions.",
-            date: "September 5, 2025",
-            link: "/article/?id=1",
-            imageUrl: "/images/KUER-x-B34R.png"
-          },
-          {
-            id: 2,
-            title: "New Tournament Announced",
-            snippet: "National event with larger prize pool and more titles.",
-            date: "August 28, 2025",
-            link: "/article/?id=2",
+            title: "The Future of VR Gaming",
+            snippet: "Dive into the world of virtual reality and how it's shaping the next generation of competitive gaming.",
+            date: "August 25, 2025",
+            link: "news.html",
             imageUrl: "/images/KUER-x-Tunza.png"
           }
         ];
 
+        // Get the container element where the news cards will be placed.
         const newsContainer = document.getElementById("news-cards-container");
 
+        // Function to render the news cards dynamically from the data.
         function renderNewsCards(news) {
           if (!newsContainer) return;
+          // Clear any existing placeholder content
           newsContainer.innerHTML = "";
+
+          // Loop through each news item and create a new card element.
           news.forEach((item) => {
-            const a = document.createElement("a");
-            a.href = item.link;               // stays as /article/?id=...
-            a.className = "news-card-link";
+            // Create an anchor tag to wrap the entire news card.
+            const newsLink = document.createElement("a");
+            newsLink.href = item.link;
+            newsLink.className = "news-card-link";
 
-            const card = document.createElement("div");
-            card.className = "news-card";
-            card.innerHTML = `
-              <div class="news-image-placeholder"></div>
-              <h3 class="news-card-title">${item.title}</h3>
-              <p class="news-card-text">${item.snippet}</p>
-              <p class="news-card-date">${item.date}</p>
-            `;
+            const newsCard = document.createElement("div");
+            newsCard.className = "news-card";
+            newsCard.innerHTML = `
+                <div class="news-image-placeholder"></div>
+                <h3 class="news-card-title">${item.title}</h3>
+                <p class="news-card-text">${item.snippet}</p>
+                <p class="news-card-date">${item.date}</p>
+              `;
 
-            const ph = card.querySelector(".news-image-placeholder");
-            if (ph) {
-              const url = item.imageUrl || "/images/KUER-x-Tunza.png";
-              ph.style.backgroundImage = "url('" + url + "')";
-              ph.style.backgroundSize = "cover";
-              ph.style.backgroundPosition = "center";
-              ph.style.borderRadius = "12px";
+            // ✅ SAFE IMAGE SETTER (prevents render from breaking)
+            try {
+              const ph = newsCard.querySelector(".news-image-placeholder");
+              if (ph) {
+                const url = item.imageUrl || "/images/KUER-x-Tunza.png";
+                ph.style.backgroundImage = "url('" + url + "')";
+                ph.style.backgroundSize = "cover";
+                ph.style.backgroundPosition = "center";
+                ph.style.borderRadius = "12px";
+                // If your project supports older browsers, set a fixed height instead of aspect-ratio in CSS:
+                // ph.style.height = "220px";
+              }
+            } catch (e) {
+              console.error("Image apply failed:", e);
             }
 
-            a.appendChild(card);
-            newsContainer.appendChild(a);
+            // Append the news card content to the new link element.
+            newsLink.appendChild(newsCard);
+            // Append the new link element to the container.
+            newsContainer.appendChild(newsLink);
           });
         }
 
+        // Call the function to render the news cards on page load.
         renderNewsCards(homepageNewsData);
+        // --- END OF THE DYNAMIC NEWS SECTION SCRIPT ---
       });
     })();
   </script>
