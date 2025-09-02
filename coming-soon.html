@@ -1,8 +1,8 @@
 ---
-permalink: /coming-soon/
+permalink: /shop/
 redirect_from:
+  - /shop.html
   - /coming-soon.html
-  - /cooming-soon.html
 layout: null
 ---
 <!DOCTYPE html>
@@ -11,7 +11,7 @@ layout: null
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-  <title>Tunza Esports - Coming Soon</title>
+  <title>Tunza Esports - Shop</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -21,6 +21,7 @@ layout: null
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
+  <!-- Header -->
   <section class="header">
     <nav>
       <a href="/" class="logo"><img src="/images/tunzalogo.png" alt="Tunza Esports Logo"></a>
@@ -28,6 +29,7 @@ layout: null
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/about-us/">About Us</a></li>
+
           <li class="has-dropdown">
             <a href="#">Our Services</a>
             <ul class="dropdown-menu">
@@ -38,6 +40,7 @@ layout: null
               <li><a href="/bootcamps-training-programs/">Bootcamps & Training Programs</a></li>
             </ul>
           </li>
+
           <li class="has-dropdown">
             <a href="#">Our Products</a>
             <ul class="dropdown-menu">
@@ -47,6 +50,7 @@ layout: null
               <li><a href="/shop/">Shop</a></li>
             </ul>
           </li>
+
           <li><a href="/news/">News</a></li>
           <li><a href="/contact/">Contact Us</a></li>
           <li><a href="/gallery/">Gallery</a></li>
@@ -56,10 +60,12 @@ layout: null
     </nav>
   </section>
 
+  <!-- Hero -->
   <section class="coming-soon-hero-section">
     <h1>Coming Soon</h1>
   </section>
 
+  <!-- Footer -->
   <footer>
     <div class="footer-content">
       <div class="footer-column">
@@ -70,6 +76,7 @@ layout: null
           <li><a href="/privacy-policy/">Privacy Policy</a></li>
         </ul>
       </div>
+
       <div class="footer-column">
         <h4>Resources</h4>
         <ul>
@@ -77,12 +84,14 @@ layout: null
           <li><a href="/shop/">Shop</a></li>
         </ul>
       </div>
+
       <div class="footer-column">
         <h4>Tournaments</h4>
         <ul>
           <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
         </ul>
       </div>
+
       <div class="footer-column footer-logo-column">
         <img src="/images/tunzalogo.png" alt="Tunza Esports Logo">
         <p>Shaping the future of Kenya's Esports</p>
@@ -98,6 +107,7 @@ layout: null
   </footer>
 
   <script>
+    // Sticky nav (same behaviour as other pages)
     window.addEventListener('scroll', () => {
       const nav = document.querySelector('.header nav');
       if (!nav) return;
@@ -108,6 +118,22 @@ layout: null
       if (!nav) return;
       nav.style.top = window.scrollY > 0 ? window.scrollY + 'px' : '0px';
     });
+
+    // Optional partners carousel guard (runs only if section exists)
+    const partnersCarousel = document.querySelector('.partners-carousel-track');
+    if (partnersCarousel) {
+      partnersCarousel.innerHTML += partnersCarousel.innerHTML;
+      const totalWidth = partnersCarousel.scrollWidth / 2;
+      let position = 0;
+      const speed = 0.5;
+      function animate() {
+        position -= speed;
+        partnersCarousel.style.transform = `translateX(${position}px)`;
+        if (position <= -totalWidth) position = 0;
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
   </script>
 </body>
 </html>
