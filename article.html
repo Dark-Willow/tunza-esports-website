@@ -184,74 +184,63 @@ layout: null
           `,
           tags: ["Partnership"],
           imageUrl: "/images/KUER-x-B34R.png"
-        },
+       },
         // ... keep the rest of your items ...
       ];
 
       // --- Helpers to read id from query or path ---
-      // --- REPLACEMENT: robust article loader (supports ?id= and /article/123) ---
-function getArticleIdFromUrl() {
-  // ?id=123
-  const params = new URLSearchParams(window.location.search);
-  const q = params.get('id');
-  if (q && !Number.isNaN(Number(q))) return Number(q);
+      function getArticleKeyFromUrl() {
+        const params = new URLSearchParams(location.search);
+        const q = params.get('id');
+        if (q && !isNaN(parseInt(q, 10))) return { type: 'id', value: parseInt(q,10) };
 
-  // /article/123 or /article/123/
-  const parts = window.location.pathname.replace(/\/+$/, '').split('/');
-  const last = parts[parts.length - 1];
-  if (last && !Number.isNaN(Number(last))) return Number(last);
+        // support /article/9 or /article/9/
+        const parts = location.pathname.replace(/\/+$/,'').split('/');
+        const last = parts[parts.length - 1];
+        const asNum = parseInt(last, 10);
+        if (!isNaN(asNum)) return { type: 'id', value: asNum };
 
-  return null;
-}
+        return null;
+      }
 
-function render(article) {
-  const titleEl = document.getElementById('article-title');
-  const dateEl  = document.getElementById('article-date');
-  const bodyEl  = document.getElementById('article-body');
-  const imgEl   = document.getElementById('article-image');
+      function render(article){
+        const titleEl = document.getElementById('article-title');
+        const dateEl  = document.getElementById('article-date');
+        const bodyEl  = document.getElementById('article-body');
+        const imgEl   = document.getElementById('article-image');
 
-  if (!article) {
-    // Graceful "not found"
-    titleEl.textContent = 'Article Not Found';
-    dateEl.textContent = '';
-    bodyEl.innerHTML = '<p>The article you are looking for does not exist. <a href="/news/">See all news</a>.</p>';
-    if (imgEl) imgEl.style.display = 'none';
-    return;
-  }
+        titleEl.textContent = article.title;
+        dateEl.textContent  = `Published on: ${article.date}`;
+        bodyEl.innerHTML    = article.content;
+        imgEl.src           = article.imageUrl;
+        imgEl.alt           = article.title;
+      }
 
-  titleEl.textContent = article.title;
-  dateEl.textContent  = `Published on: ${article.date}`;
-  bodyEl.innerHTML    = article.content;
-  if (imgEl) {
-    imgEl.src = article.imageUrl;
-    imgEl.alt = article.title;
-    imgEl.style.display = '';
-  }
-}
+      function displayArticle() {
+        const key = getArticleKeyFromUrl();
+        let article = null;
 
-function displayArticle() {
-  const id = getArticleIdFromUrl();
-  const article = (id != null)
-    ? newsArticles.find(a => Number(a.id) === id)
-    : null;
+        if (key && key.type === 'id') {
+          article = newsArticles.find(a => a.id === key.value);
+        }
 
-  // Do NOT auto-default to a specific article; render not found if invalid/missing
-  render(article);
+        // Fallback to latest article if none specified/found
+        if (!article) {
+          article = newsArticles[0];
+          // Update the URL to include the id (no page reload)
+          const newUrl = `${location.origin}/article/?id=${article.id}`;
+          history.replaceState(null, '', newUrl);
+        }
 
-  // If you prefer auto-default to latest, uncomment:
-  // if (!article && newsArticles.length) {
-  //   const latest = newsArticles[0];
-  //   history.replaceState(null, '', `/article/?id=${latest.id}`);
-  //   render(latest);
-  // }
-}
+        render(article);
+      }
 
-window.addEventListener('load', displayArticle);
-// --- END REPLACEMENT ---
-
+      window.addEventListener('load', displayArticle);
+    })();
   </script>
 </body>
 </html>
+
 
 
 
