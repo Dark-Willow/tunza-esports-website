@@ -74,19 +74,15 @@ layout: null
       <p>Have questions about our tournaments, events, partnerships, or joining our community? Fill out the form below and we’ll get back to you.</p>
     </div>
 
-    <form id="contact-form" class="contact-form"
-      action="https://formspree.io/f/xjkepkkq"
-      method="POST" novalidate>
-  <input type="hidden" name="form_name" value="Tunza Esports • Contact form">
-
+    <form id="contact-form" class="contact-form" action="https://formspree.io/f/xjkepkkq" method="POST" novalidate>
   <div class="form-row">
     <div class="form-group">
       <label for="first-name">First Name *</label>
-      <input type="text" id="first-name" name="firstName" required>
+      <input type="text" id="first-name" name="first_name" required>
     </div>
     <div class="form-group">
       <label for="last-name">Last Name *</label>
-      <input type="text" id="last-name" name="lastName" required>
+      <input type="text" id="last-name" name="last_name" required>
     </div>
   </div>
 
@@ -104,26 +100,26 @@ layout: null
   <div class="form-row">
     <div class="form-group full-width">
       <label for="subject">Subject *</label>
-      <input type="text" id="subject" name="subject" placeholder="The email subject here" required>
+      <input type="text" id="subject" name="subject" required>
     </div>
   </div>
 
   <div class="form-row">
     <div class="form-group full-width">
       <label for="message">Message *</label>
-      <textarea id="message" name="message" rows="5" placeholder="Type your message here" required></textarea>
+      <textarea id="message" name="message" rows="5" required></textarea>
       <small>* We don't share your data. See our Privacy Policy</small>
     </div>
   </div>
 
-  <!-- Honeypot -->
+  <!-- Honeypot (spam trap) -->
   <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
 
   <div class="form-submit">
-    <button type="submit" id="contact-submit">Send Your Message</button>
+    <button type="submit">Send Your Message</button>
   </div>
 
-  <!-- Status text -->
+  <!-- inline status text -->
   <p id="contact-status" class="form-status" role="status" aria-live="polite" style="margin-top:10px;"></p>
 </form>
   </main>
@@ -232,48 +228,50 @@ layout: null
     })();
   </script>
   <script>
-  (function () {
-    const form = document.getElementById('contact-form');
-    const status = document.getElementById('contact-status');
-    const btn = document.getElementById('contact-submit');
-    if (!form) return;
+(function () {
+  const form = document.getElementById('contact-form');
+  const status = document.getElementById('contact-status');
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      status.textContent = 'Sending…';
-      btn.disabled = true;
+  function setStatus(msg, ok) {
+    status.textContent = msg;
+    status.style.color = ok ? '#7CFC00' : '#ff6b6b';
+  }
 
-      try {
-        const data = new FormData(form);
-        // nicer subject line in the email you receive
-        data.append('_subject', `Contact • ${form.subject.value || 'New message'}`);
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    setStatus('Sending…', true);
 
-        const resp = await fetch(form.action, {
-          method: 'POST',
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
 
-        if (resp.ok) {
-          form.reset();
-          status.textContent = 'Thank you! We’ll get back to you shortly.';
-        } else {
-          const json = await resp.json().catch(() => null);
-          status.textContent = (json && json.errors)
-            ? json.errors.map(e => e.message).join(', ')
-            : 'Oops! There was a problem submitting your form.';
-        }
-      } catch {
-        status.textContent = 'Network error. Please try again.';
-      } finally {
-        btn.disabled = false;
+      if (res.ok) {
+        form.reset();
+        setStatus("Thank you! We'll get back to you shortly.", true);
+      } else {
+        // Try to read JSON errors; otherwise show generic message
+        let msg = 'Oops! There was a problem submitting your form.';
+        try {
+          const data = await res.json();
+          if (data && data.errors) msg = data.errors.map(e => e.message).join(', ');
+        } catch {}
+        setStatus(msg, false);
       }
-    });
-  }());
+    } catch (err) {
+      // If fetch is blocked (ad-blocker/strict privacy), fall back to normal POST
+      setStatus('Network blocked—opening secure submission…', false);
+      form.submit();
+    }
+  });
+})();
 </script>
 
 </body>
 </html>
+
 
 
 
