@@ -74,49 +74,58 @@ layout: null
       <p>Have questions about our tournaments, events, partnerships, or joining our community? Fill out the form below and we’ll get back to you.</p>
     </div>
 
-    <!-- NOTE: hook this up later to Formspree/Netlify/etc. -->
-    <form class="contact-form" method="post" action="#">
-      <div class="form-row">
-        <div class="form-group">
-          <label for="first-name">First Name *</label>
-          <input type="text" id="first-name" name="first_name" required />
-        </div>
-        <div class="form-group">
-          <label for="last-name">Last Name *</label>
-          <input type="text" id="last-name" name="last_name" required />
-        </div>
-      </div>
+    <form id="contact-form" class="contact-form"
+      action="https://formspree.io/f/xjkepkkq"
+      method="POST" novalidate>
+  <input type="hidden" name="form_name" value="Tunza Esports • Contact form">
 
-      <div class="form-row">
-        <div class="form-group">
-          <label for="email">Email *</label>
-          <input type="email" id="email" name="email" placeholder="e.g. yourname@email.com" required />
-        </div>
-        <div class="form-group">
-          <label for="phone">Phone Number *</label>
-          <input type="tel" id="phone" name="phone" placeholder="(Include country code e.g. +254)" required />
-        </div>
-      </div>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="first-name">First Name *</label>
+      <input type="text" id="first-name" name="firstName" required>
+    </div>
+    <div class="form-group">
+      <label for="last-name">Last Name *</label>
+      <input type="text" id="last-name" name="lastName" required>
+    </div>
+  </div>
 
-      <div class="form-row">
-        <div class="form-group full-width">
-          <label for="subject">Subject *</label>
-          <input type="text" id="subject" name="subject" placeholder="The email subject here" required />
-        </div>
-      </div>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="email">Email *</label>
+      <input type="email" id="email" name="email" placeholder="e.g. yourname@email.com" required>
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone Number *</label>
+      <input type="tel" id="phone" name="phone" placeholder="(Include country code e.g. +254)" required>
+    </div>
+  </div>
 
-      <div class="form-row">
-        <div class="form-group full-width">
-          <label for="message">Message *</label>
-          <textarea id="message" name="message" rows="5" placeholder="Type your message here" required></textarea>
-          <small>* We don't share your data. See our <a href="/privacy-policy/">Privacy Policy</a>.</small>
-        </div>
-      </div>
+  <div class="form-row">
+    <div class="form-group full-width">
+      <label for="subject">Subject *</label>
+      <input type="text" id="subject" name="subject" placeholder="The email subject here" required>
+    </div>
+  </div>
 
-      <div class="form-submit">
-        <button type="submit">Send Your Message</button>
-      </div>
-    </form>
+  <div class="form-row">
+    <div class="form-group full-width">
+      <label for="message">Message *</label>
+      <textarea id="message" name="message" rows="5" placeholder="Type your message here" required></textarea>
+      <small>* We don't share your data. See our Privacy Policy</small>
+    </div>
+  </div>
+
+  <!-- Honeypot -->
+  <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+  <div class="form-submit">
+    <button type="submit" id="contact-submit">Send Your Message</button>
+  </div>
+
+  <!-- Status text -->
+  <p id="contact-status" class="form-status" role="status" aria-live="polite" style="margin-top:10px;"></p>
+</form>
   </main>
 
   <!-- Newsletter -->
@@ -222,7 +231,49 @@ layout: null
       track.addEventListener('mouseleave', () => auto());
     })();
   </script>
+  <script>
+  (function () {
+    const form = document.getElementById('contact-form');
+    const status = document.getElementById('contact-status');
+    const btn = document.getElementById('contact-submit');
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.textContent = 'Sending…';
+      btn.disabled = true;
+
+      try {
+        const data = new FormData(form);
+        // nicer subject line in the email you receive
+        data.append('_subject', `Contact • ${form.subject.value || 'New message'}`);
+
+        const resp = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (resp.ok) {
+          form.reset();
+          status.textContent = 'Thank you! We’ll get back to you shortly.';
+        } else {
+          const json = await resp.json().catch(() => null);
+          status.textContent = (json && json.errors)
+            ? json.errors.map(e => e.message).join(', ')
+            : 'Oops! There was a problem submitting your form.';
+        }
+      } catch {
+        status.textContent = 'Network error. Please try again.';
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  }());
+</script>
+
 </body>
 </html>
+
 
 
