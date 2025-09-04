@@ -10,18 +10,33 @@ layout: null
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
   <title>Tunza Esports - Esports Broadcasting</title>
+  <meta name="description" content="High-quality esports broadcasting in Kenya—from pre-production to live switching, commentary, replays, overlays and post-production highlights.">
+
+  <!-- Favicons -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0b0b16">
+
+  <!-- Canonical + Social -->
+  <link rel="canonical" href="https://www.tunzaesports.org/esports-broadcasting/">
+  <meta property="og:url" content="https://www.tunzaesports.org/esports-broadcasting/">
+  <meta property="og:title" content="Esports Broadcasting - Tunza Esports">
+  <meta property="og:description" content="From qualifiers to grand finals—production, live commentary, replays, overlays and distribution.">
+  <meta property="og:type" content="website">
+
+  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Main CSS -->
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
@@ -49,7 +64,7 @@ layout: null
             <a href="#">Our Products</a>
             <ul class="dropdown-menu">
               <li><a href="/ker/">KER</a></li>
-              <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
+              <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
               <li><a href="/tunzatourna/">TunzaTourna</a></li>
               <li><a href="/shop/">Shop</a></li>
             </ul>
@@ -67,7 +82,7 @@ layout: null
   <!-- Hero -->
   <section class="esports-broadcasting-hero-section">
     <div class="breadcrumb">
-      <a href="/">Home</a> > <a href="#">Our Services</a> > Esports Broadcasting
+      <a href="/">Home</a> &rsaquo; <a href="#">Our Services</a> &rsaquo; Esports Broadcasting
     </div>
     <h1 class="service-main-heading">Esports Broadcasting</h1>
   </section>
@@ -114,7 +129,7 @@ layout: null
         </div>
 
         <div class="tournament-image-column">
-          <!-- If these files really have spaces, keep %20. Better: rename to e.g. esports-production-2.jpg -->
+          <!-- If these files include spaces, keep %20. Best practice is renaming to kebab-case. -->
           <img src="/images/Esports%20production%202.jpg" alt="Esports Broadcasting Studio" class="main-tournament-image">
           <div class="small-image-container">
             <img src="/images/Production%20Videography.jpg" alt="Camera Setup" class="small-tournament-image">
@@ -131,10 +146,22 @@ layout: null
     <h2 class="newsletter-main-heading">Get Gaming Guide and Information</h2>
     <div class="newsletter-card">
       <h3>Hello guys! Get the latest information from us</h3>
-      <div class="newsletter-form-container">
-        <input type="email" placeholder="Enter your email here" class="email-input">
-        <button class="subscribe-button">Subscribe</button>
-      </div>
+
+      <!-- Mailchimp (keeps your design) -->
+      <form
+        action="https://tunzaesports.us13.list-manage.com/subscribe/post?u=49268c059773710b44455bb33&id=f95ceda37f&f_id=00cde9e1f0"
+        method="post"
+        target="_blank"
+        novalidate
+        class="newsletter-form-container"
+      >
+        <input type="email" name="EMAIL" placeholder="Enter your email here" class="email-input" required />
+        <div style="position:absolute; left:-5000px;" aria-hidden="true">
+          <input type="text" name="b_49268c059773710b44455bb33_f95ceda37f" tabindex="-1" value="">
+        </div>
+        <button type="submit" class="subscribe-button">Subscribe</button>
+      </form>
+
       <p class="newsletter-card-disclaimer">Stay ahead in the game. Get exclusive tips, updates, and strategy guides straight to your inbox. No spam, just pure gaming goodness.</p>
     </div>
   </section>
@@ -182,7 +209,7 @@ layout: null
       <div class="footer-column">
         <h4>Tournaments</h4>
         <ul>
-          <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
+          <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
         </ul>
       </div>
       <div class="footer-column footer-logo-column">
@@ -212,7 +239,7 @@ layout: null
       if (!navbar) return;
       navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
 
-      // Partners carousel
+      // Partners carousel (guarded)
       const track = document.querySelector('.partners-carousel-track');
       if (track) {
         track.innerHTML += track.innerHTML;
@@ -221,5 +248,16 @@ layout: null
         let raf;
         function auto() {
           x += speed;
-
-
+          const w = track.scrollWidth / 2;
+          if (x >= w) x = 0;
+          track.scrollLeft = x;
+          raf = requestAnimationFrame(auto);
+        }
+        auto();
+        track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
+        track.addEventListener('mouseleave', () => auto());
+      }
+    });
+  </script>
+</body>
+</html>
