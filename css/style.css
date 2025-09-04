@@ -492,7 +492,7 @@ footer {
   width: clamp(160px, 22vw, 240px);
   height: clamp(80px, 12vw, 110px);
   border-radius: 16px;
-  background: #111523;
+  background: #0d0d21;
   border: 1px solid rgba(255,255,255,0.06);
   box-shadow: 0 6px 16px rgba(0,0,0,.25);
   display: flex;
@@ -504,8 +504,8 @@ footer {
 
 /* the actual images */
 .partner-logo img {
-  max-width: 100%;
-  max-height: 90%;
+  max-width: 200px;
+  max-height: 120px;
   object-fit: contain;
   display: block;
   /* tiny boost so light/dark logos pop on the card */
@@ -2152,4 +2152,5 @@ color: rgba(252, 252, 253, 0.7);
     list-style: disc;
     margin-left: 2rem;
 }
+
 
