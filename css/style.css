@@ -455,54 +455,76 @@ footer {
     margin: 20px auto 0;
 }
 
-/* --- OUR PARTNERS SECTION STYLES (Common to all pages) --- */
+/* --- OUR PARTNERS SECTION (polished) --- */
 .partners-section {
-    background-color: #0A0A1A;
-    padding: 80px 0px;
-    padding-top: 80px;
-    padding-bottom: 0px;
-    text-align: center;
+  background-color: #0A0A1A;
+  padding: 80px 0 0;
+  text-align: center;
 }
 
 .partners-section h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: 56px;
-    color: #FCFCFD;
-    margin-bottom: 30px;
-    line-height: 1.2;
-    padding: 0 75px;
+  font-family: 'Syne', sans-serif;
+  font-size: 56px;
+  color: #FCFCFD;
+  line-height: 1.2;
+  margin: 0 0 30px;
+  padding: 0 75px;
 }
 
+/* the horizontal strip */
 .partners-carousel-track {
-    display: flex;
-    overflow-x: scroll;
-    flex-flow: row nowrap;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    margin-bottom: 20px;
-    padding: 0 75px;
-    height: 120px;
-    align-items: center;
-    position: relative;
-    will-change: transform;
-    transform: translateZ(0);
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  overflow: hidden;                /* hide the scrollbars; your JS moves scrollLeft */
+  padding: 0 75px 20px;
+  position: relative;
+  will-change: scroll-position;
+  /* subtle edge fade so the loop looks seamless */
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
 }
 
-.partners-carousel-track::-webkit-scrollbar {
-    display: none;
-}
-
+/* support BOTH old placeholder boxes and new .partner-logo */
+.partner-logo,
 .partner-logo-placeholder {
-    flex-shrink: 0;
-    width: 200px;
-    height: 120px;
-    background-color: #E0E0E0;
-    border: 1px solid #000;
-    margin-right: 20px;
-    scroll-snap-align: start;
+  flex: 0 0 auto;
+  width: clamp(160px, 22vw, 240px);
+  height: clamp(80px, 12vw, 110px);
+  border-radius: 16px;
+  background: #111523;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 6px 16px rgba(0,0,0,.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  transition: transform .25s ease, box-shadow .25s ease;
 }
+
+/* the actual images */
+.partner-logo img {
+  max-width: 100%;
+  max-height: 90%;
+  object-fit: contain;
+  display: block;
+  /* tiny boost so light/dark logos pop on the card */
+  filter: brightness(1.05) contrast(1.05);
+}
+
+/* hover */
+.partner-logo:hover,
+.partner-logo-placeholder:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0,0,0,.35);
+}
+
+/* responsive title size */
+@media (max-width: 640px) {
+  .partners-section h2 { font-size: 36px; padding: 0 24px; }
+  .partners-carousel-track { gap: 20px; padding: 0 24px 16px; }
+}
+
 
 /* ========================================================== */
 /* Home Page Specific Hero Section                    */
@@ -2130,3 +2152,4 @@ color: rgba(252, 252, 253, 0.7);
     list-style: disc;
     margin-left: 2rem;
 }
+
