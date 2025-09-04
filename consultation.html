@@ -10,13 +10,25 @@ layout: null
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
   <title>Tunza Esports - Esports Consultation</title>
+  <meta name="description" content="Market insights, strategy, and guidance to help brands and organizations succeed in Kenya’s esports ecosystem.">
+
+  <!-- Favicons -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0b0b16">
+
+  <!-- Canonical + Social -->
+  <link rel="canonical" href="https://www.tunzaesports.org/consultation/">
+  <meta property="og:url" content="https://www.tunzaesports.org/consultation/">
+  <meta property="og:title" content="Esports Consultation - Tunza Esports">
+  <meta property="og:description" content="Data-driven strategy and guidance for brands and organizations in Kenya’s esports market.">
+  <meta property="og:type" content="website">
+
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -24,7 +36,7 @@ layout: null
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <!-- Main CSS (root-relative so it works from any page) -->
+  <!-- Main CSS -->
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
@@ -52,7 +64,7 @@ layout: null
             <a href="#">Our Products</a>
             <ul class="dropdown-menu">
               <li><a href="/ker/">KER</a></li>
-              <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
+              <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
               <li><a href="/tunzatourna/">TunzaTourna</a></li>
               <li><a href="/shop/">Shop</a></li>
             </ul>
@@ -70,9 +82,9 @@ layout: null
   <!-- Hero -->
   <section class="consultation-hero-section">
     <div class="breadcrumb">
-      <a href="/">Home</a> > <a href="#">Our Services</a> > Consultation
+      <a href="/">Home</a> &rsaquo; <a href="#">Our Services</a> &rsaquo; Consultation
     </div>
-    <h1 class="service-main-heading">Esports & Gaming Consultation</h1>
+    <h1 class="service-main-heading">Esports &amp; Gaming Consultation</h1>
   </section>
 
   <!-- Main -->
@@ -81,7 +93,7 @@ layout: null
       <h2 class="consultation-intro-heading">Unlock the Potential of the Kenyan Esports Market</h2>
       <p class="consultation-intro-text">
         The Kenyan esports landscape is growing rapidly, offering unique opportunities for brands, investors, and organizations.
-        Our consultation services provide you with deep market insights, strategic guidance, and data-driven analysis to navigate
+        Our consultation services provide deep market insights, strategic guidance, and data-driven analysis to help you navigate
         this dynamic ecosystem successfully.
       </p>
     </section>
@@ -101,17 +113,30 @@ layout: null
     <h2 class="newsletter-main-heading">Get Gaming Guide and Information</h2>
     <div class="newsletter-card">
       <h3>Hello guys! Get the latest information from us</h3>
-      <div class="newsletter-form-container">
-        <input type="email" placeholder="Enter your email here" class="email-input" />
-        <button class="subscribe-button">Subscribe</button>
-      </div>
+
+      <!-- Mailchimp (keeps your visual design) -->
+      <form
+        action="https://tunzaesports.us13.list-manage.com/subscribe/post?u=49268c059773710b44455bb33&id=f95ceda37f&f_id=00cde9e1f0"
+        method="post"
+        target="_blank"
+        novalidate
+        class="newsletter-form-container"
+      >
+        <input type="email" name="EMAIL" placeholder="Enter your email here" class="email-input" required />
+        <!-- Honeypot -->
+        <div style="position:absolute; left:-5000px;" aria-hidden="true">
+          <input type="text" name="b_49268c059773710b44455bb33_f95ceda37f" tabindex="-1" value="">
+        </div>
+        <button type="submit" class="subscribe-button">Subscribe</button>
+      </form>
+
       <p class="newsletter-card-disclaimer">Stay ahead in the game. Get exclusive tips, updates, and strategy guides straight to your inbox. No spam, just pure gaming goodness.</p>
     </div>
   </section>
 
   <div class="spacer-before-partners"></div>
 
-  <!-- Partners (optional carousel) -->
+  <!-- Partners -->
   <section class="partners-section">
     <h2>Our Partners, clients, friends</h2>
     <div class="partners-carousel-track">
@@ -154,7 +179,7 @@ layout: null
       <div class="footer-column">
         <h4>Tournaments</h4>
         <ul>
-          <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
+          <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
         </ul>
       </div>
 
@@ -174,7 +199,7 @@ layout: null
 
   <!-- Scripts -->
   <script>
-    // Sticky nav positioning (same pattern as other pages)
+    // Sticky nav positioning
     window.addEventListener('scroll', function () {
       const navbar = document.querySelector('.header nav');
       if (!navbar) return;
@@ -206,5 +231,3 @@ layout: null
   </script>
 </body>
 </html>
-
-
