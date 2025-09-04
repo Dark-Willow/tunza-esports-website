@@ -199,109 +199,86 @@ body {
 
 /* OUR PARTNERS SECTION STYLES - REVISED FOR AUTO-SCROLLING */
 .partners-section {
-    background-color: #0A0A1A;
-    padding: 80px 0px; /* Current value (80px top, 0px left/right) */
-    /* Change padding-bottom (the second value if using shorthand, or explicitly padding-bottom) */
-    padding-top: 80px; /* Keep top padding if you want */
-    padding-bottom: 0px; /* Reduce or remove bottom padding */
-    text-align: center;
+  background-color: #0A0A1A;
+  padding-top: 80px;
+  padding-bottom: 0;
+  text-align: center;
 }
 
 .partners-section h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: 56px;
-    color: #FCFCFD;
-    margin-bottom: 30px;
-    line-height: 1.2;
-    padding: 0 75px; /* KEEP padding here for the heading text, so it aligns with other content */
+  font-family: 'Syne', sans-serif;
+  font-size: 56px;
+  color: #FCFCFD;
+  margin-bottom: 30px;
+  line-height: 1.2;
+  padding: 0 75px;
 }
 
-/* Container for the continuously scrolling partners */
+/* Scroll container */
 .partners-carousel-track {
-    display: flex;
-    /* CHANGE THIS LINE FROM overflow-x: auto; TO: */
-    overflow-x: scroll; /* Force the scrollbar (even if hidden) */
+  display: flex;
+  flex-flow: row nowrap;          /* keep items in one line */
+  overflow-x: scroll;              /* enable JS-driven scrolling */
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  margin-bottom: 20px;
+  padding: 0 75px;
+  height: 120px;
+  align-items: center;
+  position: relative;
+  will-change: transform;
+  transform: translateZ(0);
+}
+.partners-carousel-track::-webkit-scrollbar { display: none; }
 
-    /* ADD THIS LINE: */
-    flex-flow: row nowrap; /* Ensures flex items stay in a single row */
-
-    white-space: nowrap; /* Keep this, though flex-flow also implies nowrap for row */
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    margin-bottom: 20px;
-    padding: 0 75px;
-    height: 120px;
-    align-items: center;
-    position: relative;
-    will-change: transform;
-     transform: translateZ(0); 
+/* Support BOTH old (.partner-logo-placeholder) and new (.partner-logo) */
+.partner-logo-placeholder,
+.partner-logo {
+  flex: 0 0 auto;                 /* DON’T shrink */
+  width: 240px;
+  height: 110px;
+  margin-right: 20px;
+  background: #0f0f17;            /* neutral card bg */
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;                   /* breathing room for logos */
+  /* optional border:
+  border: 1px solid #000;
+  */
 }
 
-/* Hide scrollbar for Webkit browsers (Chrome, Safari) */
-.partners-carousel-track::-webkit-scrollbar {
-    display: none;
+/* Ensure actual <img> fits nicely (only needed for .partner-logo markup) */
+.partner-logo img,
+.partner-logo-placeholder img {
+  max-height: 90px;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
 }
 
-/* Styles for individual partner logo placeholders within the carousel */
-.partner-logo-placeholder {
-    flex-shrink: 0;       /* IMPORTANT: Prevent items from shrinking */
-    width: 200px;         /* Fixed width for each carousel item */
-    height: 120px;        /* Fixed height for each carousel item */
-    background-color: #E0E0E0; /* Light grey background */
-    border: 1px solid #000; /* Keep borders if desired */
-    margin-right: 20px;   /* Space between partner boxes */
-    scroll-snap-align: start; /* Align items to the start of the scroll container when snapped */
-}
-
-/* Responsive Adjustments for Partners Section - Ensuring NO flex-wrap */
+/* —— Responsive —— */
 @media (max-width: 768px) {
-    .partners-section {
-        padding: 60px 0px; 
-    }
-    .partners-section h2 {
-        padding: 0 30px;
-    }
-    .partners-carousel-track {
-        padding: 0 30px;
-    }
-    .partner-logo-placeholder {
-        width: 150px;
-        height: 100px;
-        margin-right: 15px; 
-    }
-}
-
-@media (max-width: 768px) {
-    .partners-section h2 {
-        font-size: 34px;
-        padding: 0 20px;
-    }
-    .partners-carousel-track {
-        padding: 0 20px;
-    }
-    .partner-logo-placeholder {
-        width: 120px;
-        height: 80px;
-        margin-right: 10px;
-    }
+  .partners-section { padding: 60px 0; }
+  .partners-section h2 { font-size: 34px; padding: 0 30px; }
+  .partners-carousel-track { padding: 0 30px; height: 100px; }
+  .partner-logo-placeholder,
+  .partner-logo { width: 180px; height: 100px; margin-right: 15px; }
+  .partner-logo img,
+  .partner-logo-placeholder img { max-height: 80px; }
 }
 
 @media (max-width: 480px) {
-    .partners-section h2 {
-        font-size: 28px;
-        padding: 0 15px;
-    }
-    .partners-carousel-track {
-        padding: 0 15px;
-    }
-    .partner-logo-placeholder {
-        width: 100px;
-        height: 70px;
-        margin-right: 8px;
-    }
+  .partners-section h2 { font-size: 28px; padding: 0 15px; }
+  .partners-carousel-track { padding: 0 15px; height: 90px; }
+  .partner-logo-placeholder,
+  .partner-logo { width: 150px; height: 90px; margin-right: 10px; }
+  .partner-logo img,
+  .partner-logo-placeholder img { max-height: 70px; }
 }
-/* --- START OF CORRECTED FOOTER CSS BLOCK --- */
 
 /* --- FOOTER LAYOUT (NEW & CORRECTED) --- */
 footer {
@@ -438,4 +415,5 @@ footer {
         text-align: center; /* Center the copyright text on mobile screens */
          padding: 25px 30px;
     }
+
 }
