@@ -247,44 +247,54 @@
           }
         ];
 
-        const newsContainer = document.getElementById("news-cards-container");
-        function renderNewsCards(items) {
-          if (!newsContainer) return;
-          newsContainer.innerHTML = "";
-          items.forEach((item) => {
-            const a = document.createElement("a");
-            a.href = item.link;
-            a.className = "news-card-link";
+   <script>
+(function(){
+  function initPartnersCarousel(){
+    // Respect reduced motion
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-            const card = document.createElement("div");
-            card.className = "news-card";
-            card.innerHTML = `
-              <div class="news-image-placeholder"></div>
-              <h3 class="news-card-title">${item.title}</h3>
-              <p class="news-card-text">${item.snippet}</p>
-              <p class="news-card-date">${item.date}</p>
-            `;
+    const track = document.querySelector('.partners-carousel-track');
+    if (!track) return;
 
-            try {
-              const ph = card.querySelector(".news-image-placeholder");
-              if (ph) {
-                ph.style.backgroundImage = "url('" + (item.imageUrl || "/images/KUER-x-Tunza.png") + "')";
-                ph.style.backgroundSize = "cover";
-                ph.style.backgroundPosition = "center";
-                ph.style.borderRadius = "12px";
-              }
-            } catch (e) {
-              console.error("Image apply failed:", e);
-            }
+    // Duplicate children until we have enough width to scroll nicely (~3x viewport)
+    const originals = Array.from(track.children).map(n => n.cloneNode(true));
+    let reps = 0;
+    while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
+      originals.forEach(n => track.appendChild(n.cloneNode(true)));
+      reps++;
+    }
 
-            a.appendChild(card);
-            newsContainer.appendChild(a);
-          });
-        }
-        renderNewsCards(homepageNewsData);
-      });
-    })();
-  </script>
+    let x = 0, speed = 0.6, raf;
+    function loop(){
+      const max = track.scrollWidth - track.clientWidth;
+      x = (x + speed) % (max || 1);
+      track.scrollLeft = x;
+      raf = requestAnimationFrame(loop);
+    }
+    loop();
+
+    // Pause on hover/focus; resume on leave
+    track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
+    track.addEventListener('mouseleave', () => loop());
+    track.addEventListener('focusin', () => cancelAnimationFrame(raf));
+    track.addEventListener('focusout', () => loop());
+
+    // Recalculate on resize
+    let t;
+    window.addEventListener('resize', () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(t);
+      t = setTimeout(() => { x = 0; loop(); }, 150);
+    });
+  }
+
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', initPartnersCarousel);
+  } else {
+    initPartnersCarousel();
+  }
+})();
+</script>
 
   <!-- Organization schema -->
   <script type="application/ld+json">
@@ -301,3 +311,4 @@
   </script>
 </body>
 </html>
+
