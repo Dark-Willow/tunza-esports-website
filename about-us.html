@@ -9,17 +9,26 @@ layout: null
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Upgrade any stray http assets to https -->
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
   <title>Tunza Esports - About Us</title>
+  <meta name="description" content="Learn about Tunza Esports: our mission, team, and work building Kenya’s esports ecosystem through tournaments, broadcasting, training, and community." />
+
+  <!-- Favicons -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0b0b16">
-  <!-- (optional but nice) canonical for the clean URL -->
+
+  <!-- Canonical + Social -->
   <link rel="canonical" href="https://www.tunzaesports.org/about-us/">
+  <meta property="og:url" content="https://www.tunzaesports.org/about-us/">
+  <meta property="og:title" content="About Tunza Esports">
+  <meta property="og:description" content="We’re shaping the future of Kenya’s esports through tournaments, broadcasting, training, and community. Meet the team behind Tunza Esports.">
+  <meta property="og:type" content="website">
+
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +36,7 @@ layout: null
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <!-- IMPORTANT: root-relative so it works at /about-us/ -->
+  <!-- Root-relative CSS -->
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
@@ -39,6 +48,7 @@ layout: null
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/about-us/">About Us</a></li>
+
           <li class="has-dropdown">
             <a href="#">Our Services</a>
             <ul class="dropdown-menu">
@@ -49,20 +59,22 @@ layout: null
               <li><a href="/bootcamps-training-programs/">Bootcamps & Training Programs</a></li>
             </ul>
           </li>
+
           <li class="has-dropdown">
             <a href="#">Our Products</a>
             <ul class="dropdown-menu">
               <li><a href="/ker/">KER</a></li>
-              <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
-              <li><a href="/Tunzatourna/">TunzaTourna</a></li>
-              <li><a href="/coming-soon/">Shop</a></li>
+              <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
+              <li><a href="/tunzatourna/">TunzaTourna</a></li>
+              <li><a href="/shop/">Shop</a></li>
             </ul>
           </li>
+
           <li><a href="/news/">News</a></li>
           <li><a href="/contact/">Contact Us</a></li>
           <li><a href="/gallery/">Gallery</a></li>
         </ul>
-        <a href="/coming-soon/" class="shop-button">Shop Now</a>
+        <a href="/shop/" class="shop-button">Shop Now</a>
       </div>
     </nav>
   </section>
@@ -84,13 +96,13 @@ layout: null
     </p>
     <div class="intro-boxes-container">
       <div class="intro-box">
-        <img src="/images/1.2.png" alt="Description of the image 1" class="box-image">
+        <img src="/images/1.2.png" alt="Esports community building" class="box-image">
       </div>
       <div class="intro-box">
-        <img src="/images/2.1.png" alt="Description of the image 2" class="box-image">
+        <img src="/images/2.1.png" alt="Tournaments and competitions" class="box-image">
       </div>
       <div class="intro-box">
-        <img src="/images/3.1.png" alt="Description of the image 3" class="box-image">
+        <img src="/images/3.1.png" alt="Training and mentorship" class="box-image">
       </div>
     </div>
   </section>
@@ -157,10 +169,22 @@ layout: null
     <h2 class="newsletter-main-heading">Get Gaming Guide and Information</h2>
     <div class="newsletter-card">
       <h3>Hello guys! Get the latest information from us</h3>
-      <div class="newsletter-form-container">
-        <input type="email" placeholder="Enter your email here" class="email-input">
-        <button class="subscribe-button">Subscribe</button>
-      </div>
+
+      <!-- Mailchimp (unstyled) wired to your list; design preserved -->
+      <form
+        action="https://tunzaesports.us13.list-manage.com/subscribe/post?u=49268c059773710b44455bb33&id=f95ceda37f&f_id=00cde9e1f0"
+        method="post"
+        target="_blank"
+        novalidate
+        class="newsletter-form-container"
+      >
+        <input type="email" name="EMAIL" placeholder="Enter your email here" class="email-input" required />
+        <div style="position:absolute; left:-5000px;" aria-hidden="true">
+          <input type="text" name="b_49268c059773710b44455bb33_f95ceda37f" tabindex="-1" value="">
+        </div>
+        <button type="submit" class="subscribe-button">Subscribe</button>
+      </form>
+
       <p class="newsletter-card-disclaimer">Stay ahead in the game. Get exclusive tips, updates, and strategy guides straight to your inbox. No spam, just pure gaming goodness.</p>
     </div>
   </section>
@@ -201,14 +225,14 @@ layout: null
       <div class="footer-column">
         <h4>Resources</h4>
         <ul>
-          <li><a href="/coming-soon/">Tunza Tourna</a></li>
-          <li><a href="/coming-soon/">Shop</a></li>
+          <li><a href="/tunzatourna/">Tunza Tourna</a></li>
+          <li><a href="/shop/">Shop</a></li>
         </ul>
       </div>
       <div class="footer-column">
         <h4>Tournaments</h4>
         <ul>
-          <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
+          <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
         </ul>
       </div>
       <div class="footer-column footer-logo-column">
@@ -258,5 +282,3 @@ layout: null
   </script>
 </body>
 </html>
-
-
