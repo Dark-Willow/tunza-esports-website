@@ -193,34 +193,42 @@
 
   <!-- Scripts -->
   <script>
-    (function () {
-      // Sticky-ish nav
-      window.addEventListener("scroll", function () {
-        const nav = document.querySelector(".header nav");
+   (function () {
+      // Sticky nav
+      window.addEventListener('scroll', function() {
+        const nav = document.querySelector('.header nav');
         if (!nav) return;
-        nav.style.top = window.scrollY > 0 ? (window.scrollY + "px") : "0px";
+        nav.style.top = window.scrollY > 0 ? (window.scrollY + 'px') : '0px';
       });
+      window.addEventListener('DOMContentLoaded', function() {
+        const nav = document.querySelector('.header nav');
+        if (nav) nav.style.top = window.scrollY > 0 ? (window.scrollY + 'px') : '0px';
 
-      window.addEventListener("DOMContentLoaded", function () {
-        const nav = document.querySelector(".header nav");
-        if (nav) nav.style.top = window.scrollY > 0 ? (window.scrollY + "px") : "0px";
+        // Partners carousel with "ensure overflow" duplication
+        const track = document.querySelector('.partners-carousel-track');
+        if (!track) return;
 
-        // Partners carousel (guarded)
-        const track = document.querySelector(".partners-carousel-track");
-        if (track) {
-          track.innerHTML += track.innerHTML; // clone for endless loop
-          let x = 0, speed = 0.5, raf;
-          function auto() {
-            x += speed;
-            const w = track.scrollWidth / 2;
-            if (x >= w) x = 0;
-            track.scrollLeft = x;
-            raf = requestAnimationFrame(auto);
-          }
-          auto();
-          track.addEventListener("mouseenter", () => cancelAnimationFrame(raf));
-          track.addEventListener("mouseleave", () => auto());
+        // Duplicate items until there's enough width to scroll
+        let guard = 0;
+        while (track.scrollWidth <= track.clientWidth * 2 && guard < 10) {
+          track.innerHTML += track.innerHTML;
+          guard++;
         }
+
+        let x = 0, speed = 0.5, raf;
+        function auto() {
+          x += speed;
+          const half = track.scrollWidth / 2;
+          if (x >= half) x = 0;
+          track.scrollLeft = x;
+          raf = requestAnimationFrame(auto);
+        }
+        auto();
+
+        track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
+        track.addEventListener('mouseleave', () => auto());
+      });
+    })();
 
         // --- Dynamic News Cards ---
         const homepageNewsData = [
@@ -301,3 +309,4 @@
   </script>
 </body>
 </html>
+
