@@ -27,8 +27,6 @@ layout: null
   <meta property="og:url" content="https://www.tunzaesports.org/news/">
   <meta property="og:title" content="Latest News - Tunza Esports">
   <meta property="og:description" content="Tournaments, partnerships, product updates, and community stories from Tunza Esports.">
-  <!-- (Optional) Add your social preview image when ready -->
-  <!-- <meta property="og:image" content="https://www.tunzaesports.org/images/og/tunza-news-og.jpg"> -->
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- Fonts & Icons -->
@@ -38,17 +36,33 @@ layout: null
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <!-- ROOT-RELATIVE so it works at /news/ -->
+  <!-- Site CSS -->
   <link rel="stylesheet" href="/css/style.css" />
 
+  <!-- Page-safe inline styles -->
   <style>
-    /* Make card images consistent */
-    .news-image{
-      width:100%;
-      height:200px;
-      object-fit:cover;
-      border-radius:8px 8px 0 0;
-      display:block;
+    /* News card images */
+    .news-image{ width:100%; height:200px; object-fit:cover; border-radius:8px 8px 0 0; display:block; }
+
+    /* Minimal partners styles so carousel works even if main CSS changes */
+    .partners-section { padding: 40px 0; text-align:center; }
+    .partners-carousel-track{
+      display:flex; gap:24px; overflow:hidden; padding:8px 0;
+      scroll-behavior:auto; /* JS animates it */
+    }
+    .partner-logo{
+      flex:0 0 auto; width:240px; height:110px;
+      display:flex; align-items:center; justify-content:center;
+      background:#0f0f17; border-radius:12px; padding:8px;
+    }
+    .partner-logo img{ max-height:90px; max-width:100%; object-fit:contain; display:block; }
+    @media (max-width: 768px){
+      .partner-logo{ width:180px; height:100px; }
+      .partner-logo img{ max-height:80px; }
+    }
+    @media (max-width: 480px){
+      .partner-logo{ width:150px; height:90px; }
+      .partner-logo img{ max-height:70px; }
     }
   </style>
 </head>
@@ -64,7 +78,7 @@ layout: null
             <a href="#">Our Services</a>
             <ul class="dropdown-menu">
               <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
-              <li><a href="/esports-broadcasting/">Esports Broadcasting</a></li>
+              <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
               <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
               <li><a href="/consultation/">Consultation</a></li>
               <li><a href="/bootcamps-training-programs/">Training Programs</a></li>
@@ -126,7 +140,7 @@ layout: null
 
   <div class="spacer-before-partners"></div>
 
-  <!-- Newsletter (Mailchimp, keeps your card design) -->
+  <!-- Newsletter -->
   <section class="newsletter-outer">
     <p class="newsletter-pre-heading">Subscribe To Our Newsletter Today!</p>
     <h2 class="newsletter-main-heading">Get Gaming Guide and Information</h2>
@@ -141,14 +155,7 @@ layout: null
         class="newsletter-form-container"
         aria-label="Newsletter signup form"
       >
-        <input
-          type="email"
-          name="EMAIL"
-          placeholder="Enter your email here"
-          class="email-input"
-          required
-        />
-        <!-- Honeypot -->
+        <input type="email" name="EMAIL" placeholder="Enter your email here" class="email-input" required />
         <div style="position:absolute; left:-5000px;" aria-hidden="true">
           <input type="text" name="b_49268c059773710b44455bb33_f95ceda37f" tabindex="-1" value="">
         </div>
@@ -159,12 +166,13 @@ layout: null
     </div>
   </section>
 
+  <!-- Partners -->
   <section class="partners-section">
     <h2>Our Partners, clients, friends</h2>
     <div class="partners-carousel-track">
-      <div class="partner-logo-placeholder"><img src="/Esports-Africa-News.jpg" alt="Esports Africa News logo"></div>
-      <div class="partner-logo-placeholder"><img src="/Afrigamer.jpg" alt="Afrigamer logo"></div>
-      <div class="partner-logo-placeholder"><img src="/B34R-CL4N partner.jpg" alt="B34R CL4N"></div>
+      <div class="partner-logo"><img src="/images/Esports-Africa-News.jpg" alt="Esports Africa News logo" loading="lazy"></div>
+      <div class="partner-logo"><img src="/images/Afrigamer.jpg" alt="Afrigamer logo" loading="lazy"></div>
+      <div class="partner-logo"><img src="/images/B34R-CL4N%20partner.jpg" alt="B34R CL4N" loading="lazy"></div>
     </div>
   </section>
 
@@ -212,195 +220,152 @@ layout: null
         const navbar = document.querySelector('.header nav');
         if (navbar) navbar.style.top = window.scrollY > 0 ? (window.scrollY + 'px') : '0px';
       });
-      window.addEventListener('DOMContentLoaded', function () {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+
+      function init(){
         const navbar = document.querySelector('.header nav');
         if (navbar) navbar.style.top = window.scrollY > 0 ? (window.scrollY + 'px') : '0px';
-      });
 
-      // Partners carousel
-      const carouselTrack = document.querySelector('.partners-carousel-track');
-      if (carouselTrack) {
-        carouselTrack.innerHTML += carouselTrack.innerHTML;
-        let scrollAmount = 0;
-        const scrollSpeed = 0.5;
-        let animationFrameId;
-        function autoScroll() {
-          scrollAmount += scrollSpeed;
-          const originalContentWidth = carouselTrack.scrollWidth / 2;
-          if (scrollAmount >= originalContentWidth) scrollAmount = 0;
-          carouselTrack.scrollLeft = scrollAmount;
-          animationFrameId = requestAnimationFrame(autoScroll);
+        // Partners carousel – robust + same pattern as About Us
+        initPartnersCarousel();
+
+        // News listing
+        initNews();
+      }
+
+      function initPartnersCarousel(){
+        // Respect reduced motion
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        const track = document.querySelector('.partners-carousel-track');
+        if (!track) return;
+
+        // Duplicate children until there's enough width (~3x)
+        const originals = Array.from(track.children).map(n => n.cloneNode(true));
+        let reps = 0;
+        while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
+          originals.forEach(n => track.appendChild(n.cloneNode(true)));
+          reps++;
         }
-        autoScroll();
-        carouselTrack.addEventListener('mouseenter', () => cancelAnimationFrame(animationFrameId));
-        carouselTrack.addEventListener('mouseleave', () => autoScroll());
-      }
 
-      // --- NEWS LIST ---
-
-      const newsArticles = [
-        {
-          id: 9,
-          title: "Tunza Esports Renews KUER Season 3 With a Fresh Format",
-          date: "September 1, 2025",
-          snippet: "For the first time, KUER will run in two separate periods.",
-          content: "",
-          tags: ["Tournament News", "Community News"],
-          imageUrl: "/images/KUER-x-Tunza.png"
-        },
-        {
-          id: 1,
-          title: "Tunza Esports Partners with B34R CL4N to strengthen CODM in University Esports in Kenya",
-          date: "September 5, 2025",
-          snippet: "Through this partnership, Call of Duty Mobile Battle Royale and Multiplayer within KUER get pro-level support.",
-          content: "",
-          tags: ["Partnership"],
-          imageUrl: "/images/KUER-x-B34R.png"
-        },
-        {
-          id: 2,
-          title: "New Tournament Announced",
-          date: "August 28, 2025",
-          snippet: "Tunza Esports is proud to announce the latest national tournament for all aspiring pro players.",
-          content: "",
-          tags: ["Tournament News"],
-          imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+2"
-        },
-        {
-          id: 3,
-          title: "The Future of VR Gaming",
-          date: "August 25, 2025",
-          snippet: "Dive into the world of virtual reality and how it's shaping the next generation of competitive gaming.",
-          content: "",
-          tags: ["Community News"],
-          imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+3"
-        },
-        {
-          id: 4,
-          title: "Tunza Esports Partners With Local Gaming Cafe",
-          date: "August 5, 2025",
-          snippet: "Weekly tournaments and community nights with The Gamers Hub in Nairobi.",
-          content: "",
-          tags: ["Partnership"],
-          imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+4"
-        },
-        {
-          id: 5,
-          title: "KUER Season 3: Registrations Now Open",
-          date: "August 1, 2025",
-          snippet: "Sign up your university team for the biggest KUER season yet.",
-          content: "",
-          tags: ["Product Updates","Tournament News"],
-          imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+5"
-        },
-        {
-          id: 6,
-          title: "New Training Program Launched for Valorant Players",
-          date: "July 28, 2025",
-          snippet: "Introducing 'Ascend' — intensive coaching for aspiring Valorant pros.",
-          content: "",
-          tags: ["Community News"],
-          imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+6"
-        },
-        {
-          id: 7,
-          title: "Video Game Events: FIFA Tournament Highlights",
-          date: "July 25, 2025",
-          snippet: "Top goals and clutch moments from our recent FIFA tournament.",
-          content: "",
-          tags: ["Partnership","Tournament News"],
-          imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+7"
-        },
-        {
-          id: 8,
-          title: "Tunza Esports Joins Global Esports Federation",
-          date: "July 20, 2025",
-          snippet: "Proud member of the Global Esports Federation (GEF).",
-          content: "",
-          tags: ["Community News"],
-          imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+8"
+        let x = 0, speed = 0.6, raf;
+        function loop(){
+          const max = track.scrollWidth - track.clientWidth;
+          x = (x + speed) % (max || 1);
+          track.scrollLeft = x;
+          raf = requestAnimationFrame(loop);
         }
-      ];
+        loop();
 
-      const articlesContainer = document.getElementById('news-articles-container');
-      const searchInput = document.querySelector('.keyword-search');
-      const searchButton = document.querySelector('.search-button');
-      const tags = document.querySelectorAll('.tag');
-      const loadMoreButton = document.querySelector('.load-more-button');
+        track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
+        track.addEventListener('mouseleave', () => loop());
+        track.addEventListener('focusin',   () => cancelAnimationFrame(raf));
+        track.addEventListener('focusout',  () => loop());
 
-      const articlesPerPage = 6;
-      let currentPage = 1;
-      let filteredArticles = [];
-
-      function renderNewsCards(articles) {
-        articlesContainer.innerHTML = '';
-        articles.forEach(article => {
-          const card = document.createElement('div');
-          card.className = "news-card";
-          card.setAttribute('data-tags', article.tags.join(','));
-
-          card.innerHTML = `
-            <img src="${article.imageUrl}" alt="${article.title} thumbnail" class="news-image">
-            <div class="news-content">
-              <h3 class="news-title">${article.title}</h3>
-              <p class="news-date">${article.date}</p>
-              <p class="news-snippet">${article.snippet}</p>
-              <a href="/article/?id=${article.id}" class="read-more-button">Read More</a>
-            </div>
-          `;
-
-          articlesContainer.appendChild(card);
+        let t;
+        window.addEventListener('resize', () => {
+          cancelAnimationFrame(raf);
+          clearTimeout(t);
+          t = setTimeout(() => { x = 0; loop(); }, 150);
         });
       }
 
-      function filterAndSearch() {
-        const searchTerm = searchInput.value.toLowerCase();
-        const activeTag = document.querySelector('.tag.active')?.getAttribute('data-tag-name');
+      function initNews(){
+        const newsArticles = [
+          { id: 9, title: "Tunza Esports Renews KUER Season 3 With a Fresh Format", date: "September 1, 2025", snippet: "For the first time, KUER will run in two separate periods.", content: "", tags: ["Tournament News","Community News"], imageUrl: "/images/KUER-x-Tunza.png" },
+          { id: 1, title: "Tunza Esports Partners with B34R CL4N to strengthen CODM in University Esports in Kenya", date: "September 5, 2025", snippet: "Through this partnership, Call of Duty Mobile Battle Royale and Multiplayer within KUER get pro-level support.", content: "", tags: ["Partnership"], imageUrl: "/images/KUER-x-B34R.png" },
+          { id: 2, title: "New Tournament Announced", date: "August 28, 2025", snippet: "Tunza Esports is proud to announce the latest national tournament for all aspiring pro players.", content: "", tags: ["Tournament News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+2" },
+          { id: 3, title: "The Future of VR Gaming", date: "August 25, 2025", snippet: "Dive into the world of virtual reality and how it's shaping the next generation of competitive gaming.", content: "", tags: ["Community News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+3" },
+          { id: 4, title: "Tunza Esports Partners With Local Gaming Cafe", date: "August 5, 2025", snippet: "Weekly tournaments and community nights with The Gamers Hub in Nairobi.", content: "", tags: ["Partnership"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+4" },
+          { id: 5, title: "KUER Season 3: Registrations Now Open", date: "August 1, 2025", snippet: "Sign up your university team for the biggest KUER season yet.", content: "", tags: ["Product Updates","Tournament News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+5" },
+          { id: 6, title: "New Training Program Launched for Valorant Players", date: "July 28, 2025", snippet: "Introducing 'Ascend' — intensive coaching for aspiring Valorant pros.", content: "", tags: ["Community News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+6" },
+          { id: 7, title: "Video Game Events: FIFA Tournament Highlights", date: "July 25, 2025", snippet: "Top goals and clutch moments from our recent FIFA tournament.", content: "", tags: ["Partnership","Tournament News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+7" },
+          { id: 8, title: "Tunza Esports Joins Global Esports Federation", date: "July 20, 2025", snippet: "Proud member of the Global Esports Federation (GEF).", content: "", tags: ["Community News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+8" }
+        ];
 
-        filteredArticles = newsArticles.filter(article => {
-          const titleMatches = article.title.toLowerCase().includes(searchTerm);
-          const snippetMatches = article.snippet.toLowerCase().includes(searchTerm);
-          const tagMatches = activeTag === "All" || article.tags.includes(activeTag);
-          return (titleMatches || snippetMatches) && tagMatches;
+        const articlesContainer = document.getElementById('news-articles-container');
+        const searchInput = document.querySelector('.keyword-search');
+        const searchButton = document.querySelector('.search-button');
+        const tags = document.querySelectorAll('.tag');
+        const loadMoreButton = document.querySelector('.load-more-button');
+
+        const articlesPerPage = 6;
+        let currentPage = 1;
+        let filteredArticles = [];
+
+        function renderNewsCards(articles) {
+          if (!articlesContainer) return;
+          articlesContainer.innerHTML = '';
+          articles.forEach(article => {
+            const card = document.createElement('div');
+            card.className = "news-card";
+            card.setAttribute('data-tags', article.tags.join(','));
+
+            card.innerHTML = `
+              <img src="${article.imageUrl}" alt="${article.title} thumbnail" class="news-image" loading="lazy">
+              <div class="news-content">
+                <h3 class="news-title">${article.title}</h3>
+                <p class="news-date">${article.date}</p>
+                <p class="news-snippet">${article.snippet}</p>
+                <a href="/article/?id=${article.id}" class="read-more-button">Read More</a>
+              </div>
+            `;
+            articlesContainer.appendChild(card);
+          });
+        }
+
+        function filterAndSearch() {
+          const searchTerm = (searchInput?.value || '').toLowerCase();
+          const activeTag = document.querySelector('.tag.active')?.getAttribute('data-tag-name') || 'All';
+
+          filteredArticles = newsArticles.filter(article => {
+            const titleMatches = article.title.toLowerCase().includes(searchTerm);
+            const snippetMatches = article.snippet.toLowerCase().includes(searchTerm);
+            const tagMatches = activeTag === "All" || article.tags.includes(activeTag);
+            return (titleMatches || snippetMatches) && tagMatches;
+          });
+
+          currentPage = 1;
+          displayArticles();
+        }
+
+        function displayArticles() {
+          const end = currentPage * articlesPerPage;
+          const articlesToDisplay = filteredArticles.slice(0, end);
+          renderNewsCards(articlesToDisplay);
+          updateLoadMoreButton();
+        }
+
+        function updateLoadMoreButton() {
+          loadMoreButton.style.display = (filteredArticles.length > currentPage * articlesPerPage) ? 'block' : 'none';
+        }
+
+        loadMoreButton.addEventListener('click', () => {
+          currentPage++;
+          displayArticles();
         });
 
-        currentPage = 1;
-        displayArticles();
-      }
-
-      function displayArticles() {
-        const end = currentPage * articlesPerPage;
-        const articlesToDisplay = filteredArticles.slice(0, end);
-        renderNewsCards(articlesToDisplay);
-        updateLoadMoreButton();
-      }
-
-      function updateLoadMoreButton() {
-        loadMoreButton.style.display = filteredArticles.length > currentPage * articlesPerPage ? 'block' : 'none';
-      }
-
-      loadMoreButton.addEventListener('click', () => {
-        currentPage++;
-        displayArticles();
-      });
-
-      searchButton.addEventListener('click', filterAndSearch);
-      searchInput.addEventListener('keyup', (e) => {
-        if (e.key === 'Enter') filterAndSearch();
-      });
-
-      tags.forEach(tag => {
-        tag.addEventListener('click', () => {
-          tags.forEach(t => t.classList.remove('active'));
-          tag.classList.add('active');
-          filterAndSearch();
+        searchButton.addEventListener('click', filterAndSearch);
+        searchInput.addEventListener('keyup', (e) => {
+          if (e.key === 'Enter') filterAndSearch();
         });
-      });
 
-      // Initial render
-      filterAndSearch();
+        tags.forEach(tag => {
+          tag.addEventListener('click', () => {
+            tags.forEach(t => t.classList.remove('active'));
+            tag.classList.add('active');
+            filterAndSearch();
+          });
+        });
+
+        // Initial render
+        filterAndSearch();
+      }
     })();
   </script>
 </body>
 </html>
-
