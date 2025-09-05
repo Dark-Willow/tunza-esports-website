@@ -11,12 +11,15 @@ layout: null
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <title>Tunza Esports - Contact Us</title>
+
+  <!-- Favicons -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0b0b16">
+
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -24,8 +27,31 @@ layout: null
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <!-- Main CSS (root-relative so it works on any page) -->
+  <!-- Main CSS -->
   <link rel="stylesheet" href="/css/style.css" />
+
+  <!-- Minimal inline styles so partners carousel works even if site CSS changes -->
+  <style>
+    .partners-section { padding: 40px 0; text-align:center; }
+    .partners-carousel-track{
+      display:flex; gap:24px; overflow:hidden; padding:8px 0;
+      scroll-behavior:auto; /* animated via JS */
+    }
+    .partner-logo{
+      flex:0 0 auto; width:240px; height:110px;
+      display:flex; align-items:center; justify-content:center;
+      background:#0f0f17; border-radius:12px; padding:8px;
+    }
+    .partner-logo img{ max-height:90px; max-width:100%; object-fit:contain; display:block; }
+    @media (max-width: 768px){
+      .partner-logo{ width:180px; height:100px; }
+      .partner-logo img{ max-height:80px; }
+    }
+    @media (max-width: 480px){
+      .partner-logo{ width:150px; height:90px; }
+      .partner-logo img{ max-height:70px; }
+    }
+  </style>
 </head>
 <body>
   <!-- Header -->
@@ -41,10 +67,10 @@ layout: null
             <a href="#">Our Services</a>
             <ul class="dropdown-menu">
               <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
-              <li><a href="/esports-broadcasting/">Esports Broadcasting</a></li>
+              <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
               <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
               <li><a href="/consultation/">Consultation</a></li>
-              <li><a href="/bootcamps-training-programs/">Bootcamps & Training Programs</a></li>
+              <li><a href="/bootcamps-training-programs/">Bootcamps &amp; Training Programs</a></li>
             </ul>
           </li>
 
@@ -52,7 +78,7 @@ layout: null
             <a href="#">Our Products</a>
             <ul class="dropdown-menu">
               <li><a href="/ker/">KER</a></li>
-              <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
+              <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
               <li><a href="/tunzatourna/">TunzaTourna</a></li>
               <li><a href="/shop/">Shop</a></li>
             </ul>
@@ -75,64 +101,64 @@ layout: null
     </div>
 
     <form id="contact-form" class="contact-form" action="https://formspree.io/f/xjkepkkq" method="POST" novalidate>
-  <div class="form-row">
-    <div class="form-group">
-      <label for="first-name">First Name *</label>
-      <input type="text" id="first-name" name="first_name" required>
-    </div>
-    <div class="form-group">
-      <label for="last-name">Last Name *</label>
-      <input type="text" id="last-name" name="last_name" required>
-    </div>
-  </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="first-name">First Name *</label>
+          <input type="text" id="first-name" name="first_name" required autocomplete="given-name">
+        </div>
+        <div class="form-group">
+          <label for="last-name">Last Name *</label>
+          <input type="text" id="last-name" name="last_name" required autocomplete="family-name">
+        </div>
+      </div>
 
-  <div class="form-row">
-    <div class="form-group">
-      <label for="email">Email *</label>
-      <input type="email" id="email" name="email" placeholder="e.g. yourname@email.com" required>
-    </div>
-    <div class="form-group">
-      <label for="phone">Phone Number *</label>
-      <input type="tel" id="phone" name="phone" placeholder="(Include country code e.g. +254)" required>
-    </div>
-  </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" placeholder="e.g. yourname@email.com" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number *</label>
+          <input type="tel" id="phone" name="phone" placeholder="(Include country code e.g. +254)" required inputmode="tel" pattern="^[+0-9\s\-()]{7,}$" title="Use digits and + only">
+        </div>
+      </div>
 
-  <div class="form-row">
-    <div class="form-group full-width">
-      <label for="subject">Subject *</label>
-      <input type="text" id="subject" name="subject" required>
-    </div>
-  </div>
+      <div class="form-row">
+        <div class="form-group full-width">
+          <label for="subject">Subject *</label>
+          <input type="text" id="subject" name="subject" required>
+        </div>
+      </div>
 
-  <div class="form-row">
-    <div class="form-group full-width">
-      <label for="message">Message *</label>
-      <textarea id="message" name="message" rows="5" required></textarea>
-      <small>* We don't share your data. See our Privacy Policy</small>
-    </div>
-  </div>
+      <div class="form-row">
+        <div class="form-group full-width">
+          <label for="message">Message *</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+          <small>* We don't share your data. See our Privacy Policy</small>
+        </div>
+      </div>
 
-  <!-- Honeypot (spam trap) -->
-  <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+      <!-- Honeypot (spam trap) -->
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
 
-  <div class="form-submit">
-    <button type="submit">Send Your Message</button>
-  </div>
+      <div class="form-submit">
+        <button type="submit">Send Your Message</button>
+      </div>
 
-  <!-- inline status text -->
-  <p id="contact-status" class="form-status" role="status" aria-live="polite" style="margin-top:10px;"></p>
-</form>
+      <p id="contact-status" class="form-status" role="status" aria-live="polite" style="margin-top:10px;"></p>
+    </form>
   </main>
 
-   <section class="partners-section">
+  <!-- Partners -->
+  <section class="partners-section">
     <h2>Our Partners, clients, friends</h2>
     <div class="partners-carousel-track">
-      <div class="partner-logo-placeholder"><img src="/Esports-Africa-News.jpg" alt="Esports Africa News logo"></div>
-      <div class="partner-logo-placeholder"><img src="/Afrigamer.jpg" alt="Afrigamer logo"></div>
-      <div class="partner-logo-placeholder"><img src="/B34R-CL4N partner.jpg" alt="B34R CL4N"></div>
+      <div class="partner-logo"><img src="/images/Esports-Africa-News.jpg" alt="Esports Africa News logo" loading="lazy"></div>
+      <div class="partner-logo"><img src="/images/Afrigamer.jpg" alt="Afrigamer logo" loading="lazy"></div>
+      <div class="partner-logo"><img src="/images/B34R-CL4N%20partner.jpg" alt="B34R CL4N" loading="lazy"></div>
     </div>
   </section>
-  
+
   <!-- Footer -->
   <footer>
     <div class="footer-content">
@@ -154,7 +180,7 @@ layout: null
       <div class="footer-column">
         <h4>Tournaments</h4>
         <ul>
-          <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
+          <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
         </ul>
       </div>
       <div class="footer-column footer-logo-column">
@@ -173,83 +199,97 @@ layout: null
 
   <!-- Scripts -->
   <script>
-    // Keep nav pinned nicely
+    // Sticky nav
     window.addEventListener('scroll', function () {
       const navbar = document.querySelector('.header nav');
-      if (!navbar) return;
-      navbar.style.top = window.scrollY > 0 ? window.scrollY + 'px' : '0px';
+      if (navbar) navbar.style.top = window.scrollY > 0 ? window.scrollY + 'px' : '0px';
     });
-    window.addEventListener('DOMContentLoaded', function () {
-      const navbar = document.querySelector('.header nav');
-      if (!navbar) return;
-      navbar.style.top = window.scrollY > 0 ? window.scrollY + 'px' : '0px';
-    });
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initPage);
+    } else {
+      initPage();
+    }
 
-    // Partners carousel (guard)
-    (function () {
+    function initPage(){
+      const navbar = document.querySelector('.header nav');
+      if (navbar) navbar.style.top = window.scrollY > 0 ? window.scrollY + 'px' : '0px';
+      initPartnersCarousel();
+      initContactForm();
+    }
+
+    // Robust partners carousel (same pattern as other fixed pages)
+    function initPartnersCarousel(){
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const track = document.querySelector('.partners-carousel-track');
       if (!track) return;
-      track.innerHTML += track.innerHTML; // Duplicate for seamless loop
-      let x = 0, speed = 0.5, raf;
-      function auto() {
-        x += speed;
-        const w = track.scrollWidth / 2;
-        if (x >= w) x = 0;
+
+      const originals = Array.from(track.children).map(n => n.cloneNode(true));
+      let reps = 0;
+      while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
+        originals.forEach(n => track.appendChild(n.cloneNode(true)));
+        reps++;
+      }
+
+      let x = 0, speed = 0.6, raf;
+      function loop(){
+        const max = track.scrollWidth - track.clientWidth;
+        x = (x + speed) % (max || 1);
         track.scrollLeft = x;
-        raf = requestAnimationFrame(auto);
+        raf = requestAnimationFrame(loop);
       }
-      auto();
+      loop();
+
       track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
-      track.addEventListener('mouseleave', () => auto());
-    })();
-  </script>
-  <script>
-(function () {
-  const form = document.getElementById('contact-form');
-  const status = document.getElementById('contact-status');
+      track.addEventListener('mouseleave', () => loop());
+      track.addEventListener('focusin',   () => cancelAnimationFrame(raf));
+      track.addEventListener('focusout',  () => loop());
 
-  function setStatus(msg, ok) {
-    status.textContent = msg;
-    status.style.color = ok ? '#7CFC00' : '#ff6b6b';
-  }
-
-  form.addEventListener('submit', async function (e) {
-    e.preventDefault();
-    setStatus('Sending…', true);
-
-    try {
-      const res = await fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
+      let t;
+      window.addEventListener('resize', () => {
+        cancelAnimationFrame(raf);
+        clearTimeout(t);
+        t = setTimeout(() => { x = 0; loop(); }, 150);
       });
-
-      if (res.ok) {
-        form.reset();
-        setStatus("Thank you! We'll get back to you shortly.", true);
-      } else {
-        // Try to read JSON errors; otherwise show generic message
-        let msg = 'Oops! There was a problem submitting your form.';
-        try {
-          const data = await res.json();
-          if (data && data.errors) msg = data.errors.map(e => e.message).join(', ');
-        } catch {}
-        setStatus(msg, false);
-      }
-    } catch (err) {
-      // If fetch is blocked (ad-blocker/strict privacy), fall back to normal POST
-      setStatus('Network blocked—opening secure submission…', false);
-      form.submit();
     }
-  });
-})();
-</script>
 
+    function initContactForm(){
+      const form = document.getElementById('contact-form');
+      const status = document.getElementById('contact-status');
+      if (!form || !status) return;
+
+      function setStatus(msg, ok) {
+        status.textContent = msg;
+        status.style.color = ok ? '#7CFC00' : '#ff6b6b';
+      }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        setStatus('Sending…', true);
+
+        try {
+          const res = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+          });
+
+          if (res.ok) {
+            form.reset();
+            setStatus("Thank you! We'll get back to you shortly.", true);
+          } else {
+            let msg = 'Oops! There was a problem submitting your form.';
+            try {
+              const data = await res.json();
+              if (data && data.errors) msg = data.errors.map(er => er.message).join(', ');
+            } catch {}
+            setStatus(msg, false);
+          }
+        } catch (err) {
+          setStatus('Network blocked—opening secure submission…', false);
+          form.submit(); // fallback
+        }
+      });
+    }
+  </script>
 </body>
 </html>
-
-
-
-
-
-
