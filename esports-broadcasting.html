@@ -1,6 +1,7 @@
 ---
-permalink: /esports-broadcasting/
+permalink: /esports-production-broadcasting/
 redirect_from:
+  - /esports-broadcasting/
   - /esports-broadcasting.html
 layout: null
 ---
@@ -12,7 +13,7 @@ layout: null
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
   <title>Tunza Esports - Esports Production & Broadcasting</title>
-  <meta name="description" content="High-quality esports broadcasting in Kenya—from pre-production to live switching, commentary, replays, overlays and post-production highlights.">
+  <meta name="description" content="High-quality esports production & broadcasting in Kenya—from pre-production and live switching to commentary, replays, overlays, and post-production highlights.">
 
   <!-- Favicons -->
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,9 +24,9 @@ layout: null
   <meta name="theme-color" content="#0b0b16">
 
   <!-- Canonical + Social -->
-  <link rel="canonical" href="https://www.tunzaesports.org/esports-broadcasting/">
-  <meta property="og:url" content="https://www.tunzaesports.org/esports-broadcasting/">
-  <meta property="og:title" content="Esports Broadcasting - Tunza Esports">
+  <link rel="canonical" href="https://www.tunzaesports.org/esports-production-broadcasting/">
+  <meta property="og:url" content="https://www.tunzaesports.org/esports-production-broadcasting/">
+  <meta property="og:title" content="Esports Production & Broadcasting - Tunza Esports">
   <meta property="og:description" content="From qualifiers to grand finals—production, live commentary, replays, overlays and distribution.">
   <meta property="og:type" content="website">
 
@@ -38,6 +39,31 @@ layout: null
 
   <!-- Main CSS -->
   <link rel="stylesheet" href="/css/style.css" />
+
+  <!-- Minimal inline styles so the partners carousel works before CSS update -->
+  <style>
+    .partners-section { padding: 40px 0; }
+    .partners-carousel-track{
+      display:flex; gap:24px; overflow:hidden; padding:8px 0;
+      scroll-behavior:auto; /* animated via JS */
+    }
+    .partner-logo{
+      flex:0 0 auto; width:240px; height:110px;
+      display:flex; align-items:center; justify-content:center;
+      background:#0f0f17; border-radius:12px; padding:8px;
+    }
+    .partner-logo img{
+      max-height:90px; max-width:100%; object-fit:contain; display:block;
+    }
+    @media (max-width: 768px){
+      .partner-logo{ width:180px; height:100px; }
+      .partner-logo img{ max-height:80px; }
+    }
+    @media (max-width: 480px){
+      .partner-logo{ width:150px; height:90px; }
+      .partner-logo img{ max-height:70px; }
+    }
+  </style>
 </head>
 <body>
   <!-- Header -->
@@ -53,10 +79,10 @@ layout: null
             <a href="#">Our Services</a>
             <ul class="dropdown-menu">
               <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
-              <li><a href="/esports-broadcasting/">Esports Broadcasting</a></li>
+              <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
               <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
               <li><a href="/consultation/">Consultation</a></li>
-              <li><a href="/bootcamps-training-programs/">Bootcamps & Training Programs</a></li>
+              <li><a href="/bootcamps-training-programs/">Bootcamps &amp; Training Programs</a></li>
             </ul>
           </li>
 
@@ -65,7 +91,7 @@ layout: null
             <ul class="dropdown-menu">
               <li><a href="/ker/">KER</a></li>
               <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
-              <li><a href="/Tunzatourna/">TunzaTourna</a></li>
+              <li><a href="/tunzatourna/">TunzaTourna</a></li>
               <li><a href="/shop/">Shop</a></li>
             </ul>
           </li>
@@ -82,9 +108,9 @@ layout: null
   <!-- Hero -->
   <section class="esports-broadcasting-hero-section">
     <div class="breadcrumb">
-      <a href="/">Home</a> &rsaquo; <a href="#">Our Services</a> &rsaquo; Esports Production & Broadcasting
+      <a href="/">Home</a> &rsaquo; <a href="#">Our Services</a> &rsaquo; Esports Production &amp; Broadcasting
     </div>
-    <h1 class="service-main-heading">Esports Production & Broadcasting</h1>
+    <h1 class="service-main-heading">Esports Production &amp; Broadcasting</h1>
   </section>
 
   <main class="service-body">
@@ -129,42 +155,37 @@ layout: null
         </div>
 
         <div class="tournament-image-column">
-          <!-- If these files include spaces, keep %20. Best practice is renaming to kebab-case. -->
-          <img src="/images/Esports%20production%202.jpg" alt="Esports Broadcasting Studio" class="main-tournament-image">
+          <!-- keep %20 if your filenames contain spaces -->
+          <img src="/images/Esports%20production%202.jpg" alt="Esports Broadcasting Studio" class="main-tournament-image" loading="lazy">
           <div class="small-image-container">
-            <img src="/images/Production%20Videography.jpg" alt="Camera Setup" class="small-tournament-image">
-            <img src="/images/Production%20Sound.jpg" alt="Production Sound" class="small-tournament-image">
+            <img src="/images/Production%20Videography.jpg" alt="Camera Setup" class="small-tournament-image" loading="lazy">
+            <img src="/images/Production%20Sound.jpg" alt="Production Sound" class="small-tournament-image" loading="lazy">
           </div>
         </div>
       </div>
     </section>
-  </main>
 
-   <section class="consultation-cta-section">
+    <section class="consultation-cta-section">
       <div class="cta-card">
         <h2>Want our services?</h2>
-        <p>Contact us to get a quotation based on your goals and how to make your streaming a sucess through quality production & broadcasting.</p>
+        <p>Contact us to get a quotation based on your goals and how to make your streaming a success through quality production &amp; broadcasting.</p>
         <a href="/contact/" class="cta-button">Contact Us for Services</a>
       </div>
     </section>
   </main>
 
-      <p class="newsletter-card-disclaimer">Stay ahead in the game. Get exclusive tips, updates, and strategy guides straight to your inbox. No spam, just pure gaming goodness.</p>
-    </div>
-  </section>
-
   <div class="spacer-before-partners"></div>
 
   <!-- Partners -->
-    <section class="partners-section">
+  <section class="partners-section">
     <h2>Our Partners, clients, friends</h2>
     <div class="partners-carousel-track">
-      <div class="partner-logo-placeholder"><img src="/Esports-Africa-News.jpg" alt="Esports Africa News logo"></div>
-      <div class="partner-logo-placeholder"><img src="/Afrigamer.jpg" alt="Afrigamer logo"></div>
-      <div class="partner-logo-placeholder"><img src="/B34R-CL4N partner.jpg" alt="B34R CL4N"></div>
+      <div class="partner-logo"><img src="/images/Esports-Africa-News.jpg" alt="Esports Africa News logo" loading="lazy"></div>
+      <div class="partner-logo"><img src="/images/Afrigamer.jpg" alt="Afrigamer logo" loading="lazy"></div>
+      <div class="partner-logo"><img src="/images/B34R-CL4N%20partner.jpg" alt="B34R CL4N" loading="lazy"></div>
     </div>
   </section>
-  
+
   <!-- Footer -->
   <footer>
     <div class="footer-content">
@@ -204,42 +225,58 @@ layout: null
   </footer>
 
   <script>
-    // Navbar positioning
-    window.addEventListener('scroll', function() {
-      const navbar = document.querySelector('.header nav');
-      if (!navbar) return;
-      navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
-    });
+    (function () {
+      // Navbar positioning
+      window.addEventListener('scroll', function() {
+        const navbar = document.querySelector('.header nav');
+        if (navbar) navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
+      });
 
-    window.addEventListener('DOMContentLoaded', function() {
-      const navbar = document.querySelector('.header nav');
-      if (!navbar) return;
-      navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
+      function initPartnersCarousel(){
+        // Respect reduced motion
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-      // Partners carousel (guarded)
-      const track = document.querySelector('.partners-carousel-track');
-      if (track) {
-        track.innerHTML += track.innerHTML;
-        let x = 0;
-        const speed = 0.5;
-        let raf;
-        function auto() {
-          x += speed;
-          const w = track.scrollWidth / 2;
-          if (x >= w) x = 0;
-          track.scrollLeft = x;
-          raf = requestAnimationFrame(auto);
+        const track = document.querySelector('.partners-carousel-track');
+        if (!track) return;
+
+        // Duplicate children until we have enough width (~3x viewport) for smooth loop
+        const originals = Array.from(track.children).map(n => n.cloneNode(true));
+        let reps = 0;
+        while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
+          originals.forEach(n => track.appendChild(n.cloneNode(true)));
+          reps++;
         }
-        auto();
+
+        let x = 0, speed = 0.6, raf;
+        function loop(){
+          const max = track.scrollWidth - track.clientWidth;
+          x = (x + speed) % (max || 1);
+          track.scrollLeft = x;
+          raf = requestAnimationFrame(loop);
+        }
+        loop();
+
+        // Pause/resume on hover/focus
         track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
-        track.addEventListener('mouseleave', () => auto());
+        track.addEventListener('mouseleave', () => loop());
+        track.addEventListener('focusin', () => cancelAnimationFrame(raf));
+        track.addEventListener('focusout', () => loop());
+
+        // Recalculate on resize
+        let t;
+        window.addEventListener('resize', () => {
+          cancelAnimationFrame(raf);
+          clearTimeout(t);
+          t = setTimeout(() => { x = 0; loop(); }, 150);
+        });
       }
-    });
+
+      if (document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', initPartnersCarousel);
+      } else {
+        initPartnersCarousel();
+      }
+    })();
   </script>
 </body>
 </html>
-
-
-
-
-
