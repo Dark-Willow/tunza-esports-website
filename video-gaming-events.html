@@ -38,6 +38,31 @@ layout: null
 
   <!-- Main CSS -->
   <link rel="stylesheet" href="/css/style.css" />
+
+  <!-- Minimal inline styles so partners carousel works even before CSS update -->
+  <style>
+    .partners-section { padding: 40px 0; }
+    .partners-carousel-track{
+      display:flex; gap:24px; overflow:hidden; padding:8px 0;
+      scroll-behavior:auto; /* animated via JS */
+    }
+    .partner-logo{
+      flex:0 0 auto; width:240px; height:110px;
+      display:flex; align-items:center; justify-content:center;
+      background:#0f0f17; border-radius:12px; padding:8px;
+    }
+    .partner-logo img{
+      max-height:90px; max-width:100%; object-fit:contain; display:block;
+    }
+    @media (max-width: 768px){
+      .partner-logo{ width:180px; height:100px; }
+      .partner-logo img{ max-height:80px; }
+    }
+    @media (max-width: 480px){
+      .partner-logo{ width:150px; height:90px; }
+      .partner-logo img{ max-height:70px; }
+    }
+  </style>
 </head>
 <body>
   <!-- Header -->
@@ -53,10 +78,10 @@ layout: null
             <a href="#">Our Services</a>
             <ul class="dropdown-menu">
               <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
-              <li><a href="/esports-broadcasting/">Esports Broadcasting</a></li>
+              <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
               <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
               <li><a href="/consultation/">Consultation</a></li>
-              <li><a href="/bootcamps-training-programs/">Bootcamps & Training Programs</a></li>
+              <li><a href="/bootcamps-training-programs/">Bootcamps &amp; Training Programs</a></li>
             </ul>
           </li>
 
@@ -102,7 +127,7 @@ layout: null
 
         <div class="event-card">
           <div class="event-image-wrapper">
-            <img src="/images/events/lan-party.jpg" alt="LAN Party setup with PCs and players" class="event-image">
+            <img src="/images/events/lan-party.jpg" alt="LAN Party setup with PCs and players" class="event-image" loading="lazy">
           </div>
           <div class="event-card-content">
             <h3>LAN Party: Mayhem</h3>
@@ -114,7 +139,7 @@ layout: null
 
         <div class="event-card">
           <div class="event-image-wrapper">
-            <img src="/images/events/retro-night.jpg" alt="Retro gaming consoles on display" class="event-image">
+            <img src="/images/events/retro-night.jpg" alt="Retro gaming consoles on display" class="event-image" loading="lazy">
           </div>
           <div class="event-card-content">
             <h3>Community Hangout: Retro Night</h3>
@@ -126,7 +151,7 @@ layout: null
 
         <div class="event-card">
           <div class="event-image-wrapper">
-            <img src="/images/events/fifa-tournament.jpg" alt="Players competing in FIFA on large screens" class="event-image">
+            <img src="/images/events/fifa-tournament.jpg" alt="Players competing in FIFA on large screens" class="event-image" loading="lazy">
           </div>
           <div class="event-card-content">
             <h3>Casual Tournament: FIFA 25</h3>
@@ -138,7 +163,7 @@ layout: null
 
         <div class="event-card">
           <div class="event-image-wrapper">
-            <img src="/images/events/lan-party.jpg" alt="Battle Royale duos gaming setup" class="event-image">
+            <img src="/images/events/lan-party.jpg" alt="Battle Royale duos gaming setup" class="event-image" loading="lazy">
           </div>
           <div class="event-card-content">
             <h3>Battle Royale: Duos</h3>
@@ -182,12 +207,12 @@ layout: null
   <div class="spacer-before-partners"></div>
 
   <!-- Partners -->
-   <section class="partners-section">
+  <section class="partners-section">
     <h2>Our Partners, clients, friends</h2>
     <div class="partners-carousel-track">
-      <div class="partner-logo-placeholder"><img src="/Esports-Africa-News.jpg" alt="Esports Africa News logo"></div>
-      <div class="partner-logo-placeholder"><img src="/Afrigamer.jpg" alt="Afrigamer logo"></div>
-      <div class="partner-logo-placeholder"><img src="/B34R-CL4N partner.jpg" alt="B34R CL4N"></div>
+      <div class="partner-logo"><img src="/images/Esports-Africa-News.jpg" alt="Esports Africa News logo" loading="lazy"></div>
+      <div class="partner-logo"><img src="/images/Afrigamer.jpg" alt="Afrigamer logo" loading="lazy"></div>
+      <div class="partner-logo"><img src="/images/B34R-CL4N%20partner.jpg" alt="B34R CL4N" loading="lazy"></div>
     </div>
   </section>
 
@@ -230,39 +255,58 @@ layout: null
   </footer>
 
   <script>
-    // Sticky nav
-    window.addEventListener('scroll', function () {
-      const navbar = document.querySelector('.header nav');
-      if (!navbar) return;
-      navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
-    });
+    (function () {
+      // Sticky nav
+      window.addEventListener('scroll', function () {
+        const navbar = document.querySelector('.header nav');
+        if (navbar) navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
+      });
 
-    window.addEventListener('DOMContentLoaded', function () {
-      const navbar = document.querySelector('.header nav');
-      if (navbar) {
-        navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
-      }
+      function initPartnersCarousel(){
+        // Respect reduced motion
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-      // Partners carousel (guarded)
-      const carouselTrack = document.querySelector('.partners-carousel-track');
-      if (carouselTrack) {
-        carouselTrack.innerHTML += carouselTrack.innerHTML;
-        let scrollAmount = 0;
-        const scrollSpeed = 0.5;
-        let raf;
-        function autoScroll() {
-          scrollAmount += scrollSpeed;
-          const w = carouselTrack.scrollWidth / 2;
-          if (scrollAmount >= w) scrollAmount = 0;
-          carouselTrack.scrollLeft = scrollAmount;
-          raf = requestAnimationFrame(autoScroll);
+        const track = document.querySelector('.partners-carousel-track');
+        if (!track) return;
+
+        // Duplicate children until we have enough width (~3x viewport) for smooth loop
+        const originals = Array.from(track.children).map(n => n.cloneNode(true));
+        let reps = 0;
+        while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
+          originals.forEach(n => track.appendChild(n.cloneNode(true)));
+          reps++;
         }
-        autoScroll();
-        carouselTrack.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
-        carouselTrack.addEventListener('mouseleave', () => autoScroll());
+
+        let x = 0, speed = 0.6, raf;
+        function loop(){
+          const max = track.scrollWidth - track.clientWidth;
+          x = (x + speed) % (max || 1);
+          track.scrollLeft = x;
+          raf = requestAnimationFrame(loop);
+        }
+        loop();
+
+        // Pause/resume on hover/focus
+        track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
+        track.addEventListener('mouseleave', () => loop());
+        track.addEventListener('focusin', () => cancelAnimationFrame(raf));
+        track.addEventListener('focusout', () => loop());
+
+        // Recalculate on resize
+        let t;
+        window.addEventListener('resize', () => {
+          cancelAnimationFrame(raf);
+          clearTimeout(t);
+          t = setTimeout(() => { x = 0; loop(); }, 150);
+        });
       }
-    });
+
+      if (document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', initPartnersCarousel);
+      } else {
+        initPartnersCarousel();
+      }
+    })();
   </script>
 </body>
 </html>
-
