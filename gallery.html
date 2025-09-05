@@ -11,18 +11,43 @@ layout: null
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <title>Tunza Esports - Gallery</title>
+
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0b0b16">
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/css/style.css" />
+
+  <!-- Minimal inline styles for partners carousel -->
+  <style>
+    .partners-section { padding: 40px 0; text-align:center; }
+    .partners-carousel-track{
+      display:flex; gap:24px; overflow:hidden; padding:8px 0;
+      scroll-behavior:auto; /* animated via JS */
+    }
+    .partner-logo{
+      flex:0 0 auto; width:240px; height:110px;
+      display:flex; align-items:center; justify-content:center;
+      background:#0f0f17; border-radius:12px; padding:8px;
+    }
+    .partner-logo img{ max-height:90px; max-width:100%; object-fit:contain; display:block; }
+    @media (max-width: 768px){
+      .partner-logo{ width:180px; height:100px; }
+      .partner-logo img{ max-height:80px; }
+    }
+    @media (max-width: 480px){
+      .partner-logo{ width:150px; height:90px; }
+      .partner-logo img{ max-height:70px; }
+    }
+  </style>
 </head>
 <body>
   <section class="header">
@@ -37,7 +62,7 @@ layout: null
             <a href="#">Our Services</a>
             <ul class="dropdown-menu">
               <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
-              <li><a href="/esports-broadcasting/">Esports Broadcasting</a></li>
+              <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
               <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
               <li><a href="/consultation/">Consultation</a></li>
               <li><a href="/bootcamps-training-programs/">Training Programs</a></li>
@@ -48,7 +73,7 @@ layout: null
             <a href="#">Our Products</a>
             <ul class="dropdown-menu">
               <li><a href="/ker/">KER</a></li>
-              <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
+              <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
               <li><a href="/tunzatourna/">TunzaTourna</a></li>
               <li><a href="/shop/">Shop</a></li>
             </ul>
@@ -98,15 +123,16 @@ layout: null
     </section>
   </main>
 
-    <section class="partners-section">
+  <!-- Partners -->
+  <section class="partners-section">
     <h2>Our Partners, clients, friends</h2>
     <div class="partners-carousel-track">
-      <div class="partner-logo-placeholder"><img src="/Esports-Africa-News.jpg" alt="Esports Africa News logo"></div>
-      <div class="partner-logo-placeholder"><img src="/Afrigamer.jpg" alt="Afrigamer logo"></div>
-      <div class="partner-logo-placeholder"><img src="/B34R-CL4N partner.jpg" alt="B34R CL4N"></div>
+      <div class="partner-logo"><img src="/images/Esports-Africa-News.jpg" alt="Esports Africa News logo" loading="lazy"></div>
+      <div class="partner-logo"><img src="/images/Afrigamer.jpg" alt="Afrigamer logo" loading="lazy"></div>
+      <div class="partner-logo"><img src="/images/B34R-CL4N%20partner.jpg" alt="B34R CL4N" loading="lazy"></div>
     </div>
   </section>
-  
+
   <footer>
     <div class="footer-content">
       <div class="footer-column">
@@ -127,7 +153,7 @@ layout: null
       <div class="footer-column">
         <h4>Tournaments</h4>
         <ul>
-          <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
+          <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
         </ul>
       </div>
       <div class="footer-column footer-logo-column">
@@ -145,41 +171,59 @@ layout: null
   </footer>
 
   <script>
-    // Navbar stickiness
+    // Sticky nav
     window.addEventListener('scroll', function () {
       const navbar = document.querySelector('.header nav');
-      if (!navbar) return;
-      navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
+      if (navbar) navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
     });
-    window.addEventListener('DOMContentLoaded', function () {
+
+    // Init when ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initPage);
+    } else {
+      initPage();
+    }
+
+    function initPage(){
       const navbar = document.querySelector('.header nav');
-      if (navbar) {
-        navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
+      if (navbar) navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
+      initPartnersCarousel();
+    }
+
+    // Robust partners carousel (same as your working pages)
+    function initPartnersCarousel(){
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const track = document.querySelector('.partners-carousel-track');
+      if (!track) return;
+
+      const originals = Array.from(track.children).map(n => n.cloneNode(true));
+      let reps = 0;
+      while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
+        originals.forEach(n => track.appendChild(n.cloneNode(true)));
+        reps++;
       }
 
-      // Partners carousel (guarded)
-      const carouselTrack = document.querySelector('.partners-carousel-track');
-      if (carouselTrack) {
-        carouselTrack.innerHTML += carouselTrack.innerHTML;
-        let scrollAmount = 0;
-        const scrollSpeed = 0.5;
-        let raf;
-        function autoScroll() {
-          scrollAmount += scrollSpeed;
-          const w = carouselTrack.scrollWidth / 2;
-          if (scrollAmount >= w) scrollAmount = 0;
-          carouselTrack.scrollLeft = scrollAmount;
-          raf = requestAnimationFrame(autoScroll);
-        }
-        autoScroll();
-        carouselTrack.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
-        carouselTrack.addEventListener('mouseleave', () => autoScroll());
+      let x = 0, speed = 0.6, raf;
+      function loop(){
+        const max = track.scrollWidth - track.clientWidth;
+        x = (x + speed) % (max || 1);
+        track.scrollLeft = x;
+        raf = requestAnimationFrame(loop);
       }
-    });
+      loop();
+
+      track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
+      track.addEventListener('mouseleave', () => loop());
+      track.addEventListener('focusin',   () => cancelAnimationFrame(raf));
+      track.addEventListener('focusout',  () => loop());
+
+      let t;
+      window.addEventListener('resize', () => {
+        cancelAnimationFrame(raf);
+        clearTimeout(t);
+        t = setTimeout(() => { x = 0; loop(); }, 150);
+      });
+    }
   </script>
 </body>
 </html>
-
-
-
-
