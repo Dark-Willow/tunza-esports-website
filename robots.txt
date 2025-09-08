@@ -1,3 +1,7 @@
+---
+permalink: /robots.txt
+layout: null
+---
 User-agent: *
 Allow: /
 Sitemap: https://www.tunzaesports.org/sitemap.xml
