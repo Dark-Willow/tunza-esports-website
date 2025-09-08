@@ -1,88 +1,102 @@
-export default {
-  async fetch(request, env) {
-    const allowOrigin = request.headers.get('Origin') || '*';
+// functions/api/contact.js
+// Cloudflare Pages Functions (module syntax)
 
-    // CORS preflight
-    if (request.method === 'OPTIONS') {
-      return new Response(null, {
-        headers: {
-          'Access-Control-Allow-Origin': allowOrigin,
-          'Access-Control-Allow-Methods': 'POST, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type, Accept',
-          'Vary': 'Origin',
-        }
-      });
-    }
+const ALLOWED_ORIGIN = 'https://www.tunzaesports.org';
 
-    if (request.method !== 'POST') {
-      return json({ error: 'Method not allowed' }, 405, allowOrigin);
-    }
-
-    try {
-      const body = await request.json();
-      const {
-        first_name = '', last_name = '', email = '', phone = '',
-        subject = '', message = '', _gotcha = ''
-      } = body || {};
-
-      if (_gotcha) return json({ ok: true }, 200, allowOrigin); // drop spam
-
-      if (!first_name || !last_name || !email || !subject || !message) {
-        return json({ error: 'Missing required fields' }, 400, allowOrigin);
-      }
-
-      const fullName = `${first_name} ${last_name}`.trim();
-
-      const html = `
-        <h2>New contact form submission</h2>
-        <p><b>Name:</b> ${escapeHtml(fullName)}</p>
-        <p><b>Email:</b> ${escapeHtml(email)}</p>
-        <p><b>Phone:</b> ${escapeHtml(phone)}</p>
-        <p><b>Subject:</b> ${escapeHtml(subject)}</p>
-        <p><b>Message:</b><br>${escapeHtml(message).replace(/\n/g, '<br>')}</p>
-      `;
-      const text =
-        `New contact form submission\n\nName: ${fullName}\nEmail: ${email}\nPhone: ${phone}\nSubject: ${subject}\n\n${message}\n`;
-
-      const payload = {
-        from: { email: env.FROM_EMAIL, name: env.FROM_NAME || 'Tunza Esports' },
-        to:   [{ email: env.TO_EMAIL,   name: 'Tunza Esports' }],
-        reply_to: { email, name: fullName },
-        subject: `[Contact] ${subject}`.slice(0, 150),
-        html, text
-      };
-
-      const apiRes = await fetch('https://api.mailersend.com/v1/email', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${env.MAILERSEND_API_KEY}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      });
-
-      if (!apiRes.ok) {
-        let err;
-        try { err = await apiRes.json(); } catch {}
-        return json({ error: err?.message || 'MailerSend error' }, 500, allowOrigin);
-      }
-
-      return json({ ok: true }, 200, allowOrigin);
-
-    } catch {
-      return json({ error: 'Invalid JSON' }, 400, allowOrigin);
-    }
-  }
-};
-
-function json(data, status = 200, origin='*') {
-  return new Response(JSON.stringify(data), {
-    status,
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': origin,
-      'Vary': 'Origin'
-    }
-  });
+function corsHeaders() {
+  return {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+  };
 }
-function escapeHtml(s=''){ return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+// CORS preflight
+export async function onRequestOptions() {
+  return new Response(null, { status: 204, headers: corsHeaders() });
+}
+
+export async function onRequestPost({ request, env }) {
+  try {
+    const data = await readBody(request);
+
+    // spam trap
+    if (data._gotcha) {
+      return new Response(JSON.stringify({ ok: true }), { headers: corsHeaders() });
+    }
+
+    const {
+      first_name = '', last_name = '', email = '', phone = '',
+      subject = '', message = ''
+    } = data || {};
+
+    if (!first_name || !last_name || !email || !subject || !message) {
+      return json({ ok: false, error: 'Missing required fields.' }, 400);
+    }
+
+    // Build email
+    const fullName = `${first_name} ${last_name}`.trim();
+    const html = `
+      <h2>New contact form message</h2>
+      <p><strong>Name:</strong> ${escapeHtml(fullName)}</p>
+      <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+      <p><strong>Phone:</strong> ${escapeHtml(phone || '-')}</p>
+      <p><strong>Subject:</strong> ${escapeHtml(subject)}</p>
+      <p><strong>Message:</strong></p>
+      <pre style="white-space:pre-wrap;font-family:inherit">${escapeHtml(message)}</pre>
+    `;
+    const text =
+`New contact form message
+
+Name:   ${fullName}
+Email:  ${email}
+Phone:  ${phone || '-'}
+
+Subject: ${subject}
+
+${message}
+`;
+
+    // Send via MailerSend
+    const msRes = await fetch('https://api.mailersend.com/v1/email', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${env.MAILERSEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from:    { email: env.FROM_EMAIL, name: env.FROM_NAME || 'Tunza Esports' },
+        to:      [{ email: env.TO_EMAIL,  name: 'Tunza Esports' }],
+        subject: `Contact: ${subject}`.slice(0, 150),
+        html,
+        text,
+        reply_to: { email, name: fullName },
+      }),
+    });
+
+    if (!msRes.ok) {
+      const detail = await safeText(msRes);
+      return json({ ok: false, error: 'MailerSend error', detail }, 502);
+    }
+
+    return json({ ok: true });
+  } catch (err) {
+    return json({ ok: false, error: 'Invalid request', detail: String(err) }, 400);
+  }
+}
+
+/* helpers */
+async function readBody(request) {
+  const ct = (request.headers.get('content-type') || '').toLowerCase();
+  if (ct.includes('application/json')) {
+    return await request.json();
+  }
+  if (ct.includes('application/x-www-form-urlencoded') || ct.includes('multipart/form-data')) {
+    const fd = await request.formData();
+    return Object.fromEntries(fd.entries());
+  }
+  return {};
+}
+
+function j
