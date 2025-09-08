@@ -16,32 +16,29 @@
   <meta property="og:title" content="Tunza Esports — Kenya esports tournaments, events & rankings" />
   <meta property="og:description" content="News, tournaments, and events from Tunza Esports — Tujenge Esports Kenya." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://www.tunzaesports.org/images/tunza-logo-dark-512.png" />
+  <meta property="og:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" />
   <meta property="og:site_name" content="Tunza Esports" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Tunza Esports — Kenya esports tournaments, events & rankings" />
   <meta name="twitter:description" content="News, tournaments, and events from Tunza Esports — Tujenge Esports Kenya." />
-  <meta name="twitter:image" content="https://www.tunzaesports.org/images/tunza-logo-dark-512.png" />
+  <meta name="twitter:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" />
 
-  <!-- Favicons -->
-  <!-- Transparent versions for browser tabs -->
-  <link rel="icon" href="/favicon.ico" sizes="any"> <!-- legacy fallback; keep -->
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">  <!-- transparent for browser tabs -->
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">  <!-- transparent for browser tabs -->
-
-  <!-- Dark icons used by Google SERP and Android install prompts -->
+  <!-- Favicons (transparent tabs + dark SERP/device icons) -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <!-- Dark icons used by Google SERP / PWA -->
   <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192-dark.png">
   <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512-dark.png">
-
-  <!-- 48×48 is what Google often picks for SERP favicons -->
+  <!-- 48×48 is commonly used by Google for SERP favicon -->
   <link rel="icon" type="image/x-icon" sizes="48x48" href="/images/favicon-48x48-dark.ico">
-  <!-- If you export a PNG, prefer it over ICO (comment out the ICO line above and use this instead): -->
-  <!-- <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48x48-dark.png"> -->
+  <!-- If you later export PNG 48×48, prefer it over ICO:
+  <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48x48-dark.png"> -->
 
-  <!-- iOS/Apple shortcut icon (dark background baked in) -->
+  <!-- iOS / Apple shortcut -->
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png">
 
-  <!-- PWA bits (leave as-is) -->
+  <!-- PWA -->
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0b0b16">
 
@@ -51,18 +48,27 @@
   <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <!-- Main CSS -->
   <link rel="stylesheet" href="/css/style.css" />
 
-  <!-- Organization schema (consistent across the site) -->
+  <!-- Page-specific minimal CSS (kept inside the single HEAD) -->
+  <style>
+    .news-image-placeholder{width:100%;aspect-ratio:3/2;background-size:cover;background-position:center;border-radius:12px;display:block}
+    .newsletter-form-container{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .partners-carousel-track{display:flex;gap:24px;overflow:hidden;padding:8px 0}
+    .partner-logo{flex:0 0 auto;width:240px;height:110px;display:flex;align-items:center;justify-content:center;background:#0f0f17;border-radius:12px;padding:8px}
+    .partner-logo img{max-height:90px;max-width:100%;object-fit:contain;display:block}
+    @media (max-width:768px){.partner-logo{width:180px;height:100px}.partner-logo img{max-height:80px}}
+    @media (max-width:480px){.partner-logo{width:150px;height:90px}.partner-logo img{max-height:70px}}
+  </style>
+
+  <!-- Organization schema (single source of truth) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Tunza Esports",
     "url": "https://www.tunzaesports.org",
-    "logo": "https://www.tunzaesports.org/images/tunza-logo-dark-512.png",
+    "logo": "https://www.tunzaesports.org/images/android-chrome-512x512-dark.png",
     "sameAs": [
       "https://www.instagram.com/TunzaEsports",
       "https://x.com/TunzaEsports",
@@ -78,7 +84,7 @@
     "@type": "WebSite",
     "url": "https://www.tunzaesports.org/",
     "name": "Tunza Esports",
-    "alternateName": ["TunzaEsports", "Tunza Esports Kenya"],
+    "alternateName": ["TunzaEsports", "Tunza Esports Kenya", "tunza esports", "tunza],
     "potentialAction": {
       "@type": "SearchAction",
       "target": "https://www.google.com/search?q=site%3Awww.tunzaesports.org+{search_term_string}",
@@ -87,6 +93,7 @@
   }
   </script>
 </head>
+
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -386,6 +393,7 @@
   </script>
 </body>
 </html>
+
 
 
 
