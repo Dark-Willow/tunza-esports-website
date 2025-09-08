@@ -23,20 +23,23 @@
   <meta name="twitter:description" content="News, tournaments, and events from Tunza Esports — Tujenge Esports Kenya." />
   <meta name="twitter:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" />
 
-  <!-- Favicons (transparent tabs + dark SERP/device icons) -->
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <!-- Dark icons used by Google SERP / PWA -->
-  <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192-dark.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512-dark.png">
-  <!-- 48×48 is commonly used by Google for SERP favicon -->
-  <link rel="icon" type="image/x-icon" sizes="48x48" href="/images/favicon-48x48-dark.ico">
-  <!-- If you later export PNG 48×48, prefer it over ICO:
-  <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48x48-dark.png"> -->
+  <!-- Favicons (dark bg + cache-busted so Google re-fetches) -->
+  <link rel="icon" href="/favicon.ico?v=4" sizes="any"> <!-- root .ico MUST be dark -->
 
-  <!-- iOS / Apple shortcut -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4">
+
+   <!-- Preferred for Google SERP -->
+   <link rel="icon" type="image/png" sizes="48x48"  href="/images/favicon-48x48-dark.png?v=4">
+
+   <!-- Larger Android/Install sizes -->
+   <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192-dark.png?v=4">
+   <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512-dark.png?v=4">
+
+   <!-- Apple / Safari -->
+   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png?v=4">
+   <link rel="mask-icon" href="/images/tunza-logo-dark.svg" color="#000000">
+
 
   <!-- PWA -->
   <link rel="manifest" href="/site.webmanifest">
@@ -393,6 +396,7 @@
   </script>
 </body>
 </html>
+
 
 
 
