@@ -12,44 +12,45 @@ layout: null
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
   <title>Tunza Esports - Video Gaming Events</title>
-  <meta name="description" content="LAN parties, gaming hangouts, and casual tournaments in Kenya. Join Tunza Esports events for fun, inclusive, community gaming experiences.">
-<!-- Canonical + Social (defaults; JS will update per-article) -->
-  <link id="canonical" rel="canonical" href="https://www.tunzaesports.org/article/">
-  <meta property="og:url"        content="https://www.tunzaesports.org/article/">
-  <meta property="og:title"      content="Tunza Esports — Article">
-  <meta property="og:description" content="Latest news from Tunza Esports.">
-  <meta property="og:type"       content="article">
-  <meta property="og:image"      content="https://www.tunzaesports.org/images/tunza-logo-dark-512.png">
-  <meta property="og:site_name"  content="Tunza Esports">
-  <meta name="twitter:card"      content="summary_large_image">
-  <meta name="twitter:title"     content="Tunza Esports — Article">
-  <meta name="twitter:description" content="Latest news from Tunza Esports.">
-  <meta name="twitter:image"     content="https://www.tunzaesports.org/images/tunza-logo-dark-512.png">
+  <meta name="description" content="LAN parties, gaming hangouts, and casual tournaments in Kenya. Join Tunza Esports events for fun, inclusive, community gaming experiences." />
 
-  <!-- Favicons (match homepage filenames exactly) -->
-  <link rel="icon" href="/favicon.ico" sizes="any"> <!-- legacy fallback -->
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <!-- Dark SERP/Android -->
-  <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192-dark.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512-dark.png">
-  <!-- 48×48 often used by Google -->
-  <link rel="icon" type="image/x-icon" sizes="48x48" href="/images/favicon-48x48-dark.ico">
-  <!-- Apple -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png">
+  <!-- Canonical + Social -->
+  <link rel="canonical" href="https://www.tunzaesports.org/video-gaming-events/" />
+  <meta property="og:url" content="https://www.tunzaesports.org/video-gaming-events/" />
+  <meta property="og:title" content="Tunza Esports - Video Gaming Events" />
+  <meta property="og:description" content="LAN parties, gaming hangouts, and casual tournaments across Kenya." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" />
+  <meta property="og:image:alt" content="Tunza Esports logo" />
+  <meta property="og:site_name" content="Tunza Esports" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Tunza Esports - Video Gaming Events" />
+  <meta name="twitter:description" content="LAN parties, gaming hangouts, and casual tournaments across Kenya." />
+  <meta name="twitter:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" />
+  <meta name="twitter:image:alt" content="Tunza Esports logo" />
+
+  <!-- Favicons (match homepage) -->
+  <link rel="icon" href="/favicon.ico?v=4" sizes="any">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4">
+  <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48x48-dark.png?v=4">
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192-dark.png?v=4">
+  <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512-dark.png?v=4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png?v=4">
+  <link rel="mask-icon" href="/images/tunza-logo-dark.svg" color="#000000">
 
   <!-- PWA -->
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0b0b16">
 
-  <!-- Organization schema (keep consistent sitewide) -->
+  <!-- Organization schema (sitewide consistent) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Tunza Esports",
     "url": "https://www.tunzaesports.org",
-    "logo": "https://www.tunzaesports.org/images/tunza-logo-dark-512.png",
+    "logo": "https://www.tunzaesports.org/images/android-chrome-512x512-dark.png",
     "sameAs": [
       "https://www.instagram.com/TunzaEsports",
       "https://x.com/TunzaEsports",
@@ -58,41 +59,15 @@ layout: null
   }
   </script>
 
-  <!-- Fonts & Icons -->
+  <!-- Fonts & CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <!-- Main CSS -->
   <link rel="stylesheet" href="/css/style.css" />
-
-  <!-- Minimal inline styles so partners carousel works even before CSS update -->
-  <style>
-    .partners-section { padding: 40px 0; }
-    .partners-carousel-track{
-      display:flex; gap:24px; overflow:hidden; padding:8px 0;
-      scroll-behavior:auto; /* animated via JS */
-    }
-    .partner-logo{
-      flex:0 0 auto; width:240px; height:110px;
-      display:flex; align-items:center; justify-content:center;
-      background:#0f0f17; border-radius:12px; padding:8px;
-    }
-    .partner-logo img{
-      max-height:90px; max-width:100%; object-fit:contain; display:block;
-    }
-    @media (max-width: 768px){
-      .partner-logo{ width:180px; height:100px; }
-      .partner-logo img{ max-height:80px; }
-    }
-    @media (max-width: 480px){
-      .partner-logo{ width:150px; height:90px; }
-      .partner-logo img{ max-height:70px; }
-    }
-  </style>
 </head>
+
 <body>
   <!-- Header -->
   <section class="header">
@@ -339,6 +314,7 @@ layout: null
   </script>
 </body>
 </html>
+
 
 
 
