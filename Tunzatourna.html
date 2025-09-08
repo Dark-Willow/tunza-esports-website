@@ -1,6 +1,7 @@
 ---
-permalink: /Tunzatourna/
+permalink: /tunzatourna/
 redirect_from:
+  - /Tunzatourna/
   - /Tunzatourna.html
 layout: null
 ---
@@ -12,40 +13,37 @@ layout: null
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <title>Tunza Esports - TunzaTourna</title>
 
+  <!-- Canonical -->
+  <link rel="canonical" href="https://www.tunzaesports.org/tunzatourna/">
+
   <!-- Favicons -->
-  <!-- Transparent versions for browser tabs -->
+  <!-- Transparent (tabs/legacy at site root) -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <!-- Dark icons for Google Search & PWA -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192-dark.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512-dark.png">
+  <link rel="icon" type="image/x-icon" sizes="48x48" href="/images/favicon-48x48-dark.ico">
+  <!-- Apple / shortcuts -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png">
 
-  <!-- Favicon for Google Search (dark background) -->
-  <link rel="icon" type="image/png" sizes="48x48"  href="/images/tunza-favicon-dark-48.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="/images/tunza-favicon-dark-192.png">
-
-  <!-- Dark-background logo for devices/shortcuts -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/tunza-logo-dark-180.png">
-  <!-- Optional pinned tab (Safari) -->
-  <link rel="mask-icon" href="/images/tunza-logo-dark.svg" color="#000000">
-
-
-  <!-- PWA manifest should point to dark icons -->
+  <!-- PWA -->
   <link rel="manifest" href="/site.webmanifest">
-
-  <!-- Brand colors -->
   <meta name="theme-color" content="#0b0b16">
   <meta name="msapplication-TileColor" content="#0b0b16">
 
   <!-- Basic SEO -->
-  <meta name="description" content="Tunza Esports — Kenya’s esports platform. Tournaments, bootcamps, rankings, and community events.">
+  <meta name="description" content="TunzaTourna by Tunza Esports — smooth esports tournament management for Kenya’s gaming community.">
 
-  <!-- Organization schema to force dark logo in Google results -->
+  <!-- Organization schema (consistent across site) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Tunza Esports",
     "url": "https://www.tunzaesports.org",
-    "logo": "https://www.tunzaesports.org/images/tunza-logo-dark-512.png",
+    "logo": "https://www.tunzaesports.org/images/android-chrome-512x512-dark.png",
     "sameAs": [
       "https://www.instagram.com/TunzaEsports",
       "https://x.com/TunzaEsports",
@@ -65,7 +63,6 @@ layout: null
 <body>
   <section class="header">
     <nav>
-      <!-- Home/logo goes to root -->
       <a href="/" class="logo"><img src="/images/tunzalogo.png" alt="Tunza Esports Logo"></a>
       <div class="nav-links">
         <ul>
@@ -75,10 +72,10 @@ layout: null
             <a href="#">Our Services</a>
             <ul class="dropdown-menu">
               <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
-              <li><a href="/esports-broadcasting/">Esports Broadcasting</a></li>
+              <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
               <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
               <li><a href="/consultation/">Consultation</a></li>
-              <li><a href="/bootcamps-training-programs/">Bootcamps & Training Programs</a></li>
+              <li><a href="/bootcamps-training-programs/">Bootcamps &amp; Training Programs</a></li>
             </ul>
           </li>
           <li class="has-dropdown">
@@ -86,16 +83,15 @@ layout: null
             <ul class="dropdown-menu">
               <li><a href="/ker/">KER</a></li>
               <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
-              <li><a href="/Tunzatourna/">TunzaTourna</a></li>
-              <li><a href="/coming-soon/">Shop</a></li>
+              <li><a href="/tunzatourna/">TunzaTourna</a></li>
+              <li><a href="/shop/">Shop</a></li>
             </ul>
           </li>
           <li><a href="/news/">News</a></li>
           <li><a href="/contact/">Contact Us</a></li>
           <li><a href="/gallery/">Gallery</a></li>
         </ul>
-        <!-- fix typo & make it root-relative -->
-        <a href="/coming-soon/" class="shop-button">Shop Now</a>
+        <a href="/shop/" class="shop-button">Shop Now</a>
       </div>
     </nav>
   </section>
@@ -117,8 +113,8 @@ layout: null
       <div class="footer-column">
         <h4>Resources</h4>
         <ul>
-          <li><a href="/coming-soon/">Tunza Tourna</a></li>
-          <li><a href="/coming-soon/">Shop</a></li>
+          <li><a href="/tunzatourna/">Tunza Tourna</a></li>
+          <li><a href="/shop/">Shop</a></li>
         </ul>
       </div>
       <div class="footer-column">
@@ -142,7 +138,7 @@ layout: null
   </footer>
 
   <script>
-    // Sticky nav (unchanged)
+    // Sticky nav
     window.addEventListener('scroll', function() {
       const navbar = document.querySelector('.header nav');
       if (navbar) navbar.style.top = window.scrollY > 0 ? (window.scrollY + 'px') : '0px';
@@ -152,7 +148,7 @@ layout: null
       if (navbar) navbar.style.top = window.scrollY > 0 ? (window.scrollY + 'px') : '0px';
     });
 
-    // Partners carousel guard (keep; only runs if the element exists)
+    // Partners carousel guard (only if present on page)
     const partnersCarousel = document.querySelector('.partners-carousel-track');
     if (partnersCarousel) {
       partnersCarousel.innerHTML += partnersCarousel.innerHTML;
@@ -170,9 +166,3 @@ layout: null
   </script>
 </body>
 </html>
-
-
-
-
-
-
