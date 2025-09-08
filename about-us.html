@@ -14,26 +14,6 @@ layout: null
   <title>Tunza Esports - About Us</title>
   <meta name="description" content="Learn about Tunza Esports: our mission, team, and work building Kenya’s esports ecosystem through tournaments, broadcasting, training, and community." />
 
- <!-- Favicons -->
- <!-- Transparent versions for browser tabs -->
- <link rel="icon" href="/favicon.ico" sizes="any">
- <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
- <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-
- <!-- Favicon for Google Search (dark background) -->
- <link rel="icon" type="image/png" sizes="48x48"  href="/images/tunza-favicon-dark-48.png">
- <link rel="icon" type="image/png" sizes="192x192" href="/images/tunza-favicon-dark-192.png">
-
- <!-- Dark-background logo for devices/shortcuts -->
- <link rel="apple-touch-icon" sizes="180x180" href="/images/tunza-logo-dark-180.png">
- <!-- Optional pinned tab (Safari) -->
- <link rel="mask-icon" href="/images/tunza-logo-dark.svg" color="#000000">
-
-
-  <!-- PWA manifest uses dark icons -->
-  <link rel="manifest" href="/site.webmanifest">
-  <meta name="theme-color" content="#0b0b16">
-
   <!-- Canonical + Social -->
   <link rel="canonical" href="https://www.tunzaesports.org/about-us/">
   <meta property="og:url" content="https://www.tunzaesports.org/about-us/">
@@ -41,8 +21,29 @@ layout: null
   <meta property="og:description" content="We’re shaping the future of Kenya’s esports through tournaments, broadcasting, training, and community. Meet the team behind Tunza Esports.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://www.tunzaesports.org/images/tunza-logo-dark-512.png">
+  <meta property="og:site_name" content="Tunza Esports">
 
-  <!-- Organization schema to force dark logo in Google results -->
+  <!-- Favicons -->
+  <!-- Transparent (tabs/legacy at site root) -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <!-- Dark icons used by Google SERP / Android -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192-dark.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512-dark.png">
+  <!-- 48×48 often chosen for SERP -->
+  <link rel="icon" type="image/x-icon" sizes="48x48" href="/images/favicon-48x48-dark.ico">
+  <!-- Apple shortcut -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png">
+  <!-- Optional pinned tab (Safari) – keep only if the SVG exists -->
+  <link rel="mask-icon" href="/images/tunza-logo-dark.svg" color="#000000">
+
+  <!-- PWA -->
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0b0b16">
+  <meta name="msapplication-TileColor" content="#0b0b16">
+
+  <!-- Organization schema (consistent across site) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -71,18 +72,9 @@ layout: null
   <!-- Minimal inline styles so partners carousel works even before CSS update -->
   <style>
     .partners-section { padding: 40px 0; }
-    .partners-carousel-track{
-      display:flex; gap:24px; overflow:hidden; padding:8px 0;
-      scroll-behavior:auto;
-    }
-    .partner-logo{
-      flex:0 0 auto; width:200px; height:100px;
-      display:flex; align-items:center; justify-content:center;
-      background:#0f0f17; border-radius:12px; padding:8px;
-    }
-    .partner-logo img{
-      max-height:80px; max-width:100%; object-fit:contain; display:block;
-    }
+    .partners-carousel-track{ display:flex; gap:24px; overflow:hidden; padding:8px 0; scroll-behavior:auto; }
+    .partner-logo{ flex:0 0 auto; width:200px; height:100px; display:flex; align-items:center; justify-content:center; background:#0f0f17; border-radius:12px; padding:8px; }
+    .partner-logo img{ max-height:80px; max-width:100%; object-fit:contain; display:block; }
     @media (min-width: 768px){
       .partner-logo{ width:240px; height:110px; }
       .partner-logo img{ max-height:90px; }
@@ -139,7 +131,7 @@ layout: null
 
   <!-- Intro -->
   <section class="about-intro-section">
-    <h2 class="intro-heading">We Unite To Make Esport Great In Kenya</h2>
+    <h2 class="intro-heading">We Unite To Make Esports Great In Kenya</h2>
     <p class="intro-text">
       Tunza Esports is committed to growing esports across institutions by educating, organizing events, and building competitive communities.
       We are actively involved in developing the esports ecosystem and its surroundings.
@@ -220,7 +212,6 @@ layout: null
     <div class="newsletter-card">
       <h3>Hello guys! Get the latest information from us</h3>
 
-      <!-- Mailchimp (unstyled) -->
       <form
         action="https://tunzaesports.us13.list-manage.com/subscribe/post?u=49268c059773710b44455bb33&id=f95ceda37f&f_id=00cde9e1f0"
         method="post"
@@ -241,19 +232,13 @@ layout: null
 
   <div class="spacer-before-partners"></div>
 
-  <!-- Partners (with real images in /images) -->
+  <!-- Partners -->
   <section class="partners-section">
     <h2>Our Partners, clients, friends</h2>
     <div class="partners-carousel-track">
-      <div class="partner-logo">
-        <img src="/images/Esports-Africa-News.jpg" alt="Esports Africa News" loading="lazy">
-      </div>
-      <div class="partner-logo">
-        <img src="/images/Afrigamer.jpg" alt="Afrigamer" loading="lazy">
-      </div>
-      <div class="partner-logo">
-        <img src="/images/B34R-CL4N%20partner.jpg" alt="B34R CL4N" loading="lazy">
-      </div>
+      <div class="partner-logo"><img src="/images/Esports-Africa-News.jpg" alt="Esports Africa News" loading="lazy"></div>
+      <div class="partner-logo"><img src="/images/Afrigamer.jpg" alt="Afrigamer" loading="lazy"></div>
+      <div class="partner-logo"><img src="/images/B34R-CL4N%20partner.jpg" alt="B34R CL4N" loading="lazy"></div>
     </div>
   </section>
 
@@ -282,7 +267,7 @@ layout: null
         </ul>
       </div>
       <div class="footer-column footer-logo-column">
-        <img src="/images/tunzalogo.png" alt="Tunza Esports Logo">
+        <img src="/images/tunzalogo.png" alt="Tunza Esports Logo" />
         <p>Shaping the future of Kenya's Esports</p>
         <p>info@tunzaesports.org</p>
         <p>P.O BOX 45085-00100</p>
@@ -307,11 +292,11 @@ layout: null
         const nav = document.querySelector('.header nav');
         if (nav) nav.style.top = window.scrollY > 0 ? (window.scrollY + 'px') : '0px';
 
-        // Partners carousel with "ensure overflow" duplication
+        // Partners carousel (guarded)
         const track = document.querySelector('.partners-carousel-track');
         if (!track) return;
 
-        // Duplicate items until there's enough width to scroll
+        // Duplicate until we have enough width to scroll smoothly
         let guard = 0;
         while (track.scrollWidth <= track.clientWidth * 2 && guard < 10) {
           track.innerHTML += track.innerHTML;
@@ -335,9 +320,3 @@ layout: null
   </script>
 </body>
 </html>
-
-
-
-
-
-
