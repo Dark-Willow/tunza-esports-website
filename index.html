@@ -9,10 +9,16 @@
   <meta name="description" content="Tunza Esports organizes esports tournaments, gaming events, and community programs across Kenya. News, rankings, and more." />
 
   <!-- Favicons -->
+  <!-- Transparent versions for browser tabs -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <!-- Dark-background logo for devices/shortcuts -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/tunza-logo-dark-180.png">
+  <!-- Optional pinned tab (Safari) -->
+  <link rel="mask-icon" href="/images/tunza-logo-dark.svg" color="#000000">
+
+  <!-- PWA -->
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0b0b16">
 
@@ -22,7 +28,27 @@
   <meta property="og:title" content="Tunza Esports - Tujenge Esports Kenya">
   <meta property="og:description" content="News, tournaments, and events from Tunza Esports — Tujenge Esports Kenya.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="https://www.tunzaesports.org/images/tunza-logo-dark-512.png">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Tunza Esports - Tujenge Esports Kenya">
+  <meta name="twitter:description" content="News, tournaments, and events from Tunza Esports — Tujenge Esports Kenya.">
+  <meta name="twitter:image" content="https://www.tunzaesports.org/images/tunza-logo-dark-512.png">
+
+  <!-- Organization schema (helps Google pick the dark logo) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Tunza Esports",
+    "url": "https://www.tunzaesports.org",
+    "logo": "https://www.tunzaesports.org/images/tunza-logo-dark-512.png",
+    "sameAs": [
+      "https://www.instagram.com/TunzaEsports",
+      "https://x.com/TunzaEsports",
+      "https://www.facebook.com/TunzaEsports"
+    ]
+  }
+  </script>
 
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -323,6 +349,7 @@
   </script>
 </body>
 </html>
+
 
 
 
