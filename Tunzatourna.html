@@ -11,36 +11,53 @@ layout: null
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-  <title>Tunza Esports - TunzaTourna</title>
+
+  <title>TunzaTourna — Tournament management by Tunza Esports (Coming Soon)</title>
+  <meta name="description" content="TunzaTourna by Tunza Esports — smooth esports tournament management for Kenya’s gaming community. Coming soon." />
 
   <!-- Canonical -->
-  <link rel="canonical" href="https://www.tunzaesports.org/tunzatourna/">
+  <link rel="canonical" href="https://www.tunzaesports.org/tunzatourna/" />
 
-  <!-- Favicons -->
-  <!-- Transparent (tabs/legacy at site root) -->
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <!-- Dark icons for Google Search & PWA -->
-  <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192-dark.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512-dark.png">
-  <link rel="icon" type="image/x-icon" sizes="48x48" href="/images/favicon-48x48-dark.ico">
-  <!-- Apple / shortcuts -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png">
+  <!-- Open Graph / Twitter -->
+  <meta property="og:url" content="https://www.tunzaesports.org/tunzatourna/" />
+  <meta property="og:title" content="TunzaTourna — Tournament management by Tunza Esports (Coming Soon)" />
+  <meta property="og:description" content="Smooth esports tournament management for Kenya’s gaming community. Coming soon." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" />
+  <meta property="og:site_name" content="Tunza Esports" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="TunzaTourna — Tournament management by Tunza Esports (Coming Soon)" />
+  <meta name="twitter:description" content="Smooth esports tournament management for Kenya’s gaming community. Coming soon." />
+  <meta name="twitter:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" />
+
+  <!-- Favicons (dark bg + cache-busted so Google re-fetches) -->
+  <link rel="icon" href="/favicon.ico?v=5" sizes="any">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=5">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=5">
+  <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48x48-dark.png?v=5">
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192-dark.png?v=5">
+  <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512-dark.png?v=5">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png?v=5">
 
   <!-- PWA -->
-  <link rel="manifest" href="/site.webmanifest">
-  <meta name="theme-color" content="#0b0b16">
-  <meta name="msapplication-TileColor" content="#0b0b16">
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#0b0b16" />
+  <meta name="msapplication-TileColor" content="#0b0b16" />
 
-  <!-- Basic SEO -->
-  <meta name="description" content="TunzaTourna by Tunza Esports — smooth esports tournament management for Kenya’s gaming community.">
+  <!-- Fonts & CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="/css/style.css" />
 
-  <!-- Organization schema (consistent across site) -->
+  <!-- Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": "https://www.tunzaesports.org/#org",
     "name": "Tunza Esports",
     "url": "https://www.tunzaesports.org",
     "logo": "https://www.tunzaesports.org/images/android-chrome-512x512-dark.png",
@@ -52,13 +69,42 @@ layout: null
   }
   </script>
 
-  <!-- Fonts & CSS -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="/css/style.css" />
+  <!-- TunzaTourna as a web app -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "TunzaTourna",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "url": "https://www.tunzaesports.org/tunzatourna/",
+    "publisher": { "@id": "https://www.tunzaesports.org/#org" },
+    "image": "https://www.tunzaesports.org/images/android-chrome-512x512-dark.png",
+    "description": "Smooth esports tournament management for Kenya’s gaming community. Coming soon."
+  }
+  </script>
+
+  <!-- Breadcrumbs (Home > TunzaTourna) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.tunzaesports.org/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "TunzaTourna",
+        "item": "https://www.tunzaesports.org/tunzatourna/"
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <section class="header">
@@ -166,3 +212,4 @@ layout: null
   </script>
 </body>
 </html>
+
