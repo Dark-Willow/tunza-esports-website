@@ -15,10 +15,16 @@ layout: null
   <meta name="description" content="Market insights, strategy, and guidance to help brands and organizations succeed in Kenya’s esports ecosystem.">
 
   <!-- Favicons -->
+  <!-- Transparent versions for browser tabs -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <!-- Dark-background logo for devices/shortcuts -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/tunza-logo-dark-180.png">
+  <!-- Optional pinned tab (Safari). Remove if no SVG available -->
+  <link rel="mask-icon" href="/images/tunza-logo-dark.svg" color="#000000">
+
+  <!-- PWA manifest uses dark icons -->
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0b0b16">
 
@@ -28,6 +34,27 @@ layout: null
   <meta property="og:title" content="Esports Consultation - Tunza Esports">
   <meta property="og:description" content="Data-driven strategy and guidance for brands and organizations in Kenya’s esports market.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="https://www.tunzaesports.org/images/tunza-logo-dark-512.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Esports Consultation - Tunza Esports">
+  <meta name="twitter:description" content="Data-driven strategy and guidance for brands and organizations in Kenya’s esports market.">
+  <meta name="twitter:image" content="https://www.tunzaesports.org/images/tunza-logo-dark-512.png">
+
+  <!-- Organization schema to force dark logo in Google results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Tunza Esports",
+    "url": "https://www.tunzaesports.org",
+    "logo": "https://www.tunzaesports.org/images/tunza-logo-dark-512.png",
+    "sameAs": [
+      "https://www.instagram.com/TunzaEsports",
+      "https://x.com/TunzaEsports",
+      "https://www.facebook.com/TunzaEsports"
+    ]
+  }
+  </script>
 
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -242,3 +269,4 @@ layout: null
   </script>
 </body>
 </html>
+
