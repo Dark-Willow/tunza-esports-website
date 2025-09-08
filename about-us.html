@@ -1,17 +1,9 @@
----
-permalink: /about-us/
-redirect_from:
-  - /about-us.html
-layout: null
----
-<!DOCTYPE html>
-<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
-  <title>Tunza Esports - About Us</title>
+  <title>Tunza Esports — About Us</title>
   <meta name="description" content="Learn about Tunza Esports: our mission, team, and work building Kenya’s esports ecosystem through tournaments, broadcasting, training, and community." />
 
   <!-- Canonical + Social -->
@@ -20,37 +12,38 @@ layout: null
   <meta property="og:title" content="About Tunza Esports">
   <meta property="og:description" content="We’re shaping the future of Kenya’s esports through tournaments, broadcasting, training, and community. Meet the team behind Tunza Esports.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://www.tunzaesports.org/images/tunza-logo-dark-512.png">
+  <meta property="og:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png">
   <meta property="og:site_name" content="Tunza Esports">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About Tunza Esports">
+  <meta name="twitter:description" content="We’re shaping the future of Kenya’s esports through tournaments, broadcasting, training, and community. Meet the team behind Tunza Esports.">
+  <meta name="twitter:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png">
 
-  <!-- Favicons -->
-  <!-- Transparent (tabs/legacy at site root) -->
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <!-- Dark icons used by Google SERP / Android -->
-  <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192-dark.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512-dark.png">
-  <!-- 48×48 often chosen for SERP -->
-  <link rel="icon" type="image/x-icon" sizes="48x48" href="/images/favicon-48x48-dark.ico">
-  <!-- Apple shortcut -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png">
-  <!-- Optional pinned tab (Safari) – keep only if the SVG exists -->
-  <link rel="mask-icon" href="/images/tunza-logo-dark.svg" color="#000000">
+  <!-- Favicons (dark + cache-busted so Google re-fetches) -->
+  <link rel="icon" href="/favicon.ico?v=5" sizes="any">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=5">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=5">
+  <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48x48-dark.png?v=5">
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192-dark.png?v=5">
+  <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512-dark.png?v=5">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png?v=5">
+  <!-- Optional pinned tab (only keep if file exists) -->
+  <!-- <link rel="mask-icon" href="/images/tunza-logo-dark.svg" color="#000000"> -->
 
   <!-- PWA -->
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0b0b16">
   <meta name="msapplication-TileColor" content="#0b0b16">
 
-  <!-- Organization schema (consistent across site) -->
+  <!-- Organization schema (site-wide constants) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": "https://www.tunzaesports.org/#org",
     "name": "Tunza Esports",
     "url": "https://www.tunzaesports.org",
-    "logo": "https://www.tunzaesports.org/images/tunza-logo-dark-512.png",
+    "logo": "https://www.tunzaesports.org/images/android-chrome-512x512-dark.png",
     "sameAs": [
       "https://www.instagram.com/TunzaEsports",
       "https://x.com/TunzaEsports",
@@ -59,17 +52,27 @@ layout: null
   }
   </script>
 
-  <!-- Fonts & Icons -->
+  <!-- Breadcrumbs (Home > About Us) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.tunzaesports.org/" },
+      { "@type": "ListItem", "position": 2, "name": "About Us", "item": "https://www.tunzaesports.org/about-us/" }
+    ]
+  }
+  </script>
+
+  <!-- Fonts & CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <!-- Site CSS -->
   <link rel="stylesheet" href="/css/style.css" />
 
-  <!-- Minimal inline styles so partners carousel works even before CSS update -->
+  <!-- Minimal inline styles for partners carousel -->
   <style>
     .partners-section { padding: 40px 0; }
     .partners-carousel-track{ display:flex; gap:24px; overflow:hidden; padding:8px 0; scroll-behavior:auto; }
@@ -320,3 +323,4 @@ layout: null
   </script>
 </body>
 </html>
+
