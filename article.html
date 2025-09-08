@@ -33,11 +33,7 @@ layout: null
     .article-title{font-family:'Syne',sans-serif;font-size:2.5rem;color:#fff;margin-bottom:10px}
     .article-meta{font-family:'Oxanium',sans-serif;color:#ccc;font-size:.9rem;margin-bottom:20px}
     .article-body p{margin-bottom:20px;font-size:1.1rem;color:#fff}
-    @media (max-width:768px){
-      .article-content{padding:20px}
-      .article-image-container{height:300px}
-      .article-title{font-size:2rem}
-    }
+    @media (max-width:768px){.article-content{padding:20px}.article-title{font-size:2rem}}
   </style>
 </head>
 <body>
@@ -48,7 +44,6 @@ layout: null
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/about-us/">About Us</a></li>
-
           <li class="has-dropdown">
             <a href="#">Our Services</a>
             <ul class="dropdown-menu">
@@ -59,17 +54,15 @@ layout: null
               <li><a href="/bootcamps-training-programs/">Bootcamps & Training Programs</a></li>
             </ul>
           </li>
-
           <li class="has-dropdown">
             <a href="#">Our Products</a>
             <ul class="dropdown-menu">
               <li><a href="/ker/">KER</a></li>
-              <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
-              <li><a href="/tunzatourna/">TunzaTourna</a></li>
+              <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
+              <li><a href="/Tunzatourna/">TunzaTourna</a></li>
               <li><a href="/shop/">Shop</a></li>
             </ul>
           </li>
-
           <li><a href="/news/">News</a></li>
           <li><a href="/contact/">Contact Us</a></li>
           <li><a href="/gallery/">Gallery</a></li>
@@ -95,9 +88,9 @@ layout: null
   <section class="partners-section">
     <h2>Our Partners, clients, friends</h2>
     <div class="partners-carousel-track">
-      <div class="partner-logo-placeholder"><img src="/images/Esports-Africa-News.jpg" alt="Esports Africa News logo"></div>
-      <div class="partner-logo-placeholder"><img src="/images/Afrigamer.jpg" alt="Afrigamer logo"></div>
-      <div class="partner-logo-placeholder"><img src="/images/B34R-CL4N%20partner.jpg" alt="B34R CL4N"></div>
+      <div class="partner-logo-placeholder"><img src="/Esports-Africa-News.jpg" alt="Esports Africa News logo"></div>
+      <div class="partner-logo-placeholder"><img src="/Afrigamer.jpg" alt="Afrigamer logo"></div>
+      <div class="partner-logo-placeholder"><img src="/B34R-CL4N partner.jpg" alt="B34R CL4N"></div>
     </div>
   </section>
 
@@ -114,8 +107,8 @@ layout: null
       <div class="footer-column">
         <h4>Resources</h4>
         <ul>
-          <li><a href="/tunzatourna/">Tunza Tourna</a></li>
-          <li><a href="/shop/">Shop</a></li>
+          <li><a href="/coming-soon/">Tunza Tourna</a></li>
+          <li><a href="/coming-soon/">Shop</a></li>
         </ul>
       </div>
       <div class="footer-column">
@@ -139,174 +132,136 @@ layout: null
   </footer>
 
   <script>
-  (function() {
-    // ===== Partners carousel (guarded) =====
-    const track = document.querySelector('.partners-carousel-track');
-    if (track) {
-      track.innerHTML += track.innerHTML;
-      let x = 0, speed = 0.5, raf;
-      function auto(){ x += speed; const w = track.scrollWidth/2; if (x >= w) x = 0; track.scrollLeft = x; raf = requestAnimationFrame(auto); }
-      if (!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) auto();
-      track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
-      track.addEventListener('mouseleave', () => auto());
-    }
-
-    // ===== ID helper =====
-    function getIdFromUrl() {
-      const params = new URLSearchParams(location.search);
-      const q = params.get('id');
-      if (q && /^\d+$/.test(q)) return parseInt(q,10);
-      const parts = location.pathname.replace(/\/+$/,'').split('/');
-      const last = parts[parts.length - 1];
-      if (/^\d+$/.test(last)) return parseInt(last,10);
-      return null;
-    }
-
-    // ===== Data: IDs aligned with /news/ page =====
-    const newsArticles = [
-      {
-        id: 9,
-        title: "Tunza Esports Renews KUER Season 3 With a Fresh Format",
-        date: "September 1, 2025",
-        snippet: "For the first time, KUER will run in two separate periods.",
-        content: `
-          <p>University Esports in Kenya is about to get even more exciting. Tunza Esports has confirmed the return of the Kenya University Esports Rankings (KUER) for Season 3, and this time the competition comes with a brand-new structure.</p>
-          <p>For the first time, KUER will run in two separate periods. The first kicks off in September 2025 while the second follows in January 2026. This change allows more gaming titles to be included and keeps the ecosystem active throughout the academic year.</p>
-          <p><strong>First Period Titles:</strong> Free Fire, Bloodstrike, FC 25 (2v2), Chess, PUBG Mobile, eFootball.</p>
-          <p><strong>Second Period Titles:</strong> CODM Multiplayer, Valorant 5v5, Tekken 8, Mortal Kombat, Rocket League, FC 25 (1v1), NBA 2K26.</p>
-          <p>Season 3 expands opportunities for students to compete, represent their universities, and showcase talent—raising the standard for university esports in Kenya.</p>
-        `,
-        tags: ["Tournament News","Community News"],
-        imageUrl: "/images/KUER-x-Tunza.png"
-      },
-      {
-        id: 1,
-        title: "Tunza Esports Partners with B34R CL4N to strengthen CODM in University Esports in Kenya",
-        date: "September 5, 2025",
-        snippet: "Partnership brings pro support into KUER CODM.",
-        content: `
-          <p>Tunza Esports has officially partnered with B34R CL4N, the Carry1st CODM Africa Cup Champions, to support KUER CODM formats with sponsorship, visibility and mentorship.</p>
-          <p>This collaboration connects university competitions with the pro scene, giving student players structure and a path to grow.</p>
-        `,
-        tags: ["Partnership"],
-        imageUrl: "/images/KUER-x-B34R.png"
-      },
-      {
-        id: 2,
-        title: "New Tournament Announced",
-        date: "August 28, 2025",
-        snippet: "Tunza Esports announces the next national tournament.",
-        content: `
-          <p>Tunza Esports is launching a new national tournament featuring multiple titles, regional qualifiers and a live final.</p>
-          <p>Full rulebook, registration dates and prize pool will be posted soon—stay tuned.</p>
-        `,
-        tags: ["Tournament News"],
-        imageUrl: "/images/KUER-x-Tunza.png"
-      },
-      {
-        id: 3,
-        title: "The Future of VR Gaming",
-        date: "August 25, 2025",
-        snippet: "Immersion, competition, and where VR is headed.",
-        content: `
-          <p>VR is opening new competitive formats—from rhythm FPS hybrids to full-body tracking arenas. We explore what formats fit collegiate esports and what gear is becoming standard.</p>
-        `,
-        tags: ["Community News"],
-        imageUrl: "/images/KUER-x-Tunza.png"
-      },
-      {
-        id: 4,
-        title: "Tunza Esports Partners With Local Gaming Cafe",
-        date: "August 5, 2025",
-        snippet: "Weekly tournaments and community nights with The Gamers Hub in Nairobi.",
-        content: `
-          <p>We’re teaming up with The Gamers Hub to host weeklies, beginner coaching sessions and mixed-platform friendlies. Come through!</p>
-        `,
-        tags: ["Partnership"],
-        imageUrl: "/images/KUER-x-Tunza.png"
-      },
-      {
-        id: 5,
-        title: "KUER Season 3: Registrations Now Open",
-        date: "August 1, 2025",
-        snippet: "Sign up your university team for the biggest KUER season yet.",
-        content: `
-          <p>Universities can now register teams across featured titles. Captains: confirm rosters and student status before the deadline.</p>
-        `,
-        tags: ["Product Updates","Tournament News"],
-        imageUrl: "/images/KUER-x-Tunza.png"
-      },
-      {
-        id: 6,
-        title: "New Training Program Launched for Valorant Players",
-        date: "July 28, 2025",
-        snippet: "Introducing 'Ascend' — intensive coaching for aspiring Valorant pros.",
-        content: `
-          <p>'Ascend' covers fundamentals, team play, VOD review and scrim etiquette. Open tryouts next month.</p>
-        `,
-        tags: ["Community News"],
-        imageUrl: "/images/KUER-x-Tunza.png"
-      },
-      {
-        id: 7,
-        title: "Video Game Events: FIFA Tournament Highlights",
-        date: "July 25, 2025",
-        snippet: "Top goals and clutch moments from our recent FIFA tournament.",
-        content: `
-          <p>From last-minute winners to penalty shootout drama—here are the standout plays and rising talents we spotted.</p>
-        `,
-        tags: ["Partnership","Tournament News"],
-        imageUrl: "/images/KUER-x-Tunza.png"
-      },
-      {
-        id: 8,
-        title: "Tunza Esports Joins Global Esports Federation",
-        date: "July 20, 2025",
-        snippet: "Proud member of the Global Esports Federation (GEF).",
-        content: `
-          <p>Joining GEF connects our community to global initiatives, standards and opportunities for Kenyan players and admins.</p>
-        `,
-        tags: ["Community News"],
-        imageUrl: "/images/KUER-x-Tunza.png"
-      }
-    ];
-
-    function render(article){
-      document.getElementById('article-title').textContent = article.title;
-      document.getElementById('article-date').textContent  = `Published on: ${article.date}`;
-      document.getElementById('article-body').innerHTML    = article.content;
-      const img = document.getElementById('article-image');
-      img.src = article.imageUrl; img.alt = article.title;
-    }
-
-    function showNotFound(){
-      document.getElementById('article-title').textContent = 'Article not found';
-      document.getElementById('article-date').textContent  = '';
-      document.getElementById('article-image').style.display = 'none';
-      document.getElementById('article-body').innerHTML = '<p>Article not found. <a href="/news/">Back to News</a></p>';
-    }
-
-    (function init(){
-      const id = getIdFromUrl();
-      const article = id ? newsArticles.find(a => a.id === id) : null;
-
-      if (article){
-        render(article);
-        // Normalize the URL to include the id as query (no reload)
-        const want = `/article/?id=${article.id}`;
-        if (location.pathname !== '/article/' || location.search !== `?id=${article.id}`){
-          history.replaceState(null,'', want);
+    (function() {
+      // Partners carousel (guarded)
+      const track = document.querySelector('.partners-carousel-track');
+      if (track) {
+        track.innerHTML += track.innerHTML;
+        let x = 0, speed = 0.5, raf;
+        function auto() {
+          x += speed;
+          const w = track.scrollWidth / 2;
+          if (x >= w) x = 0;
+          track.scrollLeft = x;
+          raf = requestAnimationFrame(auto);
         }
-      } else if (newsArticles.length){
-        // Fallback to latest (first in list is 9)
-        render(newsArticles[0]);
-        history.replaceState(null,'', `/article/?id=${newsArticles[0].id}`);
-      } else {
-        showNotFound();
+        auto();
+        track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
+        track.addEventListener('mouseleave', () => auto());
       }
-    })();
 
-  })();
+      // --- Articles data ---
+      const newsArticles = [
+        {
+          id: 1,
+          title: "Tunza Esports Renews KUER Season 3 With a Fresh Format",
+          date: "September 1, 2025",
+          snippet: "For the first time, KUER will run in two separate periods.",
+          content: `
+            <p>University Esports in Kenya is about to get even more exciting. Tunza Esports has confirmed the return of the Kenya University Esports Rankings (KUER) for Season 3, and this time the competition comes with a brand-new structure.</p>
+            <p>For the first time, KUER will run in two separate periods. The first kicks off in September 2025 while the second follows in January 2026. This change allows more gaming titles to be included and ensures that Kenya University Sports in Kenya stays active throughout the academic year.</p>
+            <p><strong>Titles in the First Period</strong></p>
+            <p>The September season will feature Free Fire, Bloodstrike, FC 25 (2v2), Chess, PUBG Mobile, and eFootball.</p>
+            <p><strong>Titles in the Second Period</strong></p>
+            <p>In January, KUER will continue with Call of Duty Mobile Multiplayer, Valorant 5v5, Tekken 8, Mortal Kombat, Rocket League, FC 25 in the 1v1 format, and NBA 2K26. This mix of shooters, fighters, and sports titles adds depth and variety to the season.</p>
+            <p><strong>Why Season 3 Matters</strong></p>
+            <p>KUER has already established itself as the leading platform for University Esports in Kenya. Season 3 strengthens that reputation by providing more opportunities for students to compete, represent their universities, and showcase their talent. For the growing community of Esports in Kenya, this new format ensures nonstop action and greater inclusion of different gaming genres.</p>
+            <p><strong>The Future of Kenya Esports</strong></p>
+            <p>Season 3 is more than a tournament. It is a statement about the growth of competitive gaming in Kenya. With more titles, a two-period structure, and wider participation, KUER continues to raise the standard for University Esports and Kenya Esports as a whole.</p>
+          `,
+          tags: ["Tournament News", "Community News"],
+          imageUrl: "/images/KUER-x-Tunza.png"
+        },
+        {
+          id: 2,
+          title: "Tunza Esports Partners with B34R CL4N to strengthen CODM in University Esports in Kenya",
+          date: "September 5, 2025",
+          snippet: "Partnership brings pro support into KUER CODM.",
+          content: `
+            <p>Tunza Esports, has officially partnered with B34R CL4N, the Carry1st Call of Duty Mobile Africa Cup Champions. This collaboration marks a new chapter in the growth of Esports in Kenya, particularly within the university esports ecosystem.</p>
+            <p>B34R CL4N, fresh from their historic win at the Carry1st CODM Africa Cup Championship, are set to represent Africa on the global stage. By joining forces with Tunza Esports, they are extending their success to support the next generation of CODM players in Kenya University Esports.</p>
+            <p>Through this partnership, Call of Duty Mobile Battle Royale and Multiplayer competitions within KUER will receive increased sponsorship, visibility, and professional-level support. University students across Kenya will now benefit from more structured tournaments, mentorship opportunities, and greater recognition in the fast-growing Esports industry.</p>
+            <p>Tunza Esports continues to focus on empowering youth through competitive gaming, ensuring that University Esports in Kenya is recognized alongside traditional sports. B34R CL4N’s involvement reflects their commitment to building the future of Kenyan Esports, inspiring student gamers to pursue excellence while connecting university competitions with the professional Esports scene.</p>
+            <p>With Tunza Esports and B34R CL4N working together, KUER is set to become the leading platform for University Esports in Kenya, driving growth and positioning the country as a key player in the African and Global Esports landscape.</p>
+          `,
+          tags: ["Partnership"],
+          imageUrl: "/images/KUER-x-B34R.png"
+        },
+        {
+          id: 3,
+          title: "Safaricom Game Conference: Tunza Esports Championing the Growth of Competitive Gaming in Kenya",
+          date: "September 8, 2025",
+          snippet: "Partnership brings pro support into KUER CODM.",
+          content: `
+            <p>The Safaricom Game Conference was a landmark event in Kenya’s gaming industry, bringing together innovators, gamers, and organizations shaping the future of Esports. Among the standout contributors was Tunza Esports, a pioneering organization dedicated to nurturing gaming talent and promoting Esports as a platform for growth, opportunity, and community impact.</p>
+            <p><strong>Safaricom’s Support for the Gaming Ecosystem</strong></p>
+            <p>The event featured remarks by Fawzia Ali Kimanthi, Chief Consumer Business Officer at Safaricom Kenya, who reaffirmed the company’s commitment to supporting young people through innovation in technology and gaming. She explained how Safaricom aims to be a brand that resonates with gamers by offering solutions that address their needs. Through initiatives such as the Spark Accelerator Program, Safaricom is actively creating opportunities for startups and innovators in Kenya’s gaming ecosystem.</p>
+            <p><strong>Tunza Esports: Empowering Gamers Across Kenya</strong></p>
+            <p>Shirley Adema, CEO and founder of Tunza Esports, shared her inspiring journey of how gaming became an integral part of her life. Introduced to gaming at an early age by her five brothers, Shirley grew up facing the challenges of limited opportunities in Esports. Her passion for competitive gaming and her experiences as an athlete pushed her to establish Tunza Esports as a platform that creates pathways for Kenyan gamers to thrive.</p>
+            <p>Tunza Esports is built on the vision of transforming gaming into a structured and professional industry in Kenya. From grassroots initiatives to competitive platforms, Tunza is focused on ensuring that players—regardless of background—have the chance to showcase their talent, build careers, and become part of a growing global community.</p>
+            <p><strong>Creating Structures for the Future</strong></p>
+            <p>At the Safaricom Game Conference, Shirley emphasized the importance of building structures, recognition, and platforms for Esports in Kenya. Tunza Esports is dedicated to this mission, working with stakeholders and institutions to create opportunities for players at every level. By addressing the challenges she once faced, Shirley and her team are ensuring that today’s gamers don’t just play, but also grow, learn, and benefit from the industry.</p>
+            <p><strong>Tunza’s Impact on the Kenyan Esports Scene</strong></p>
+            <p>Tunza Esports has already begun making a significant impact. Through advocacy, partnerships, and the creation of competitive opportunities, it is laying the foundation for a strong Esports industry in Kenya. The organization continues to champion inclusivity, ensuring that women and underrepresented groups have a place in the Esports conversation.</p>
+            <p><strong>Looking Ahead</strong></p>
+            <p>The Safaricom Game Conference demonstrated the power of collaboration in driving Esports forward in Kenya. With Safaricom’s support for innovation and Tunza Esports’ dedication to empowering gamers, the country is on track to become a leading hub for competitive gaming in Africa.</p>
+            <p>The story of Tunza Esports is not just about competition—it’s about transformation, opportunity, and creating a future where Kenyan gamers can thrive locally and globally.</p>
+          `,
+          tags: ["Partnership"],
+          imageUrl: "/images/Safaricom-Gaming-Conference.JPG"
+        },
+        // ... keep the rest of your items ...
+      ];
+
+      // --- Helpers to read id from query or path ---
+      function getArticleKeyFromUrl() {
+        const params = new URLSearchParams(location.search);
+        const q = params.get('id');
+        if (q && !isNaN(parseInt(q, 10))) return { type: 'id', value: parseInt(q, 10) };
+
+        // support /article/9 or /article/9/
+        const parts = location.pathname.replace(/\/+$/, '').split('/');
+        const last = parts[parts.length - 1];
+        const asNum = parseInt(last, 10);
+        if (!isNaN(asNum)) return { type: 'id', value: asNum };
+
+        return null;
+      }
+
+      function render(article) {
+        const titleEl = document.getElementById('article-title');
+        const dateEl  = document.getElementById('article-date');
+        const bodyEl  = document.getElementById('article-body');
+        const imgEl   = document.getElementById('article-image');
+
+        titleEl.textContent = article.title;
+        dateEl.textContent  = `Published on: ${article.date}`;
+        bodyEl.innerHTML    = article.content;
+        imgEl.src           = article.imageUrl;
+        imgEl.alt           = article.title;
+      }
+
+      function displayArticle() {
+        const key = getArticleKeyFromUrl();
+        let article = null;
+
+        if (key && key.type === 'id') {
+          article = newsArticles.find(a => a.id === key.value);
+        }
+
+        // Fallback to latest article if none specified/found
+        if (!article) {
+          article = newsArticles[0];
+          // Update the URL to include the id (no page reload)
+          const newUrl = `${location.origin}/article/?id=${article.id}`;
+          history.replaceState(null, '', newUrl);
+        }
+
+        render(article);
+      }
+
+      window.addEventListener('load', displayArticle);
+    })();
   </script>
 </body>
 </html>
