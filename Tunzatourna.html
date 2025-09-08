@@ -11,13 +11,45 @@ layout: null
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <title>Tunza Esports - TunzaTourna</title>
+
+  <!-- Favicons -->
+  <!-- Transparent versions for browser tabs -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- Dark-background logo for devices/shortcuts -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/tunza-logo-dark-180.png">
+  <!-- Optional pinned tab (Safari). If you don’t have an SVG, you can remove this line -->
+  <link rel="mask-icon" href="/images/tunza-logo-dark.svg" color="#000000">
+
+  <!-- PWA manifest should point to dark icons -->
   <link rel="manifest" href="/site.webmanifest">
+
+  <!-- Brand colors -->
   <meta name="theme-color" content="#0b0b16">
-  <!-- Root-relative CSS so it loads on /Tunzatourna/ -->
+  <meta name="msapplication-TileColor" content="#0b0b16">
+
+  <!-- Basic SEO -->
+  <meta name="description" content="Tunza Esports — Kenya’s esports platform. Tournaments, bootcamps, rankings, and community events.">
+
+  <!-- Organization schema to force dark logo in Google results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Tunza Esports",
+    "url": "https://www.tunzaesports.org",
+    "logo": "https://www.tunzaesports.org/images/tunza-logo-dark-512.png",
+    "sameAs": [
+      "https://www.instagram.com/TunzaEsports",
+      "https://x.com/TunzaEsports",
+      "https://www.facebook.com/TunzaEsports"
+    ]
+  }
+  </script>
+
+  <!-- Fonts & CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet" />
@@ -133,6 +165,7 @@ layout: null
   </script>
 </body>
 </html>
+
 
 
 
