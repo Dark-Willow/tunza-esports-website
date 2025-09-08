@@ -25,18 +25,23 @@
 
   <!-- Favicons -->
   <!-- Transparent versions for browser tabs -->
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <!-- Dark-background versions for Google Search result favicon -->
-  <link rel="icon" type="image/png" sizes="48x48"  href="/images/tunza-logo-dark-48.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="/images/tunza-logo-dark-192.png">
-  <!-- Devices/shortcuts -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/tunza-logo-dark-180.png">
-  <!-- Optional pinned tab (Safari) -->
-  <link rel="mask-icon" href="/images/tunza-logo-dark.svg" color="#000000">
+  <link rel="icon" href="/favicon.ico" sizes="any"> <!-- legacy fallback; keep -->
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">  <!-- transparent for browser tabs -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">  <!-- transparent for browser tabs -->
 
-  <!-- PWA -->
+  <!-- Dark icons used by Google SERP and Android install prompts -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192-dark.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512-dark.png">
+
+  <!-- 48×48 is what Google often picks for SERP favicons -->
+  <link rel="icon" type="image/x-icon" sizes="48x48" href="/images/favicon-48x48-dark.ico">
+  <!-- If you export a PNG, prefer it over ICO (comment out the ICO line above and use this instead): -->
+  <!-- <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48x48-dark.png"> -->
+
+  <!-- iOS/Apple shortcut icon (dark background baked in) -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png">
+
+  <!-- PWA bits (leave as-is) -->
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0b0b16">
 
@@ -381,6 +386,7 @@
   </script>
 </body>
 </html>
+
 
 
 
