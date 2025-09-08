@@ -5,19 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
-  <title>Tunza Esports - Home</title>
-  <meta name="description" content="Tunza Esports organizes esports tournaments, gaming events, and community programs across Kenya. News, rankings, and more." />
+  <title>Tunza Esports — Kenya esports tournaments, events & rankings</title>
+  <meta name="description" content="Tunza Esports organizes esports tournaments, gaming events, and community programs across Kenya. News, rankings, partnerships, and more." />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://www.tunzaesports.org/" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:url" content="https://www.tunzaesports.org/" />
+  <meta property="og:title" content="Tunza Esports — Kenya esports tournaments, events & rankings" />
+  <meta property="og:description" content="News, tournaments, and events from Tunza Esports — Tujenge Esports Kenya." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://www.tunzaesports.org/images/tunza-logo-dark-512.png" />
+  <meta property="og:site_name" content="Tunza Esports" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Tunza Esports — Kenya esports tournaments, events & rankings" />
+  <meta name="twitter:description" content="News, tournaments, and events from Tunza Esports — Tujenge Esports Kenya." />
+  <meta name="twitter:image" content="https://www.tunzaesports.org/images/tunza-logo-dark-512.png" />
+
   <!-- Favicons -->
   <!-- Transparent versions for browser tabs -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-
-  <!-- Favicon for Google Search (dark background) -->
+  <!-- Dark-background versions for Google Search result favicon -->
   <link rel="icon" type="image/png" sizes="48x48"  href="/images/tunza-favicon-dark-48.png">
   <link rel="icon" type="image/png" sizes="192x192" href="/images/tunza-favicon-dark-192.png">
-
-  <!-- Dark-background logo for devices/shortcuts -->
+  <!-- Devices/shortcuts -->
   <link rel="apple-touch-icon" sizes="180x180" href="/images/tunza-logo-dark-180.png">
   <!-- Optional pinned tab (Safari) -->
   <link rel="mask-icon" href="/images/tunza-logo-dark.svg" color="#000000">
@@ -26,19 +40,17 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0b0b16">
 
-  <!-- Canonical + Social -->
-  <link rel="canonical" href="https://www.tunzaesports.org/">
-  <meta property="og:url" content="https://www.tunzaesports.org/">
-  <meta property="og:title" content="Tunza Esports - Tujenge Esports Kenya">
-  <meta property="og:description" content="News, tournaments, and events from Tunza Esports — Tujenge Esports Kenya.">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="https://www.tunzaesports.org/images/tunza-logo-dark-512.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Tunza Esports - Tujenge Esports Kenya">
-  <meta name="twitter:description" content="News, tournaments, and events from Tunza Esports — Tujenge Esports Kenya.">
-  <meta name="twitter:image" content="https://www.tunzaesports.org/images/tunza-logo-dark-512.png">
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <!-- Organization schema (helps Google pick the dark logo) -->
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="/css/style.css" />
+
+  <!-- Organization schema (consistent across the site) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -54,6 +66,22 @@
   }
   </script>
 
+  <!-- WebSite schema (site name + sitelinks searchbox) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://www.tunzaesports.org/",
+    "name": "Tunza Esports",
+    "alternateName": ["TunzaEsports", "Tunza Esports Kenya"],
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.google.com/search?q=site%3Awww.tunzaesports.org+{search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+</head>
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -353,6 +381,7 @@
   </script>
 </body>
 </html>
+
 
 
 
