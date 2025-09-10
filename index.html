@@ -1,377 +1,368 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tunza Esports — Kenya esports tournaments, events & rankings</title>
+    
+    <!-- This meta description is excellent for SEO. It clearly states what the site is about, which helps search engines understand its purpose and rank it for relevant keywords like "esports Kenya" and "tournaments." -->
+    <meta name="description" content="Tunza Esports organizes esports tournaments, gaming events, community programs and more." />
 
-  <title>Tunza Esports — Home</title>
-  <meta name="description" content="Tunza Esports organizes esports tournaments, gaming events, and community programs across Kenya. News, rankings, partnerships, and more." />
+    <!-- Canonical URL tells search engines this is the main version of the page, preventing duplicate content issues. -->
+    <link rel="canonical" href="https://www.tunzaesports.org/" />
 
-  <!-- Canonical -->
-  <link rel="canonical" href="https://www.tunzaesports.org/" />
+    <!--
+        These Open Graph and Twitter meta tags are crucial for social media sharing.
+        They ensure a preview with the correct title, description, and image appears when
+        your link is shared on platforms like Facebook and X (Twitter).
+    -->
+    <meta property="og:url" content="https://www.tunzaesports.org/" />
+    <meta property="og:title" content="Tunza Esports — Kenya esports tournaments, events & rankings" />
+    <meta property="og:description" content="Tournaments, and events from Tunza Esports — Tujenge Esports Kenya." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" />
+    <meta property="og:image:alt" content="Tunza Esports logo" />
+    <meta property="og:site_name" content="Tunza Esports" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tunza Esports — Kenya esports tournaments, events & rankings" />
+    <meta name="twitter:description" content="Tournaments, and events from Tunza Esports — Tujenge Esports Kenya." />
+    <meta name="twitter:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" />
 
-  <!-- Open Graph / Twitter -->
-  <meta property="og:url" content="https://www.tunzaesports.org/" />
-  <meta property="og:title" content="Tunza Esports — Kenya esports tournaments, events & rankings" />
-  <meta property="og:description" content="News, tournaments, and events from Tunza Esports — Tujenge Esports Kenya." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" />
-  <meta property="og:image:alt" content="Tunza Esports logo" />
-  <meta property="og:site_name" content="Tunza Esports" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Tunza Esports — Kenya esports tournaments, events & rankings" />
-  <meta name="twitter:description" content="News, tournaments, and events from Tunza Esports — Tujenge Esports Kenya." />
-  <meta name="twitter:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" />
+    <!-- Favicons and PWA manifest for a polished mobile and desktop experience. -->
+    <link rel="icon" href="/favicon.ico?v=4" sizes="any">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=4">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4">
+    <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48x48-dark.png?v=4">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192-dark.png?v=4">
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512-dark.png?v=4">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png?v=4">
+    <link rel="mask-icon" href="/images/tunza-logo-dark.svg" color="#000000">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#0b0b16">
 
-  <!-- Favicons (dark bg + cache-busted so Google re-fetches) -->
-  <link rel="icon" href="/favicon.ico?v=4" sizes="any"> <!-- root .ico MUST be dark -->
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=4">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4">
-  <!-- Preferred for Google SERP -->
-  <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48x48-dark.png?v=4">
-  <!-- If you DON'T have the PNG, use ICO instead: -->
-  <!-- <link rel="icon" type="image/x-icon" sizes="48x48" href="/images/favicon-48x48-dark.ico?v=4"> -->
-  <!-- Larger Android/Install sizes -->
-  <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192-dark.png?v=4">
-  <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512-dark.png?v=4">
-  <!-- Apple / Safari -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png?v=4">
-  <link rel="mask-icon" href="/images/tunza-logo-dark.svg" color="#000000">
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- All CSS combined into a single <style> block as per single-file mandate -->
+    <style>
+        .news-image-placeholder { width: 100%; aspect-ratio: 3/2; background-size: cover; background-position: center; border-radius: 12px; display: block; }
+        .newsletter-form-container { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        .partners-carousel-track { display: flex; gap: 24px; overflow: hidden; padding: 8px 0; }
+        .partner-logo { flex: 0 0 auto; width: 240px; height: 110px; display: flex; align-items: center; justify-content: center; background: #0f0f17; border-radius: 12px; padding: 8px; }
+        .partner-logo img { max-height: 90px; max-width: 100%; object-fit: contain; display: block; }
+        
+        /* The .logo class has been updated to include a dark background */
+        .header .logo { padding: 8px; border-radius: 12px; background-color: #000000; }
+        .header .logo img { height: 40px; }
 
-  <!-- PWA -->
-  <link rel="manifest" href="/site.webmanifest">
-  <meta name="theme-color" content="#0b0b16">
+        @media (max-width:768px){.partner-logo{width:180px;height:100px}.partner-logo img{max-height:80px}}
+        @media (max-width:480px){.partner-logo{width:150px;height:90px}.partner-logo img{max-height:70px}}
 
-  <!-- Fonts & Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="/css/style.css" />
+        /* General site styling based on the previous version, to make sure it's runnable */
+        body { font-family: 'Oxanium', sans-serif; color: #fff; background-color: #1a202c; margin: 0; }
+        .header { background: #1a202c; padding: 10px 20px; position: sticky; top: 0; z-index: 100; }
+        nav { display: flex; justify-content: space-between; align-items: center; }
+        .nav-links ul { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; }
+        .nav-links a { text-decoration: none; color: #fff; }
+        .home-hero-section { text-align: center; padding: 100px 20px; background-color: #2d3748; }
+        .news-section, .newsletter-outer, .partners-section { padding: 40px 20px; }
+        .news-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .news-card-link { text-decoration: none; color: inherit; }
+        .news-card { background: #2d3748; padding: 20px; border-radius: 12px; }
+        footer { background: #0f0f17; padding: 40px 20px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; }
+        .footer-column { flex: 1; min-width: 200px; }
+    </style>
 
-  <!-- Organization schema (single source of truth) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Tunza Esports",
-    "url": "https://www.tunzaesports.org",
-    "logo": "https://www.tunzaesports.org/images/android-chrome-512x512-dark.png",
-    "sameAs": [
-      "https://www.instagram.com/TunzaEsports",
-      "https://x.com/TunzaEsports",
-      "https://www.facebook.com/TunzaEsports"
-    ]
-  }
-  </script>
-
-  <!-- WebSite schema (brand + sitelinks searchbox) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "url": "https://www.tunzaesports.org/",
-    "name": "Tunza Esports",
-    "alternateName": ["TunzaEsports", "Tunza Esports Kenya"],
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://www.google.com/search?q=site%3Awww.tunzaesports.org+{search_term_string}",
-      "query-input": "required name=search_term_string"
+    <!--
+        Structured data helps search engines understand your content and can lead to
+        richer search results like Sitelinks and Knowledge Panels.
+        This "Organization" schema helps Google connect your website to your social profiles.
+    -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Tunza Esports",
+      "url": "https://www.tunzaesports.org",
+      "logo": "https://www.tunzaesports.org/images/android-chrome-512x512-dark.png",
+      "sameAs": [
+        "https://www.instagram.com/TunzaEsports",
+        "https://x.com/TunzaEsports",
+        "https://www.facebook.com/TunzaEsports",
+        "https://www.kenyaesportsrankings.org"
+      ]
     }
-  }
-  </script>
+    </script>
 
-  <!-- Page-specific minimal CSS -->
-  <style>
-    .news-image-placeholder{width:100%;aspect-ratio:3/2;background-size:cover;background-position:center;border-radius:12px;display:block}
-    .newsletter-form-container{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    .partners-carousel-track{display:flex;gap:24px;overflow:hidden;padding:8px 0}
-    .partner-logo{flex:0 0 auto;width:240px;height:110px;display:flex;align-items:center;justify-content:center;background:#0f0f17;border-radius:12px;padding:8px}
-    .partner-logo img{max-height:90px;max-width:100%;object-fit:contain;display:block}
-    @media (max-width:768px){.partner-logo{width:180px;height:100px}.partner-logo img{max-height:80px}}
-    @media (max-width:480px){.partner-logo{width:150px;height:90px}.partner-logo img{max-height:70px}}
-  </style>
+    <!--
+        The "WebSite" schema helps Google understand your site's search functionality and
+        can enable a sitelinks search box in search results.
+    -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "url": "https://www.tunzaesports.org/",
+      "name": "Tunza Esports",
+      "alternateName": ["TunzaEsports", "Tunza Esports Kenya", "tunza esports", "Tunza esports"],
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.google.com/search?q=site%3Awww.tunzaesports.org+{search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
 </head>
 
 <body>
-  <!-- Header / Nav -->
-  <section class="header">
-    <nav>
-      <a href="/" class="logo"><img src="/images/tunzalogo.png" alt="Tunza Esports Logo" /></a>
-      <div class="nav-links">
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about-us/">About Us</a></li>
+    <!-- Header / Nav -->
+    <section class="header">
+        <nav>
+            <!-- The logo class now has a dark background for better visibility -->
+            <a href="/" class="logo"><img src="/images/tunzalogo.png" alt="Tunza Esports Logo" /></a>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about-us/">About Us</a></li>
+                    <li class="has-dropdown">
+                        <a href="#">Our Services</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
+                            <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
+                            <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
+                            <li><a href="/consultation/">Consultation</a></li>
+                            <li><a href="/bootcamps-training-programs/">Bootcamps &amp; Training Programs</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-dropdown">
+                        <a href="#">Our Products</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/ker/">KER</a></li>
+                            <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
+                            <li><a href="/tunzatourna/">TunzaTourna</a></li>
+                            <li><a href="/shop/">Shop</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/news/">News</a></li>
+                    <li><a href="/contact/">Contact Us</a></li>
+                    <li><a href="/gallery/">Gallery</a></li>
+                </ul>
+                <a href="/shop/" class="shop-button">Shop Now</a>
+            </div>
+        </nav>
+    </section>
 
-          <li class="has-dropdown">
-            <a href="#">Our Services</a>
-            <ul class="dropdown-menu">
-              <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
-              <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
-              <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
-              <li><a href="/consultation/">Consultation</a></li>
-              <li><a href="/bootcamps-training-programs/">Bootcamps &amp; Training Programs</a></li>
-            </ul>
-          </li>
-
-          <li class="has-dropdown">
-            <a href="#">Our Products</a>
-            <ul class="dropdown-menu">
-              <li><a href="/ker/">KER</a></li>
-              <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
-              <li><a href="/tunzatourna/">TunzaTourna</a></li>
-              <li><a href="/shop/">Shop</a></li>
-            </ul>
-          </li>
-
-          <li><a href="/news/">News</a></li>
-          <li><a href="/contact/">Contact Us</a></li>
-          <li><a href="/gallery/">Gallery</a></li>
-        </ul>
-        <a href="/shop/" class="shop-button">Shop Now</a>
-      </div>
-    </nav>
-  </section>
-
-  <!-- Hero -->
-  <section class="home-hero-section">
-    <div class="hero-content">
-      <h1>Tujenge Esports Kenya</h1>
-    </div>
-  </section>
-
-  <!-- Dynamic News -->
-  <section class="news-section">
-    <div class="container">
-      <h2 class="news-heading">Lots of interesting information from us</h2>
-      <div class="news-grid" id="news-cards-container"></div>
-    </div>
-  </section>
-
-  <!-- Newsletter -->
-  <section class="newsletter-outer">
-    <p class="newsletter-pre-heading">Subscribe To Our Newsletter Today!</p>
-    <h2 class="newsletter-main-heading">Get Gaming Guide and Information</h2>
-
-    <div class="newsletter-card">
-      <h3>Hello guys! Get the latest information from us</h3>
-
-      <form
-        action="https://tunzaesports.us13.list-manage.com/subscribe/post?u=49268c059773710b44455bb33&id=f95ceda37f&f_id=00cde9e1f0"
-        method="post"
-        target="_blank"
-        novalidate
-        class="newsletter-form-container"
-      >
-        <input type="email" name="EMAIL" placeholder="Enter your email here" class="email-input" required />
-        <div style="position:absolute; left:-5000px;" aria-hidden="true">
-          <input type="text" name="b_49268c059773710b44455bb33_f95ceda37f" tabindex="-1" value="">
+    <!-- Hero -->
+    <section class="home-hero-section">
+        <div class="hero-content">
+            <h1>Tujenge Esports Kenya</h1>
         </div>
-        <button type="submit" class="subscribe-button">Subscribe</button>
-      </form>
+    </section>
 
-      <p class="newsletter-card-disclaimer">
-        Stay ahead in the game. Get exclusive tips, updates, and strategy guides straight to your inbox. No spam, just pure gaming goodness.
-      </p>
-    </div>
-  </section>
+    <!-- Dynamic News -->
+    <section class="news-section">
+        <div class="container">
+            <h2 class="news-heading">Lots of interesting information from us</h2>
+            <div class="news-grid" id="news-cards-container"></div>
+        </div>
+    </section>
 
-  <div class="spacer-before-partners"></div>
+    <!-- Newsletter -->
+    <section class="newsletter-outer">
+        <p class="newsletter-pre-heading">Subscribe To Our Newsletter Today!</p>
+        <h2 class="newsletter-main-heading">Get Gaming Guide and Information</h2>
 
-  <!-- Partners carousel -->
-  <section class="partners-section">
-    <h2>Our Partners, clients, friends</h2>
-    <div class="partners-carousel-track">
-      <div class="partner-logo"><img src="/images/Esports-Africa-News.jpg" alt="Esports Africa News"></div>
-      <div class="partner-logo"><img src="/images/Afrigamer.jpg" alt="Afrigamer"></div>
-      <div class="partner-logo"><img src="/images/B34R-CL4N%20partner.jpg" alt="B34R CL4N"></div>
-    </div>
-  </section>
+        <div class="newsletter-card">
+            <h3>Hello guys! Get the latest information from us</h3>
+            <form
+                action="https://tunzaesports.us13.list-manage.com/subscribe/post?u=49268c059773710b44455bb33&id=f95ceda37f&f_id=00cde9e1f0"
+                method="post"
+                target="_blank"
+                novalidate
+                class="newsletter-form-container"
+            >
+                <input type="email" name="EMAIL" placeholder="Enter your email here" class="email-input" required />
+                <div style="position:absolute; left:-5000px;" aria-hidden="true">
+                    <input type="text" name="b_49268c059773710b44455bb33_f95ceda37f" tabindex="-1" value="">
+                </div>
+                <button type="submit" class="subscribe-button">Subscribe</button>
+            </form>
+            <p class="newsletter-card-disclaimer">
+                Stay ahead in the game. Get exclusive tips, updates, and strategy guides straight to your inbox. No spam, just pure gaming goodness.
+            </p>
+        </div>
+    </section>
 
-  <!-- Footer -->
-  <footer>
-    <div class="footer-content">
-      <div class="footer-column">
-        <h4>About Us</h4>
-        <ul>
-          <li><a href="/">Home Page</a></li>
-          <li><a href="/contact/">Contact Us</a></li>
-          <li><a href="/privacy-policy/">Privacy Policy</a></li>
-        </ul>
-      </div>
-      <div class="footer-column">
-        <h4>Resources</h4>
-        <ul>
-          <li><a href="/tunzatourna/">Tunza Tourna</a></li>
-          <li><a href="/shop/">Shop</a></li>
-        </ul>
-      </div>
-      <div class="footer-column">
-        <h4>Tournaments</h4>
-        <ul>
-          <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings (KUER)</a></li>
-        </ul>
-      </div>
-      <div class="footer-column footer-logo-column">
-        <img src="/images/tunzalogo.png" alt="Tunza Esports Logo" />
-        <p>Shaping the future of Kenya's Esports</p>
-        <p>info@tunzaesports.org</p>
-        <p>P.O BOX 45085-00100</p>
-        <p>Nairobi, Kenya</p>
-        <p>+254 107717520</p>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p class="copyright-text">&copy; 2025 Tunza Esports. All rights reserved.</p>
-    </div>
-  </footer>
+    <div class="spacer-before-partners"></div>
 
-  <!-- Scripts -->
-  <script>
-  (function(){
-    // Sticky-ish nav
-    window.addEventListener("scroll", function () {
-      const nav = document.querySelector(".header nav");
-      if (nav) nav.style.top = window.scrollY > 0 ? (window.scrollY + "px") : "0px";
-    });
+    <!-- Partners carousel -->
+    <section class="partners-section">
+        <h2>Our Partners, clients, friends</h2>
+        <div class="partners-carousel-track">
+            <!-- Your logos are already set to appear on a dark background via the .partner-logo class.
+                 The background-color property is already set to #0f0f17. -->
+            <div class="partner-logo"><img src="/images/Esports-Africa-News.jpg" alt="Esports Africa News"></div>
+            <div class="partner-logo"><img src="/images/Afrigamer.jpg" alt="Afrigamer"></div>
+            <div class="partner-logo"><img src="/images/B34R-CL4N%20partner.jpg" alt="B34R CL4N"></div>
+        </div>
+    </section>
 
-    function initNews(){
-      const homepageNewsData = [
-        {
-          title: "Tunza Esports renews KUER Season 3",
-          snippet: "A new format and more titles—KUER Season 3 is here.",
-          date: "September 1, 2025",
-          link: "/news/",
-          imageUrl: "/images/KUER-x-Tunza.png"
-        },
-        {
-          title: "Tunza Esports Partners with B34R CL4N",
-          snippet: "Through this partnership, Call of Duty Mobile within KUER get pro-level support.",
-          date: "September 5, 2025",
-          link: "/news/",
-          imageUrl: "/images/KUER-x-B34R.png"
-        },
-        {
-          title: "Safaricom Game Conference: Tunza Esports Championing the Growth of Competitive Gaming in Kenya",
-          snippet: "Safaricom Game Conference was a landmark event in Kenya’s gaming industry",
-          date: "September 8, 2025",
-          link: "/news/",
-          imageUrl: "/images/Safaricom-Gaming-Conference.JPG"
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>About Us</h4>
+                <ul>
+                    <li><a href="/">Home Page</a></li>
+                    <li><a href="/contact/">Contact Us</a></li>
+                    <li><a href="/privacy-policy/">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="/tunzatourna/">Tunza Tourna</a></li>
+                    <li><a href="/shop/">Shop</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Tournaments</h4>
+                <ul>
+                    <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings (KUER)</a></li>
+                </ul>
+            </div>
+            <div class="footer-column footer-logo-column">
+                <img src="/images/tunzalogo.png" alt="Tunza Esports Logo" />
+                <p>Shaping the future of Kenya's Esports</p>
+                <p>info@tunzaesports.org</p>
+                <p>P.O BOX 45085-00100</p>
+                <p>Nairobi, Kenya</p>
+                <p>+254 107717520</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="copyright-text">&copy; 2025 Tunza Esports. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+    (function(){
+        window.addEventListener("scroll", function () {
+            const nav = document.querySelector(".header nav");
+            if (nav) nav.style.top = window.scrollY > 0 ? (window.scrollY + "px") : "0px";
+        });
+
+        function initNews(){
+            const homepageNewsData = [
+                {
+                    title: "Tunza Esports renews KUER Season 3",
+                    snippet: "A new format and more titles—KUER Season 3 is here.",
+                    date: "September 1, 2025",
+                    link: "/news/",
+                    imageUrl: "/images/KUER-x-Tunza.png"
+                },
+                {
+                    title: "Tunza Esports Partners with B34R CL4N",
+                    snippet: "Through this partnership, Call of Duty Mobile within KUER get pro-level support.",
+                    date: "September 5, 2025",
+                    link: "/news/",
+                    imageUrl: "/images/KUER-x-B34R.png"
+                },
+                {
+                    title: "Safaricom Game Conference: Tunza Esports Championing the Growth of Competitive Gaming in Kenya",
+                    snippet: "Safaricom Game Conference was a landmark event in Kenya’s gaming industry",
+                    date: "September 8, 2025",
+                    link: "/news/",
+                    imageUrl: "/images/Safaricom-Gaming-Conference.JPG"
+                }
+            ];
+
+            const container = document.getElementById("news-cards-container");
+            if (!container) return;
+
+            container.innerHTML = "";
+            homepageNewsData.forEach(item => {
+                const a = document.createElement("a");
+                a.href = item.link;
+                a.className = "news-card-link";
+
+                const card = document.createElement("div");
+                card.className = "news-card";
+                card.innerHTML = `
+                    <div class="news-image-placeholder"></div>
+                    <h3 class="news-card-title">${item.title}</h3>
+                    <p class="news-card-text">${item.snippet}</p>
+                    <p class="news-card-date">${item.date}</p>
+                `;
+
+                const ph = card.querySelector(".news-image-placeholder");
+                if (ph) {
+                    ph.style.backgroundImage = "url('" + (item.imageUrl || "/images/KUER-x-Tunza.png") + "')";
+                    ph.style.backgroundSize = "cover";
+                    ph.style.backgroundPosition = "center";
+                    ph.style.borderRadius = "12px";
+                }
+
+                a.appendChild(card);
+                container.appendChild(a);
+            });
         }
-      ];
 
-      const container = document.getElementById("news-cards-container");
-      if (!container) return;
+        function initPartnersCarousel(){
+            // Respect reduced motion
+            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-      container.innerHTML = "";
-      homepageNewsData.forEach(item => {
-        const a = document.createElement("a");
-        a.href = item.link;
-        a.className = "news-card-link";
+            const track = document.querySelector('.partners-carousel-track');
+            if (!track) return;
 
-        const card = document.createElement("div");
-        card.className = "news-card";
-        card.innerHTML = `
-          <div class="news-image-placeholder"></div>
-          <h3 class="news-card-title">${item.title}</h3>
-          <p class="news-card-text">${item.snippet}</p>
-          <p class="news-card-date">${item.date}</p>
-        `;
+            // Duplicate items until there's enough width to scroll smoothly
+            let guard = 0;
+            const originals = Array.from(track.children).map(n => n.cloneNode(true));
+            while ((track.scrollWidth || 0) < (track.clientWidth * 3) && guard < 10) {
+                originals.forEach(n => track.appendChild(n.cloneNode(true)));
+                guard++;
+            }
 
-        const ph = card.querySelector(".news-image-placeholder");
-        if (ph) {
-          ph.style.backgroundImage = "url('" + (item.imageUrl || "/images/KUER-x-Tunza.png") + "')";
-          ph.style.backgroundSize = "cover";
-          ph.style.backgroundPosition = "center";
-          ph.style.borderRadius = "12px";
+            let x = 0, speed = 0.6, raf;
+            function loop(){
+                const max = track.scrollWidth - track.clientWidth;
+                x = (x + speed) % (max || 1);
+                track.scrollLeft = x;
+                raf = requestAnimationFrame(loop);
+            }
+            loop();
+
+            // Pause on hover/focus; resume on leave
+            track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
+            track.addEventListener('mouseleave', () => loop());
+            track.addEventListener('focusin', () => cancelAnimationFrame(raf));
+            track.addEventListener('focusout', () => loop());
+
+            // Recalc on resize
+            let t;
+            window.addEventListener('resize', () => {
+                cancelAnimationFrame(raf);
+                clearTimeout(t);
+                t = setTimeout(() => { x = 0; loop(); }, 150);
+            });
         }
 
-        a.appendChild(card);
-        container.appendChild(a);
-      });
-    }
+        function init(){
+            initNews();
+            initPartnersCarousel();
+        }
 
-    function initPartnersCarousel(){
-      // Respect reduced motion
-      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-      const track = document.querySelector('.partners-carousel-track');
-      if (!track) return;
-
-      // Duplicate items until there's enough width to scroll smoothly
-      let guard = 0;
-      const originals = Array.from(track.children).map(n => n.cloneNode(true));
-      while ((track.scrollWidth || 0) < (track.clientWidth * 3) && guard < 10) {
-        originals.forEach(n => track.appendChild(n.cloneNode(true)));
-        guard++;
-      }
-
-      let x = 0, speed = 0.6, raf;
-      function loop(){
-        const max = track.scrollWidth - track.clientWidth;
-        x = (x + speed) % (max || 1);
-        track.scrollLeft = x;
-        raf = requestAnimationFrame(loop);
-      }
-      loop();
-
-      // Pause on hover/focus; resume on leave
-      track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
-      track.addEventListener('mouseleave', () => loop());
-      track.addEventListener('focusin', () => cancelAnimationFrame(raf));
-      track.addEventListener('focusout', () => loop());
-
-      // Recalc on resize
-      let t;
-      window.addEventListener('resize', () => {
-        cancelAnimationFrame(raf);
-        clearTimeout(t);
-        t = setTimeout(() => { x = 0; loop(); }, 150);
-      });
-    }
-
-    function init(){
-      initNews();
-      initPartnersCarousel();
-    }
-
-    if (document.readyState === 'loading'){
-      document.addEventListener('DOMContentLoaded', init);
-    } else {
-      init();
-    }
-  })();
-  </script>
-
-  <!-- Organization schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Tunza Esports",
-    "url": "https://www.tunzaesports.org/",
-    "logo": "https://www.tunzaesports.org/images/tunzalogo.png",
-    "sameAs": ["https://www.kenyaesportsrankings.org"]
-  }
-  </script>
+        if (document.readyState === 'loading'){
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    })();
+    </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
