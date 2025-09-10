@@ -67,7 +67,7 @@ layout: null
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/css/style.css" />
 
-  <!-- Page-safe inline styles (unchanged) -->
+  <!-- Page-safe inline styles -->
   <style>
     .news-image{ width:100%; height:200px; object-fit:cover; border-radius:8px 8px 0 0; display:block; }
     .partners-section { padding: 40px 0; text-align:center; }
@@ -327,19 +327,17 @@ layout: null
       let currentPage = 1;
       let filteredArticles = [];
 
-      // Build links as /article/?slug=... so it never 404s
-     <script>
+      // Build links as /article/?slug=... so it never 404s on static hosts
       function cardUrl(article){
-      const slug = (article.slug || (article.title || String(article.id)))
-      .toLowerCase()
-      .replace(/&/g,' and ')
-      .replace(/[^a-z0-9]+/g,'-')
-      .replace(/-+/g,'-')
-      .replace(/(^-|-$)/g,'');
-       // Query-string avoids server 404s on GitHub Pages
-       return `/article/?slug=${encodeURIComponent(slug)}`;
-       }
-      `<a href="${cardUrl(article)}" class="read-more-button">Read More</a>`
+        const slug = (article.slug || (article.title || String(article.id)))
+          .toLowerCase()
+          .replace(/&/g,' and ')
+          .replace(/[^a-z0-9]+/g,'-')
+          .replace(/-+/g,'-')
+          .replace(/(^-|-$)/g,'');
+        return `/article/?slug=${encodeURIComponent(slug)}`;
+      }
+
       function renderNewsCards(articles) {
         if (!articlesContainer) return;
         articlesContainer.innerHTML = '';
@@ -423,4 +421,3 @@ layout: null
   </script>
 </body>
 </html>
-
