@@ -1,0 +1,45 @@
+<!-- /404.html  (must live at repo root for GitHub Pages) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting…</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    html,body{height:100%} body{margin:0;display:flex;align-items:center;justify-content:center;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+    background:#0b0b16;color:#fff;text-align:center;padding:24px}
+    a{color:#86b7ff}
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Redirecting…</h1>
+    <p>If you’re not redirected automatically, <a id="fallback" href="/">go to the homepage</a>.</p>
+  </main>
+
+  <script>
+  (function () {
+    var path = location.pathname.replace(/\/+$/, '');
+
+    // Handle /article/<slug> or /article/<id>
+    var m = path.match(/^\/article\/([^\/]+)$/);
+    if (m) {
+      var key = m[1];
+      var target = (/^\d+$/.test(key))
+        ? ("/article/?id=" + key)
+        : ("/article/?slug=" + encodeURIComponent(key));
+      document.getElementById('fallback').setAttribute('href', target);
+      location.replace(target);
+      return;
+    }
+
+    // Optional: if someone hits /news/something, send to /news/
+    if (/^\/news\/.+/.test(path)) {
+      document.getElementById('fallback').setAttribute('href', "/news/");
+      location.replace("/news/");
+    }
+  })();
+  </script>
+</body>
+</html>
