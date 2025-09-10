@@ -328,16 +328,18 @@ layout: null
       let filteredArticles = [];
 
       // Build links as /article/?slug=... so it never 404s
+     <script>
       function cardUrl(article){
-        const slug = (article.slug || (article.title || String(article.id)))
-          .toLowerCase()
-          .replace(/&/g,' and ')
-          .replace(/[^a-z0-9]+/g,'-')
-          .replace(/-+/g,'-')
-          .replace(/(^-|-$)/g,'');
-        return `/article/?slug=${encodeURIComponent(slug)}`;
-      }
-
+      const slug = (article.slug || (article.title || String(article.id)))
+      .toLowerCase()
+      .replace(/&/g,' and ')
+      .replace(/[^a-z0-9]+/g,'-')
+      .replace(/-+/g,'-')
+      .replace(/(^-|-$)/g,'');
+       // Query-string avoids server 404s on GitHub Pages
+       return `/article/?slug=${encodeURIComponent(slug)}`;
+       }
+      `<a href="${cardUrl(article)}" class="read-more-button">Read More</a>`
       function renderNewsCards(articles) {
         if (!articlesContainer) return;
         articlesContainer.innerHTML = '';
@@ -421,3 +423,4 @@ layout: null
   </script>
 </body>
 </html>
+
