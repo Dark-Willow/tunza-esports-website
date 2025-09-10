@@ -226,67 +226,62 @@ layout: null
   </footer>
 
   <script>
-    (function () {
-      // Sticky nav
-      window.addEventListener('scroll', function () {
-        const navbar = document.querySelector('.header nav');
-        if (navbar) navbar.style.top = window.scrollY > 0 ? (window.scrollY + 'px') : '0px';
-      });
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-      } else {
-        init();
-      }
+(function () {
+  // Sticky nav
+  window.addEventListener('scroll', function () {
+    const navbar = document.querySelector('.header nav');
+    if (navbar) navbar.style.top = window.scrollY > 0 ? (window.scrollY + 'px') : '0px';
+  });
 
-      function init(){
-        const navbar = document.querySelector('.header nav');
-        if (navbar) navbar.style.top = window.scrollY > 0 ? (window.scrollY + 'px') : '0px';
+  function init() {
+    const navbar = document.querySelector('.header nav');
+    if (navbar) navbar.style.top = window.scrollY > 0 ? (window.scrollY + 'px') : '0px';
 
-        // Partners carousel – robust + same pattern as About Us
-        initPartnersCarousel();
+    // Partners carousel – robust + same pattern as About Us
+    initPartnersCarousel();
 
-        // News listing
-        initNews();
-      }
+    // News listing
+    initNews();
+  }
 
-      function initPartnersCarousel(){
-        // Respect reduced motion
-        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  function initPartnersCarousel(){
+    // Respect reduced motion
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-        const track = document.querySelector('.partners-carousel-track');
-        if (!track) return;
+    const track = document.querySelector('.partners-carousel-track');
+    if (!track) return;
 
-        // Duplicate children until there's enough width (~3x)
-        const originals = Array.from(track.children).map(n => n.cloneNode(true));
-        let reps = 0;
-        while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
-          originals.forEach(n => track.appendChild(n.cloneNode(true)));
-          reps++;
-        }
+    // Duplicate children until there's enough width (~3x)
+    const originals = Array.from(track.children).map(n => n.cloneNode(true));
+    let reps = 0;
+    while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
+      originals.forEach(n => track.appendChild(n.cloneNode(true)));
+      reps++;
+    }
 
-        let x = 0, speed = 0.6, raf;
-        function loop(){
-          const max = track.scrollWidth - track.clientWidth;
-          x = (x + speed) % (max || 1);
-          track.scrollLeft = x;
-          raf = requestAnimationFrame(loop);
-        }
-        loop();
+    let x = 0, speed = 0.6, raf;
+    function loop(){
+      const max = track.scrollWidth - track.clientWidth;
+      x = (x + speed) % (max || 1);
+      track.scrollLeft = x;
+      raf = requestAnimationFrame(loop);
+    }
+    loop();
 
-        track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
-        track.addEventListener('mouseleave', () => loop());
-        track.addEventListener('focusin',   () => cancelAnimationFrame(raf));
-        track.addEventListener('focusout',  () => loop());
+    track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
+    track.addEventListener('mouseleave', () => loop());
+    track.addEventListener('focusin',   () => cancelAnimationFrame(raf));
+    track.addEventListener('focusout',  () => loop());
 
-        let t;
-        window.addEventListener('resize', () => {
-          cancelAnimationFrame(raf);
-          clearTimeout(t);
-          t = setTimeout(() => { x = 0; loop(); }, 150);
-        });
-      }
-<script>
-  // REPLACE your existing initNews() with this version
+    let t;
+    window.addEventListener('resize', () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(t);
+      t = setTimeout(() => { x = 0; loop(); }, 150);
+    });
+  }
+
+  // REPLACE your existing initNews() with this version (now inside the same script)
   function initNews(){
     const newsArticles = [
       {
@@ -319,9 +314,6 @@ layout: null
         tags: ["Community News", "Partnership"],
         imageUrl: "/images/Safaricom-Gaming-Conference.JPG"
       },
-
-      /* Items without live article pages yet can omit `slug`—they'll
-         automatically fall back to /article/?id=... links */
       { id: 4, title: "The Future of VR Gaming", date: "August 25, 2025", snippet: "Dive into the world of virtual reality and how it's shaping the next generation of competitive gaming.", content: "", tags: ["Community News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+3" },
       { id: 5, title: "Tunza Esports Partners With Local Gaming Cafe", date: "August 5, 2025", snippet: "Weekly tournaments and community nights with The Gamers Hub in Nairobi.", content: "", tags: ["Partnership"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+4" },
       { id: 6, title: "KUER Season 3: Registrations Now Open", date: "August 1, 2025", snippet: "Sign up your university team for the biggest KUER season yet.", content: "", tags: ["Product Updates","Tournament News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+5" },
@@ -391,19 +383,24 @@ layout: null
     }
 
     function updateLoadMoreButton() {
+      if (!loadMoreButton) return;
       loadMoreButton.style.display =
         (filteredArticles.length > currentPage * articlesPerPage) ? 'block' : 'none';
     }
 
-    loadMoreButton.addEventListener('click', () => {
-      currentPage++;
-      displayArticles();
-    });
+    if (loadMoreButton) {
+      loadMoreButton.addEventListener('click', () => {
+        currentPage++;
+        displayArticles();
+      });
+    }
 
-    searchButton.addEventListener('click', filterAndSearch);
-    searchInput.addEventListener('keyup', (e) => {
-      if (e.key === 'Enter') filterAndSearch();
-    });
+    if (searchButton) searchButton.addEventListener('click', filterAndSearch);
+    if (searchInput) {
+      searchInput.addEventListener('keyup', (e) => {
+        if (e.key === 'Enter') filterAndSearch();
+      });
+    }
 
     tags.forEach(tag => {
       tag.addEventListener('click', () => {
@@ -416,9 +413,17 @@ layout: null
     // Initial render
     filterAndSearch();
   }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
 </script>
 </body>
 </html>
+
 
 
 
