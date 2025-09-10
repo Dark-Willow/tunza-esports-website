@@ -239,7 +239,8 @@ function cardUrl(article){
     .replace(/[^a-z0-9]+/g,'-')
     .replace(/-+/g,'-')
     .replace(/(^-|-$)/g,'');
-  return `/article/?slug=${encodeURIComponent(slug)}`; // never 404s
+  // Query-string route never 404s because /article/ exists
+  return `/article/?slug=${encodeURIComponent(slug)}`;
 }
   // Read from /article/<slug>/, or ?slug=, or ?id=
   function getKeyFromUrl() {
@@ -356,6 +357,7 @@ function cardUrl(article){
 </script>
 </body>
 </html>
+
 
 
 
