@@ -285,102 +285,141 @@ layout: null
           t = setTimeout(() => { x = 0; loop(); }, 150);
         });
       }
+<script>
+  // REPLACE your existing initNews() with this version
+  function initNews(){
+    const newsArticles = [
+      {
+        id: 1,
+        slug: "tunza-esports-renews-kuer-season-3-with-a-fresh-format",
+        title: "Tunza Esports Renews KUER Season 3 With a Fresh Format",
+        date: "September 1, 2025",
+        snippet: "For the first time, KUER will run in two separate periods.",
+        content: "",
+        tags: ["Tournament News","Community News"],
+        imageUrl: "/images/KUER-x-Tunza.png"
+      },
+      {
+        id: 2,
+        slug: "tunza-esports-partners-with-b34r-cl4n-to-strengthen-codm-in-university-esports-in-kenya",
+        title: "Tunza Esports Partners with B34R CL4N to strengthen CODM in University Esports in Kenya",
+        date: "September 5, 2025",
+        snippet: "Through this partnership, Call of Duty Mobile Battle Royale and Multiplayer within KUER get pro-level support.",
+        content: "",
+        tags: ["Partnership"],
+        imageUrl: "/images/KUER-x-B34R.png"
+      },
+      {
+        id: 3,
+        slug: "safaricom-game-conference-tunza-esports-championing-the-growth-of-competitive-gaming-in-kenya",
+        title: "Safaricom Game Conference: Tunza Esports Championing the Growth of Competitive Gaming in Kenya",
+        date: "September 8, 2025",
+        snippet: "The Safaricom Game Conference was a landmark event in Kenya’s gaming industry, bringing together innovators, gamers, and organizations shaping the future of Esports.",
+        content: "",
+        tags: ["Community News", "Partnership"],
+        imageUrl: "/images/Safaricom-Gaming-Conference.JPG"
+      },
 
-      function initNews(){
-        const newsArticles = [
-          { id: 1, title: "Tunza Esports Renews KUER Season 3 With a Fresh Format", date: "September 1, 2025", snippet: "For the first time, KUER will run in two separate periods.", content: "", tags: ["Tournament News","Community News"], imageUrl: "/images/KUER-x-Tunza.png" },
-          { id: 2, title: "Tunza Esports Partners with B34R CL4N to strengthen CODM in University Esports in Kenya", date: "September 5, 2025", snippet: "Through this partnership, Call of Duty Mobile Battle Royale and Multiplayer within KUER get pro-level support.", content: "", tags: ["Partnership"], imageUrl: "/images/KUER-x-B34R.png" },
-          { id: 3, title: "Safaricom Game Conference: Tunza Esports Championing the Growth of Competitive Gaming in Kenya", date: "September 8, 2025", snippet: "The Safaricom Game Conference was a landmark event in Kenya’s gaming industry, bringing together innovators, gamers, and organizations shaping the future of Esports.", content: "", tags: ["Community News", "Partnership"], imageUrl: "/images/Safaricom-Gaming-Conference.JPG" },
-          { id: 4, title: "The Future of VR Gaming", date: "August 25, 2025", snippet: "Dive into the world of virtual reality and how it's shaping the next generation of competitive gaming.", content: "", tags: ["Community News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+3" },
-          { id: 5, title: "Tunza Esports Partners With Local Gaming Cafe", date: "August 5, 2025", snippet: "Weekly tournaments and community nights with The Gamers Hub in Nairobi.", content: "", tags: ["Partnership"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+4" },
-          { id: 6, title: "KUER Season 3: Registrations Now Open", date: "August 1, 2025", snippet: "Sign up your university team for the biggest KUER season yet.", content: "", tags: ["Product Updates","Tournament News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+5" },
-          { id: 7, title: "New Training Program Launched for Valorant Players", date: "July 28, 2025", snippet: "Introducing 'Ascend' — intensive coaching for aspiring Valorant pros.", content: "", tags: ["Community News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+6" },
-          { id: 8, title: "Video Game Events: FIFA Tournament Highlights", date: "July 25, 2025", snippet: "Top goals and clutch moments from our recent FIFA tournament.", content: "", tags: ["Partnership","Tournament News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+7" },
-          { id: 9, title: "Tunza Esports Joins Global Esports Federation", date: "July 20, 2025", snippet: "Proud member of the Global Esports Federation (GEF).", content: "", tags: ["Community News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+8" }
-        ];
+      /* Items without live article pages yet can omit `slug`—they'll
+         automatically fall back to /article/?id=... links */
+      { id: 4, title: "The Future of VR Gaming", date: "August 25, 2025", snippet: "Dive into the world of virtual reality and how it's shaping the next generation of competitive gaming.", content: "", tags: ["Community News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+3" },
+      { id: 5, title: "Tunza Esports Partners With Local Gaming Cafe", date: "August 5, 2025", snippet: "Weekly tournaments and community nights with The Gamers Hub in Nairobi.", content: "", tags: ["Partnership"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+4" },
+      { id: 6, title: "KUER Season 3: Registrations Now Open", date: "August 1, 2025", snippet: "Sign up your university team for the biggest KUER season yet.", content: "", tags: ["Product Updates","Tournament News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+5" },
+      { id: 7, title: "New Training Program Launched for Valorant Players", date: "July 28, 2025", snippet: "Introducing 'Ascend' — intensive coaching for aspiring Valorant pros.", content: "", tags: ["Community News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+6" },
+      { id: 8, title: "Video Game Events: FIFA Tournament Highlights", date: "July 25, 2025", snippet: "Top goals and clutch moments from our recent FIFA tournament.", content: "", tags: ["Partnership","Tournament News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+7" },
+      { id: 9, title: "Tunza Esports Joins Global Esports Federation", date: "July 20, 2025", snippet: "Proud member of the Global Esports Federation (GEF).", content: "", tags: ["Community News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+8" }
+    ];
 
-        const articlesContainer = document.getElementById('news-articles-container');
-        const searchInput = document.querySelector('.keyword-search');
-        const searchButton = document.querySelector('.search-button');
-        const tags = document.querySelectorAll('.tag');
-        const loadMoreButton = document.querySelector('.load-more-button');
+    const articlesContainer = document.getElementById('news-articles-container');
+    const searchInput = document.querySelector('.keyword-search');
+    const searchButton = document.querySelector('.search-button');
+    const tags = document.querySelectorAll('.tag');
+    const loadMoreButton = document.querySelector('.load-more-button');
 
-        const articlesPerPage = 6;
-        let currentPage = 1;
-        let filteredArticles = [];
+    const articlesPerPage = 6;
+    let currentPage = 1;
+    let filteredArticles = [];
 
-        function renderNewsCards(articles) {
-          if (!articlesContainer) return;
-          articlesContainer.innerHTML = '';
-          articles.forEach(article => {
-            const card = document.createElement('div');
-            card.className = "news-card";
-            card.setAttribute('data-tags', article.tags.join(','));
+    function cardUrl(article){
+      return article.slug
+        ? `/article/${encodeURIComponent(article.slug)}/`
+        : `/article/?id=${article.id}`;
+    }
 
-            card.innerHTML = `
-              <img src="${article.imageUrl}" alt="${article.title} thumbnail" class="news-image" loading="lazy">
-              <div class="news-content">
-                <h3 class="news-title">${article.title}</h3>
-                <p class="news-date">${article.date}</p>
-                <p class="news-snippet">${article.snippet}</p>
-                <a href="/article/?id=${article.id}" class="read-more-button">Read More</a>
-              </div>
-            `;
-            articlesContainer.appendChild(card);
-          });
-        }
+    function renderNewsCards(articles) {
+      if (!articlesContainer) return;
+      articlesContainer.innerHTML = '';
+      articles.forEach(article => {
+        const card = document.createElement('div');
+        card.className = "news-card";
+        card.setAttribute('data-tags', article.tags.join(','));
 
-        function filterAndSearch() {
-          const searchTerm = (searchInput?.value || '').toLowerCase();
-          const activeTag = document.querySelector('.tag.active')?.getAttribute('data-tag-name') || 'All';
+        const url = cardUrl(article);
+        card.innerHTML = `
+          <img src="${article.imageUrl}" alt="${article.title} thumbnail" class="news-image" loading="lazy">
+          <div class="news-content">
+            <h3 class="news-title">${article.title}</h3>
+            <p class="news-date">${article.date}</p>
+            <p class="news-snippet">${article.snippet}</p>
+            <a href="${url}" class="read-more-button">Read More</a>
+          </div>
+        `;
+        articlesContainer.appendChild(card);
+      });
+    }
 
-          filteredArticles = newsArticles.filter(article => {
-            const titleMatches = article.title.toLowerCase().includes(searchTerm);
-            const snippetMatches = article.snippet.toLowerCase().includes(searchTerm);
-            const tagMatches = activeTag === "All" || article.tags.includes(activeTag);
-            return (titleMatches || snippetMatches) && tagMatches;
-          });
+    function filterAndSearch() {
+      const searchTerm = (searchInput?.value || '').toLowerCase();
+      const activeTag = document.querySelector('.tag.active')?.getAttribute('data-tag-name') || 'All';
 
-          currentPage = 1;
-          displayArticles();
-        }
+      filteredArticles = newsArticles.filter(article => {
+        const titleMatches   = article.title.toLowerCase().includes(searchTerm);
+        const snippetMatches = article.snippet.toLowerCase().includes(searchTerm);
+        const tagMatches     = activeTag === "All" || article.tags.includes(activeTag);
+        return (titleMatches || snippetMatches) && tagMatches;
+      });
 
-        function displayArticles() {
-          const end = currentPage * articlesPerPage;
-          const articlesToDisplay = filteredArticles.slice(0, end);
-          renderNewsCards(articlesToDisplay);
-          updateLoadMoreButton();
-        }
+      currentPage = 1;
+      displayArticles();
+    }
 
-        function updateLoadMoreButton() {
-          loadMoreButton.style.display = (filteredArticles.length > currentPage * articlesPerPage) ? 'block' : 'none';
-        }
+    function displayArticles() {
+      const end = currentPage * articlesPerPage;
+      const articlesToDisplay = filteredArticles.slice(0, end);
+      renderNewsCards(articlesToDisplay);
+      updateLoadMoreButton();
+    }
 
-        loadMoreButton.addEventListener('click', () => {
-          currentPage++;
-          displayArticles();
-        });
+    function updateLoadMoreButton() {
+      loadMoreButton.style.display =
+        (filteredArticles.length > currentPage * articlesPerPage) ? 'block' : 'none';
+    }
 
-        searchButton.addEventListener('click', filterAndSearch);
-        searchInput.addEventListener('keyup', (e) => {
-          if (e.key === 'Enter') filterAndSearch();
-        });
+    loadMoreButton.addEventListener('click', () => {
+      currentPage++;
+      displayArticles();
+    });
 
-        tags.forEach(tag => {
-          tag.addEventListener('click', () => {
-            tags.forEach(t => t.classList.remove('active'));
-            tag.classList.add('active');
-            filterAndSearch();
-          });
-        });
+    searchButton.addEventListener('click', filterAndSearch);
+    searchInput.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') filterAndSearch();
+    });
 
-        // Initial render
+    tags.forEach(tag => {
+      tag.addEventListener('click', () => {
+        tags.forEach(t => t.classList.remove('active'));
+        tag.classList.add('active');
         filterAndSearch();
-      }
-    })();
-  </script>
+      });
+    });
+
+    // Initial render
+    filterAndSearch();
+  }
+</script>
 </body>
 </html>
+
 
 
 
