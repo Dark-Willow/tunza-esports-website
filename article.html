@@ -232,15 +232,15 @@ layout: null
     }
   ];
 
-  // --- Utilities ---
-  function slugify(s='') {
-    return s.toLowerCase()
-      .replace(/&/g, ' and ')
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/-+/g, '-')
-      .replace(/(^-|-$)/g, '');
-  }
-
+function cardUrl(article){
+  const slug = (article.slug || (article.title || String(article.id)))
+    .toLowerCase()
+    .replace(/&/g,' and ')
+    .replace(/[^a-z0-9]+/g,'-')
+    .replace(/-+/g,'-')
+    .replace(/(^-|-$)/g,'');
+  return `/article/?slug=${encodeURIComponent(slug)}`; // never 404s
+}
   // Read from /article/<slug>/, or ?slug=, or ?id=
   function getKeyFromUrl() {
     const p = new URLSearchParams(location.search);
@@ -356,6 +356,7 @@ layout: null
 </script>
 </body>
 </html>
+
 
 
 
