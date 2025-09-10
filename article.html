@@ -165,26 +165,9 @@ layout: null
     </div>
   </footer>
 
-  <script>
+ <script>
 (function () {
-  // Partners carousel (guarded)
-  const track = document.querySelector('.partners-carousel-track');
-  if (track) {
-    track.innerHTML += track.innerHTML;
-    let x = 0, speed = 0.5, raf;
-    function auto() {
-      x += speed;
-      const w = track.scrollWidth / 2;
-      if (x >= w) x = 0;
-      track.scrollLeft = x;
-      raf = requestAnimationFrame(auto);
-    }
-    auto();
-    track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
-    track.addEventListener('mouseleave', () => auto());
-  }
-
-  // --- Articles data (do not edit article text) ---
+  // --- Articles data (keep text as-is) ---
   window.newsArticles = [
     {
       id: 1,
@@ -209,8 +192,8 @@ layout: null
     },
     {
       id: 2,
-      title: "Tunza Esports Partners with B34R CL4N to strengthen CODM in University Esports in Kenya",
       slug: "tunza-esports-partners-with-b34r-cl4n-to-strengthen-codm-in-university-esports-in-kenya",
+      title: "Tunza Esports Partners with B34R CL4N to strengthen CODM in University Esports in Kenya",
       date: "September 5, 2025",
       snippet: "Partnership brings pro support into KUER CODM.",
       content: `
@@ -225,8 +208,8 @@ layout: null
     },
     {
       id: 3,
-      title: "Safaricom Game Conference: Tunza Esports Championing the Growth of Competitive Gaming in Kenya",
       slug: "safaricom-game-conference-tunza-esports-championing-the-growth-of-competitive-gaming-in-kenya",
+      title: "Safaricom Game Conference: Tunza Esports Championing the Growth of Competitive Gaming in Kenya",
       date: "September 8, 2025",
       snippet: "Partnership brings pro support into KUER CODM.",
       content: `
@@ -258,8 +241,8 @@ layout: null
       .replace(/(^-|-$)/g, '');
   }
 
+  // Read from /article/<slug>/, or ?slug=, or ?id=
   function getKeyFromUrl() {
-    // 1) Query ?id= or ?slug=
     const p = new URLSearchParams(location.search);
     if (p.get('id')) {
       const n = parseInt(p.get('id'), 10);
@@ -267,7 +250,6 @@ layout: null
     }
     if (p.get('slug')) return { by: 'slug', value: p.get('slug') };
 
-    // 2) /article/<id-or-slug>[/]
     const parts = location.pathname.replace(/\/+$/, '').split('/');
     const last = parts[parts.length - 1];
     const asNum = parseInt(last, 10);
@@ -284,7 +266,7 @@ layout: null
     img.src = a.imageUrl; img.alt = a.title;
   }
 
-  // SEO helpers
+  // --- SEO helpers ---
   function absUrl(u) { return u?.startsWith('http') ? u : (location.origin + u); }
   function ensureMeta(selector, attrs) {
     let el = document.querySelector(selector);
@@ -299,7 +281,6 @@ layout: null
 
   function updateSeo(a) {
     const canonical = `https://www.tunzaesports.org/article/${a.slug}/`;
-
     // description from HTML
     const tmp = document.createElement('div'); tmp.innerHTML = a.content || '';
     const text = (tmp.textContent || '').trim().replace(/\s+/g, ' ');
@@ -357,7 +338,7 @@ layout: null
     if (!a) a = list[0];
     if (!a) return;
 
-    // normalize URL to slug path (no reload)
+    // Normalize to pretty URL if rewrites are active
     const want = `/article/${a.slug}/`;
     if (location.pathname !== want) {
       history.replaceState(null, '', want);
@@ -367,15 +348,15 @@ layout: null
     updateSeo(a);
   }
 
-  // Optional: if you ever add new items without slugs, generate them
+  // Safety: ensure every item has a slug (if you add new ones later)
   window.newsArticles.forEach(a => { if (!a.slug) a.slug = slugify(a.title || String(a.id)); });
 
   window.addEventListener('load', displayArticle);
 })();
 </script>
-
 </body>
 </html>
+
 
 
 
