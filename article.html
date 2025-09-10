@@ -188,6 +188,7 @@ layout: null
   window.newsArticles = [
     {
       id: 1,
+      slug: "tunza-esports-renews-kuer-season-3-with-a-fresh-format",
       title: "Tunza Esports Renews KUER Season 3 With a Fresh Format",
       date: "September 1, 2025",
       snippet: "For the first time, KUER will run in two separate periods.",
@@ -209,6 +210,7 @@ layout: null
     {
       id: 2,
       title: "Tunza Esports Partners with B34R CL4N to strengthen CODM in University Esports in Kenya",
+      slug: "tunza-esports-partners-with-b34r-cl4n-to-strengthen-codm-in-university-esports-in-kenya",
       date: "September 5, 2025",
       snippet: "Partnership brings pro support into KUER CODM.",
       content: `
@@ -224,6 +226,7 @@ layout: null
     {
       id: 3,
       title: "Safaricom Game Conference: Tunza Esports Championing the Growth of Competitive Gaming in Kenya",
+      slug: "safaricom-game-conference-tunza-esports-championing-the-growth-of-competitive-gaming-in-kenya",
       date: "September 8, 2025",
       snippet: "Partnership brings pro support into KUER CODM.",
       content: `
@@ -244,152 +247,128 @@ layout: null
       tags: ["Partnership"],
       imageUrl: "/images/Safaricom-Gaming-Conference.JPG"
     }
-    // ...keep any additional items here...
   ];
 
-  // --- Helpers to read id from query or path ---
-  function getArticleKeyFromUrl() {
-    const params = new URLSearchParams(location.search);
-    const q = params.get('id');
-    if (q && !isNaN(parseInt(q, 10))) return { type: 'id', value: parseInt(q, 10) };
+  // --- Utilities ---
+  function slugify(s='') {
+    return s.toLowerCase()
+      .replace(/&/g, ' and ')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/(^-|-$)/g, '');
+  }
 
-    // support /article/9 or /article/9/
+  function getKeyFromUrl() {
+    // 1) Query ?id= or ?slug=
+    const p = new URLSearchParams(location.search);
+    if (p.get('id')) {
+      const n = parseInt(p.get('id'), 10);
+      if (!isNaN(n)) return { by: 'id', value: n };
+    }
+    if (p.get('slug')) return { by: 'slug', value: p.get('slug') };
+
+    // 2) /article/<id-or-slug>[/]
     const parts = location.pathname.replace(/\/+$/, '').split('/');
     const last = parts[parts.length - 1];
     const asNum = parseInt(last, 10);
-    if (!isNaN(asNum)) return { type: 'id', value: asNum };
-
+    if (!isNaN(asNum)) return { by: 'id', value: asNum };
+    if (last && parts[parts.length - 2] === 'article') return { by: 'slug', value: last };
     return null;
   }
 
-  function render(article) {
-    const titleEl = document.getElementById('article-title');
-    const dateEl  = document.getElementById('article-date');
-    const bodyEl  = document.getElementById('article-body');
-    const imgEl   = document.getElementById('article-image');
-
-    titleEl.textContent = article.title;
-    dateEl.textContent  = `Published on: ${article.date}`;
-    bodyEl.innerHTML    = article.content;
-    imgEl.src           = article.imageUrl;
-    imgEl.alt           = article.title;
+  function render(a) {
+    document.getElementById('article-title').textContent = a.title;
+    document.getElementById('article-date').textContent  = `Published on: ${a.date}`;
+    document.getElementById('article-body').innerHTML    = a.content;
+    const img = document.getElementById('article-image');
+    img.src = a.imageUrl; img.alt = a.title;
   }
 
-  // --- SEO helpers ---
-  function absUrl(u) {
-    if (!u) return location.origin + '/images/android-chrome-512x512-dark.png';
-    return u.startsWith('http') ? u : (location.origin + u);
-  }
-
-  function ensureMeta(selector, createAttrs) {
+  // SEO helpers
+  function absUrl(u) { return u?.startsWith('http') ? u : (location.origin + u); }
+  function ensureMeta(selector, attrs) {
     let el = document.querySelector(selector);
-    if (!el) {
-      el = document.createElement('meta');
-      Object.entries(createAttrs || {}).forEach(([k, v]) => el.setAttribute(k, v));
-      document.head.appendChild(el);
-    }
+    if (!el) { el = document.createElement('meta'); Object.entries(attrs).forEach(([k,v])=>el.setAttribute(k,v)); document.head.appendChild(el); }
     return el;
   }
-
-  function ensureLdScript(id) {
+  function ensureLd(id) {
     let el = document.getElementById(id);
-    if (!el) {
-      el = document.createElement('script');
-      el.type = 'application/ld+json';
-      el.id = id;
-      document.head.appendChild(el);
-    }
+    if (!el) { el = document.createElement('script'); el.type='application/ld+json'; el.id=id; document.head.appendChild(el); }
     return el;
   }
 
-  function updateSeoForArticle(a) {
-    const canonicalUrl = `https://www.tunzaesports.org/article/?id=${a.id}`;
+  function updateSeo(a) {
+    const canonical = `https://www.tunzaesports.org/article/${a.slug}/`;
 
-    // Description from HTML body
-    const tmp = document.createElement('div');
-    tmp.innerHTML = a.content || '';
+    // description from HTML
+    const tmp = document.createElement('div'); tmp.innerHTML = a.content || '';
     const text = (tmp.textContent || '').trim().replace(/\s+/g, ' ');
     const desc = text.slice(0, 180) + (text.length > 180 ? '…' : '');
 
-    // Title + meta description
     document.title = `${a.title} — Tunza Esports`;
-    const metaDesc = ensureMeta('meta[name="description"]', { name: 'description' });
-    metaDesc.setAttribute('content', desc);
+    const d = ensureMeta('meta[name="description"]', {name:'description'});
+    d.setAttribute('content', desc);
 
-    // Canonical
     let can = document.querySelector('link#canonical[rel="canonical"]');
-    if (!can) {
-      can = document.createElement('link');
-      can.id = 'canonical';
-      can.rel = 'canonical';
-      document.head.appendChild(can);
-    }
-    can.setAttribute('href', canonicalUrl);
+    if (!can) { can = document.createElement('link'); can.id='canonical'; can.rel='canonical'; document.head.appendChild(can); }
+    can.setAttribute('href', canonical);
 
-    // Open Graph / Twitter
-    const set = (sel, val, createAttrs) => {
-      const el = ensureMeta(sel, createAttrs);
-      el.setAttribute('content', val);
-    };
-    set('meta[property="og:url"]', canonicalUrl, { property: 'og:url' });
-    set('meta[property="og:title"]', `${a.title} — Tunza Esports`, { property: 'og:title' });
-    set('meta[property="og:description"]', desc, { property: 'og:description' });
-    set('meta[property="og:image"]', absUrl(a.imageUrl), { property: 'og:image' });
+    const set = (sel, val, create) => { const el = ensureMeta(sel, create); el.setAttribute('content', val); };
+    set('meta[property="og:url"]', canonical, {property:'og:url'});
+    set('meta[property="og:title"]', `${a.title} — Tunza Esports`, {property:'og:title'});
+    set('meta[property="og:description"]', desc, {property:'og:description'});
+    set('meta[property="og:image"]', absUrl(a.imageUrl), {property:'og:image'});
+    set('meta[name="twitter:title"]', `${a.title} — Tunza Esports`, {name:'twitter:title'});
+    set('meta[name="twitter:description"]', desc, {name:'twitter:description'});
+    set('meta[name="twitter:image"]', absUrl(a.imageUrl), {name:'twitter:image'});
 
-    set('meta[name="twitter:title"]', `${a.title} — Tunza Esports`, { name: 'twitter:title' });
-    set('meta[name="twitter:description"]', desc, { name: 'twitter:description' });
-    set('meta[name="twitter:image"]', absUrl(a.imageUrl), { name: 'twitter:image' });
-
-    // JSON-LD: NewsArticle
     const pubId = 'https://www.tunzaesports.org/#org';
     const iso = new Date(a.date || Date.now()).toISOString();
-    const ldArticle = {
-      "@context": "https://schema.org",
-      "@type": "NewsArticle",
-      "headline": a.title,
-      "datePublished": iso,
-      "dateModified": iso,
-      "image": [absUrl(a.imageUrl)],
-      "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalUrl },
-      "publisher": { "@id": pubId }
-    };
-    ensureLdScript('ld-article').textContent = JSON.stringify(ldArticle);
-
-    // JSON-LD: Breadcrumbs
-    const ldCrumbs = {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.tunzaesports.org/" },
-        { "@type": "ListItem", "position": 2, "name": "News", "item": "https://www.tunzaesports.org/news/" },
-        { "@type": "ListItem", "position": 3, "name": a.title, "item": canonicalUrl }
+    ensureLd('ld-article').textContent = JSON.stringify({
+      "@context":"https://schema.org",
+      "@type":"NewsArticle",
+      "headline":a.title,
+      "datePublished":iso,
+      "dateModified":iso,
+      "image":[absUrl(a.imageUrl)],
+      "mainEntityOfPage":{"@type":"WebPage","@id":canonical},
+      "publisher":{"@id":pubId}
+    });
+    ensureLd('ld-breadcrumbs').textContent = JSON.stringify({
+      "@context":"https://schema.org",
+      "@type":"BreadcrumbList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://www.tunzaesports.org/"},
+        {"@type":"ListItem","position":2,"name":"News","item":"https://www.tunzaesports.org/news/"},
+        {"@type":"ListItem","position":3,"name":a.title,"item":canonical}
       ]
-    };
-    ensureLdScript('ld-breadcrumbs').textContent = JSON.stringify(ldCrumbs);
+    });
   }
 
   function displayArticle() {
-    const key = getArticleKeyFromUrl();
-    let article = null;
+    const key = getKeyFromUrl();
+    const list = window.newsArticles || [];
 
-    if (key && key.type === 'id') {
-      article = (window.newsArticles || []).find(a => a.id === key.value);
+    let a = null;
+    if (key?.by === 'id') a = list.find(x => x.id === key.value);
+    if (!a && key?.by === 'slug') a = list.find(x => x.slug === key.value);
+
+    // fallback: latest
+    if (!a) a = list[0];
+    if (!a) return;
+
+    // normalize URL to slug path (no reload)
+    const want = `/article/${a.slug}/`;
+    if (location.pathname !== want) {
+      history.replaceState(null, '', want);
     }
 
-    // Fallback to latest article if none specified/found
-    if (!article) {
-      article = (window.newsArticles || [])[0];
-      if (article) {
-        const newUrl = `${location.origin}/article/?id=${article.id}`;
-        history.replaceState(null, '', newUrl);
-      } else {
-        return; // no articles available
-      }
-    }
-
-    render(article);
-    updateSeoForArticle(article);
+    render(a);
+    updateSeo(a);
   }
+
+  // Optional: if you ever add new items without slugs, generate them
+  window.newsArticles.forEach(a => { if (!a.slug) a.slug = slugify(a.title || String(a.id)); });
 
   window.addEventListener('load', displayArticle);
 })();
@@ -397,6 +376,7 @@ layout: null
 
 </body>
 </html>
+
 
 
 
