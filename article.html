@@ -40,7 +40,7 @@ layout: null
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0b0b16">
 
-  <!-- Publisher schema -->
+  <!-- Organization schema (publisher @id) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -57,7 +57,7 @@ layout: null
   }
   </script>
 
-  <!-- Placeholders that JS fills -->
+  <!-- Placeholders overwritten per-article -->
   <script id="ld-article" type="application/ld+json">{}</script>
   <script id="ld-breadcrumbs" type="application/ld+json">{}</script>
 
@@ -167,7 +167,7 @@ layout: null
 
   <script>
   (function () {
-    // --- Article data ---
+    // --- Articles data (text unchanged) ---
     window.newsArticles = [
       {
         id: 1,
@@ -232,10 +232,16 @@ layout: null
       }
     ];
 
+    // --- Utilities ---
     function slugify(s='') {
-      return s.toLowerCase().replace(/&/g,' and ').replace(/[^a-z0-9]+/g,'-').replace(/-+/g,'-').replace(/(^-|-$)/g,'');
+      return s.toLowerCase()
+        .replace(/&/g, ' and ')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/(^-|-$)/g, '');
     }
 
+    // Read from ?slug= or ?id=, or /article/<slug>
     function getKeyFromUrl() {
       const p = new URLSearchParams(location.search);
       if (p.get('id')) {
@@ -260,6 +266,7 @@ layout: null
       img.src = a.imageUrl; img.alt = a.title;
     }
 
+    // --- SEO helpers ---
     function absUrl(u) { return u?.startsWith('http') ? u : (location.origin + u); }
     function ensureMeta(selector, attrs) {
       let el = document.querySelector(selector);
@@ -273,7 +280,9 @@ layout: null
     }
 
     function updateSeo(a) {
-      const canonical = `https://www.tunzaesports.org/article/${a.slug}/`;
+      // Canonical MUST be a 200 URL -> use query form
+      const canonical = `${location.origin}/article/?slug=${encodeURIComponent(a.slug)}`;
+
       const tmp = document.createElement('div'); tmp.innerHTML = a.content || '';
       const text = (tmp.textContent || '').trim().replace(/\s+/g, ' ');
       const desc = text.slice(0, 180) + (text.length > 180 ? '…' : '');
@@ -296,7 +305,7 @@ layout: null
       set('meta[name="twitter:image"]', absUrl(a.imageUrl), {name:'twitter:image'});
 
       const pubId = 'https://www.tunzaesports.org/#org';
-      const iso = new Date(a.date || Date.now()).toISOString();
+      const iso   = new Date(a.date || Date.now()).toISOString();
       ensureLd('ld-article').textContent = JSON.stringify({
         "@context":"https://schema.org",
         "@type":"NewsArticle",
@@ -323,23 +332,20 @@ layout: null
       const list = window.newsArticles || [];
 
       let a = null;
-      if (key?.by === 'id') a = list.find(x => x.id === key.value);
+      if (key?.by === 'id')   a = list.find(x => x.id === key.value);
       if (!a && key?.by === 'slug') a = list.find(x => x.slug === key.value);
 
       if (!a) a = list[0];
       if (!a) return;
 
-      // Pretty URL in history (no reload; the file at /article/ handles the view)
-      const want = `/article/${a.slug}/`;
-      if (location.pathname !== want) {
-        history.replaceState(null, '', want);
-      }
-
+      // IMPORTANT: keep the query-string URL (no history.replaceState to /article/<slug>/)
       render(a);
       updateSeo(a);
     }
 
+    // Ensure every item has a slug (future-proof)
     window.newsArticles.forEach(a => { if (!a.slug) a.slug = slugify(a.title || String(a.id)); });
+
     window.addEventListener('load', displayArticle);
   })();
   </script>
