@@ -1,0 +1,17 @@
+---
+permalink: /sitemap-articles.xml
+layout: null
+sitemap: false
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {% assign host = site.url | append: site.baseurl %}
+  {% for a in site.data.news_articles %}
+  <url>
+    <loc>{{ host }}/article/?slug={{ a.slug | uri_escape }}</loc>
+    {% if a.date %}<lastmod>{{ a.date | date_to_xmlschema }}</lastmod>{% endif %}
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  {% endfor %}
+</urlset>
