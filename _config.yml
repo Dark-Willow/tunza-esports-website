@@ -1,8 +1,7 @@
+# _config.yml
 url: https://www.tunzaesports.org
 baseurl: ""
 permalink: pretty
 plugins:
   - jekyll-redirect-from
   - jekyll-sitemap
-include:
-  - _redirects
