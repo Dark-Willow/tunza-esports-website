@@ -279,54 +279,98 @@ layout: null
       return el;
     }
 
-    function updateSeo(a) {
-      // Canonical MUST be a 200 URL -> use query form
-      const canonical = `${location.origin}/article/?slug=${encodeURIComponent(a.slug)}`;
+   function updateSeo(a) {
+  // Canonical MUST be a 200 URL on GitHub Pages -> use query form
+  const canonical = `${location.origin}/article/?slug=${encodeURIComponent(a.slug)}`;
 
-      const tmp = document.createElement('div'); tmp.innerHTML = a.content || '';
-      const text = (tmp.textContent || '').trim().replace(/\s+/g, ' ');
-      const desc = text.slice(0, 180) + (text.length > 180 ? '…' : '');
+  // Build a short description from the HTML body
+  const tmp = document.createElement('div');
+  tmp.innerHTML = a.content || '';
+  const text = (tmp.textContent || '').trim().replace(/\s+/g, ' ');
+  const desc = text.slice(0, 180) + (text.length > 180 ? '…' : '');
 
-      document.title = `${a.title} — Tunza Esports`;
-      const d = ensureMeta('meta[name="description"]', {name:'description'});
-      d.setAttribute('content', desc);
+  // Helpers to ensure tags exist (so we can safely set content)
+  const ensureMetaByName = (name) => {
+    let el = document.querySelector(`meta[name="${name}"]`);
+    if (!el) { el = document.createElement('meta'); el.setAttribute('name', name); document.head.appendChild(el); }
+    return el;
+  };
+  const ensureMetaByProp = (prop) => {
+    let el = document.querySelector(`meta[property="${prop}"]`);
+    if (!el) { el = document.createElement('meta'); el.setAttribute('property', prop); document.head.appendChild(el); }
+    return el;
+  };
+  const ensureLink = (id, rel) => {
+    let el = document.getElementById(id);
+    if (!el) { el = document.createElement('link'); el.id = id; el.rel = rel; document.head.appendChild(el); }
+    return el;
+  };
+  const ensureLd = (id) => {
+    let el = document.getElementById(id);
+    if (!el) { el = document.createElement('script'); el.type = 'application/ld+json'; el.id = id; document.head.appendChild(el); }
+    return el;
+  };
+  const abs = (u) => (u && u.startsWith('http')) ? u : (location.origin + (u || ''));
 
-      let can = document.querySelector('link#canonical[rel="canonical"]');
-      if (!can) { can = document.createElement('link'); can.id='canonical'; can.rel='canonical'; document.head.appendChild(can); }
-      can.setAttribute('href', canonical);
+  // Title + robots + meta description
+  document.title = `${a.title} — Tunza Esports`;
+  ensureMetaByName('robots')
+    .setAttribute('content', 'index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1');
+  ensureMetaByName('description').setAttribute('content', desc);
 
-      const set = (sel, val, create) => { const el = ensureMeta(sel, create); el.setAttribute('content', val); };
-      set('meta[property="og:url"]', canonical, {property:'og:url'});
-      set('meta[property="og:title"]', `${a.title} — Tunza Esports`, {property:'og:title'});
-      set('meta[property="og:description"]', desc, {property:'og:description'});
-      set('meta[property="og:image"]', absUrl(a.imageUrl), {property:'og:image'});
-      set('meta[name="twitter:title"]', `${a.title} — Tunza Esports`, {name:'twitter:title'});
-      set('meta[name="twitter:description"]', desc, {name:'twitter:description'});
-      set('meta[name="twitter:image"]', absUrl(a.imageUrl), {name:'twitter:image'});
+  // Canonical (query-string form)
+  ensureLink('canonical', 'canonical').setAttribute('href', canonical);
 
-      const pubId = 'https://www.tunzaesports.org/#org';
-      const iso   = new Date(a.date || Date.now()).toISOString();
-      ensureLd('ld-article').textContent = JSON.stringify({
-        "@context":"https://schema.org",
-        "@type":"NewsArticle",
-        "headline":a.title,
-        "datePublished":iso,
-        "dateModified":iso,
-        "image":[absUrl(a.imageUrl)],
-        "mainEntityOfPage":{"@type":"WebPage","@id":canonical},
-        "publisher":{"@id":pubId}
-      });
-      ensureLd('ld-breadcrumbs').textContent = JSON.stringify({
-        "@context":"https://schema.org",
-        "@type":"BreadcrumbList",
-        "itemListElement":[
-          {"@type":"ListItem","position":1,"name":"Home","item":"https://www.tunzaesports.org/"},
-          {"@type":"ListItem","position":2,"name":"News","item":"https://www.tunzaesports.org/news/"},
-          {"@type":"ListItem","position":3,"name":a.title,"item":canonical}
-        ]
-      });
-    }
+  // Open Graph
+  ensureMetaByProp('og:url').setAttribute('content', canonical);
+  ensureMetaByProp('og:title').setAttribute('content', `${a.title} — Tunza Esports`);
+  ensureMetaByProp('og:description').setAttribute('content', desc);
+  ensureMetaByProp('og:type').setAttribute('content', 'article');
+  ensureMetaByProp('og:image').setAttribute('content', abs(a.imageUrl));
 
+  // Twitter
+  ensureMetaByName('twitter:card').setAttribute('content', 'summary_large_image');
+  ensureMetaByName('twitter:title').setAttribute('content', `${a.title} — Tunza Esports`);
+  ensureMetaByName('twitter:description').setAttribute('content', desc);
+  ensureMetaByName('twitter:image').setAttribute('content', abs(a.imageUrl));
+
+  // JSON-LD (NewsArticle)
+  const pubId = 'https://www.tunzaesports.org/#org';
+  const iso = new Date(a.date || Date.now()).toISOString();
+  const ldArticle = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "headline": a.title,
+    "url": canonical,
+    "mainEntityOfPage": { "@type": "WebPage", "@id": canonical },
+    "image": [abs(a.imageUrl)],
+    "datePublished": iso,
+    "dateModified": iso,
+    "author": [{ "@type": "Organization", "name": "Tunza Esports" }],
+    "publisher": {
+      "@type": "Organization",
+      "@id": pubId,
+      "name": "Tunza Esports",
+      "logo": { "@type": "ImageObject", "url": "https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" }
+    },
+    "articleSection": (a.tags && a.tags[0]) || "News",
+    "keywords": (a.tags || []).join(", "),
+    "description": desc
+  };
+  ensureLd('ld-article').textContent = JSON.stringify(ldArticle);
+
+  // JSON-LD (Breadcrumbs)
+  const ldCrumbs = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.tunzaesports.org/" },
+      { "@type": "ListItem", "position": 2, "name": "News", "item": "https://www.tunzaesports.org/news/" },
+      { "@type": "ListItem", "position": 3, "name": a.title, "item": canonical }
+    ]
+  };
+  ensureLd('ld-breadcrumbs').textContent = JSON.stringify(ldCrumbs);
+}
     function displayArticle() {
       const key = getKeyFromUrl();
       const list = window.newsArticles || [];
@@ -351,3 +395,4 @@ layout: null
   </script>
 </body>
 </html>
+
