@@ -7,6 +7,7 @@
 
   <title>Tunza Esports — Home</title>
   <meta name="description" content="Tunza Esports organizes esports tournaments, gaming events, and community programs across Kenya. News, rankings, partnerships, and more." />
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
 
   <!-- Canonical -->
   <link rel="canonical" href="https://www.tunzaesports.org/" />
@@ -24,18 +25,13 @@
   <meta name="twitter:description" content="News, tournaments, and events from Tunza Esports — Tujenge Esports Kenya." />
   <meta name="twitter:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" />
 
-  <!-- Favicons (dark bg + cache-busted so Google re-fetches) -->
-  <link rel="icon" href="/favicon.ico?v=4" sizes="any"> <!-- root .ico MUST be dark -->
+  <!-- Favicons -->
+  <link rel="icon" href="/favicon.ico?v=4" sizes="any">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=4">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4">
-  <!-- Preferred for Google SERP -->
   <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48x48-dark.png?v=4">
-  <!-- If you DON'T have the PNG, use ICO instead: -->
-  <!-- <link rel="icon" type="image/x-icon" sizes="48x48" href="/images/favicon-48x48-dark.ico?v=4"> -->
-  <!-- Larger Android/Install sizes -->
   <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192-dark.png?v=4">
   <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512-dark.png?v=4">
-  <!-- Apple / Safari -->
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png?v=4">
   <link rel="mask-icon" href="/images/tunza-logo-dark.svg" color="#000000">
 
@@ -51,11 +47,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/css/style.css" />
 
-  <!-- Organization schema (single source of truth) -->
+  <!-- JSON-LD: Organization (single source of truth) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": "https://www.tunzaesports.org/#org",
     "name": "Tunza Esports",
     "url": "https://www.tunzaesports.org",
     "logo": "https://www.tunzaesports.org/images/android-chrome-512x512-dark.png",
@@ -67,17 +64,18 @@
   }
   </script>
 
-  <!-- WebSite schema (brand + sitelinks searchbox) -->
+  <!-- JSON-LD: WebSite (enables sitelinks search box) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": "https://www.tunzaesports.org/#website",
     "url": "https://www.tunzaesports.org/",
     "name": "Tunza Esports",
-    "alternateName": ["TunzaEsports", "Tunza Esports Kenya"],
+    "publisher": { "@id": "https://www.tunzaesports.org/#org" },
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://www.google.com/search?q=site%3Awww.tunzaesports.org+{search_term_string}",
+      "target": "https://www.tunzaesports.org/news/?q={search_term_string}",
       "query-input": "required name=search_term_string"
     }
   }
@@ -104,7 +102,6 @@
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/about-us/">About Us</a></li>
-
           <li class="has-dropdown">
             <a href="#">Our Services</a>
             <ul class="dropdown-menu">
@@ -115,7 +112,6 @@
               <li><a href="/bootcamps-training-programs/">Bootcamps &amp; Training Programs</a></li>
             </ul>
           </li>
-
           <li class="has-dropdown">
             <a href="#">Our Products</a>
             <ul class="dropdown-menu">
@@ -125,7 +121,6 @@
               <li><a href="/shop/">Shop</a></li>
             </ul>
           </li>
-
           <li><a href="/news/">News</a></li>
           <li><a href="/contact/">Contact Us</a></li>
           <li><a href="/gallery/">Gallery</a></li>
@@ -294,13 +289,11 @@
     }
 
     function initPartnersCarousel(){
-      // Respect reduced motion
       if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
       const track = document.querySelector('.partners-carousel-track');
       if (!track) return;
 
-      // Duplicate items until there's enough width to scroll smoothly
       let guard = 0;
       const originals = Array.from(track.children).map(n => n.cloneNode(true));
       while ((track.scrollWidth || 0) < (track.clientWidth * 3) && guard < 10) {
@@ -317,13 +310,11 @@
       }
       loop();
 
-      // Pause on hover/focus; resume on leave
       track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
       track.addEventListener('mouseleave', () => loop());
       track.addEventListener('focusin', () => cancelAnimationFrame(raf));
       track.addEventListener('focusout', () => loop());
 
-      // Recalc on resize
       let t;
       window.addEventListener('resize', () => {
         cancelAnimationFrame(raf);
@@ -343,18 +334,6 @@
       init();
     }
   })();
-  </script>
-
-  <!-- Organization schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Tunza Esports",
-    "url": "https://www.tunzaesports.org/",
-    "logo": "https://www.tunzaesports.org/images/tunzalogo.png",
-    "sameAs": ["https://www.kenyaesportsrankings.org"]
-  }
   </script>
 </body>
 </html>
