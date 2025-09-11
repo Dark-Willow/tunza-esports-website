@@ -5,5 +5,6 @@ layout: null
 User-agent: *
 Allow: /
 
+Sitemap: https://www.tunzaesports.org/sitemap-index.xml
 Sitemap: https://www.tunzaesports.org/sitemap.xml
 Sitemap: https://www.tunzaesports.org/sitemap-articles.xml
