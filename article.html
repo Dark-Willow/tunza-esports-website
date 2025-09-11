@@ -1,7 +1,7 @@
 ---
-permalink: /news/
+permalink: /article/
 redirect_from:
-  - /news.html
+  - /article.html
 layout: null
 ---
 <!DOCTYPE html>
@@ -11,43 +11,41 @@ layout: null
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
-  <title>Tunza Esports - News</title>
-  <meta name="description" content="Latest news from Tunza Esports: tournaments, partnerships, product updates, and community highlights.">
+  <title>Tunza Esports - Article</title>
+  <meta name="description" content="Tunza Esports news and updates on tournaments, partnerships, and community." />
 
-  <!-- Canonical + Social -->
-  <link rel="canonical" href="https://www.tunzaesports.org/news/" />
-  <meta property="og:url" content="https://www.tunzaesports.org/news/" />
-  <meta property="og:title" content="Latest News - Tunza Esports" />
-  <meta property="og:description" content="Tournaments, partnerships, product updates, and community highlights." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" />
-  <meta property="og:image:alt" content="Tunza Esports logo" />
-  <meta property="og:site_name" content="Tunza Esports" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Latest News - Tunza Esports" />
-  <meta name="twitter:description" content="Tournaments, partnerships, product updates, and community highlights." />
-  <meta name="twitter:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" />
-  <meta name="twitter:image:alt" content="Tunza Esports logo" />
+  <!-- Canonical + Social (defaults; JS will update per-article) -->
+  <link id="canonical" rel="canonical" href="https://www.tunzaesports.org/article/">
+  <meta property="og:url"         content="https://www.tunzaesports.org/article/">
+  <meta property="og:title"       content="Tunza Esports — Article">
+  <meta property="og:description" content="Latest news from Tunza Esports.">
+  <meta property="og:type"        content="article">
+  <meta property="og:image"       content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png">
+  <meta property="og:site_name"   content="Tunza Esports">
+  <meta name="twitter:card"       content="summary_large_image">
+  <meta name="twitter:title"      content="Tunza Esports — Article">
+  <meta name="twitter:description" content="Latest news from Tunza Esports.">
+  <meta name="twitter:image"      content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png">
 
-  <!-- Favicons (match homepage) -->
-  <link rel="icon" href="/favicon.ico?v=4" sizes="any">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=4">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4">
-  <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48x48-dark.png?v=4">
-  <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192-dark.png?v=4">
-  <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512-dark.png?v=4">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png?v=4">
-  <link rel="mask-icon" href="/images/tunza-logo-dark.svg" color="#000000">
+  <!-- Favicons -->
+  <link rel="icon" href="/favicon.ico?v=6" sizes="any">
+  <link rel="icon" type="image/png" sizes="16x16"  href="/favicon-16x16.png?v=6">
+  <link rel="icon" type="image/png" sizes="32x32"  href="/favicon-32x32.png?v=6">
+  <link rel="icon" type="image/png" sizes="48x48"  href="/images/favicon-48x48-dark.png?v=6">
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192-dark.png?v=6">
+  <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512-dark.png?v=6">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png?v=6">
 
   <!-- PWA -->
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0b0b16">
 
-  <!-- Organization schema (sitewide consistent) -->
+  <!-- Publisher schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": "https://www.tunzaesports.org/#org",
     "name": "Tunza Esports",
     "url": "https://www.tunzaesports.org",
     "logo": "https://www.tunzaesports.org/images/android-chrome-512x512-dark.png",
@@ -59,23 +57,26 @@ layout: null
   }
   </script>
 
+  <!-- Placeholders that JS fills -->
+  <script id="ld-article" type="application/ld+json">{}</script>
+  <script id="ld-breadcrumbs" type="application/ld+json">{}</script>
+
   <!-- Fonts & CSS -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/css/style.css" />
 
-  <!-- Page-safe inline styles -->
   <style>
-    .news-image{ width:100%; height:200px; object-fit:cover; border-radius:8px 8px 0 0; display:block; }
-    .partners-section { padding: 40px 0; text-align:center; }
-    .partners-carousel-track{ display:flex; gap:24px; overflow:hidden; padding:8px 0; scroll-behavior:auto; }
-    .partner-logo{ flex:0 0 auto; width:240px; height:110px; display:flex; align-items:center; justify-content:center; background:#0f0f17; border-radius:12px; padding:8px; }
-    .partner-logo img{ max-height:90px; max-width:100%; object-fit:contain; display:block; }
-    @media (max-width: 768px){ .partner-logo{ width:180px; height:100px; } .partner-logo img{ max-height:80px; } }
-    @media (max-width: 480px){ .partner-logo{ width:150px; height:90px; } .partner-logo img{ max-height:70px; } }
+    .article-content{padding:40px;max-width:900px;margin:100px auto 0;border-radius:12px;line-height:1.6}
+    .article-image-container{width:100%;height:500px;margin-bottom:30px;overflow:hidden;border-radius:8px}
+    .article-image{width:100%;height:100%;object-fit:cover;display:block}
+    .article-title{font-family:'Syne',sans-serif;font-size:2.5rem;color:#fff;margin-bottom:10px}
+    .article-meta{font-family:'Oxanium',sans-serif;color:#ccc;font-size:.9rem;margin-bottom:20px}
+    .article-body p{margin-bottom:20px;font-size:1.1rem;color:#fff}
+    @media (max-width:768px){.article-content{padding:20px}.article-title{font-size:2rem}}
   </style>
 </head>
 <body>
@@ -90,18 +91,18 @@ layout: null
             <a href="#">Our Services</a>
             <ul class="dropdown-menu">
               <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
-              <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
+              <li><a href="/esports-broadcasting/">Esports Broadcasting</a></li>
               <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
               <li><a href="/consultation/">Consultation</a></li>
-              <li><a href="/bootcamps-training-programs/">Training Programs</a></li>
+              <li><a href="/bootcamps-training-programs/">Bootcamps & Training Programs</a></li>
             </ul>
           </li>
           <li class="has-dropdown">
             <a href="#">Our Products</a>
             <ul class="dropdown-menu">
               <li><a href="/ker/">KER</a></li>
-              <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
-              <li><a href="/tunzatourna/">TunzaTourna</a></li>
+              <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
+              <li><a href="/Tunzatourna/">TunzaTourna</a></li>
               <li><a href="/shop/">Shop</a></li>
             </ul>
           </li>
@@ -114,79 +115,18 @@ layout: null
     </nav>
   </section>
 
-  <section class="news-hero-section">
-    <div class="breadcrumb">
-      <a href="/">Home</a> &rsaquo; News
-    </div>
-    <h1 class="service-main-heading">Latest News</h1>
-  </section>
-
   <main class="news-body">
-    <div class="news-content-wrapper">
-      <aside class="news-sidebar">
-        <div class="search-section">
-          <h3>Search News</h3>
-          <input type="text" placeholder="Keyword Search" class="keyword-search" aria-label="Search news by keyword" />
-          <button class="search-button">Search</button>
-        </div>
-        <div class="filter-section">
-          <h3>Filter by Tag</h3>
-          <div class="tag-list" role="tablist" aria-label="Filter news by tag">
-            <span class="tag active" data-tag-name="All">All</span>
-            <span class="tag" data-tag-name="Tournament News">Tournament News</span>
-            <span class="tag" data-tag-name="Product Updates">Product Updates</span>
-            <span class="tag" data-tag-name="Community News">Community News</span>
-            <span class="tag" data-tag-name="Partnership">Partnership</span>
-          </div>
-        </div>
-      </aside>
-
-      <div class="articles-container">
-        <div class="news-content-grid" id="news-articles-container"></div>
-        <div class="load-more-container">
-          <button class="load-more-button">Load More</button>
-        </div>
+    <div class="article-content">
+      <div class="article-image-container">
+        <img id="article-image" src="" alt="Article Image" class="article-image">
       </div>
+      <h1 class="article-title" id="article-title"></h1>
+      <p class="article-meta" id="article-date"></p>
+      <div class="article-body" id="article-body"></div>
     </div>
   </main>
 
   <div class="spacer-before-partners"></div>
-
-  <!-- Newsletter -->
-  <section class="newsletter-outer">
-    <p class="newsletter-pre-heading">Subscribe To Our Newsletter Today!</p>
-    <h2 class="newsletter-main-heading">Get Gaming Guide and Information</h2>
-    <div class="newsletter-card">
-      <h3>Hello guys! Get the latest information from us</h3>
-
-      <form
-        action="https://tunzaesports.us13.list-manage.com/subscribe/post?u=49268c059773710b44455bb33&id=f95ceda37f&f_id=00cde9e1f0"
-        method="post"
-        target="_blank"
-        novalidate
-        class="newsletter-form-container"
-        aria-label="Newsletter signup form"
-      >
-        <input type="email" name="EMAIL" placeholder="Enter your email here" class="email-input" required />
-        <div style="position:absolute; left:-5000px;" aria-hidden="true">
-          <input type="text" name="b_49268c059773710b44455bb33_f95ceda37f" tabindex="-1" value="">
-        </div>
-        <button type="submit" class="subscribe-button">Subscribe</button>
-      </form>
-
-      <p class="newsletter-card-disclaimer">Stay ahead in the game. Get exclusive tips, updates, and strategy guides straight to your inbox. No spam, just pure gaming goodness.</p>
-    </div>
-  </section>
-
-  <!-- Partners -->
-  <section class="partners-section">
-    <h2>Our Partners, clients, friends</h2>
-    <div class="partners-carousel-track">
-      <div class="partner-logo"><img src="/images/Esports-Africa-News.jpg" alt="Esports Africa News logo" loading="lazy"></div>
-      <div class="partner-logo"><img src="/images/Afrigamer.jpg" alt="Afrigamer logo" loading="lazy"></div>
-      <div class="partner-logo"><img src="/images/B34R-CL4N%20partner.jpg" alt="B34R CL4N" loading="lazy"></div>
-    </div>
-  </section>
 
   <footer>
     <div class="footer-content">
@@ -201,8 +141,8 @@ layout: null
       <div class="footer-column">
         <h4>Resources</h4>
         <ul>
-          <li><a href="/tunzatourna/">Tunza Tourna</a></li>
-          <li><a href="/shop/">Shop</a></li>
+          <li><a href="/coming-soon/">Tunza Tourna</a></li>
+          <li><a href="/coming-soon/">Shop</a></li>
         </ul>
       </div>
       <div class="footer-column">
@@ -212,7 +152,7 @@ layout: null
         </ul>
       </div>
       <div class="footer-column footer-logo-column">
-        <img src="/images/tunzalogo.png" alt="Tunza Esports Logo" />
+        <img src="/images/tunzalogo.png" alt="Tunza Esports Logo">
         <p>Shaping the future of Kenya's Esports</p>
         <p>info@tunzaesports.org</p>
         <p>P.O BOX 45085-00100</p>
@@ -227,196 +167,180 @@ layout: null
 
   <script>
   (function () {
-    // Sticky nav
-    window.addEventListener('scroll', function () {
-      const navbar = document.querySelector('.header nav');
-      if (navbar) navbar.style.top = window.scrollY > 0 ? (window.scrollY + 'px') : '0px';
-    });
+    // --- Article data ---
+    window.newsArticles = [
+      {
+        id: 1,
+        slug: "tunza-esports-renews-kuer-season-3-with-a-fresh-format",
+        title: "Tunza Esports Renews KUER Season 3 With a Fresh Format",
+        date: "September 1, 2025",
+        snippet: "For the first time, KUER will run in two separate periods.",
+        content: `
+          <p>University Esports in Kenya is about to get even more exciting. Tunza Esports has confirmed the return of the Kenya University Esports Rankings (KUER) for Season 3, and this time the competition comes with a brand-new structure.</p>
+          <p>For the first time, KUER will run in two separate periods. The first kicks off in September 2025 while the second follows in January 2026. This change allows more gaming titles to be included and ensures that Kenya University Sports in Kenya stays active throughout the academic year.</p>
+          <p><strong>Titles in the First Period</strong></p>
+          <p>The September season will feature Free Fire, Bloodstrike, FC 25 (2v2), Chess, PUBG Mobile, and eFootball.</p>
+          <p><strong>Titles in the Second Period</strong></p>
+          <p>In January, KUER will continue with Call of Duty Mobile Multiplayer, Valorant 5v5, Tekken 8, Mortal Kombat, Rocket League, FC 25 in the 1v1 format, and NBA 2K26. This mix of shooters, fighters, and sports titles adds depth and variety to the season.</p>
+          <p><strong>Why Season 3 Matters</strong></p>
+          <p>KUER has already established itself as the leading platform for University Esports in Kenya. Season 3 strengthens that reputation by providing more opportunities for students to compete, represent their universities, and showcase their talent. For the growing community of Esports in Kenya, this new format ensures nonstop action and greater inclusion of different gaming genres.</p>
+          <p><strong>The Future of Kenya Esports</strong></p>
+          <p>Season 3 is more than a tournament. It is a statement about the growth of competitive gaming in Kenya. With more titles, a two-period structure, and wider participation, KUER continues to raise the standard for University Esports and Kenya Esports as a whole.</p>
+        `,
+        tags: ["Tournament News", "Community News"],
+        imageUrl: "/images/KUER-x-Tunza.png"
+      },
+      {
+        id: 2,
+        slug: "tunza-esports-partners-with-b34r-cl4n-to-strengthen-codm-in-university-esports-in-kenya",
+        title: "Tunza Esports Partners with B34R CL4N to strengthen CODM in University Esports in Kenya",
+        date: "September 5, 2025",
+        snippet: "Partnership brings pro support into KUER CODM.",
+        content: `
+          <p>Tunza Esports, has officially partnered with B34R CL4N, the Carry1st Call of Duty Mobile Africa Cup Champions. This collaboration marks a new chapter in the growth of Esports in Kenya, particularly within the university esports ecosystem.</p>
+          <p>B34R CL4N, fresh from their historic win at the Carry1st CODM Africa Cup Championship, are set to represent Africa on the global stage. By joining forces with Tunza Esports, they are extending their success to support the next generation of CODM players in Kenya University Esports.</p>
+          <p>Through this partnership, Call of Duty Mobile Battle Royale and Multiplayer competitions within KUER will receive increased sponsorship, visibility, and professional-level support. University students across Kenya will now benefit from more structured tournaments, mentorship opportunities, and greater recognition in the fast-growing Esports industry.</p>
+          <p>Tunza Esports continues to focus on empowering youth through competitive gaming, ensuring that University Esports in Kenya is recognized alongside traditional sports. B34R CL4N’s involvement reflects their commitment to building the future of Kenyan Esports, inspiring student gamers to pursue excellence while connecting university competitions with the professional Esports scene.</p>
+          <p>With Tunza Esports and B34R CL4N working together, KUER is set to become the leading platform for University Esports in Kenya, driving growth and positioning the country as a key player in the African and Global Esports landscape.</p>
+        `,
+        tags: ["Partnership"],
+        imageUrl: "/images/KUER-x-B34R.png"
+      },
+      {
+        id: 3,
+        slug: "safaricom-game-conference-tunza-esports-championing-the-growth-of-competitive-gaming-in-kenya",
+        title: "Safaricom Game Conference: Tunza Esports Championing the Growth of Competitive Gaming in Kenya",
+        date: "September 8, 2025",
+        snippet: "Partnership brings pro support into KUER CODM.",
+        content: `
+          <p>The Safaricom Game Conference was a landmark event in Kenya’s gaming industry, bringing together innovators, gamers, and organizations shaping the future of Esports. Among the standout contributors was Tunza Esports, a pioneering organization dedicated to nurturing gaming talent and promoting Esports as a platform for growth, opportunity, and community impact.</p>
+          <p><strong>Safaricom’s Support for the Gaming Ecosystem</strong></p>
+          <p>The event featured remarks by Fawzia Ali Kimanthi, Chief Consumer Business Officer at Safaricom Kenya, who reaffirmed the company’s commitment to supporting young people through innovation in technology and gaming. She explained how Safaricom aims to be a brand that resonates with gamers by offering solutions that address their needs. Through initiatives such as the Spark Accelerator Program, Safaricom is actively creating opportunities for startups and innovators in Kenya’s gaming ecosystem.</p>
+          <p><strong>Tunza Esports: Empowering Gamers Across Kenya</strong></p>
+          <p>Shirley Adema, CEO and founder of Tunza Esports, shared her inspiring journey of how gaming became an integral part of her life. Introduced to gaming at an early age by her five brothers, Shirley grew up facing the challenges of limited opportunities in Esports. Her passion for competitive gaming and her experiences as an athlete pushed her to establish Tunza Esports as a platform that creates pathways for Kenyan gamers to thrive.</p>
+          <p>Tunza Esports is built on the vision of transforming gaming into a structured and professional industry in Kenya. From grassroots initiatives to competitive platforms, Tunza is focused on ensuring that players—regardless of background—have the chance to showcase their talent, build careers, and become part of a growing global community.</p>
+          <p><strong>Creating Structures for the Future</strong></p>
+          <p>At the Safaricom Game Conference, Shirley emphasized the importance of building structures, recognition, and platforms for Esports in Kenya. Tunza Esports is dedicated to this mission, working with stakeholders and institutions to create opportunities for players at every level. By addressing the challenges she once faced, Shirley and her team are ensuring that today’s gamers don’t just play, but also grow, learn, and benefit from the industry.</p>
+          <p><strong>Tunza’s Impact on the Kenyan Esports Scene</strong></p>
+          <p>Tunza Esports has already begun making a significant impact. Through advocacy, partnerships, and the creation of competitive opportunities, it is laying the foundation for a strong Esports industry in Kenya. The organization continues to champion inclusivity, ensuring that women and underrepresented groups have a place in the Esports conversation.</p>
+          <p><strong>Looking Ahead</strong></p>
+          <p>The Safaricom Game Conference demonstrated the power of collaboration in driving Esports forward in Kenya. With Safaricom’s support for innovation and Tunza Esports’ dedication to empowering gamers, the country is on track to become a leading hub for competitive gaming in Africa.</p>
+          <p>The story of Tunza Esports is not just about competition—it’s about transformation, opportunity, and creating a future where Kenyan gamers can thrive locally and globally.</p>
+        `,
+        tags: ["Partnership"],
+        imageUrl: "/images/Safaricom-Gaming-Conference.JPG"
+      }
+    ];
 
-    function init() {
-      const navbar = document.querySelector('.header nav');
-      if (navbar) navbar.style.top = window.scrollY > 0 ? (window.scrollY + 'px') : '0px';
-
-      initPartnersCarousel();
-      initNews();
+    function slugify(s='') {
+      return s.toLowerCase().replace(/&/g,' and ').replace(/[^a-z0-9]+/g,'-').replace(/-+/g,'-').replace(/(^-|-$)/g,'');
     }
 
-    function initPartnersCarousel(){
-      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-      const track = document.querySelector('.partners-carousel-track');
-      if (!track) return;
-
-      const originals = Array.from(track.children).map(n => n.cloneNode(true));
-      let reps = 0;
-      while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
-        originals.forEach(n => track.appendChild(n.cloneNode(true)));
-        reps++;
+    function getKeyFromUrl() {
+      const p = new URLSearchParams(location.search);
+      if (p.get('id')) {
+        const n = parseInt(p.get('id'), 10);
+        if (!isNaN(n)) return { by: 'id', value: n };
       }
+      if (p.get('slug')) return { by: 'slug', value: p.get('slug') };
 
-      let x = 0, speed = 0.6, raf;
-      function loop(){
-        const max = track.scrollWidth - track.clientWidth;
-        x = (x + speed) % (max || 1);
-        track.scrollLeft = x;
-        raf = requestAnimationFrame(loop);
-      }
-      loop();
+      const parts = location.pathname.replace(/\/+$/, '').split('/');
+      const last = parts[parts.length - 1];
+      const asNum = parseInt(last, 10);
+      if (!isNaN(asNum)) return { by: 'id', value: asNum };
+      if (last && parts[parts.length - 2] === 'article') return { by: 'slug', value: last };
+      return null;
+    }
 
-      track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
-      track.addEventListener('mouseleave', () => loop());
-      track.addEventListener('focusin',   () => cancelAnimationFrame(raf));
-      track.addEventListener('focusout',  () => loop());
+    function render(a) {
+      document.getElementById('article-title').textContent = a.title;
+      document.getElementById('article-date').textContent  = `Published on: ${a.date}`;
+      document.getElementById('article-body').innerHTML    = a.content;
+      const img = document.getElementById('article-image');
+      img.src = a.imageUrl; img.alt = a.title;
+    }
 
-      let t;
-      window.addEventListener('resize', () => {
-        cancelAnimationFrame(raf);
-        clearTimeout(t);
-        t = setTimeout(() => { x = 0; loop(); }, 150);
+    function absUrl(u) { return u?.startsWith('http') ? u : (location.origin + u); }
+    function ensureMeta(selector, attrs) {
+      let el = document.querySelector(selector);
+      if (!el) { el = document.createElement('meta'); Object.entries(attrs).forEach(([k,v])=>el.setAttribute(k,v)); document.head.appendChild(el); }
+      return el;
+    }
+    function ensureLd(id) {
+      let el = document.getElementById(id);
+      if (!el) { el = document.createElement('script'); el.type='application/ld+json'; el.id=id; document.head.appendChild(el); }
+      return el;
+    }
+
+    function updateSeo(a) {
+      const canonical = `https://www.tunzaesports.org/article/${a.slug}/`;
+      const tmp = document.createElement('div'); tmp.innerHTML = a.content || '';
+      const text = (tmp.textContent || '').trim().replace(/\s+/g, ' ');
+      const desc = text.slice(0, 180) + (text.length > 180 ? '…' : '');
+
+      document.title = `${a.title} — Tunza Esports`;
+      const d = ensureMeta('meta[name="description"]', {name:'description'});
+      d.setAttribute('content', desc);
+
+      let can = document.querySelector('link#canonical[rel="canonical"]');
+      if (!can) { can = document.createElement('link'); can.id='canonical'; can.rel='canonical'; document.head.appendChild(can); }
+      can.setAttribute('href', canonical);
+
+      const set = (sel, val, create) => { const el = ensureMeta(sel, create); el.setAttribute('content', val); };
+      set('meta[property="og:url"]', canonical, {property:'og:url'});
+      set('meta[property="og:title"]', `${a.title} — Tunza Esports`, {property:'og:title'});
+      set('meta[property="og:description"]', desc, {property:'og:description'});
+      set('meta[property="og:image"]', absUrl(a.imageUrl), {property:'og:image'});
+      set('meta[name="twitter:title"]', `${a.title} — Tunza Esports`, {name:'twitter:title'});
+      set('meta[name="twitter:description"]', desc, {name:'twitter:description'});
+      set('meta[name="twitter:image"]', absUrl(a.imageUrl), {name:'twitter:image'});
+
+      const pubId = 'https://www.tunzaesports.org/#org';
+      const iso = new Date(a.date || Date.now()).toISOString();
+      ensureLd('ld-article').textContent = JSON.stringify({
+        "@context":"https://schema.org",
+        "@type":"NewsArticle",
+        "headline":a.title,
+        "datePublished":iso,
+        "dateModified":iso,
+        "image":[absUrl(a.imageUrl)],
+        "mainEntityOfPage":{"@type":"WebPage","@id":canonical},
+        "publisher":{"@id":pubId}
+      });
+      ensureLd('ld-breadcrumbs').textContent = JSON.stringify({
+        "@context":"https://schema.org",
+        "@type":"BreadcrumbList",
+        "itemListElement":[
+          {"@type":"ListItem","position":1,"name":"Home","item":"https://www.tunzaesports.org/"},
+          {"@type":"ListItem","position":2,"name":"News","item":"https://www.tunzaesports.org/news/"},
+          {"@type":"ListItem","position":3,"name":a.title,"item":canonical}
+        ]
       });
     }
 
-    // NEWS LISTING
-    function initNews(){
-      const newsArticles = [
-        {
-          id: 1,
-          slug: "tunza-esports-renews-kuer-season-3-with-a-fresh-format",
-          title: "Tunza Esports Renews KUER Season 3 With a Fresh Format",
-          date: "September 1, 2025",
-          snippet: "For the first time, KUER will run in two separate periods.",
-          content: "",
-          tags: ["Tournament News","Community News"],
-          imageUrl: "/images/KUER-x-Tunza.png"
-        },
-        {
-          id: 2,
-          slug: "tunza-esports-partners-with-b34r-cl4n-to-strengthen-codm-in-university-esports-in-kenya",
-          title: "Tunza Esports Partners with B34R CL4N to strengthen CODM in University Esports in Kenya",
-          date: "September 5, 2025",
-          snippet: "Through this partnership, Call of Duty Mobile Battle Royale and Multiplayer within KUER get pro-level support.",
-          content: "",
-          tags: ["Partnership"],
-          imageUrl: "/images/KUER-x-B34R.png"
-        },
-        {
-          id: 3,
-          slug: "safaricom-game-conference-tunza-esports-championing-the-growth-of-competitive-gaming-in-kenya",
-          title: "Safaricom Game Conference: Tunza Esports Championing the Growth of Competitive Gaming in Kenya",
-          date: "September 8, 2025",
-          snippet: "The Safaricom Game Conference was a landmark event in Kenya’s gaming industry, bringing together innovators, gamers, and organizations shaping the future of Esports.",
-          content: "",
-          tags: ["Community News", "Partnership"],
-          imageUrl: "/images/Safaricom-Gaming-Conference.JPG"
-        },
-        { id: 4, title: "The Future of VR Gaming", date: "August 25, 2025", snippet: "Dive into the world of virtual reality and how it's shaping the next generation of competitive gaming.", content: "", tags: ["Community News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+3" },
-        { id: 5, title: "Tunza Esports Partners With Local Gaming Cafe", date: "August 5, 2025", snippet: "Weekly tournaments and community nights with The Gamers Hub in Nairobi.", content: "", tags: ["Partnership"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+4" },
-        { id: 6, title: "KUER Season 3: Registrations Now Open", date: "August 1, 2025", snippet: "Sign up your university team for the biggest KUER season yet.", content: "", tags: ["Product Updates","Tournament News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+5" },
-        { id: 7, title: "New Training Program Launched for Valorant Players", date: "July 28, 2025", snippet: "Introducing 'Ascend' — intensive coaching for aspiring Valorant pros.", content: "", tags: ["Community News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+6" },
-        { id: 8, title: "Video Game Events: FIFA Tournament Highlights", date: "July 25, 2025", snippet: "Top goals and clutch moments from our recent FIFA tournament.", content: "", tags: ["Partnership","Tournament News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+7" },
-        { id: 9, title: "Tunza Esports Joins Global Esports Federation", date: "July 20, 2025", snippet: "Proud member of the Global Esports Federation (GEF).", content: "", tags: ["Community News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+8" }
-      ];
+    function displayArticle() {
+      const key = getKeyFromUrl();
+      const list = window.newsArticles || [];
 
-      const articlesContainer = document.getElementById('news-articles-container');
-      const searchInput = document.querySelector('.keyword-search');
-      const searchButton = document.querySelector('.search-button');
-      const tags = document.querySelectorAll('.tag');
-      const loadMoreButton = document.querySelector('.load-more-button');
+      let a = null;
+      if (key?.by === 'id') a = list.find(x => x.id === key.value);
+      if (!a && key?.by === 'slug') a = list.find(x => x.slug === key.value);
 
-      const articlesPerPage = 6;
-      let currentPage = 1;
-      let filteredArticles = [];
+      if (!a) a = list[0];
+      if (!a) return;
 
-      // Build links as /article/?slug=... so it never 404s on static hosts
-      function cardUrl(article){
-        const slug = (article.slug || (article.title || String(article.id)))
-          .toLowerCase()
-          .replace(/&/g,' and ')
-          .replace(/[^a-z0-9]+/g,'-')
-          .replace(/-+/g,'-')
-          .replace(/(^-|-$)/g,'');
-        return `/article/?slug=${encodeURIComponent(slug)}`;
+      // Pretty URL in history (no reload; the file at /article/ handles the view)
+      const want = `/article/${a.slug}/`;
+      if (location.pathname !== want) {
+        history.replaceState(null, '', want);
       }
 
-      function renderNewsCards(articles) {
-        if (!articlesContainer) return;
-        articlesContainer.innerHTML = '';
-        articles.forEach(article => {
-          const card = document.createElement('div');
-          card.className = "news-card";
-          card.setAttribute('data-tags', article.tags.join(','));
-
-          const url = cardUrl(article);
-          card.innerHTML = `
-            <img src="${article.imageUrl}" alt="${article.title} thumbnail" class="news-image" loading="lazy">
-            <div class="news-content">
-              <h3 class="news-title">${article.title}</h3>
-              <p class="news-date">${article.date}</p>
-              <p class="news-snippet">${article.snippet}</p>
-              <a href="${url}" class="read-more-button">Read More</a>
-            </div>
-          `;
-          articlesContainer.appendChild(card);
-        });
-      }
-
-      function filterAndSearch() {
-        const searchTerm = (searchInput?.value || '').toLowerCase();
-        const activeTag = document.querySelector('.tag.active')?.getAttribute('data-tag-name') || 'All';
-
-        filteredArticles = newsArticles.filter(article => {
-          const titleMatches   = article.title.toLowerCase().includes(searchTerm);
-          const snippetMatches = article.snippet.toLowerCase().includes(searchTerm);
-          const tagMatches     = activeTag === "All" || article.tags.includes(activeTag);
-          return (titleMatches || snippetMatches) && tagMatches;
-        });
-
-        currentPage = 1;
-        displayArticles();
-      }
-
-      function displayArticles() {
-        const end = currentPage * articlesPerPage;
-        const articlesToDisplay = filteredArticles.slice(0, end);
-        renderNewsCards(articlesToDisplay);
-        updateLoadMoreButton();
-      }
-
-      function updateLoadMoreButton() {
-        if (!loadMoreButton) return;
-        loadMoreButton.style.display =
-          (filteredArticles.length > currentPage * articlesPerPage) ? 'block' : 'none';
-      }
-
-      if (loadMoreButton) {
-        loadMoreButton.addEventListener('click', () => {
-          currentPage++;
-          displayArticles();
-        });
-      }
-      if (searchButton) searchButton.addEventListener('click', filterAndSearch);
-      if (searchInput) {
-        searchInput.addEventListener('keyup', (e) => {
-          if (e.key === 'Enter') filterAndSearch();
-        });
-      }
-      tags.forEach(tag => {
-        tag.addEventListener('click', () => {
-          tags.forEach(t => t.classList.remove('active'));
-          tag.classList.add('active');
-          filterAndSearch();
-        });
-      });
-
-      // Initial render
-      filterAndSearch();
+      render(a);
+      updateSeo(a);
     }
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init);
-    } else {
-      init();
-    }
+    window.newsArticles.forEach(a => { if (!a.slug) a.slug = slugify(a.title || String(a.id)); });
+    window.addEventListener('load', displayArticle);
   })();
   </script>
 </body>
