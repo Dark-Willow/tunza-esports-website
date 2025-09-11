@@ -20,15 +20,20 @@
   <script>
   (function () {
     var path = location.pathname.replace(/\/+$/, '');
+
+    // /article/<slug> or /article/<id>
     var m = path.match(/^\/article\/([^\/]+)$/);
     if (m) {
       var key = m[1];
-      var target = (/^\d+$/.test(key)) ? ("/article/?id=" + key)
-                                       : ("/article/?slug=" + encodeURIComponent(key));
+      var target = (/^\d+$/.test(key))
+        ? ("/article/?id=" + key)
+        : ("/article/?slug=" + encodeURIComponent(key));
       document.getElementById('fallback').setAttribute('href', target);
       location.replace(target);
       return;
     }
+
+    // Optional: /news/<anything> -> /news/
     if (/^\/news\/.+/.test(path)) {
       document.getElementById('fallback').setAttribute('href', "/news/");
       location.replace("/news/");
