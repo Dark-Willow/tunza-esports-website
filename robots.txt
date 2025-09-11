@@ -1,7 +1,10 @@
 ---
 permalink: /robots.txt
 layout: null
+sitemap: false
 ---
 User-agent: *
 Allow: /
-Sitemap: https://www.tunzaesports.org/sitemap.xml
+
+Sitemap: {{ site.url }}{{ site.baseurl }}/sitemap.xml
+Sitemap: {{ site.url }}{{ site.baseurl }}/sitemap-articles.xml
