@@ -293,7 +293,8 @@ layout: null
 
     function updateSeo(a) {
       // Canonical MUST be a stable 200 in your hosting setup -> we use the query-canonical
-      const canonical = `${location.origin}/article/?slug=${encodeURIComponent(a.slug)}`;
+    const CANONICAL_ORIGIN = 'https://www.tunzaesports.org';
+    const canonical = `${CANONICAL_ORIGIN}/article/?slug=${encodeURIComponent(a.slug)}`;
 
       // Build a short description from the HTML body
       const tmp = document.createElement('div');
@@ -375,3 +376,4 @@ layout: null
   </script>
 </body>
 </html>
+
