@@ -3,8 +3,6 @@ permalink: /robots.txt
 layout: null
 ---
 User-agent: *
-Allow: /
+Disallow:
 
-Sitemap: https://www.tunzaesports.org/sitemap-index.xml
-Sitemap: https://www.tunzaesports.org/sitemap.xml
-Sitemap: https://www.tunzaesports.org/sitemap-articles.xml
+Sitemap: https://tunzaesports.org/sitemap.xml
