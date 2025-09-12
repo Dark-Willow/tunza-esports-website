@@ -5,11 +5,16 @@
   <meta charset="utf-8">
   <title>Redirecting…</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Don’t index 404s -->
   <meta name="robots" content="noindex,follow">
+  <!-- Avoid caching redirects on CDN/browser -->
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+  <meta http-equiv="Pragma" content="no-cache">
   <style>
-    html,body{height:100%} body{margin:0;display:flex;align-items:center;justify-content:center;
-    font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
-    background:#0b0b16;color:#fff;text-align:center;padding:24px}
+    html,body{height:100%}
+    body{margin:0;display:flex;align-items:center;justify-content:center;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+      background:#0b0b16;color:#fff;text-align:center;padding:24px}
     a{color:#86b7ff}
   </style>
 </head>
@@ -17,28 +22,65 @@
   <main>
     <h1>Redirecting…</h1>
     <p>If you’re not redirected automatically, <a id="fallback" href="/">go to the homepage</a>.</p>
+    <noscript>
+      <p>JavaScript is required for automatic redirection. Use the link above.</p>
+    </noscript>
   </main>
+
   <script>
   (function () {
-    var path = location.pathname.replace(/\/+$/, '');
+    // Normalize path (collapse multiple slashes, drop trailing slash)
+    var loc = window.location;
+    var url = new URL(loc.href);
+    var path = url.pathname.replace(/\/{2,}/g, '/').replace(/\/+$/, '');
 
-    // /article/<slug> or /article/<id>
-    var m = path.match(/^\/article\/([^\/]+)$/);
+    // Utility: build a new URL preserving extra query params and hash
+    function buildArticleUrl(key, byId) {
+      var target = new URL('/article/', url.origin);
+      if (byId) {
+        target.searchParams.set('id', key);
+      } else {
+        target.searchParams.set('slug', key);
+      }
+      // Preserve any existing params except id/slug to avoid conflicts
+      url.searchParams.forEach(function(v, k) {
+        if (k !== 'id' && k !== 'slug') target.searchParams.append(k, v);
+      });
+      // Preserve hash
+      target.hash = url.hash;
+      return target;
+    }
+
+    // Case 1: /article/<slug> (or numeric id) -> /article/?slug=… or ?id=…
+    // Matches exactly one segment after /article
+    var m = path.match(/^\/article\/([^\/?#]+)$/);
     if (m) {
-      var key = m[1];
-      var target = (/^\d+$/.test(key))
-        ? ("/article/?id=" + key)
-        : ("/article/?slug=" + encodeURIComponent(key));
-      document.getElementById('fallback').setAttribute('href', target);
-      location.replace(target);
-      return;
+      var keyRaw = m[1];
+      // decode URL-encoded slug, then re-encode safely when building
+      var key = decodeURIComponent(keyRaw);
+      var byId = /^\d+$/.test(key);
+      var targetUrl = buildArticleUrl(key, byId);
+      // Update fallback link for users who click before redirect fires
+      var fb = document.getElementById('fallback');
+      if (fb) fb.setAttribute('href', targetUrl.href);
+      // Perform redirect (no history entry)
+      return void location.replace(targetUrl.href);
     }
 
-    // Optional: /news/<anything> -> /news/
+    // Case 2 (optional): /news/<anything> -> /news/
     if (/^\/news\/.+/.test(path)) {
-      document.getElementById('fallback').setAttribute('href', "/news/");
-      location.replace("/news/");
+      var newsUrl = new URL('/news/', url.origin);
+      newsUrl.hash = url.hash;
+      var fb2 = document.getElementById('fallback');
+      if (fb2) fb2.setAttribute('href', newsUrl.href);
+      return void location.replace(newsUrl.href);
     }
+
+    // Default: go home
+    var home = new URL('/', url.origin);
+    var fb3 = document.getElementById('fallback');
+    if (fb3) fb3.setAttribute('href', home.href);
+    location.replace(home.href);
   })();
   </script>
 </body>
