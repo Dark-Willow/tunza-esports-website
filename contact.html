@@ -281,7 +281,12 @@ layout: null
       const status = document.getElementById('contact-status');
       if (!form || !status) return;
 
-      const endpoints = ['/api/contact', '/.netlify/functions/contact'];
+      const endpoints = [
+      'https://www.tunzaesports.org/api/contact', // Worker route (try first)
+      '/api/contact'                               // relative fallback
+      // '/.netlify/functions/contact'              // only if you add Netlify later
+      ];
+
 
       const setStatus = (msg, ok=true) => {
         status.textContent = msg;
@@ -327,3 +332,4 @@ layout: null
   </script>
 </body>
 </html>
+
