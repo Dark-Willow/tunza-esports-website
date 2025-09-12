@@ -1,7 +1,8 @@
-# _config.yml
-url: https://www.tunzaesports.org
-baseurl: ""
-permalink: pretty
+collections:
+  articles:
+    output: true
+    permalink: /article/:name/
 plugins:
   - jekyll-redirect-from
   - jekyll-sitemap
+  - jekyll-seo-tag
