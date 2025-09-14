@@ -2152,6 +2152,73 @@ color: rgba(252, 252, 253, 0.7);
     list-style: disc;
     margin-left: 2rem;
 }
+/* ===== Responsive base ===== */
+:root{
+  --max: 1200px;            /* site max width */
+  --gutter: 24px;           /* page padding */
+  --gap: clamp(12px, 2vw, 24px);
+}
+
+html { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: inherit; }
+img, video, canvas, svg { max-width: 100%; height: auto; display: block; }
+
+/* A centered page wrapper you can use anywhere */
+.wrap { width: min(100% - var(--gutter)*2, var(--max)); margin-inline: auto; }
+
+/* Fluid type scales */
+h1 { font-size: clamp(1.75rem, 2.5vw + 1rem, 2.75rem); line-height: 1.2; }
+h2 { font-size: clamp(1.35rem, 1.2vw + 1rem, 2rem); }
+p, li, input, textarea, button { font-size: clamp(.95rem, .4vw + .85rem, 1.1rem); }
+
+/* Utility grid (12 → 8 → 4 columns) */
+.grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--gap); }
+@media (max-width: 1024px){ .grid { grid-template-columns: repeat(8, 1fr); } }
+@media (max-width: 768px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+
+/* Forms: stack on small screens */
+.form-row { display:flex; gap: var(--gap); }
+.form-row .form-group { flex:1; }
+.form-row .full-width { flex-basis: 100%; }
+@media (max-width: 768px){
+  .form-row { flex-direction: column; }
+}
+
+/* Tables: scroll on mobile */
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* Header/Nav: mobile menu */
+.header nav { position: sticky; top: 0; z-index: 50; }
+.nav-toggle {
+  display:none; background:transparent; border:1px solid #2a2f3a; color:#fff;
+  padding:.5rem .75rem; border-radius:8px; font-family:inherit;
+}
+@media (max-width: 1024px){
+  .nav-toggle { display:inline-flex; align-items:center; gap:.5rem; }
+  .nav-links { display:none; }
+  .nav-links.is-open { display:block; }
+  .nav-links ul { display:flex; flex-direction:column; gap:.5rem; }
+  .nav-links .dropdown-menu { position:static; display:none; }
+  .nav-links .has-dropdown.open > .dropdown-menu { display:block; }
+}
+
+/* Article page: avoid fixed image heights */
+.article-content { padding-inline: var(--gutter); }
+.article-image-container{
+  width:100%;
+  aspect-ratio:16/9;       /* keep shape instead of fixed 500px height */
+  margin-bottom: 1rem;
+  overflow:hidden; border-radius:8px;
+}
+.article-image{ width:100%; height:100%; object-fit:cover; }
+
+/* Partners logos: shrink nicely */
+.partner-logo { width:min(240px, 42vw); }
+@media (max-width: 480px){ .partner-logo{ width: 60vw; } }
+
+/* Touch targets */
+a, button { min-height: 40px; }
+
 
 
 
