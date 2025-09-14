@@ -318,74 +318,86 @@ layout: null
       <p class="copyright-text">&copy; 2025 Tunza Esports. All rights reserved.</p>
     </div>
   </footer>
-
-  <script>
-  (function () {
-    // Mobile menu toggle + dropdowns
+<script>
+(function () {
+  function initNav() {
     const btn  = document.querySelector('.nav-toggle');
     const menu = document.getElementById('nav-menu');
+    if (!btn || !menu) return;
 
-    if (btn && menu){
-      btn.addEventListener('click', () => {
-        const open = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!open));
-        menu.classList.toggle('is-open', !open);
-      });
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      menu.classList.toggle('is-open', !open);
+    });
 
-      document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
-        a.addEventListener('click', (e) => {
-          if (window.matchMedia('(max-width: 1024px)').matches){
-            e.preventDefault();
-            const li = a.parentElement;
-            const expanded = li.classList.toggle('open');
-            a.setAttribute('aria-expanded', String(expanded));
-          }
-        });
+    // Tap-to-open dropdowns on mobile
+    document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        if (window.matchMedia('(max-width:1024px)').matches){
+          e.preventDefault();
+          const li = a.parentElement;
+          const expanded = li.classList.toggle('open');
+          a.setAttribute('aria-expanded', String(expanded));
+        }
       });
+    });
+  }
+
+  function initPartnersCarousel(){
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const track = document.querySelector('.partners-carousel-track');
+    if (!track) return;
+
+    const originals = Array.from(track.children).map(n => n.cloneNode(true));
+    let reps = 0;
+    while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
+      originals.forEach(n => track.appendChild(n.cloneNode(true)));
+      reps++;
     }
 
-    // Partners carousel
-    function initPartnersCarousel(){
-      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let x = 0, speed = 0.6, raf = null;
 
-      const track = document.querySelector('.partners-carousel-track');
-      if (!track) return;
+    const loop = () => {
+      const max = track.scrollWidth - track.clientWidth;
+      x = (x + speed) % (max || 1);
+      track.scrollLeft = x;
+      raf = requestAnimationFrame(loop);
+    };
 
-      const originals = Array.from(track.children).map(n => n.cloneNode(true));
-      let reps = 0;
-      while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
-        originals.forEach(n => track.appendChild(n.cloneNode(true)));
-        reps++;
-      }
+    const start = () => { if (!raf) loop(); };
+    const stop  = () => { if (raf) cancelAnimationFrame(raf); raf = null; };
 
-      let x = 0, speed = 0.6, raf;
-      const loop = () => {
-        const max = track.scrollWidth - track.clientWidth;
-        x = (x + speed) % (max || 1);
-        track.scrollLeft = x;
-        raf = requestAnimationFrame(loop);
-      };
-      loop();
+    start();
 
-      track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
-      track.addEventListener('mouseleave', loop);
-      track.addEventListener('focusin',   () => cancelAnimationFrame(raf));
-      track.addEventListener('focusout',  loop);
+    track.addEventListener('mouseenter', stop);
+    track.addEventListener('mouseleave', start);
+    track.addEventListener('focusin',   stop);
+    track.addEventListener('focusout',  start);
 
-      let t;
-      window.addEventListener('resize', () => {
-        cancelAnimationFrame(raf);
-        clearTimeout(t);
-        t = setTimeout(() => { x = 0; loop(); }, 150);
-      });
-    }
+    let t;
+    window.addEventListener('resize', () => {
+      stop();
+      clearTimeout(t);
+      t = setTimeout(() => { x = 0; start(); }, 150);
+    });
+  }
 
-    if (document.readyState === 'loading'){
-      document.addEventListener('DOMContentLoaded', initPartnersCarousel);
+  const ready = (fn) => {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', fn, { once: true });
     } else {
-      initPartnersCarousel();
+      fn();
     }
-  })();
-  </script>
+  };
+
+  ready(() => {
+    initNav();
+    initPartnersCarousel();
+  });
+})();
+</script>
 </body>
 </html>
+
