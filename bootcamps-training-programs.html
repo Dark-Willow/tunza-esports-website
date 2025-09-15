@@ -217,87 +217,124 @@ layout: null
     </div>
   </footer>
 
-  <script>
-    (function(){
-      // Mobile menu toggle + dropdowns
-      const btn  = document.querySelector('.nav-toggle');
-      const menu = document.getElementById('nav-menu');
+ <script>
+(function () {
+  const BP = 1024;
 
-      if (btn && menu){
-        btn.addEventListener('click', () => {
-          const open = btn.getAttribute('aria-expanded') === 'true';
-          btn.setAttribute('aria-expanded', String(!open));
-          menu.classList.toggle('is-open', !open);
-        });
+  // ---------- NAV (desktop fixed, mobile toggle only) ----------
+  const btn  = document.querySelector('.nav-toggle');
+  const menu = document.getElementById('nav-menu');
+  const nav  = document.querySelector('.header nav');
 
-        // Tap-to-open dropdowns on mobile
-        document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
-          a.addEventListener('click', (e) => {
-            if (window.matchMedia('(max-width:1024px)').matches){
-              e.preventDefault();
-              const li = a.parentElement;
-              const expanded = li.classList.toggle('open');
-              a.setAttribute('aria-expanded', String(expanded));
-            }
-          });
-        });
-      }
+  // Clear any inline 'top' left by older scripts so the bar doesn't move
+  if (nav) nav.style.top = '';
 
-      // Sticky nav (keeps header visible with your absolute nav style)
-      function syncNavTop(){
-        const navbar = document.querySelector('.header nav');
-        if (navbar) navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
-      }
-      window.addEventListener('scroll', syncNavTop);
-      if (document.readyState === 'loading'){
-        document.addEventListener('DOMContentLoaded', syncNavTop);
-      } else {
-        syncNavTop();
-      }
+  const isMobile = () => window.matchMedia(`(max-width:${BP}px)`).matches;
 
-      // Partners carousel (smooth auto-scroll, respects reduced motion)
-      function initPartnersCarousel(){
-        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  function closeDropdowns(){
+    document.querySelectorAll('.nav-links .has-dropdown').forEach(li => {
+      li.classList.remove('open');
+      const a = li.querySelector(':scope > a');
+      if (a) a.setAttribute('aria-expanded', 'false');
+    });
+  }
 
-        const track = document.querySelector('.partners-carousel-track');
-        if (!track) return;
+  function openMenu(){
+    if (!btn || !menu) return;
+    menu.classList.add('is-open');
+    btn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
 
-        // Duplicate children so the marquee feels endless
-        const originals = Array.from(track.children).map(n => n.cloneNode(true));
-        let reps = 0;
-        while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
-          originals.forEach(n => track.appendChild(n.cloneNode(true)));
-          reps++;
-        }
+  function closeMenu(){
+    if (!btn || !menu) return;
+    menu.classList.remove('is-open');
+    btn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    closeDropdowns();
+  }
 
-        let x = 0, speed = 0.6, raf;
-        const loop = () => {
-          const max = track.scrollWidth - track.clientWidth;
-          x = (x + speed) % (max || 1);
-          track.scrollLeft = x;
-          raf = requestAnimationFrame(loop);
-        };
-        loop();
+  if (btn && menu){
+    // Toggle menu
+    btn.addEventListener('click', () => {
+      menu.classList.contains('is-open') ? closeMenu() : openMenu();
+    });
 
-        track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
-        track.addEventListener('mouseleave', loop);
-        track.addEventListener('focusin',   () => cancelAnimationFrame(raf));
-        track.addEventListener('focusout',  loop);
+    // Tap-to-open dropdowns on mobile only
+    document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        if (!isMobile()) return; // desktop uses CSS hover
+        e.preventDefault();
+        const li = a.parentElement;
+        const expanded = li.classList.toggle('open');
+        a.setAttribute('aria-expanded', String(expanded));
+      });
+    });
 
-        let t;
-        window.addEventListener('resize', () => {
-          cancelAnimationFrame(raf);
-          clearTimeout(t);
-          t = setTimeout(() => { x = 0; loop(); }, 150);
-        });
-      }
+    // Click outside closes (mobile only)
+    document.addEventListener('click', (e) => {
+      if (!isMobile()) return;
+      if (!menu.contains(e.target) && e.target !== btn) closeMenu();
+    });
 
-      if (document.readyState === 'loading'){
-        document.addEventListener('DOMContentLoaded', initPartnersCarousel);
-      } else {
-        initPartnersCarousel();
-      }
-    })();
-  </script>
+    // ESC closes
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMenu();
+    });
+
+    // Reset state when crossing the breakpoint
+    let last = isMobile();
+    window.addEventListener('resize', () => {
+      const now = isMobile();
+      if (now !== last){ closeMenu(); last = now; }
+    });
+  }
+
+  // ---------- PARTNERS CAROUSEL (auto-scroll; respects reduced motion) ----------
+  function initPartnersCarousel(){
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const track = document.querySelector('.partners-carousel-track');
+    if (!track) return;
+
+    const originals = Array.from(track.children).map(n => n.cloneNode(true));
+    let reps = 0;
+    while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
+      originals.forEach(n => track.appendChild(n.cloneNode(true)));
+      reps++;
+    }
+
+    let x = 0, speed = 0.6, raf;
+    const loop = () => {
+      const max = track.scrollWidth - track.clientWidth;
+      x = (x + speed) % (max || 1);
+      track.scrollLeft = x;
+      raf = requestAnimationFrame(loop);
+    };
+    const start = () => { cancelAnimationFrame(raf); loop(); };
+    const stop  = () => cancelAnimationFrame(raf);
+
+    start();
+    track.addEventListener('mouseenter', stop);
+    track.addEventListener('mouseleave', start);
+    track.addEventListener('focusin',   stop);
+    track.addEventListener('focusout',  start);
+
+    let t;
+    window.addEventListener('resize', () => {
+      stop();
+      clearTimeout(t);
+      t = setTimeout(() => { x = 0; start(); }, 150);
+    });
+  }
+
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', initPartnersCarousel);
+  } else {
+    initPartnersCarousel();
+  }
+})();
+</script>
 </body>
 </html>
+
