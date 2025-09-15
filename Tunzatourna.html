@@ -36,4 +36,193 @@ layout: null
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=5">
   <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48x48-dark.png?v=5">
   <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192-dark.png?v=5">
-  <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512-dark.png?
+  <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512-dark.png?v=5">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png?v=5">
+
+  <!-- PWA -->
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#0b0b16" />
+  <meta name="msapplication-TileColor" content="#0b0b16" />
+
+  <!-- Fonts & CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="/css/style.css" />
+
+  <!-- Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "https://www.tunzaesports.org/#org",
+    "name": "Tunza Esports",
+    "url": "https://www.tunzaesports.org",
+    "logo": "https://www.tunzaesports.org/images/android-chrome-512x512-dark.png",
+    "sameAs": [
+      "https://www.instagram.com/TunzaEsports",
+      "https://x.com/TunzaEsports",
+      "https://www.facebook.com/TunzaEsports"
+    ]
+  }
+  </script>
+
+  <!-- TunzaTourna as a web app -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "TunzaTourna",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "url": "https://www.tunzaesports.org/tunzatourna/",
+    "publisher": { "@id": "https://www.tunzaesports.org/#org" },
+    "image": "https://www.tunzaesports.org/images/android-chrome-512x512-dark.png",
+    "description": "Smooth esports tournament management for Kenya’s gaming community. Coming soon."
+  }
+  </script>
+
+  <!-- Breadcrumbs -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.tunzaesports.org/" },
+      { "@type": "ListItem", "position": 2, "name": "TunzaTourna", "item": "https://www.tunzaesports.org/tunzatourna/" }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <!-- Header -->
+  <section class="header">
+    <nav class="wrap" role="navigation" aria-label="Primary">
+      <a href="/" class="logo">
+        <img src="/images/tunzalogo.png" alt="Tunza Esports Logo">
+      </a>
+
+      <!-- Mobile toggle -->
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">
+        <span class="fa fa-bars" aria-hidden="true"></span>
+        <span class="sr-only">Menu</span>
+      </button>
+
+      <!-- Single nav-links container -->
+      <div id="nav-menu" class="nav-links">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about-us/">About Us</a></li>
+
+          <li class="has-dropdown">
+            <a href="#" aria-haspopup="true" aria-expanded="false">Our Services</a>
+            <ul class="dropdown-menu">
+              <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
+              <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
+              <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
+              <li><a href="/consultation/">Consultation</a></li>
+              <li><a href="/bootcamps-training-programs/">Bootcamps &amp; Training Programs</a></li>
+            </ul>
+          </li>
+
+          <li class="has-dropdown">
+            <a href="#" aria-haspopup="true" aria-expanded="false">Our Products</a>
+            <ul class="dropdown-menu">
+              <li><a href="/ker/">KER</a></li>
+              <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
+              <li><a href="/tunzatourna/">TunzaTourna</a></li>
+              <li><a href="/shop/">Shop</a></li>
+            </ul>
+          </li>
+
+          <li><a href="/news/">News</a></li>
+          <li><a href="/contact/">Contact Us</a></li>
+          <li><a href="/gallery/">Gallery</a></li>
+        </ul>
+
+        <a href="/shop/" class="shop-button">Shop Now</a>
+      </div>
+    </nav>
+  </section>
+
+  <!-- Hero -->
+  <section class="products-coming-soon-hero-section">
+    <h1 class="coming-soon-main-heading">TunzaTourna — Coming Soon</h1>
+  </section>
+
+  <!-- Simple CTA (optional; remove if you want only the hero) -->
+  <main class="cta-card-container">
+    <div class="cta-card">
+      <h3>Be first to try TunzaTourna</h3>
+      <p>We’re building a smooth tournament management platform for Kenya’s gaming community. Want early access or partnership info?</p>
+      <a class="cta-button" href="/contact/">Contact Us</a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h4>About Us</h4>
+        <ul>
+          <li><a href="/">Home Page</a></li>
+          <li><a href="/contact/">Contact Us</a></li>
+          <li><a href="/privacy-policy/">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="/tunzatourna/">Tunza Tourna</a></li>
+          <li><a href="/shop/">Shop</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Tournaments</h4>
+        <ul>
+          <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
+        </ul>
+      </div>
+      <div class="footer-column footer-logo-column">
+        <img src="/images/tunzalogo.png" alt="Tunza Esports Logo">
+        <p>Shaping the future of Kenya's Esports</p>
+        <p>info@tunzaesports.org</p>
+        <p>P.O BOX 45085-00100</p>
+        <p>Nairobi, Kenya</p>
+        <p>+254 107717520</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="copyright-text">&copy; 2025 Tunza Esports. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Minimal JS: mobile menu + mobile dropdowns -->
+  <script>
+  (function(){
+    const btn  = document.querySelector('.nav-toggle');
+    const menu = document.getElementById('nav-menu');
+    if (btn && menu){
+      btn.addEventListener('click', () => {
+        const open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+        menu.classList.toggle('is-open', !open);
+      });
+      // tap-to-open dropdowns on mobile
+      document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
+        a.addEventListener('click', (e) => {
+          if (window.matchMedia('(max-width: 1024px)').matches){
+            e.preventDefault();
+            const li = a.parentElement;
+            const expanded = li.classList.toggle('open');
+            a.setAttribute('aria-expanded', String(expanded));
+          }
+        });
+      });
+    }
+  })();
+  </script>
+</body>
+</html>
