@@ -311,106 +311,137 @@ layout: null
 
   <!-- Scripts -->
   <script>
-  (function () {
-    // Mobile nav + dropdowns
-    function initNav() {
-      const btn  = document.querySelector('.nav-toggle');
-      const menu = document.getElementById('nav-menu');
-      if (!btn || !menu) return;
+(function () {
+  // ---------- NAV ----------
+  function initNav() {
+    const btn  = document.querySelector('.nav-toggle');
+    const menu = document.getElementById('nav-menu');
+    if (!btn || !menu) return;
 
-      btn.addEventListener('click', () => {
-        const open = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!open));
-        menu.classList.toggle('is-open', !open);
+    const isMobile = () => window.matchMedia('(max-width:1024px)').matches;
+
+    // Toggle mobile menu
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      menu.classList.toggle('is-open', !open);
+    });
+
+    // Dropdown headers: prevent "#" jump always; only toggle on mobile
+    document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault(); // avoid scroll-to-top on desktop
+        if (isMobile()){
+          const li = a.parentElement;
+          const expanded = li.classList.toggle('open');
+          a.setAttribute('aria-expanded', String(expanded));
+        }
       });
+    });
 
-      // Tap-to-open dropdowns on mobile
-      document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
-        a.addEventListener('click', (e) => {
-          if (window.matchMedia('(max-width:1024px)').matches){
-            e.preventDefault();
-            const li = a.parentElement;
-            const expanded = li.classList.toggle('open');
-            a.setAttribute('aria-expanded', String(expanded));
+    // Close menu after clicking any non-dropdown link (mobile)
+    menu.querySelectorAll('a').forEach(link => {
+      if (!link.matches('.has-dropdown > a')) {
+        link.addEventListener('click', () => {
+          if (isMobile()){
+            menu.classList.remove('is-open');
+            btn.setAttribute('aria-expanded','false');
+            menu.querySelectorAll('.has-dropdown.open').forEach(li => li.classList.remove('open'));
           }
         });
-      });
-    }
-
-    // Partners carousel (same as home)
-    function initPartnersCarousel(){
-      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-      const track = document.querySelector('.partners-carousel-track');
-      if (!track) return;
-
-      const originals = Array.from(track.children).map(n => n.cloneNode(true));
-      let reps = 0;
-      while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
-        originals.forEach(n => track.appendChild(n.cloneNode(true)));
-        reps++;
       }
+    });
 
-      let x = 0, speed = 0.6, raf = null;
+    // Esc closes the mobile menu
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isMobile() && menu.classList.contains('is-open')) {
+        menu.classList.remove('is-open');
+        btn.setAttribute('aria-expanded','false');
+        menu.querySelectorAll('.has-dropdown.open').forEach(li => li.classList.remove('open'));
+      }
+    });
 
-      const loop = () => {
-        const max = track.scrollWidth - track.clientWidth;
-        x = (x + speed) % (max || 1);
-        track.scrollLeft = x;
-        raf = requestAnimationFrame(loop);
-      };
+    // Reset state on resize to desktop
+    window.addEventListener('resize', () => {
+      if (!isMobile()){
+        menu.classList.remove('is-open');
+        btn.setAttribute('aria-expanded','false');
+        menu.querySelectorAll('.has-dropdown.open').forEach(li => li.classList.remove('open'));
+      }
+    });
+  }
 
-      const start = () => { if (!raf) loop(); };
-      const stop  = () => { if (raf) cancelAnimationFrame(raf); raf = null; };
+  // ---------- PARTNERS CAROUSEL ----------
+  function initPartnersCarousel(){
+    const track = document.querySelector('.partners-carousel-track');
+    if (!track) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-      start();
-      track.addEventListener('mouseenter', stop);
-      track.addEventListener('mouseleave', start);
-      track.addEventListener('focusin',   stop);
-      track.addEventListener('focusout',  start);
-
-      let t;
-      window.addEventListener('resize', () => {
-        stop();
-        clearTimeout(t);
-        t = setTimeout(() => { x = 0; start(); }, 150);
-      });
+    const originals = Array.from(track.children).map(n => n.cloneNode(true));
+    let reps = 0;
+    while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
+      originals.forEach(n => track.appendChild(n.cloneNode(true)));
+      reps++;
     }
 
-    // Toggle horizontal scroll on mobile/tablet for events
-    function initResponsiveScrollRows() {
-      const el = document.getElementById('events-grid');
-      if (!el) return;
+    let x = 0, speed = 0.6, raf = null;
+    const loop = () => {
+      const max = track.scrollWidth - track.clientWidth;
+      x = (x + speed) % (max || 1);
+      track.scrollLeft = x;
+      raf = requestAnimationFrame(loop);
+    };
+    const start = () => { if (!raf) loop(); };
+    const stop  = () => { if (raf) cancelAnimationFrame(raf); raf = null; };
 
-      const mq = window.matchMedia('(max-width: 1024px)');
-      const apply = () => {
-        // These utility classes must exist in your global /css/style.css (we added them earlier)
-        if (mq.matches) {
-          el.classList.add('scroll-row','cards-snap');
-          el.querySelectorAll('.event-card').forEach(c => c.classList.add('card-snap'));
-        } else {
-          el.classList.remove('scroll-row','cards-snap');
-          el.querySelectorAll('.event-card').forEach(c => c.classList.remove('card-snap'));
-        }
-      };
-      apply();
-      mq.addEventListener('change', apply);
-    }
+    start();
+    track.addEventListener('mouseenter', stop);
+    track.addEventListener('mouseleave', start);
+    track.addEventListener('focusin',   stop);
+    track.addEventListener('focusout',  start);
 
-    const ready = (fn) => {
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', fn, { once: true });
+    let t;
+    window.addEventListener('resize', () => {
+      stop();
+      clearTimeout(t);
+      t = setTimeout(() => { x = 0; start(); }, 150);
+    });
+  }
+
+  // ---------- OPTIONAL: toggle horizontal scroll row ----------
+  function initResponsiveScrollRows() {
+    const el = document.getElementById('events-grid');
+    if (!el) return;
+
+    const mq = window.matchMedia('(max-width: 1024px)');
+    const apply = () => {
+      if (mq.matches) {
+        el.classList.add('scroll-row','cards-snap');
+        el.querySelectorAll('.event-card').forEach(c => c.classList.add('card-snap'));
       } else {
-        fn();
+        el.classList.remove('scroll-row','cards-snap');
+        el.querySelectorAll('.event-card').forEach(c => c.classList.remove('card-snap'));
       }
     };
+    apply();
+    mq.addEventListener('change', apply);
+  }
 
-    ready(() => {
-      initNav();
-      initPartnersCarousel();
-      initResponsiveScrollRows();
-    });
-  })();
-  </script>
+  const ready = (fn) => {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', fn, { once: true });
+    } else {
+      fn();
+    }
+  };
+
+  ready(() => {
+    initNav();
+    initPartnersCarousel();
+    initResponsiveScrollRows(); // safe no-op if #events-grid absent
+  });
+})();
+</script>
 </body>
 </html>
+
