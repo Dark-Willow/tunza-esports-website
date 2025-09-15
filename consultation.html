@@ -230,88 +230,114 @@ layout: null
   </footer>
 
   <script>
-    (function(){
-      // Mobile menu toggle + dropdowns
-      const btn  = document.querySelector('.nav-toggle');
-      const menu = document.getElementById('nav-menu');
+(function () {
+  const BP = 1024; // match your CSS breakpoint
+  const btn  = document.querySelector('.nav-toggle');
+  const menu = document.getElementById('nav-menu');
+  const nav  = document.querySelector('.header nav');
 
-      if (btn && menu){
-        btn.addEventListener('click', () => {
-          const open = btn.getAttribute('aria-expanded') === 'true';
-          btn.setAttribute('aria-expanded', String(!open));
-          menu.classList.toggle('is-open', !open);
-        });
+  if (!btn || !menu) return;
 
-        // Tap-to-open dropdowns on mobile
-        document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
-          a.addEventListener('click', (e) => {
-            if (window.matchMedia('(max-width:1024px)').matches){
-              e.preventDefault();
-              const li = a.parentElement;
-              const expanded = li.classList.toggle('open');
-              a.setAttribute('aria-expanded', String(expanded));
-            }
-          });
-        });
-      }
+  // Make sure no previous scripts left an inline top value
+  if (nav) nav.style.top = '';
 
-      // Sticky-ish nav to match other pages with absolute header
-      function syncNavTop(){
-        const navbar = document.querySelector('.header nav');
-        if (navbar) navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
-      }
-      window.addEventListener('scroll', syncNavTop);
-      if (document.readyState === 'loading'){
-        document.addEventListener('DOMContentLoaded', syncNavTop);
-      } else {
-        syncNavTop();
-      }
+  const isMobile = () => window.matchMedia(`(max-width:${BP}px)`).matches;
 
-      // Partners carousel (smooth auto-scroll, respects reduced motion)
-      function initPartnersCarousel(){
-        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  function openMenu(){
+    menu.classList.add('is-open');
+    btn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu(){
+    menu.classList.remove('is-open');
+    btn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    document.querySelectorAll('.nav-links .has-dropdown').forEach(li => {
+      li.classList.remove('open');
+      const a = li.querySelector(':scope > a');
+      if (a) a.setAttribute('aria-expanded', 'false');
+    });
+  }
 
-        const track = document.querySelector('.partners-carousel-track');
-        if (!track) return;
+  // Toggle mobile menu
+  btn.addEventListener('click', () => {
+    menu.classList.contains('is-open') ? closeMenu() : openMenu();
+  });
 
-        // Duplicate children so the marquee feels endless
-        const originals = Array.from(track.children).map(n => n.cloneNode(true));
-        let reps = 0;
-        while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
-          originals.forEach(n => track.appendChild(n.cloneNode(true)));
-          reps++;
-        }
+  // Tap-to-open dropdowns on mobile only (desktop uses CSS hover)
+  document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
+    a.addEventListener('click', (e) => {
+      if (!isMobile()) return;
+      e.preventDefault();
+      const li = a.parentElement;
+      const expanded = li.classList.toggle('open');
+      a.setAttribute('aria-expanded', String(expanded));
+    });
+  });
 
-        let x = 0, speed = 0.6, raf;
-        const loop = () => {
-          const max = track.scrollWidth - track.clientWidth;
-          x = (x + speed) % (max || 1);
-          track.scrollLeft = x;
-          raf = requestAnimationFrame(loop);
-        };
-        loop();
+  // Close on outside click (mobile)
+  document.addEventListener('click', (e) => {
+    if (!isMobile()) return;
+    if (!menu.contains(e.target) && e.target !== btn) closeMenu();
+  });
 
-        // Pause on hover/focus
-        track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
-        track.addEventListener('mouseleave', loop);
-        track.addEventListener('focusin',   () => cancelAnimationFrame(raf));
-        track.addEventListener('focusout',  loop);
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
 
-        // Recalculate on resize
-        let t;
-        window.addEventListener('resize', () => {
-          cancelAnimationFrame(raf);
-          clearTimeout(t);
-          t = setTimeout(() => { x = 0; loop(); }, 150);
-        });
-      }
+  // Reset state when crossing the breakpoint
+  let last = isMobile();
+  window.addEventListener('resize', () => {
+    const now = isMobile();
+    if (now !== last) { closeMenu(); last = now; }
+  });
 
-      if (document.readyState === 'loading'){
-        document.addEventListener('DOMContentLoaded', initPartnersCarousel);
-      } else {
-        initPartnersCarousel();
-      }
-    })();
-  </script>
+  // Optional: Partners carousel (auto-scroll; respects reduced motion)
+  function initPartnersCarousel(){
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const track = document.querySelector('.partners-carousel-track');
+    if (!track) return;
+
+    const originals = Array.from(track.children).map(n => n.cloneNode(true));
+    let reps = 0;
+    while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
+      originals.forEach(n => track.appendChild(n.cloneNode(true)));
+      reps++;
+    }
+
+    let x = 0, speed = 0.6, raf;
+    const loop = () => {
+      const max = track.scrollWidth - track.clientWidth;
+      x = (x + speed) % (max || 1);
+      track.scrollLeft = x;
+      raf = requestAnimationFrame(loop);
+    };
+    loop();
+
+    const pause = () => cancelAnimationFrame(raf);
+    const resume = () => loop();
+
+    track.addEventListener('mouseenter', pause);
+    track.addEventListener('mouseleave', resume);
+    track.addEventListener('focusin',   pause);
+    track.addEventListener('focusout',  resume);
+
+    let t;
+    window.addEventListener('resize', () => {
+      pause();
+      clearTimeout(t);
+      t = setTimeout(() => { x = 0; resume(); }, 150);
+    });
+  }
+
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', initPartnersCarousel);
+  } else {
+    initPartnersCarousel();
+  }
+})();
+</script>
 </body>
 </html>
+
