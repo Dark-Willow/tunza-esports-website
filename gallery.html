@@ -310,80 +310,86 @@ layout: null
   </footer>
 
   <!-- Scripts: nav toggle + dropdowns + partners carousel + sticky nav -->
-  <script>
-  (function(){
-    // Mobile menu toggle
-    const btn  = document.querySelector('.nav-toggle');
-    const menu = document.getElementById('nav-menu');
-    if (btn && menu){
-      btn.addEventListener('click', () => {
-        const open = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!open));
-        menu.classList.toggle('is-open', !open);
+<script>
+(function(){
+  // --- Mobile menu toggle + dropdowns ---
+  const btn  = document.querySelector('.nav-toggle');
+  const menu = document.getElementById('nav-menu');
+  const nav  = document.querySelector('.header nav');
+
+  // Ensure the nav doesn't inherit any inline 'top' from older scripts
+  if (nav) nav.style.top = '';
+
+  if (btn && menu){
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      menu.classList.toggle('is-open', !open);
+    });
+
+    // Tap-to-open dropdowns on mobile only
+    document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        if (window.matchMedia('(max-width:1024px)').matches){
+          e.preventDefault();
+          const li = a.parentElement;
+          const expanded = li.classList.toggle('open');
+          a.setAttribute('aria-expanded', String(expanded));
+        }
       });
+    });
+  }
 
-      // Tap-to-open dropdowns on mobile
-      document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
-        a.addEventListener('click', (e) => {
-          if (window.matchMedia('(max-width: 1024px)').matches){
-            e.preventDefault();
-            const li = a.parentElement;
-            const expanded = li.classList.toggle('open');
-            a.setAttribute('aria-expanded', String(expanded));
-          }
-        });
-      });
-    }
+  // --- Partners carousel (auto-scroll; respects reduced motion) ---
+  function initPartnersCarousel(){
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    // Sticky nav (kept to match your other pages)
-    function syncNavTop(){
-      const navbar = document.querySelector('.header nav');
-      if (navbar) navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
-    }
-    window.addEventListener('scroll', syncNavTop);
-    syncNavTop();
+    const track = document.querySelector('.partners-carousel-track');
+    if (!track) return;
 
-    // Partners carousel (auto-scroll)
-    function initPartnersCarousel(){
-      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      const track = document.querySelector('.partners-carousel-track');
-      if (!track) return;
-
+    // Clone children so the marquee feels endless (but only once)
+    if (!track.dataset.duplicated){
       const originals = Array.from(track.children).map(n => n.cloneNode(true));
       let reps = 0;
       while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
         originals.forEach(n => track.appendChild(n.cloneNode(true)));
         reps++;
       }
-
-      let x = 0, speed = 0.6, raf;
-      const loop = () => {
-        const max = track.scrollWidth - track.clientWidth;
-        x = (x + speed) % (max || 1);
-        track.scrollLeft = x;
-        raf = requestAnimationFrame(loop);
-      };
-      loop();
-
-      track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
-      track.addEventListener('mouseleave', loop);
-      track.addEventListener('focusin',   () => cancelAnimationFrame(raf));
-      track.addEventListener('focusout',  loop);
-
-      let t;
-      window.addEventListener('resize', () => {
-        cancelAnimationFrame(raf);
-        clearTimeout(t);
-        t = setTimeout(() => { x = 0; loop(); }, 150);
-      });
+      track.dataset.duplicated = 'true';
     }
 
-    if (document.readyState === 'loading'){
-      document.addEventListener('DOMContentLoaded', initPartnersCarousel, { once: true });
-    } else {
-      initPartnersCarousel();
-    }
-  })();
-  </script>
+    let x = 0, speed = 0.6, raf = 0;
+    const loop = () => {
+      const max = track.scrollWidth - track.clientWidth;
+      x = (x + speed) % (max || 1);
+      track.scrollLeft = x;
+      raf = requestAnimationFrame(loop);
+    };
+    const start = () => { if (!raf) loop(); };
+    const stop  = () => { if (raf) { cancelAnimationFrame(raf); raf = 0; } };
+
+    start();
+
+    track.addEventListener('mouseenter', stop);
+    track.addEventListener('mouseleave', start);
+    track.addEventListener('focusin',   stop);
+    track.addEventListener('focusout',  start);
+
+    let t;
+    window.addEventListener('resize', () => {
+      stop();
+      clearTimeout(t);
+      t = setTimeout(() => { x = 0; start(); }, 150);
+    });
+  }
+
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', initPartnersCarousel, { once: true });
+  } else {
+    initPartnersCarousel();
+  }
+})();
+</script>
 </body>
 </html>
+
