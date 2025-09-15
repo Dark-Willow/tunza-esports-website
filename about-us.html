@@ -1,13 +1,14 @@
---- 
+---
 permalink: /about-us/
-redirect_from: 
- - /about-us.html
-layout: null 
---- 
-<!DOCTYPE html> <html lang="en">
+redirect_from:
+  - /about-us.html
+layout: null
+---
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
   <title>Tunza Esports — About Us</title>
@@ -26,7 +27,7 @@ layout: null
   <meta name="twitter:description" content="We’re shaping the future of Kenya’s esports through tournaments, broadcasting, training, and community. Meet the team behind Tunza Esports.">
   <meta name="twitter:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png">
 
-  <!-- Favicons (dark + cache-busted so Google re-fetches) -->
+  <!-- Favicons (cache-busted) -->
   <link rel="icon" href="/favicon.ico?v=5" sizes="any">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=5">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=5">
@@ -34,15 +35,13 @@ layout: null
   <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192-dark.png?v=5">
   <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512-dark.png?v=5">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png?v=5">
-  <!-- Optional pinned tab (only keep if file exists) -->
-  <!-- <link rel="mask-icon" href="/images/tunza-logo-dark.svg" color="#000000"> -->
 
   <!-- PWA -->
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0b0b16">
   <meta name="msapplication-TileColor" content="#0b0b16">
 
-  <!-- Organization schema (site-wide constants) -->
+  <!-- Organization schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -79,9 +78,10 @@ layout: null
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/css/style.css" />
 
-  <!-- Minimal inline styles for partners carousel -->
+  <!-- Page-scoped tweaks (keeps global CSS stable) -->
   <style>
-    .partners-section { padding: 40px 0; }
+    /* Partners carousel visuals */
+    .partners-section { padding: 40px 0; text-align:center; }
     .partners-carousel-track{ display:flex; gap:24px; overflow:hidden; padding:8px 0; scroll-behavior:auto; }
     .partner-logo{ flex:0 0 auto; width:200px; height:100px; display:flex; align-items:center; justify-content:center; background:#0f0f17; border-radius:12px; padding:8px; }
     .partner-logo img{ max-height:80px; max-width:100%; object-fit:contain; display:block; }
@@ -89,20 +89,31 @@ layout: null
       .partner-logo{ width:240px; height:110px; }
       .partner-logo img{ max-height:90px; }
     }
+    /* Make the three intro images fill their cards nicely */
+    .about-intro-section .box-image { width:100%; height:480px; object-fit:cover; border-radius:8px; display:block; }
+    @media (max-width: 768px){ .about-intro-section .box-image{ height:350px; } }
   </style>
 </head>
 <body>
   <!-- Header -->
   <section class="header">
-    <nav>
+    <nav class="wrap" role="navigation" aria-label="Primary">
       <a href="/" class="logo"><img src="/images/tunzalogo.png" alt="Tunza Esports Logo"></a>
-      <div class="nav-links">
+
+      <!-- Mobile toggle -->
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">
+        <span class="fa fa-bars" aria-hidden="true"></span>
+        <span class="sr-only">Menu</span>
+      </button>
+
+      <!-- Nav links -->
+      <div id="nav-menu" class="nav-links">
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/about-us/">About Us</a></li>
 
           <li class="has-dropdown">
-            <a href="#">Our Services</a>
+            <a href="#" aria-haspopup="true" aria-expanded="false">Our Services</a>
             <ul class="dropdown-menu">
               <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
               <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
@@ -113,7 +124,7 @@ layout: null
           </li>
 
           <li class="has-dropdown">
-            <a href="#">Our Products</a>
+            <a href="#" aria-haspopup="true" aria-expanded="false">Our Products</a>
             <ul class="dropdown-menu">
               <li><a href="/ker/">KER</a></li>
               <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
@@ -137,6 +148,7 @@ layout: null
       <a href="/">Home</a> &rsaquo; About Us
     </div>
     <h1 class="about-main-heading">About Us</h1>
+    <p class="about-tagline">Shaping the future of Kenya’s esports through community, competition, and opportunity.</p>
   </section>
 
   <!-- Intro -->
@@ -148,13 +160,13 @@ layout: null
     </p>
     <div class="intro-boxes-container">
       <div class="intro-box">
-        <img src="/images/1.2.png" alt="Esports community building" class="box-image">
+        <img src="/images/1.2.png" alt="Esports community building" class="box-image" loading="lazy">
       </div>
       <div class="intro-box">
-        <img src="/images/2.1.png" alt="Tournaments and competitions" class="box-image">
+        <img src="/images/2.1.png" alt="Tournaments and competitions" class="box-image" loading="lazy">
       </div>
       <div class="intro-box">
-        <img src="/images/3.1.png" alt="Training and mentorship" class="box-image">
+        <img src="/images/3.1.png" alt="Training and mentorship" class="box-image" loading="lazy">
       </div>
     </div>
   </section>
@@ -180,34 +192,34 @@ layout: null
   <!-- Directors -->
   <section class="directors-section">
     <div class="container">
-      <h2 class="directors-heading">Our Companies<br>Directors</h2>
+      <h2 class="directors-heading">Our Company Directors</h2>
       <p class="directors-subheading">
-        Tunza Esports is led by a dynamic team of directors with a shared passion for gaming, innovation, and youth empowerment.
-        Together, they are building sustainable pathways for esports development in Kenya — from institutions to the broader community.
+        Tunza Esports is led by a dynamic team with a shared passion for gaming, innovation, and youth empowerment.
+        Together, we’re building sustainable pathways for esports development in Kenya — from institutions to the broader community.
       </p>
       <div class="director-cards-container">
         <div class="director-card">
-          <img src="/images/Shirley-Adema.png" alt="Shirley Adema" class="director-image">
+          <img src="/images/Shirley-Adema.png" alt="Shirley Adema" class="director-image" loading="lazy">
           <h3 class="director-name">Shirley Adema</h3>
           <p class="director-title">Chief Executive Officer</p>
         </div>
         <div class="director-card">
-          <img src="/images/Elina-Ongaro.png" alt="Elinah Ongaro" class="director-image">
+          <img src="/images/Elina-Ongaro.png" alt="Elinah Ongaro" class="director-image" loading="lazy">
           <h3 class="director-name">Elinah Ongaro</h3>
           <p class="director-title">Company Secretary</p>
         </div>
         <div class="director-card">
-          <img src="/images/Rickie Maweu.png" alt="Rickie Maweu" class="director-image">
+          <img src="/images/Rickie Maweu.png" alt="Rickie Maweu" class="director-image" loading="lazy">
           <h3 class="director-name">Rickie Maweu</h3>
           <p class="director-title">Operations Director</p>
         </div>
         <div class="director-card">
-          <img src="/images/Esports.png" alt="Sandra Vihenda" class="director-image">
+          <img src="/images/Esports.png" alt="Sandra Vihenda" class="director-image" loading="lazy">
           <h3 class="director-name">Sandra Vihenda</h3>
           <p class="director-title">Company Treasurer</p>
         </div>
         <div class="director-card">
-          <img src="/images/Esports.png" alt="Austin Kuka" class="director-image">
+          <img src="/images/Esports.png" alt="Austin Kuka" class="director-image" loading="lazy">
           <h3 class="director-name">Austin Kuka</h3>
           <p class="director-title">Non-Executive Director</p>
         </div>
@@ -221,7 +233,6 @@ layout: null
     <h2 class="newsletter-main-heading">Get Gaming Guide and Information</h2>
     <div class="newsletter-card">
       <h3>Hello guys! Get the latest information from us</h3>
-
       <form
         action="https://tunzaesports.us13.list-manage.com/subscribe/post?u=49268c059773710b44455bb33&id=f95ceda37f&f_id=00cde9e1f0"
         method="post"
@@ -235,7 +246,6 @@ layout: null
         </div>
         <button type="submit" class="subscribe-button">Subscribe</button>
       </form>
-
       <p class="newsletter-card-disclaimer">Stay ahead in the game. Get exclusive tips, updates, and strategy guides straight to your inbox. No spam, just pure gaming goodness.</p>
     </div>
   </section>
@@ -290,50 +300,80 @@ layout: null
     </div>
   </footer>
 
+  <!-- JS: mobile menu + dropdowns + partners carousel + (your) sticky nav -->
   <script>
-    (function () {
-      // Sticky nav
-      window.addEventListener('scroll', function() {
-        const nav = document.querySelector('.header nav');
-        if (!nav) return;
-        nav.style.top = window.scrollY > 0 ? (window.scrollY + 'px') : '0px';
+  (function(){
+    // Mobile menu toggle
+    const btn  = document.querySelector('.nav-toggle');
+    const menu = document.getElementById('nav-menu');
+    if (btn && menu){
+      btn.addEventListener('click', () => {
+        const open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+        menu.classList.toggle('is-open', !open);
       });
-      window.addEventListener('DOMContentLoaded', function() {
-        const nav = document.querySelector('.header nav');
-        if (nav) nav.style.top = window.scrollY > 0 ? (window.scrollY + 'px') : '0px';
-
-        // Partners carousel (guarded)
-        const track = document.querySelector('.partners-carousel-track');
-        if (!track) return;
-
-        // Duplicate until we have enough width to scroll smoothly
-        let guard = 0;
-        while (track.scrollWidth <= track.clientWidth * 2 && guard < 10) {
-          track.innerHTML += track.innerHTML;
-          guard++;
-        }
-
-        let x = 0, speed = 0.5, raf;
-        function auto() {
-          x += speed;
-          const half = track.scrollWidth / 2;
-          if (x >= half) x = 0;
-          track.scrollLeft = x;
-          raf = requestAnimationFrame(auto);
-        }
-        auto();
-
-        track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
-        track.addEventListener('mouseleave', () => auto());
+      // Tap-to-open dropdowns on mobile
+      document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
+        a.addEventListener('click', (e) => {
+          if (window.matchMedia('(max-width: 1024px)').matches){
+            e.preventDefault();
+            const li = a.parentElement;
+            const expanded = li.classList.toggle('open');
+            a.setAttribute('aria-expanded', String(expanded));
+          }
+        });
       });
-    })();
+    }
+
+    // Partners carousel (auto-scroll via scrollLeft)
+    function initPartnersCarousel(){
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const track = document.querySelector('.partners-carousel-track');
+      if (!track) return;
+
+      const originals = Array.from(track.children).map(n => n.cloneNode(true));
+      let reps = 0;
+      while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
+        originals.forEach(n => track.appendChild(n.cloneNode(true)));
+        reps++;
+      }
+
+      let x = 0, speed = 0.6, raf;
+      const loop = () => {
+        const max = track.scrollWidth - track.clientWidth;
+        x = (x + speed) % (max || 1);
+        track.scrollLeft = x;
+        raf = requestAnimationFrame(loop);
+      };
+      loop();
+
+      track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
+      track.addEventListener('mouseleave', loop);
+      track.addEventListener('focusin',   () => cancelAnimationFrame(raf));
+      track.addEventListener('focusout',  loop);
+
+      let t;
+      window.addEventListener('resize', () => {
+        cancelAnimationFrame(raf);
+        clearTimeout(t);
+        t = setTimeout(() => { x = 0; loop(); }, 150);
+      });
+    }
+
+    if (document.readyState === 'loading'){
+      document.addEventListener('DOMContentLoaded', initPartnersCarousel);
+    } else {
+      initPartnersCarousel();
+    }
+
+    // Your existing "sticky" nav behavior (kept for consistency)
+    window.addEventListener('scroll', function () {
+      const navbar = document.querySelector('.header nav');
+      if (navbar) navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
+    });
+    const navbar = document.querySelector('.header nav');
+    if (navbar) navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
+  })();
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
