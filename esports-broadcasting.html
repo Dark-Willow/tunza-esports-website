@@ -9,7 +9,7 @@ layout: null
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
   <title>Tunza Esports - Esports Production &amp; Broadcasting</title>
@@ -28,7 +28,7 @@ layout: null
   <meta name="twitter:description" content="From qualifiers to grand finals—production, live commentary, replays, overlays and distribution." />
   <meta name="twitter:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" />
 
-  <!-- Favicons (match homepage; cache-busted so Google refreshes) -->
+  <!-- Favicons -->
   <link rel="icon" href="/favicon.ico?v=4" sizes="any">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=4">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4">
@@ -43,7 +43,7 @@ layout: null
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0b0b16">
 
-  <!-- Organization schema (keep consistent sitewide) -->
+  <!-- Organization schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -69,43 +69,34 @@ layout: null
   <!-- Main CSS -->
   <link rel="stylesheet" href="/css/style.css" />
 
-  <!-- Minimal inline styles so the partners carousel works before CSS update -->
+  <!-- Tiny fallback styles for partners strip -->
   <style>
-    .partners-section { padding: 40px 0; }
-    .partners-carousel-track{
-      display:flex; gap:24px; overflow:hidden; padding:8px 0;
-      scroll-behavior:auto; /* animated via JS */
-    }
-    .partner-logo{
-      flex:0 0 auto; width:240px; height:110px;
-      display:flex; align-items:center; justify-content:center;
-      background:#0f0f17; border-radius:12px; padding:8px;
-    }
-    .partner-logo img{
-      max-height:90px; max-width:100%; object-fit:contain; display:block;
-    }
-    @media (max-width: 768px){
-      .partner-logo{ width:180px; height:100px; }
-      .partner-logo img{ max-height:80px; }
-    }
-    @media (max-width: 480px){
-      .partner-logo{ width:150px; height:90px; }
-      .partner-logo img{ max-height:70px; }
-    }
+    .partners-section{padding:40px 0;text-align:center}
+    .partners-carousel-track{display:flex;gap:24px;overflow:hidden;padding:8px 0}
+    .partner-logo{flex:0 0 auto;width:240px;height:110px;display:flex;align-items:center;justify-content:center;background:#0f0f17;border-radius:12px;padding:8px}
+    .partner-logo img{max-height:90px;max-width:100%;object-fit:contain;display:block}
+    @media (max-width: 768px){.partner-logo{width:180px;height:100px}.partner-logo img{max-height:80px}}
+    @media (max-width: 480px){.partner-logo{width:150px;height:90px}.partner-logo img{max-height:70px}}
   </style>
 </head>
 <body>
   <!-- Header -->
   <section class="header">
-    <nav>
+    <nav class="wrap" role="navigation" aria-label="Primary">
       <a href="/" class="logo"><img src="/images/tunzalogo.png" alt="Tunza Esports Logo"></a>
-      <div class="nav-links">
+
+      <!-- Mobile toggle -->
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">
+        <span class="fa fa-bars" aria-hidden="true"></span> Menu
+      </button>
+
+      <div id="nav-menu" class="nav-links">
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/about-us/">About Us</a></li>
 
           <li class="has-dropdown">
-            <a href="#">Our Services</a>
+            <a href="#" aria-haspopup="true" aria-expanded="false">Our Services</a>
             <ul class="dropdown-menu">
               <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
               <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
@@ -116,7 +107,7 @@ layout: null
           </li>
 
           <li class="has-dropdown">
-            <a href="#">Our Products</a>
+            <a href="#" aria-haspopup="true" aria-expanded="false">Our Products</a>
             <ul class="dropdown-menu">
               <li><a href="/ker/">KER</a></li>
               <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
@@ -184,7 +175,6 @@ layout: null
         </div>
 
         <div class="tournament-image-column">
-          <!-- keep %20 if your filenames contain spaces -->
           <img src="/images/Esports%20production%202.jpg" alt="Esports Broadcasting Studio" class="main-tournament-image" loading="lazy">
           <div class="small-image-container">
             <img src="/images/Production%20Videography.jpg" alt="Camera Setup" class="small-tournament-image" loading="lazy">
@@ -255,20 +245,46 @@ layout: null
 
   <script>
     (function () {
-      // Navbar positioning
+      // Mobile menu toggle + dropdowns
+      const btn  = document.querySelector('.nav-toggle');
+      const menu = document.getElementById('nav-menu');
+
+      if (btn && menu){
+        btn.addEventListener('click', () => {
+          const open = btn.getAttribute('aria-expanded') === 'true';
+          btn.setAttribute('aria-expanded', String(!open));
+          menu.classList.toggle('is-open', !open);
+        });
+
+        document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
+          a.addEventListener('click', (e) => {
+            if (window.matchMedia('(max-width:1024px)').matches){
+              e.preventDefault();
+              const li = a.parentElement;
+              const expanded = li.classList.toggle('open');
+              a.setAttribute('aria-expanded', String(expanded));
+            }
+          });
+        });
+      }
+
+      // Sticky nav positioning (keeps header visible with your absolute nav style)
       window.addEventListener('scroll', function() {
         const navbar = document.querySelector('.header nav');
         if (navbar) navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
       });
+      window.addEventListener('DOMContentLoaded', function() {
+        const navbar = document.querySelector('.header nav');
+        if (navbar) navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
+      });
 
+      // Partners carousel (smooth auto-scroll, respects reduced motion)
       function initPartnersCarousel(){
-        // Respect reduced motion
         if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
         const track = document.querySelector('.partners-carousel-track');
         if (!track) return;
 
-        // Duplicate children until we have enough width (~3x viewport) for smooth loop
         const originals = Array.from(track.children).map(n => n.cloneNode(true));
         let reps = 0;
         while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
@@ -277,21 +293,19 @@ layout: null
         }
 
         let x = 0, speed = 0.6, raf;
-        function loop(){
+        const loop = () => {
           const max = track.scrollWidth - track.clientWidth;
           x = (x + speed) % (max || 1);
           track.scrollLeft = x;
           raf = requestAnimationFrame(loop);
-        }
+        };
         loop();
 
-        // Pause/resume on hover/focus
         track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
-        track.addEventListener('mouseleave', () => loop());
-        track.addEventListener('focusin', () => cancelAnimationFrame(raf));
-        track.addEventListener('focusout', () => loop());
+        track.addEventListener('mouseleave', loop);
+        track.addEventListener('focusin',   () => cancelAnimationFrame(raf));
+        track.addEventListener('focusout',  loop);
 
-        // Recalculate on resize
         let t;
         window.addEventListener('resize', () => {
           cancelAnimationFrame(raf);
@@ -309,5 +323,3 @@ layout: null
   </script>
 </body>
 </html>
-
-
