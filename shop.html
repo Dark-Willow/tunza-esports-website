@@ -9,7 +9,7 @@ layout: null
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
   <title>Tunza Esports - Shop</title>
@@ -31,7 +31,7 @@ layout: null
   <meta name="twitter:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" />
   <meta name="twitter:image:alt" content="Tunza Esports logo" />
 
-  <!-- Favicons (match homepage) -->
+  <!-- Favicons -->
   <link rel="icon" href="/favicon.ico?v=4" sizes="any">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=4">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4">
@@ -62,7 +62,7 @@ layout: null
   }
   </script>
 
-  <!-- Fonts & CSS -->
+  <!-- Fonts & Global CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet" />
@@ -73,15 +73,21 @@ layout: null
 <body>
   <!-- Header -->
   <section class="header">
-    <nav>
+    <nav role="navigation" aria-label="Primary">
       <a href="/" class="logo"><img src="/images/tunzalogo.png" alt="Tunza Esports Logo"></a>
-      <div class="nav-links">
+
+      <!-- Mobile toggle -->
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
+        <span class="fa fa-bars" aria-hidden="true"></span>
+      </button>
+
+      <div id="nav-menu" class="nav-links">
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/about-us/">About Us</a></li>
 
           <li class="has-dropdown">
-            <a href="#">Our Services</a>
+            <a href="#" aria-haspopup="true" aria-expanded="false">Our Services</a>
             <ul class="dropdown-menu">
               <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
               <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
@@ -92,10 +98,10 @@ layout: null
           </li>
 
           <li class="has-dropdown">
-            <a href="#">Our Products</a>
+            <a href="#" aria-haspopup="true" aria-expanded="false">Our Products</a>
             <ul class="dropdown-menu">
               <li><a href="/ker/">KER</a></li>
-              <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
+              <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
               <li><a href="/tunzatourna/">TunzaTourna</a></li>
               <li><a href="/shop/">Shop</a></li>
             </ul>
@@ -138,7 +144,7 @@ layout: null
       <div class="footer-column">
         <h4>Tournaments</h4>
         <ul>
-          <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
+          <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
         </ul>
       </div>
 
@@ -156,35 +162,87 @@ layout: null
     </div>
   </footer>
 
+  <!-- Scripts -->
   <script>
-    // Sticky nav (same behaviour as other pages)
-    window.addEventListener('scroll', () => {
-      const nav = document.querySelector('.header nav');
-      if (!nav) return;
-      nav.style.top = window.scrollY > 0 ? window.scrollY + 'px' : '0px';
-    });
-    window.addEventListener('DOMContentLoaded', () => {
-      const nav = document.querySelector('.header nav');
-      if (!nav) return;
-      nav.style.top = window.scrollY > 0 ? window.scrollY + 'px' : '0px';
-    });
+  (function () {
+    // Mobile nav + dropdowns (consistent with other pages)
+    function initNav() {
+      const btn  = document.querySelector('.nav-toggle');
+      const menu = document.getElementById('nav-menu');
+      if (!btn || !menu) return;
 
-    // Optional partners carousel guard – only runs if the section exists on this page
-    const partnersCarousel = document.querySelector('.partners-carousel-track');
-    if (partnersCarousel) {
-      partnersCarousel.innerHTML += partnersCarousel.innerHTML;
-      const totalWidth = partnersCarousel.scrollWidth / 2;
-      let position = 0;
-      const speed = 0.5;
+      btn.addEventListener('click', () => {
+        const open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+        menu.classList.toggle('is-open', !open);
+      });
 
-      function animate() {
-        position -= speed;
-        partnersCarousel.style.transform = `translateX(${position}px)`;
-        if (position <= -totalWidth) position = 0;
-        requestAnimationFrame(animate);
-      }
-      animate();
+      // Tap-to-open dropdowns on mobile
+      document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
+        a.addEventListener('click', (e) => {
+          if (window.matchMedia('(max-width:1024px)').matches){
+            e.preventDefault();
+            const li = a.parentElement;
+            const expanded = li.classList.toggle('open');
+            a.setAttribute('aria-expanded', String(expanded));
+          }
+        });
+      });
     }
+
+    // Optional partners carousel guard (runs only if section exists on this page)
+    function initPartnersCarousel(){
+      const track = document.querySelector('.partners-carousel-track');
+      if (!track) return;
+
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      const originals = Array.from(track.children).map(n => n.cloneNode(true));
+      let reps = 0;
+      while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
+        originals.forEach(n => track.appendChild(n.cloneNode(true)));
+        reps++;
+      }
+
+      let x = 0, speed = 0.6, raf = null;
+
+      const loop = () => {
+        const max = track.scrollWidth - track.clientWidth;
+        x = (x + speed) % (max || 1);
+        track.scrollLeft = x;
+        raf = requestAnimationFrame(loop);
+      };
+
+      const start = () => { if (!raf) loop(); };
+      const stop  = () => { if (raf) cancelAnimationFrame(raf); raf = null; };
+
+      start();
+      track.addEventListener('mouseenter', stop);
+      track.addEventListener('mouseleave', start);
+      track.addEventListener('focusin',   stop);
+      track.addEventListener('focusout',  start);
+
+      let t;
+      window.addEventListener('resize', () => {
+        stop();
+        clearTimeout(t);
+        t = setTimeout(() => { x = 0; start(); }, 150);
+      });
+    }
+
+    const ready = (fn) => {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', fn, { once: true });
+      } else {
+        fn();
+      }
+    };
+
+    ready(() => {
+      initNav();
+      initPartnersCarousel();
+    });
+  })();
   </script>
 </body>
 </html>
