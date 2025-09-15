@@ -8,11 +8,12 @@ layout: null
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
   <title>Privacy Policy - Tunza Esports</title>
   <meta name="description" content="How Tunza Esports collects, uses, and protects your information across our website, tournaments, and services." />
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
 
   <!-- Canonical + Social -->
   <link rel="canonical" href="https://www.tunzaesports.org/privacy-policy/" />
@@ -46,15 +47,28 @@ layout: null
   <!-- Organization schema (sitewide consistent) -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Tunza Esports",
-    "url": "https://www.tunzaesports.org",
-    "logo": "https://www.tunzaesports.org/images/android-chrome-512x512-dark.png",
-    "sameAs": [
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "@id":"https://www.tunzaesports.org/#org",
+    "name":"Tunza Esports",
+    "url":"https://www.tunzaesports.org",
+    "logo":"https://www.tunzaesports.org/images/android-chrome-512x512-dark.png",
+    "sameAs":[
       "https://www.instagram.com/TunzaEsports",
       "https://x.com/TunzaEsports",
       "https://www.facebook.com/TunzaEsports"
+    ]
+  }
+  </script>
+
+  <!-- Breadcrumbs (Home > Privacy Policy) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://www.tunzaesports.org/"},
+      {"@type":"ListItem","position":2,"name":"Privacy Policy","item":"https://www.tunzaesports.org/privacy-policy/"}
     ]
   }
   </script>
@@ -66,33 +80,49 @@ layout: null
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/css/style.css" />
+
+  <!-- Page-scoped tweaks -->
+  <style>
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .privacy-policy-container{max-width:900px;margin:100px auto 40px;padding:24px;border-radius:12px;line-height:1.7}
+    .privacy-policy-container h1{margin-bottom:10px}
+    .privacy-policy-container h2{margin-top:28px}
+    @media (max-width:768px){.privacy-policy-container{margin:80px 16px 32px;padding:16px}}
+  </style>
 </head>
 <body>
   <!-- Header -->
   <section class="header">
-    <nav>
+    <nav class="wrap" role="navigation" aria-label="Primary">
       <a href="/" class="logo"><img src="/images/tunzalogo.png" alt="Tunza Esports Logo" /></a>
-      <div class="nav-links">
+
+      <!-- Mobile toggle -->
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">
+        <span class="fa fa-bars" aria-hidden="true"></span>
+        <span class="sr-only">Menu</span>
+      </button>
+
+      <div id="nav-menu" class="nav-links">
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/about-us/">About Us</a></li>
 
           <li class="has-dropdown">
-            <a href="#">Our Services</a>
+            <a href="#" aria-haspopup="true" aria-expanded="false">Our Services</a>
             <ul class="dropdown-menu">
               <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
-              <li><a href="/esports-broadcasting/">Esports Broadcasting</a></li>
+              <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
               <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
               <li><a href="/consultation/">Consultation</a></li>
-              <li><a href="/bootcamps-training-programs/">Bootcamps & Training Programs</a></li>
+              <li><a href="/bootcamps-training-programs/">Bootcamps &amp; Training Programs</a></li>
             </ul>
           </li>
 
           <li class="has-dropdown">
-            <a href="#">Our Products</a>
+            <a href="#" aria-haspopup="true" aria-expanded="false">Our Products</a>
             <ul class="dropdown-menu">
               <li><a href="/ker/">KER</a></li>
-              <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
+              <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
               <li><a href="/tunzatourna/">TunzaTourna</a></li>
               <li><a href="/shop/">Shop</a></li>
             </ul>
@@ -182,7 +212,7 @@ layout: null
       <div class="footer-column">
         <h4>Tournaments</h4>
         <ul>
-          <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
+          <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
         </ul>
       </div>
       <div class="footer-column footer-logo-column">
@@ -198,11 +228,45 @@ layout: null
       <p class="copyright-text">&copy; 2025 Tunza Esports. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- Scripts: mobile menu, dropdowns, sticky nav -->
+  <script>
+  (function(){
+    // Mobile menu toggle
+    const btn  = document.querySelector('.nav-toggle');
+    const menu = document.getElementById('nav-menu');
+    if (btn && menu){
+      btn.addEventListener('click', () => {
+        const open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+        menu.classList.toggle('is-open', !open);
+      });
+      // Tap-to-open dropdowns on mobile
+      document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
+        a.addEventListener('click', (e) => {
+          if (window.matchMedia('(max-width: 1024px)').matches){
+            e.preventDefault();
+            const li = a.parentElement;
+            const expanded = li.classList.toggle('open');
+            a.setAttribute('aria-expanded', String(expanded));
+          }
+        });
+      });
+    }
+
+    // Sticky-ish nav to match your other pages
+    function syncNavTop(){
+      const navbar = document.querySelector('.header nav');
+      if (navbar) navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
+    }
+    window.addEventListener('scroll', syncNavTop);
+
+    if (document.readyState === 'loading'){
+      document.addEventListener('DOMContentLoaded', syncNavTop);
+    } else {
+      syncNavTop();
+    }
+  })();
+  </script>
 </body>
 </html>
-
-
-
-
-
-
