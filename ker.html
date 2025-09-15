@@ -77,10 +77,10 @@ layout: null
   <!-- Header -->
   <section class="header">
     <nav class="wrap" role="navigation" aria-label="Primary">
-      <a href="/" class="logo"><img src="/images/tunzalogo.png" alt="Tunza Esports Logo" /></a>
+      <a href="/" class="logo"><img src="/images/tunzalogo.png" alt="Tunza Esports Logo" decoding="async" /></a>
 
       <!-- Mobile toggle -->
-      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
         <span class="fa fa-bars" aria-hidden="true"></span>
         <span class="sr-only">Menu</span>
       </button>
@@ -121,9 +121,11 @@ layout: null
   </section>
 
   <!-- Content -->
-  <section class="coming-soon-hero-section">
-    <h1>Coming Soon</h1>
-  </section>
+  <main>
+    <section class="coming-soon-hero-section">
+      <h1>Coming Soon</h1>
+    </section>
+  </main>
 
   <!-- Footer -->
   <footer>
@@ -188,14 +190,7 @@ layout: null
         });
       });
     }
-
-    // Sticky nav (kept consistent with other pages)
-    function syncNavTop(){
-      const navbar = document.querySelector('.header nav');
-      if (navbar) navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
-    }
-    window.addEventListener('scroll', syncNavTop);
-    syncNavTop();
+    // No JS "sticky" needed — header is sticky via CSS in /css/style.css
   })();
   </script>
 </body>
