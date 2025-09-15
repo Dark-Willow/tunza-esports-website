@@ -231,37 +231,73 @@ layout: null
 
   <!-- Minimal nav JS (no scroll-top hacks) -->
   <script>
-  (function () {
-    function initNav(){
-      const btn  = document.querySelector('.nav-toggle');
-      const menu = document.getElementById('nav-menu');
-      if (!btn || !menu) return;
+(function () {
+  function initNav(){
+    const btn  = document.querySelector('.nav-toggle');
+    const menu = document.getElementById('nav-menu');
+    if (!btn || !menu) return;
 
-      btn.addEventListener('click', () => {
-        const open = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!open));
-        menu.classList.toggle('is-open', !open);
+    const isMobile = () => window.matchMedia('(max-width:1024px)').matches;
+
+    // Toggle whole menu
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      menu.classList.toggle('is-open', !open);
+    });
+
+    // Dropdown headers
+    document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        // Stop "#" jump on ALL viewports
+        e.preventDefault();
+        if (isMobile()){
+          const li = a.parentElement;
+          const expanded = li.classList.toggle('open');
+          a.setAttribute('aria-expanded', String(expanded));
+        }
       });
+    });
 
-      // Tap-to-open dropdowns on mobile
-      document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
-        a.addEventListener('click', (e) => {
-          if (window.matchMedia('(max-width:1024px)').matches){
-            e.preventDefault();
-            const li = a.parentElement;
-            const expanded = li.classList.toggle('open');
-            a.setAttribute('aria-expanded', String(expanded));
+    // Close the menu after clicking any normal link on mobile
+    menu.querySelectorAll('a').forEach(link => {
+      if (!link.matches('.has-dropdown > a')) {
+        link.addEventListener('click', () => {
+          if (isMobile()){
+            menu.classList.remove('is-open');
+            btn.setAttribute('aria-expanded','false');
+            menu.querySelectorAll('.has-dropdown.open').forEach(li => li.classList.remove('open'));
           }
         });
-      });
-    }
+      }
+    });
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initNav, { once: true });
-    } else {
-      initNav();
-    }
-  })();
-  </script>
+    // Esc closes menu on mobile
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isMobile() && menu.classList.contains('is-open')){
+        menu.classList.remove('is-open');
+        btn.setAttribute('aria-expanded','false');
+        menu.querySelectorAll('.has-dropdown.open').forEach(li => li.classList.remove('open'));
+      }
+    });
+
+    // Reset to clean desktop state on resize
+    window.addEventListener('resize', () => {
+      if (!isMobile()){
+        menu.classList.remove('is-open');
+        btn.setAttribute('aria-expanded','false');
+        menu.querySelectorAll('.has-dropdown.open').forEach(li => li.classList.remove('open'));
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNav, { once: true });
+  } else {
+    initNav();
+  }
+})();
+</script>
 </body>
 </html>
+
