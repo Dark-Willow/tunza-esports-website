@@ -49,63 +49,65 @@
   <!-- Global stylesheet -->
   <link rel="stylesheet" href="/css/style.css" />
 
-  <!-- Page overrides: fixes mobile nav movement + centers Shop button; chevrons visible -->
+  <!-- Page overrides: lock nav, full-screen mobile drawer, keep Shop text white on hover, hero = full screen -->
   <style>
-    /* Never let scripts move the nav via inline styles */
-    .header nav { top: 0 !important; }
-
-    /* Desktop nav stays fixed with gradient (matches original look) */
-    @media (min-width:1025px){
-      .header nav{
-        position: fixed;
-        top: 0; left: 0; right: 0;
-        z-index: 1000;
-        background: linear-gradient(to bottom, rgba(26,26,48,0.95) 0%, rgba(26,26,48,0) 85%);
-      }
-      /* Do NOT push the hero; it’s an overlay. Other first sections would be offset on their pages’ CSS. */
+    /* Lock the nav – no movement on scroll or by old scripts */
+    .header nav{
+      position:fixed !important;
+      top:0 !important; left:0; right:0;
+      z-index:1000;
+      padding:6px 75px;
+      background:linear-gradient(to bottom, rgba(26,26,48,.95) 0%, rgba(26,26,48,0) 85%);
+      transform:translateZ(0); /* iOS jitter guard */
     }
 
-    /* Mobile/tablet: fix the bar to the top; slide panel; center CTA */
+    /* Mobile/tablet drawer fills the screen below the bar */
     @media (max-width:1024px){
-      .header nav{
-        position: fixed;
-        top: 0; left: 0; right: 0;
-        z-index: 1000;
-      }
+      .header nav{ padding:6px 16px; }
+
       .nav-links{
-        position: fixed;
-        left: 0; right: 0; top: 72px;
-        display: none;
-        max-height: calc(100vh - 72px);
-        overflow-y: auto;
-        background: rgba(11,11,22,.98);
-        border-top: 1px solid #202433;
-        text-align: center;
+        position:fixed;
+        left:0; right:0; top:72px;
+        display:none;
+        height:calc(100vh - 72px);
+        overflow:auto;
+        background:rgba(11,11,22,.98);
+        border-top:1px solid #202433;
+        text-align:center;
+        padding:20px 16px 44px;
       }
       .nav-links.is-open{ display:block; }
-      .nav-links > ul{ flex-direction: column; gap: 12px; align-items: center; }
-      /* Keep chevrons visible */
-      .has-dropdown > a::after{ opacity: .95; margin-left: .35rem; }
-      /* Center the Shop CTA */
+      .nav-links > ul{ flex-direction:column; gap:28px; align-items:center; }
+
+      /* More space between Gallery and the CTA */
+      .nav-links > ul > li:last-child{ margin-bottom:28px; }
       .nav-links .shop-button{
-        display: inline-block;
-        width: auto;
-        margin: 16px auto 24px;
+        display:inline-block; width:auto;
+        margin:40px auto 28px; /* “far away” from Gallery */
       }
-      /* Prevent background scroll while menu is open */
-      body.menu-open{ overflow: hidden; }
+
+      /* Keep dropdown chevrons visible, but tapping routes to pages via JS */
+      .has-dropdown > a::after{ opacity:1; margin-left:.35rem; }
+
+      /* No background scroll when menu is open */
+      body.menu-open{ overflow:hidden; }
     }
 
-    /* Make purple CTA style reusable (e.g., “Contact us” cards elsewhere) */
-    .cta-button,
-    .cta-card .cta-button,
-    .cta-card .cta-btn{
-      display:inline-block; background:#B425EC; color:#fff; border:0; border-radius:8px;
-      padding:14px 24px; font-weight:700; transition:background .25s, transform .2s;
+    /* Shop button white text even on hover */
+    .shop-button{ color:#fff !important; }
+    .shop-button:hover{ background:#a018d8; color:#fff !important; }
+
+    /* Hero covers the whole screen (since nav is fixed) */
+    .home-hero-section{
+      min-height:100dvh; width:100%;
+      background-image:linear-gradient(rgba(4,9,30,.7), rgba(4,9,30,.7)), url(/images/TunzaEsportsBackground.png);
+      background-size:cover; background-position:center; position:relative;
     }
-    .cta-button:hover,
-    .cta-card .cta-button:hover,
-    .cta-card .cta-btn:hover{ background:#19D2EA; transform:translateY(-2px); }
+
+    /* Don’t push overlay heroes; but push first non-hero sections site-wide */
+    .header + *:not(.home-hero-section):not(.service-hero-section):not(.esports-broadcasting-hero-section):not(.events-bootcamps-hero-section):not(.video-gaming-events-hero-section):not(.kuer-hero-section):not(.news-hero-section):not(.about-hero-section){
+      margin-top:96px;
+    }
   </style>
 
   <!-- JSON-LD: Organization -->
@@ -161,7 +163,7 @@
           <li><a href="/about-us/">About Us</a></li>
 
           <li class="has-dropdown">
-            <!-- Mobile will navigate to this page instead of opening dropdown -->
+            <!-- On mobile, this goes to a landing page instead of opening a dropdown -->
             <a href="#" data-mobile-href="/our-services/" aria-haspopup="true" aria-expanded="false">Our Services</a>
             <ul class="dropdown-menu">
               <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
@@ -192,7 +194,7 @@
   </section>
 
   <!-- Hero -->
-  <section class="home-hero-section">
+  <section class="home-hero-section" aria-label="Tunza Esports Hero">
     <div class="hero-content">
       <h1>Tujenge Esports Kenya</h1>
     </div>
@@ -301,7 +303,8 @@
       });
     }
 
-    // Desktop: hover dropdowns (CSS). Mobile: navigate to landing page (no dropdown).
+    // Desktop: hover dropdowns via CSS.
+    // Mobile: tapping "Our Services/Products" routes to landing pages (no dropdown).
     document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
       a.addEventListener('click', (e) => {
         if (isMobile()){
@@ -310,7 +313,6 @@
           e.preventDefault();
           window.location.href = target;
         } else {
-          // prevent jump if href is "#"
           if ((a.getAttribute('href') || '#') === '#') e.preventDefault();
         }
       });
@@ -388,7 +390,7 @@
         raf = requestAnimationFrame(loop);
       };
       const start = () => { if (!raf) loop(); };
-      const stop  = () => { if (raf) cancelAnimationFrame(raf), raf = 0; };
+      const stop  = () => { if (raf) { cancelAnimationFrame(raf); raf = 0; } };
 
       start();
       track.addEventListener('mouseenter', stop);
