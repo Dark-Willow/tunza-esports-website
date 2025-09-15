@@ -23,10 +23,10 @@ a:hover { color:#00E5FF; }
 .wrap, .container { width:min(1200px, 92vw); margin-inline:auto; padding-inline:16px; }
 
 /* ==========================================================
-   HEADER / NAV  (ORIGINAL: absolute + gradient to transparent)
+   HEADER / NAV  (original look; desktop override below)
    ========================================================== */
 .header nav{
-  position:absolute; inset:0 0 auto 0; /* top:0; left:0; right:0 */
+  position:absolute; inset:0 0 auto 0;
   z-index:1000;
   padding:6px 75px;
   display:flex; align-items:center; justify-content:flex-start;
@@ -110,7 +110,8 @@ a:hover { color:#00E5FF; }
 .events-bootcamps-hero-section,
 .video-gaming-events-hero-section,
 .kuer-hero-section,
-.news-hero-section{
+.news-hero-section,
+.about-hero-section{
   min-height:450px; width:100%;
   background-size:cover; background-position:center;
   display:flex; flex-direction:column; justify-content:center; align-items:center;
@@ -121,7 +122,8 @@ a:hover { color:#00E5FF; }
 .events-bootcamps-hero-section .breadcrumb,
 .video-gaming-events-hero-section .breadcrumb,
 .kuer-hero-section .breadcrumb,
-.news-hero-section .breadcrumb{
+.news-hero-section .breadcrumb,
+.about-hero-section .breadcrumb{
   position:absolute; top:150px; font-size:16px; color:rgba(252,252,253,.7);
 }
 .service-hero-section .service-main-heading,
@@ -137,13 +139,15 @@ a:hover { color:#00E5FF; }
   .events-bootcamps-hero-section,
   .video-gaming-events-hero-section,
   .kuer-hero-section,
-  .news-hero-section{ padding:0 15px; min-height:350px; }
+  .news-hero-section,
+  .about-hero-section{ padding:0 15px; min-height:350px; }
   .service-hero-section .breadcrumb,
   .esports-broadcasting-hero-section .breadcrumb,
   .events-bootcamps-hero-section .breadcrumb,
   .video-gaming-events-hero-section .breadcrumb,
   .kuer-hero-section .breadcrumb,
-  .news-hero-section .breadcrumb{ top:120px; }
+  .news-hero-section .breadcrumb,
+  .about-hero-section .breadcrumb{ top:120px; }
   .service-hero-section .service-main-heading,
   .esports-broadcasting-hero-section .service-main-heading,
   .events-bootcamps-hero-section .service-main-heading,
@@ -172,7 +176,7 @@ a:hover { color:#00E5FF; }
 @media (max-width:768px){ .news-section{ padding:40px 15px; } .news-heading{ font-size:32px; } }
 
 /* ==========================================================
-   NEWSLETTER (original look, with small-phone stacking only)
+   NEWSLETTER (original look)
    ========================================================== */
 .newsletter-outer{ background:#0A0A1A; padding:80px 75px; text-align:center; }
 .newsletter-pre-heading{ font-size:18px; color:rgba(252,252,253,.8); margin-bottom:10px; }
@@ -319,7 +323,7 @@ a:hover { color:#00E5FF; }
 .event-date, .event-location{ font-size:.875rem; color:#FCFCFD; opacity:.7; margin-bottom:12px; }
 .event-price{ font-size:1.1rem; font-weight:700; margin-top:auto; }
 
-/* Tablet/phone: make the events row horizontally scrollable */
+/* Tablet/phone: horizontally scrollable events row */
 @media (max-width:1024px){
   .events-grid-container{
     display:flex; gap:16px; overflow-x:auto; padding:8px 10px 20px;
@@ -429,63 +433,52 @@ footer{ background:#0A0A1A; color:#FCFCFD; }
 @media (max-width:768px){ .coming-soon-hero-section h1{ font-size:3rem; } }
 @media (max-width:480px){ .coming-soon-hero-section h1{ font-size:2rem; } }
 
-/* ===== DESKTOP: fix nav to the very top, keep overlay gradient ===== */
-@media (min-width: 1025px){
+/* ==== NAV: lock to top on desktop, never moved by JS ==== */
+.header nav { top: 0 !important; } /* defeats any leftover inline JS styles */
+
+/* Desktop: fixed overlay nav (mobile keeps absolute overlay) */
+@media (min-width:1025px){
   .header nav{
-    position: fixed; /* lock to top on desktop */
-    top: 0; left: 0; right: 0;
+    position: fixed;
+    left: 0; right: 0; top: 0;
     z-index: 1000;
-    background: linear-gradient(
-      to bottom,
-      rgba(26,26,48,0.95) 0%,
-      rgba(26,26,48,0) 85%
-    );
+    background: linear-gradient(to bottom, rgba(26,26,48,0.95) 0%, rgba(26,26,48,0) 85%);
   }
 
-  /* Offset the first section so inner-page titles don't sit under the fixed nav */
-  /* Keep the home hero as a clean overlay (no offset there) */
-  .header + section{ margin-top: 96px; }
-  .header + .home-hero-section{ margin-top: 0; }
-}
-
-/* ===== TABLET/PHONE: keep original absolute overlay nav + mobile menu ===== */
-@media (max-width: 1024px){
-  .header nav{
-    position: absolute; /* back to overlay behavior for smaller screens */
-    top: 0; left: 0; right: 0;
+  /* Offset first element unless it's an overlay hero */
+  .header + *:not(.home-hero-section):not(.service-hero-section):not(.esports-broadcasting-hero-section):not(.events-bootcamps-hero-section):not(.video-gaming-events-hero-section):not(.kuer-hero-section):not(.news-hero-section):not(.about-hero-section){
+    margin-top: 96px;
   }
 }
 
-/* ===== NEWS: enforce original desktop layout; only tweak on small screens ===== */
-@media (min-width: 1025px){
-  .news-section{ padding: 80px 75px; text-align: center; background: #0A0A1A; }
-  .news-heading{ font-size: 48px; margin-bottom: 50px; }
-  .news-grid{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    justify-content: center;
-  }
-  .news-card{
-    background: transparent;
-    padding: 30px;
-    border-radius: 12px;
-    text-align: left;
-    transition: transform .3s, box-shadow .3s;
-  }
-  .news-card:hover{ transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,.3); }
-  .news-image-placeholder{ width: 100%; height: 180px; background: #333; border-radius: 8px; margin-bottom: 10px; }
-  .news-card-title{ font-size: 24px; margin-bottom: 6px; }
-  .news-card-text{ font-size: 16px; line-height: 1.6; color: rgba(252,252,253,.7); margin-bottom: 10px; }
-  .news-card-date{ font-size: 14px; color: #00E5FF; }
+@media (max-width:1024px){
+  .header nav{ position: absolute; top: 0; left: 0; right: 0; }
 }
 
-/* Keep the lighter padding scale on smaller screens only */
-@media (max-width: 992px){
-  .news-section{ padding: 60px 30px; }
-  .news-heading{ font-size: 38px; }
+/* ==== “Want our services?” CTA button — make it purple ==== */
+.cta-button,
+.cta-btn,
+.cta-card .cta-button,
+.cta-card .cta-btn,
+.cta-card a.button,
+.cta-card a.btn,
+.cta-card button {
+  display: inline-block;
+  background: #B425EC !important;
+  color: #fff !important;
+  border: 0;
+  border-radius: 8px;
+  padding: 14px 24px;
+  font-weight: 700;
+  transition: background .25s ease, transform .2s ease;
 }
-@media (max-width: 768px){
-  .news-section{ padding: 40px 15px; }
-  .news-heading{ font-size: 32px; }
+.cta-button:hover,
+.cta-btn:hover,
+.cta-card .cta-button:hover,
+.cta-card .cta-btn:hover,
+.cta-card a.button:hover,
+.cta-card a.btn:hover,
+.cta-card button:hover {
+  background: #19D2EA !important;
+  transform: translateY(-2px);
 }
