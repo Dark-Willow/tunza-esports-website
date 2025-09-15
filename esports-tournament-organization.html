@@ -8,7 +8,7 @@ layout: null
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
   <title>Tunza Esports - Esports Tournament Organization</title>
@@ -27,7 +27,7 @@ layout: null
   <meta name="twitter:description" content="End-to-end tournament ops: formats, rules, brackets, admins, and reporting." />
   <meta name="twitter:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" />
 
-  <!-- Favicons (match homepage; cache-busted) -->
+  <!-- Favicons -->
   <link rel="icon" href="/favicon.ico?v=4" sizes="any">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=4">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4">
@@ -41,7 +41,7 @@ layout: null
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0b0b16">
 
-  <!-- Organization schema (sitewide consistent) -->
+  <!-- Organization schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -67,231 +67,21 @@ layout: null
   <!-- Main CSS -->
   <link rel="stylesheet" href="/css/style.css" />
 
-  <!-- Minimal inline styles (partners carousel) -->
+  <!-- Minimal inline styles for partners strip -->
   <style>
-    .partners-section { padding: 40px 0; }
-    .partners-carousel-track{ display:flex; gap:24px; overflow:hidden; padding:8px 0; scroll-behavior:auto; }
-    .partner-logo{ flex:0 0 auto; width:240px; height:110px; display:flex; align-items:center; justify-content:center; background:#0f0f17; border-radius:12px; padding:8px; }
-    .partner-logo img{ max-height:90px; max-width:100%; object-fit:contain; display:block; }
-    @media (max-width:768px){ .partner-logo{ width:180px; height:100px; } .partner-logo img{ max-height:80px; } }
-    @media (max-width:480px){ .partner-logo{ width:150px; height:90px; } .partner-logo img{ max-height:70px; } }
+    .partners-section{padding:40px 0;text-align:center}
+    .partners-carousel-track{display:flex;gap:24px;overflow:hidden;padding:8px 0}
+    .partner-logo{flex:0 0 auto;width:240px;height:110px;display:flex;align-items:center;justify-content:center;background:#0f0f17;border-radius:12px;padding:8px}
+    .partner-logo img{max-height:90px;max-width:100%;object-fit:contain;display:block}
+    @media (max-width:768px){.partner-logo{width:180px;height:100px}.partner-logo img{max-height:80px}}
+    @media (max-width:480px){.partner-logo{width:150px;height:90px}.partner-logo img{max-height:70px}}
   </style>
 </head>
 <body>
   <!-- Header -->
   <section class="header">
-    <nav>
+    <nav role="navigation" aria-label="Primary">
       <a href="/" class="logo"><img src="/images/tunzalogo.png" alt="Tunza Esports Logo"></a>
-      <div class="nav-links">
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about-us/">About Us</a></li>
 
-          <li class="has-dropdown">
-            <a href="#">Our Services</a>
-            <ul class="dropdown-menu">
-              <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
-              <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
-              <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
-              <li><a href="/consultation/">Consultation</a></li>
-              <li><a href="/bootcamps-training-programs/">Bootcamps &amp; Training Programs</a></li>
-            </ul>
-          </li>
-
-          <li class="has-dropdown">
-            <a href="#">Our Products</a>
-            <ul class="dropdown-menu">
-              <li><a href="/ker/">KER</a></li>
-              <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
-              <li><a href="/tunzatourna/">TunzaTourna</a></li>
-              <li><a href="/shop/">Shop</a></li>
-            </ul>
-          </li>
-
-          <li><a href="/news/">News</a></li>
-          <li><a href="/contact/">Contact Us</a></li>
-          <li><a href="/gallery/">Gallery</a></li>
-        </ul>
-        <a href="/shop/" class="shop-button">Shop Now</a>
-      </div>
-    </nav>
-  </section>
-
-  <!-- Hero -->
-  <section class="service-hero-section">
-    <div class="breadcrumb">
-      <a href="/">Home</a> &rsaquo; <a href="#">Our Services</a> &rsaquo; Esports Tournament Organization
-    </div>
-    <h1 class="service-main-heading">Esports Tournament Organization</h1>
-  </section>
-
-  <main class="service-body">
-    <section class="tournament-intro-section">
-      <h2 class="tournament-intro-heading">We Are Always Ready To Host Your Esports Events</h2>
-      <p class="tournament-intro-text">
-        We help run smooth, impactful esports tournaments—from setup to execution. Our team ensures every event is structured, exciting, and student-centered, with tools and support to elevate your competitive gaming experience.
-      </p>
-    </section>
-
-    <section class="tournament-content-section">
-      <div class="tournament-content-container">
-        <div class="tournament-list-column">
-          <div class="list-group">
-            <h4 class="list-heading">Why choose Tunza Esports?</h4>
-            <ul>
-              <li>Our tournaments are structured, fair, and professionally managed.</li>
-              <li>We provide tools, templates, and experienced personnel to support every stage.</li>
-              <li>You focus on the players — we handle the logistics.</li>
-            </ul>
-          </div>
-
-          <div class="list-group">
-            <h4 class="list-heading">End-to-End Tournament Support</h4>
-            <ul>
-              <li>Bracket creation, match scheduling, and rules setup made easy.</li>
-              <li>Results tracking, dispute handling, and real-time updates.</li>
-              <li>Support for both online and offline tournaments.</li>
-              <li>Access to streamers, casters, and production.</li>
-            </ul>
-          </div>
-
-          <div class="list-group">
-            <h4 class="list-heading">Empowering Communities &amp; Growth</h4>
-            <ul>
-              <li>Train your students to become organizers, casters, or team leaders.</li>
-              <li>Promote your institution through competitive gaming.</li>
-              <li>Run your own internal or regional tournaments with Tunza’s guidance.</li>
-              <li>Be part of a growing national esports ecosystem — built from the grassroots.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="tournament-image-column">
-          <!-- If file names have spaces, keep %20. -->
-          <img src="/images/Esports%20tournaments.jpg" alt="Esports Tournament Event" class="main-tournament-image" loading="lazy">
-          <div class="small-image-container">
-            <img src="/images/Esports%20Pad.jpg" alt="Tournament Gear" class="small-tournament-image" loading="lazy">
-            <img src="/images/Esports%20Mobile.jpg" alt="Mobile Esports" class="small-tournament-image" loading="lazy">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="consultation-cta-section">
-      <div class="cta-card">
-        <h2>Want our services?</h2>
-        <p>Contact us to discuss your goals and how to make your tournament a success.</p>
-        <a href="/contact/" class="cta-button">Contact Us for Services</a>
-      </div>
-    </section>
-  </main>
-
-  <div class="spacer-before-partners"></div>
-
-  <!-- Partners -->
-  <section class="partners-section">
-    <h2>Our Partners, clients, friends</h2>
-    <div class="partners-carousel-track">
-      <div class="partner-logo"><img src="/images/Esports-Africa-News.jpg" alt="Esports Africa News logo" loading="lazy"></div>
-      <div class="partner-logo"><img src="/images/Afrigamer.jpg" alt="Afrigamer logo" loading="lazy"></div>
-      <div class="partner-logo"><img src="/images/B34R-CL4N%20partner.jpg" alt="B34R CL4N logo" loading="lazy"></div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-content">
-      <div class="footer-column">
-        <h4>About Us</h4>
-        <ul>
-          <li><a href="/">Home Page</a></li>
-          <li><a href="/contact/">Contact Us</a></li>
-          <li><a href="/privacy-policy/">Privacy Policy</a></li>
-        </ul>
-      </div>
-      <div class="footer-column">
-        <h4>Resources</h4>
-        <ul>
-          <li><a href="/tunzatourna/">Tunza Tourna</a></li>
-          <li><a href="/shop/">Shop</a></li>
-        </ul>
-      </div>
-      <div class="footer-column">
-        <h4>Tournaments</h4>
-        <ul>
-          <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
-        </ul>
-      </div>
-      <div class="footer-column footer-logo-column">
-        <img src="/images/tunzalogo.png" alt="Tunza Esports Logo">
-        <p>Shaping the future of Kenya's Esports</p>
-        <p>info@tunzaesports.org</p>
-        <p>P.O BOX 45085-00100</p>
-        <p>Nairobi, Kenya</p>
-        <p>+254 107717520</p>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p class="copyright-text">&copy; 2025 Tunza Esports. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <script>
-    (function () {
-      // Sticky nav
-      window.addEventListener('scroll', function () {
-        const navbar = document.querySelector('.header nav');
-        if (navbar) navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
-      });
-
-      function initPartnersCarousel(){
-        // Respect reduced motion
-        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-        const track = document.querySelector('.partners-carousel-track');
-        if (!track) return;
-
-        // Duplicate children until we have enough width for smooth scroll
-        const originals = Array.from(track.children).map(n => n.cloneNode(true));
-        let reps = 0;
-        while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
-          originals.forEach(n => track.appendChild(n.cloneNode(true)));
-          reps++;
-        }
-
-        let x = 0, speed = 0.6, raf;
-        function loop(){
-          const max = track.scrollWidth - track.clientWidth;
-          x = (x + speed) % (max || 1);
-          track.scrollLeft = x;
-          raf = requestAnimationFrame(loop);
-        }
-        loop();
-
-        // Pause / resume
-        track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
-        track.addEventListener('mouseleave', () => loop());
-        track.addEventListener('focusin', () => cancelAnimationFrame(raf));
-        track.addEventListener('focusout', () => loop());
-
-        // Recalc on resize
-        let t;
-        window.addEventListener('resize', () => {
-          cancelAnimationFrame(raf);
-          clearTimeout(t);
-          t = setTimeout(() => { x = 0; loop(); }, 150);
-        });
-      }
-
-      if (document.readyState === 'loading'){
-        document.addEventListener('DOMContentLoaded', initPartnersCarousel);
-      } else {
-        initPartnersCarousel();
-      }
-    })();
-  </script>
-</body>
-</html>
-
-
-
+      <!-- Mobile toggle -->
+      <button class="nav-toggle" aria-e
