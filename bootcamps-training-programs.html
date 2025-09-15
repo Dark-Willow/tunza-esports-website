@@ -21,6 +21,7 @@ layout: null
   <meta property="og:description" content="Coaching, mentorship, and competitive development for gamers and institutions across Kenya." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" />
+  <meta property="og:image:alt" content="Tunza Esports logo" />
   <meta property="og:site_name" content="Tunza Esports" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Bootcamps &amp; Training Programs - Tunza Esports" />
@@ -46,6 +47,7 @@ layout: null
   {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": "https://www.tunzaesports.org/#org",
     "name": "Tunza Esports",
     "url": "https://www.tunzaesports.org",
     "logo": "https://www.tunzaesports.org/images/android-chrome-512x512-dark.png",
@@ -60,11 +62,11 @@ layout: null
   <!-- Breadcrumbs (Home > Bootcamps & Training Programs) -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.tunzaesports.org/" },
-      { "@type": "ListItem", "position": 2, "name": "Bootcamps & Training Programs", "item": "https://www.tunzaesports.org/bootcamps-training-programs/" }
+    "@context":"https://schema.org",
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://www.tunzaesports.org/"},
+      {"@type":"ListItem","position":2,"name":"Bootcamps & Training Programs","item":"https://www.tunzaesports.org/bootcamps-training-programs/"}
     ]
   }
   </script>
@@ -76,18 +78,31 @@ layout: null
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/css/style.css" />
+
+  <!-- Page-scoped minimal styles -->
+  <style>
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .coming-soon-hero-section h1{line-height:1.1;word-break:break-word;hyphens:auto}
+
+    /* Partners strip fallback visuals (matches other pages) */
+    .partners-section{padding:40px 0;text-align:center}
+    .partners-carousel-track{display:flex;gap:24px;overflow:hidden;padding:8px 0;scroll-behavior:auto}
+    .partner-logo{flex:0 0 auto;width:240px;height:110px;display:flex;align-items:center;justify-content:center;background:#0f0f17;border-radius:12px;padding:8px}
+    .partner-logo img{max-height:90px;max-width:100%;object-fit:contain;display:block}
+    @media (max-width:768px){.partner-logo{width:180px;height:100px}.partner-logo img{max-height:80px}}
+    @media (max-width:480px){.partner-logo{width:150px;height:90px}.partner-logo img{max-height:70px}}
+  </style>
 </head>
 <body>
   <!-- Header -->
   <section class="header">
     <nav class="wrap" role="navigation" aria-label="Primary">
-      <a href="/" class="logo">
-        <img src="/images/tunzalogo.png" alt="Tunza Esports Logo" />
-      </a>
+      <a href="/" class="logo"><img src="/images/tunzalogo.png" alt="Tunza Esports Logo" /></a>
 
       <!-- Mobile toggle -->
       <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">
-        <span class="fa fa-bars" aria-hidden="true"></span> Menu
+        <span class="fa fa-bars" aria-hidden="true"></span>
+        <span class="sr-only">Menu</span>
       </button>
 
       <div id="nav-menu" class="nav-links">
@@ -99,7 +114,7 @@ layout: null
             <a href="#" aria-haspopup="true" aria-expanded="false">Our Services</a>
             <ul class="dropdown-menu">
               <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
-              <li><a href="/esports-broadcasting/">Esports Broadcasting</a></li>
+              <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
               <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
               <li><a href="/consultation/">Consultation</a></li>
               <li><a href="/bootcamps-training-programs/">Bootcamps &amp; Training Programs</a></li>
@@ -110,7 +125,7 @@ layout: null
             <a href="#" aria-haspopup="true" aria-expanded="false">Our Products</a>
             <ul class="dropdown-menu">
               <li><a href="/ker/">KER</a></li>
-              <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
+              <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
               <li><a href="/tunzatourna/">TunzaTourna</a></li>
               <li><a href="/shop/">Shop</a></li>
             </ul>
@@ -120,15 +135,48 @@ layout: null
           <li><a href="/contact/">Contact Us</a></li>
           <li><a href="/gallery/">Gallery</a></li>
         </ul>
-
         <a href="/shop/" class="shop-button">Shop Now</a>
       </div>
     </nav>
   </section>
 
-  <!-- Hero (simple “Coming Soon” placeholder for now) -->
-  <section class="coming-soon-hero-section">
-    <h1>Coming Soon</h1>
+  <!-- Hero -->
+  <section class="service-hero-section">
+    <div class="breadcrumb">
+      <a href="/">Home</a> &rsaquo; <a href="#">Our Services</a> &rsaquo; Bootcamps &amp; Training Programs
+    </div>
+    <h1 class="service-main-heading">Bootcamps &amp; Training Programs</h1>
+  </section>
+
+  <!-- Main -->
+  <main class="service-body">
+    <section class="tournament-intro-section">
+      <h2 class="tournament-intro-heading">Level Up With Structured Coaching</h2>
+      <p class="tournament-intro-text">
+        We’re building intensive bootcamps and ongoing training programs that develop players, casters, coaches, and organizers.
+        From fundamentals to high-performance, we’ll help your community grow the right way.
+      </p>
+    </section>
+
+    <section class="consultation-cta-section">
+      <div class="cta-card">
+        <h2>Want our services?</h2>
+        <p>Tell us your goals and timelines. We’ll tailor a program for your school, club, or brand.</p>
+        <a href="/contact/" class="cta-button">Contact Us for Services</a>
+      </div>
+    </section>
+  </main>
+
+  <div class="spacer-before-partners"></div>
+
+  <!-- Partners -->
+  <section class="partners-section">
+    <h2>Our Partners, clients, friends</h2>
+    <div class="partners-carousel-track" aria-label="Partner logos (auto-scrolls)">
+      <div class="partner-logo"><img src="/images/Esports-Africa-News.jpg" alt="Esports Africa News logo" loading="lazy" decoding="async"></div>
+      <div class="partner-logo"><img src="/images/Afrigamer.jpg" alt="Afrigamer logo" loading="lazy" decoding="async"></div>
+      <div class="partner-logo"><img src="/images/B34R-CL4N%20partner.jpg" alt="B34R CL4N" loading="lazy" decoding="async"></div>
+    </div>
   </section>
 
   <!-- Footer -->
@@ -142,7 +190,6 @@ layout: null
           <li><a href="/privacy-policy/">Privacy Policy</a></li>
         </ul>
       </div>
-
       <div class="footer-column">
         <h4>Resources</h4>
         <ul>
@@ -150,14 +197,12 @@ layout: null
           <li><a href="/shop/">Shop</a></li>
         </ul>
       </div>
-
       <div class="footer-column">
         <h4>Tournaments</h4>
         <ul>
-          <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
+          <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
         </ul>
       </div>
-
       <div class="footer-column footer-logo-column">
         <img src="/images/tunzalogo.png" alt="Tunza Esports Logo" />
         <p>Shaping the future of Kenya's Esports</p>
@@ -173,33 +218,86 @@ layout: null
   </footer>
 
   <script>
-  (function () {
-    // Mobile menu toggle + dropdowns
-    const btn  = document.querySelector('.nav-toggle');
-    const menu = document.getElementById('nav-menu');
+    (function(){
+      // Mobile menu toggle + dropdowns
+      const btn  = document.querySelector('.nav-toggle');
+      const menu = document.getElementById('nav-menu');
 
-    if (btn && menu){
-      btn.addEventListener('click', () => {
-        const open = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!open));
-        menu.classList.toggle('is-open', !open);
-      });
-
-      // Tap-to-open dropdowns on mobile
-      document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
-        a.addEventListener('click', (e) => {
-          if (window.matchMedia('(max-width:1024px)').matches){
-            e.preventDefault();
-            const li = a.parentElement;
-            const expanded = li.classList.toggle('open');
-            a.setAttribute('aria-expanded', String(expanded));
-          }
+      if (btn && menu){
+        btn.addEventListener('click', () => {
+          const open = btn.getAttribute('aria-expanded') === 'true';
+          btn.setAttribute('aria-expanded', String(!open));
+          menu.classList.toggle('is-open', !open);
         });
-      });
-    }
 
-    // (No partners carousel on this page; nothing else to init)
-  })();
+        // Tap-to-open dropdowns on mobile
+        document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
+          a.addEventListener('click', (e) => {
+            if (window.matchMedia('(max-width:1024px)').matches){
+              e.preventDefault();
+              const li = a.parentElement;
+              const expanded = li.classList.toggle('open');
+              a.setAttribute('aria-expanded', String(expanded));
+            }
+          });
+        });
+      }
+
+      // Sticky nav (keeps header visible with your absolute nav style)
+      function syncNavTop(){
+        const navbar = document.querySelector('.header nav');
+        if (navbar) navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
+      }
+      window.addEventListener('scroll', syncNavTop);
+      if (document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', syncNavTop);
+      } else {
+        syncNavTop();
+      }
+
+      // Partners carousel (smooth auto-scroll, respects reduced motion)
+      function initPartnersCarousel(){
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        const track = document.querySelector('.partners-carousel-track');
+        if (!track) return;
+
+        // Duplicate children so the marquee feels endless
+        const originals = Array.from(track.children).map(n => n.cloneNode(true));
+        let reps = 0;
+        while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
+          originals.forEach(n => track.appendChild(n.cloneNode(true)));
+          reps++;
+        }
+
+        let x = 0, speed = 0.6, raf;
+        const loop = () => {
+          const max = track.scrollWidth - track.clientWidth;
+          x = (x + speed) % (max || 1);
+          track.scrollLeft = x;
+          raf = requestAnimationFrame(loop);
+        };
+        loop();
+
+        track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
+        track.addEventListener('mouseleave', loop);
+        track.addEventListener('focusin',   () => cancelAnimationFrame(raf));
+        track.addEventListener('focusout',  loop);
+
+        let t;
+        window.addEventListener('resize', () => {
+          cancelAnimationFrame(raf);
+          clearTimeout(t);
+          t = setTimeout(() => { x = 0; loop(); }, 150);
+        });
+      }
+
+      if (document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', initPartnersCarousel);
+      } else {
+        initPartnersCarousel();
+      }
+    })();
   </script>
 </body>
 </html>
