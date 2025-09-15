@@ -268,156 +268,212 @@ layout: null
         imageUrl: "/images/Safaricom-Gaming-Conference.JPG"
       }
     ];
+<script>
+(function () {
+  // -------- constants --------
+  const CANONICAL_ORIGIN = 'https://www.tunzaesports.org';
 
-    // -------- utilities --------
-    const abs = (u) => (!u || u.startsWith('http')) ? u : (location.origin + u);
+  // -------- utilities --------
+  const abs = (u) => (!u || u.startsWith('http')) ? u : (location.origin + u);
 
-    function ensureMetaByName(name) {
-      let el = document.querySelector(`meta[name="${name}"]`);
-      if (!el) { el = document.createElement('meta'); el.setAttribute('name', name); document.head.appendChild(el); }
-      return el;
+  function ensureMetaByName(name) {
+    let el = document.querySelector(`meta[name="${name}"]`);
+    if (!el) { el = document.createElement('meta'); el.setAttribute('name', name); document.head.appendChild(el); }
+    return el;
+  }
+  function ensureMetaByProp(prop) {
+    let el = document.querySelector(`meta[property="${prop}"]`);
+    if (!el) { el = document.createElement('meta'); el.setAttribute('property', prop); document.head.appendChild(el); }
+    return el;
+  }
+  function ensureLink(id, rel) {
+    let el = document.getElementById(id);
+    if (!el) { el = document.createElement('link'); el.id = id; el.rel = rel; document.head.appendChild(el); }
+    return el;
+  }
+  function ensureLd(id) {
+    let el = document.getElementById(id);
+    if (!el) { el = document.createElement('script'); el.type = 'application/ld+json'; el.id = id; document.head.appendChild(el); }
+    return el;
+  }
+
+  function getSlug() {
+    const qs = new URLSearchParams(location.search);
+    if (qs.get('slug')) return decodeURIComponent(qs.get('slug'));
+    const parts = location.pathname.replace(/\/+$/, '').split('/');
+    const last = parts[parts.length - 1];
+    if (last && parts[parts.length - 2] === 'article') return decodeURIComponent(last);
+    return null;
+  }
+
+  function findArticle(slugRaw) {
+    if (!slugRaw) return null;
+    const key = slugRaw.toLowerCase().trim();
+    const list = window.newsArticles || [];
+    const idx = list.findIndex(a => (a.slug || '').toLowerCase().trim() === key);
+    return idx >= 0 ? list[idx] : null;
+  }
+
+  function render(a) {
+    document.getElementById('article-title').textContent = a.title;
+    document.getElementById('article-date').textContent  = `Published on: ${a.date}`;
+    document.getElementById('article-body').innerHTML    = a.content;
+    const img = document.getElementById('article-image');
+    img.src = abs(a.imageUrl) || '';
+    img.alt = a.title;
+  }
+
+  function updateSeo(a) {
+    const canonical = `${CANONICAL_ORIGIN}/article/?slug=${encodeURIComponent(a.slug)}`;
+    const tmp = document.createElement('div'); tmp.innerHTML = a.content || '';
+    const text = (tmp.textContent || '').trim().replace(/\s+/g, ' ');
+    const desc = text.slice(0, 180) + (text.length > 180 ? '…' : '');
+
+    document.title = `${a.title} — Tunza Esports`;
+    ensureMetaByName('description').setAttribute('content', desc);
+    ensureLink('canonical', 'canonical').setAttribute('href', canonical);
+
+    ensureMetaByProp('og:url').setAttribute('content', canonical);
+    ensureMetaByProp('og:title').setAttribute('content', `${a.title} — Tunza Esports`);
+    ensureMetaByProp('og:description').setAttribute('content', desc);
+    ensureMetaByProp('og:type').setAttribute('content', 'article');
+    ensureMetaByProp('og:image').setAttribute('content', abs(a.imageUrl));
+
+    ensureMetaByName('twitter:title').setAttribute('content', `${a.title} — Tunza Esports`);
+    ensureMetaByName('twitter:description').setAttribute('content', desc);
+    ensureMetaByName('twitter:image').setAttribute('content', abs(a.imageUrl));
+
+    const iso = a.dateISO || new Date(a.date || Date.now()).toISOString();
+    const pubId = 'https://www.tunzaesports.org/#org';
+    const ldArticle = {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": a.title,
+      "url": canonical,
+      "mainEntityOfPage": { "@type": "WebPage", "@id": canonical },
+      "image": [abs(a.imageUrl)],
+      "datePublished": iso,
+      "dateModified": iso,
+      "author": [{ "@type": "Organization", "name": "Tunza Esports" }],
+      "publisher": {
+        "@type": "Organization",
+        "@id": pubId,
+        "name": "Tunza Esports",
+        "logo": { "@type": "ImageObject", "url": "https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" }
+      },
+      "articleSection": (a.tags && a.tags[0]) || "News",
+      "keywords": (a.tags || []).join(", "),
+      "description": desc
+    };
+    ensureLd('ld-article').textContent = JSON.stringify(ldArticle);
+
+    const ldCrumbs = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.tunzaesports.org/" },
+        { "@type": "ListItem", "position": 2, "name": "News", "item": "https://www.tunzaesports.org/news/" },
+        { "@type": "ListItem", "position": 3, "name": a.title, "item": canonical }
+      ]
+    };
+    ensureLd('ld-breadcrumbs').textContent = JSON.stringify(ldCrumbs);
+  }
+
+  function showNotFound(slug) {
+    document.getElementById('article-title').innerHTML = 'Article not found';
+    document.getElementById('article-date').textContent = '';
+    document.getElementById('article-body').innerHTML =
+      `<p class="notfound">We couldn’t find “${(slug || '').replace(/</g,'&lt;')}”.</p>
+       <p><a href="/news/">See all news</a></p>`;
+    ensureLink('canonical', 'canonical').setAttribute('href', `${CANONICAL_ORIGIN}/article/`);
+  }
+
+  function run() {
+    (window.newsArticles || []).forEach(a => { if (a.slug) a.slug = a.slug.trim(); });
+    const slug = getSlug();
+    const a = findArticle(slug);
+    if (!a) { showNotFound(slug); return; }
+    render(a);
+    updateSeo(a);
+  }
+
+  // -------- Header nav (desktop fixed, mobile toggle only) --------
+  function initNav(){
+    const BP = 1024;
+    const btn  = document.querySelector('.nav-toggle');
+    const menu = document.getElementById('nav-menu');
+    const nav  = document.querySelector('.header nav');
+
+    if (nav) nav.style.top = ''; // ensure no inline 'top' from old scripts
+    const isMobile = () => window.matchMedia(`(max-width:${BP}px)`).matches;
+
+    function closeDropdowns(){
+      document.querySelectorAll('.nav-links .has-dropdown').forEach(li => {
+        li.classList.remove('open');
+        const a = li.querySelector(':scope > a');
+        if (a) a.setAttribute('aria-expanded', 'false');
+      });
     }
-    function ensureMetaByProp(prop) {
-      let el = document.querySelector(`meta[property="${prop}"]`);
-      if (!el) { el = document.createElement('meta'); el.setAttribute('property', prop); document.head.appendChild(el); }
-      return el;
+    function openMenu(){
+      if (!menu || !btn) return;
+      menu.classList.add('is-open');
+      btn.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
     }
-    function ensureLink(id, rel) {
-      let el = document.getElementById(id);
-      if (!el) { el = document.createElement('link'); el.id = id; el.rel = rel; document.head.appendChild(el); }
-      return el;
-    }
-    function ensureLd(id) {
-      let el = document.getElementById(id);
-      if (!el) { el = document.createElement('script'); el.type = 'application/ld+json'; el.id = id; document.head.appendChild(el); }
-      return el;
+    function closeMenu(){
+      if (!menu || !btn) return;
+      menu.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      closeDropdowns();
     }
 
-    function getSlug() {
-      const qs = new URLSearchParams(location.search);
-      if (qs.get('slug')) return decodeURIComponent(qs.get('slug'));
-      const parts = location.pathname.replace(/\/+$/, '').split('/');
-      const last = parts[parts.length - 1];
-      if (last && parts[parts.length - 2] === 'article') return decodeURIComponent(last);
-      return null;
+    if (btn && menu){
+      btn.addEventListener('click', () => {
+        menu.classList.contains('is-open') ? closeMenu() : openMenu();
+      });
+
+      // handle clicks within menu
+      menu.addEventListener('click', (e) => {
+        const a = e.target.closest('a');
+        if (!a) return;
+        if (a.getAttribute('href') === '#') e.preventDefault();
+
+        if (a.parentElement && a.parentElement.classList.contains('has-dropdown')) {
+          if (isMobile()){
+            e.preventDefault();
+            const li = a.parentElement;
+            const expanded = li.classList.toggle('open');
+            a.setAttribute('aria-expanded', String(expanded));
+          }
+          return;
+        }
+        if (isMobile()) closeMenu();
+      });
+
+      // click outside closes (mobile only)
+      document.addEventListener('click', (e) => {
+        if (!isMobile()) return;
+        if (!menu.contains(e.target) && e.target !== btn) closeMenu();
+      });
+
+      // ESC closes
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMenu();
+      });
+
+      // reset state on breakpoint change
+      let last = isMobile();
+      window.addEventListener('resize', () => {
+        const now = isMobile();
+        if (now !== last){ closeMenu(); last = now; }
+      });
     }
+  }
 
-    function findArticle(slugRaw) {
-      if (!slugRaw) return null;
-      const key = slugRaw.toLowerCase().trim();
-      const list = window.newsArticles || [];
-      const idx = list.findIndex(a => (a.slug || '').toLowerCase().trim() === key);
-      return idx >= 0 ? list[idx] : null;
-    }
-
-    function render(a) {
-      document.getElementById('article-title').textContent = a.title;
-      document.getElementById('article-date').textContent  = `Published on: ${a.date}`;
-      document.getElementById('article-body').innerHTML    = a.content;
-      const img = document.getElementById('article-image');
-      img.src = abs(a.imageUrl) || '';
-      img.alt = a.title;
-    }
-
-    function updateSeo(a) {
-      const canonical = `${CANONICAL_ORIGIN}/article/?slug=${encodeURIComponent(a.slug)}`;
-      const tmp = document.createElement('div'); tmp.innerHTML = a.content || '';
-      const text = (tmp.textContent || '').trim().replace(/\s+/g, ' ');
-      const desc = text.slice(0, 180) + (text.length > 180 ? '…' : '');
-
-      document.title = `${a.title} — Tunza Esports`;
-      ensureMetaByName('description').setAttribute('content', desc);
-      ensureLink('canonical', 'canonical').setAttribute('href', canonical);
-
-      ensureMetaByProp('og:url').setAttribute('content', canonical);
-      ensureMetaByProp('og:title').setAttribute('content', `${a.title} — Tunza Esports`);
-      ensureMetaByProp('og:description').setAttribute('content', desc);
-      ensureMetaByProp('og:type').setAttribute('content', 'article');
-      ensureMetaByProp('og:image').setAttribute('content', abs(a.imageUrl));
-
-      ensureMetaByName('twitter:title').setAttribute('content', `${a.title} — Tunza Esports`);
-      ensureMetaByName('twitter:description').setAttribute('content', desc);
-      ensureMetaByName('twitter:image').setAttribute('content', abs(a.imageUrl));
-
-      const iso = a.dateISO || new Date(a.date || Date.now()).toISOString();
-      const pubId = 'https://www.tunzaesports.org/#org';
-      const ldArticle = {
-        "@context": "https://schema.org",
-        "@type": "NewsArticle",
-        "headline": a.title,
-        "url": canonical,
-        "mainEntityOfPage": { "@type": "WebPage", "@id": canonical },
-        "image": [abs(a.imageUrl)],
-        "datePublished": iso,
-        "dateModified": iso,
-        "author": [{ "@type": "Organization", "name": "Tunza Esports" }],
-        "publisher": {
-          "@type": "Organization",
-          "@id": pubId,
-          "name": "Tunza Esports",
-          "logo": { "@type": "ImageObject", "url": "https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" }
-        },
-        "articleSection": (a.tags && a.tags[0]) || "News",
-        "keywords": (a.tags || []).join(", "),
-        "description": desc
-      };
-      ensureLd('ld-article').textContent = JSON.stringify(ldArticle);
-
-      const ldCrumbs = {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.tunzaesports.org/" },
-          { "@type": "ListItem", "position": 2, "name": "News", "item": "https://www.tunzaesports.org/news/" },
-          { "@type": "ListItem", "position": 3, "name": a.title, "item": canonical }
-        ]
-      };
-      ensureLd('ld-breadcrumbs').textContent = JSON.stringify(ldCrumbs);
-    }
-
-    function showNotFound(slug) {
-      document.getElementById('article-title').innerHTML = 'Article not found';
-      document.getElementById('article-date').textContent = '';
-      document.getElementById('article-body').innerHTML =
-        `<p class="notfound">We couldn’t find “${(slug || '').replace(/</g,'&lt;')}”.</p>
-         <p><a href="/news/">See all news</a></p>`;
-      ensureLink('canonical', 'canonical').setAttribute('href', `${CANONICAL_ORIGIN}/article/`);
-    }
-
-    function run() {
-      (window.newsArticles || []).forEach(a => { if (a.slug) a.slug = a.slug.trim(); });
-      const slug = getSlug();
-      const a = findArticle(slug);
-      if (!a) { showNotFound(slug); return; }
-      render(a);
-      updateSeo(a);
-    }
-
-    // Mobile menu + dropdowns
-    function initNav(){
-      const btn  = document.querySelector('.nav-toggle');
-      const menu = document.getElementById('nav-menu');
-      if (btn && menu){
-        btn.addEventListener('click', () => {
-          const open = btn.getAttribute('aria-expanded') === 'true';
-          btn.setAttribute('aria-expanded', String(!open));
-          menu.classList.toggle('is-open', !open);
-        });
-        document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
-          a.addEventListener('click', (e) => {
-            if (window.matchMedia('(max-width: 1024px)').matches){
-              e.preventDefault();
-              const li = a.parentElement;
-              const expanded = li.classList.toggle('open');
-              a.setAttribute('aria-expanded', String(expanded));
-            }
-          });
-        });
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', () => { initNav(); run(); });
-  })();
-  </script>
+  document.addEventListener('DOMContentLoaded', () => { initNav(); run(); });
+})();
+</script>
 </body>
 </html>
+
