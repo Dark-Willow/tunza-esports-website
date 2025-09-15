@@ -22,11 +22,13 @@ layout: null
   <meta property="og:description" content="From qualifiers to grand finals—production, live commentary, replays, overlays and distribution." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" />
+  <meta property="og:image:alt" content="Tunza Esports logo" />
   <meta property="og:site_name" content="Tunza Esports" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Esports Production &amp; Broadcasting - Tunza Esports" />
   <meta name="twitter:description" content="From qualifiers to grand finals—production, live commentary, replays, overlays and distribution." />
   <meta name="twitter:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" />
+  <meta name="twitter:image:alt" content="Tunza Esports logo" />
 
   <!-- Favicons -->
   <link rel="icon" href="/favicon.ico?v=4" sizes="any">
@@ -36,7 +38,6 @@ layout: null
   <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192-dark.png?v=4">
   <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512-dark.png?v=4">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png?v=4">
-  <!-- Optional pinned tab (Safari) -->
   <link rel="mask-icon" href="/images/tunza-logo-dark.svg" color="#000000">
 
   <!-- PWA -->
@@ -48,6 +49,7 @@ layout: null
   {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": "https://www.tunzaesports.org/#org",
     "name": "Tunza Esports",
     "url": "https://www.tunzaesports.org",
     "logo": "https://www.tunzaesports.org/images/android-chrome-512x512-dark.png",
@@ -69,14 +71,176 @@ layout: null
   <!-- Main CSS -->
   <link rel="stylesheet" href="/css/style.css" />
 
-  <!-- Tiny fallback styles for partners strip -->
+  <!-- Page-scoped fixes/tweaks -->
   <style>
+    /* a11y helper */
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+    /* HERO: prevent overlapping + responsive heading */
+    .esports-broadcasting-hero-section{
+      min-height: 460px;
+      width: 100%;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 0 16px;
+      position: relative;
+      background-image:
+        linear-gradient(rgba(4, 9, 30, 0.6), rgba(4, 9, 30, 0.6)),
+        url("/images/Production%20Setup.jpg");
+      background-size: cover;
+      background-position: center;
+    }
+    .esports-broadcasting-hero-section .breadcrumb{
+      position: absolute;
+      top: clamp(84px, 18vw, 140px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1100px, 92vw);
+      text-align: left;
+      color: rgba(252,252,253,.75);
+      font-family: 'Oxanium', sans-serif;
+      font-size: clamp(13px, 2.4vw, 16px);
+      padding: 0 8px;
+    }
+    .esports-broadcasting-hero-section .breadcrumb a{color:inherit}
+    .esports-broadcasting-hero-section .service-main-heading{
+      margin: 0;
+      padding: 0 8px;
+      width: min(1100px, 92vw);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      line-height: 1.1;
+      font-size: clamp(28px, 6.4vw, 64px);
+      text-wrap: balance;
+    }
+
+    /* INTRO */
+    .tournament-intro-section{
+      padding: 64px 16px 28px;
+      text-align: center;
+    }
+    .tournament-intro-heading{
+      font-size: clamp(24px, 5.2vw, 48px);
+      margin: 0 0 10px;
+    }
+    .tournament-intro-text{
+      margin: 0 auto;
+      max-width: 840px;
+      color: rgba(252,252,253,.78);
+      line-height: 1.6;
+      padding: 0 8px;
+      font-size: clamp(15px, 2.8vw, 18px);
+    }
+
+    /* BODY: lists + images */
+    .tournament-content-section{ padding: 28px 0 64px; }
+    .tournament-content-container{
+      width: min(1200px, 92vw);
+      margin-inline: auto;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: clamp(16px, 4vw, 40px);
+      align-items: start;
+    }
+    @media (max-width: 980px){
+      .tournament-content-container{ grid-template-columns: 1fr; }
+    }
+
+    .list-group{ margin-bottom: 26px; }
+    .list-group .list-heading{
+      font-size: clamp(18px, 3.6vw, 24px);
+      margin: 0 0 8px;
+    }
+    .list-group ul{ list-style: none; padding: 0; margin: 0; }
+    .list-group li{
+      position: relative;
+      padding-left: 26px;
+      margin: 10px 0;
+      color: rgba(252,252,253,.8);
+      line-height: 1.55;
+      font-size: clamp(15px, 2.8vw, 17px);
+    }
+    .list-group li::before{
+      content: "\25B8";
+      position: absolute; left: 0; top: 4px;
+      color: #00E5FF; font-size: .9em;
+    }
+
+    .tournament-image-column{ display: grid; gap: 16px; }
+    .main-tournament-image{
+      width: 100%; height: 360px; object-fit: cover; border-radius: 12px;
+      outline: 1px solid rgba(255,255,255,.08);
+    }
+
+    .small-image-container{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .small-tournament-image{
+      width: 100%; height: 240px; object-fit: cover; border-radius: 12px;
+      outline: 1px solid rgba(255,255,255,.08);
+    }
+
+    /* Turn the small images into a horizontal scroller on tablet/phone */
+    @media (max-width: 900px){
+      .small-image-container{
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: min(78%, 360px);
+        overflow-x: auto; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain;
+        gap: 14px; padding-bottom: 6px;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+      }
+      .small-image-container::-webkit-scrollbar{ display:none; }
+      .small-tournament-image{ scroll-snap-align: start; }
+    }
+
+    /* CTA card */
+    .consultation-cta-section{ padding: 24px 16px 72px; text-align: center; }
+    .cta-card{
+      width: min(820px, 92vw);
+      margin: 0 auto;
+      padding: clamp(22px, 4.5vw, 40px);
+      border-radius: 16px;
+      background:
+        radial-gradient(120% 120% at 0% 0%, #2bc1ff 0%, #6d67ff 50%, #b93fff 100%);
+      box-shadow: 0 16px 36px rgba(0,0,0,.45);
+      color: #fff;
+    }
+    .cta-card h2{
+      margin: 0 0 10px;
+      font-size: clamp(22px, 5.6vw, 40px);
+      line-height: 1.15;
+      text-wrap: balance;
+    }
+    .cta-card p{
+      margin: 0 0 18px;
+      font-size: clamp(15px, 3vw, 18px);
+      opacity: .95;
+    }
+    .cta-button{
+      display: inline-block;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 12px 22px;
+      border-radius: 10px;
+      background: #0f0f17;
+      color: #FCFCFD;
+      transition: transform .12s ease, opacity .12s ease;
+    }
+    .cta-button:hover{ transform: translateY(-1px); opacity: .92; }
+
+    /* Partners strip */
     .partners-section{padding:40px 0;text-align:center}
+    .partners-section h2{ font-family:'Syne',sans-serif; font-size:2rem; margin:0 0 16px; }
     .partners-carousel-track{display:flex;gap:24px;overflow:hidden;padding:8px 0}
     .partner-logo{flex:0 0 auto;width:240px;height:110px;display:flex;align-items:center;justify-content:center;background:#0f0f17;border-radius:12px;padding:8px}
     .partner-logo img{max-height:90px;max-width:100%;object-fit:contain;display:block}
-    @media (max-width: 768px){.partner-logo{width:180px;height:100px}.partner-logo img{max-height:80px}}
-    @media (max-width: 480px){.partner-logo{width:150px;height:90px}.partner-logo img{max-height:70px}}
+    @media (max-width:768px){.partner-logo{width:180px;height:100px}.partner-logo img{max-height:80px}}
+    @media (max-width:480px){.partner-logo{width:150px;height:90px}.partner-logo img{max-height:70px}}
   </style>
 </head>
 <body>
@@ -87,7 +251,8 @@ layout: null
 
       <!-- Mobile toggle -->
       <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">
-        <span class="fa fa-bars" aria-hidden="true"></span> Menu
+        <span class="fa fa-bars" aria-hidden="true"></span>
+        <span class="sr-only">Menu</span>
       </button>
 
       <div id="nav-menu" class="nav-links">
@@ -175,10 +340,11 @@ layout: null
         </div>
 
         <div class="tournament-image-column">
-          <img src="/images/Esports%20production%202.jpg" alt="Esports Broadcasting Studio" class="main-tournament-image" loading="lazy">
-          <div class="small-image-container">
-            <img src="/images/Production%20Videography.jpg" alt="Camera Setup" class="small-tournament-image" loading="lazy">
-            <img src="/images/Production%20Sound.jpg" alt="Production Sound" class="small-tournament-image" loading="lazy">
+          <img src="/images/Esports%20production%202.jpg" alt="Esports Broadcasting Studio" class="main-tournament-image" loading="lazy" decoding="async" width="1280" height="720">
+          <div class="small-image-container" aria-label="Production photos carousel">
+            <img src="/images/Production%20Videography.jpg" alt="Camera Setup" class="small-tournament-image" loading="lazy" decoding="async" width="1280" height="720">
+            <img src="/images/Production%20Sound.jpg" alt="Production Sound" class="small-tournament-image" loading="lazy" decoding="async" width="1280" height="720">
+            <!-- Add more images as needed; on mobile these will scroll horizontally -->
           </div>
         </div>
       </div>
@@ -268,17 +434,19 @@ layout: null
         });
       }
 
-      // Sticky nav positioning (keeps header visible with your absolute nav style)
-      window.addEventListener('scroll', function() {
+      // Sticky-ish nav top alignment (compatible with your absolute/sticky CSS)
+      function syncNavTop(){
         const navbar = document.querySelector('.header nav');
         if (navbar) navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
-      });
-      window.addEventListener('DOMContentLoaded', function() {
-        const navbar = document.querySelector('.header nav');
-        if (navbar) navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
-      });
+      }
+      window.addEventListener('scroll', syncNavTop);
+      if (document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', syncNavTop);
+      } else {
+        syncNavTop();
+      }
 
-      // Partners carousel (smooth auto-scroll, respects reduced motion)
+      // Partners carousel (auto-scroll, pauses on hover/focus, respects reduced-motion)
       function initPartnersCarousel(){
         if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -301,21 +469,24 @@ layout: null
         };
         loop();
 
-        track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
-        track.addEventListener('mouseleave', loop);
-        track.addEventListener('focusin',   () => cancelAnimationFrame(raf));
-        track.addEventListener('focusout',  loop);
+        const stop = () => raf && cancelAnimationFrame(raf);
+        const start = () => { if (!raf) loop(); };
+
+        track.addEventListener('mouseenter', stop);
+        track.addEventListener('mouseleave', start);
+        track.addEventListener('focusin',   stop);
+        track.addEventListener('focusout',  start);
 
         let t;
         window.addEventListener('resize', () => {
-          cancelAnimationFrame(raf);
+          stop();
           clearTimeout(t);
-          t = setTimeout(() => { x = 0; loop(); }, 150);
+          t = setTimeout(() => { x = 0; start(); }, 150);
         });
       }
 
       if (document.readyState === 'loading'){
-        document.addEventListener('DOMContentLoaded', initPartnersCarousel);
+        document.addEventListener('DOMContentLoaded', initPartnersCarousel, { once: true });
       } else {
         initPartnersCarousel();
       }
