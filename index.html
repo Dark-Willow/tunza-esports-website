@@ -46,8 +46,67 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <!-- Your global stylesheet (keeps the original design) -->
+  <!-- Global stylesheet -->
   <link rel="stylesheet" href="/css/style.css" />
+
+  <!-- Page overrides: fixes mobile nav movement + centers Shop button; chevrons visible -->
+  <style>
+    /* Never let scripts move the nav via inline styles */
+    .header nav { top: 0 !important; }
+
+    /* Desktop nav stays fixed with gradient (matches original look) */
+    @media (min-width:1025px){
+      .header nav{
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 1000;
+        background: linear-gradient(to bottom, rgba(26,26,48,0.95) 0%, rgba(26,26,48,0) 85%);
+      }
+      /* Do NOT push the hero; it’s an overlay. Other first sections would be offset on their pages’ CSS. */
+    }
+
+    /* Mobile/tablet: fix the bar to the top; slide panel; center CTA */
+    @media (max-width:1024px){
+      .header nav{
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 1000;
+      }
+      .nav-links{
+        position: fixed;
+        left: 0; right: 0; top: 72px;
+        display: none;
+        max-height: calc(100vh - 72px);
+        overflow-y: auto;
+        background: rgba(11,11,22,.98);
+        border-top: 1px solid #202433;
+        text-align: center;
+      }
+      .nav-links.is-open{ display:block; }
+      .nav-links > ul{ flex-direction: column; gap: 12px; align-items: center; }
+      /* Keep chevrons visible */
+      .has-dropdown > a::after{ opacity: .95; margin-left: .35rem; }
+      /* Center the Shop CTA */
+      .nav-links .shop-button{
+        display: inline-block;
+        width: auto;
+        margin: 16px auto 24px;
+      }
+      /* Prevent background scroll while menu is open */
+      body.menu-open{ overflow: hidden; }
+    }
+
+    /* Make purple CTA style reusable (e.g., “Contact us” cards elsewhere) */
+    .cta-button,
+    .cta-card .cta-button,
+    .cta-card .cta-btn{
+      display:inline-block; background:#B425EC; color:#fff; border:0; border-radius:8px;
+      padding:14px 24px; font-weight:700; transition:background .25s, transform .2s;
+    }
+    .cta-button:hover,
+    .cta-card .cta-button:hover,
+    .cta-card .cta-btn:hover{ background:#19D2EA; transform:translateY(-2px); }
+  </style>
 
   <!-- JSON-LD: Organization -->
   <script type="application/ld+json">
@@ -85,7 +144,7 @@
 </head>
 
 <body>
-  <!-- Header / Nav (no .wrap here so the overlay stays full-width + transparent) -->
+  <!-- Header -->
   <section class="header">
     <nav role="navigation" aria-label="Primary">
       <a href="/" class="logo"><img src="/images/tunzalogo.png" alt="Tunza Esports Logo" /></a>
@@ -102,7 +161,8 @@
           <li><a href="/about-us/">About Us</a></li>
 
           <li class="has-dropdown">
-            <a href="#" aria-haspopup="true" aria-expanded="false">Our Services</a>
+            <!-- Mobile will navigate to this page instead of opening dropdown -->
+            <a href="#" data-mobile-href="/our-services/" aria-haspopup="true" aria-expanded="false">Our Services</a>
             <ul class="dropdown-menu">
               <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
               <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
@@ -113,10 +173,10 @@
           </li>
 
           <li class="has-dropdown">
-            <a href="#" aria-haspopup="true" aria-expanded="false">Our Products</a>
+            <a href="#" data-mobile-href="/our-products/" aria-haspopup="true" aria-expanded="false">Our Products</a>
             <ul class="dropdown-menu">
               <li><a href="/ker/">KER</a></li>
-              <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
+              <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
               <li><a href="/tunzatourna/">TunzaTourna</a></li>
               <li><a href="/shop/">Shop</a></li>
             </ul>
@@ -207,7 +267,7 @@
       <div class="footer-column">
         <h4>Tournaments</h4>
         <ul>
-          <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings (KUER)</a></li>
+          <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings (KUER)</a></li>
         </ul>
       </div>
       <div class="footer-column footer-logo-column">
@@ -224,153 +284,133 @@
     </div>
   </footer>
 
-  <!-- Scripts (no sticky nav hacking; just menu + news + partners) -->
+  <!-- Scripts -->
   <script>
-(function(){
-  // --- Mobile menu toggle + dropdowns ---
-  const btn  = document.querySelector('.nav-toggle');
-  const menu = document.getElementById('nav-menu');
-  const nav  = document.querySelector('.header nav');
+  (function () {
+    const btn  = document.querySelector('.nav-toggle');
+    const menu = document.getElementById('nav-menu');
+    const isMobile = () => window.matchMedia('(max-width:1024px)').matches;
 
-  // Ensure the nav isn't stuck with an inline 'top' from older scripts
-  if (nav) nav.style.top = '';
+    // Toggle mobile menu + lock body scroll
+    if (btn && menu){
+      btn.addEventListener('click', () => {
+        const open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+        menu.classList.toggle('is-open', !open);
+        document.body.classList.toggle('menu-open', !open);
+      });
+    }
 
-  if (btn && menu){
-    btn.addEventListener('click', () => {
-      const open = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', String(!open));
-      menu.classList.toggle('is-open', !open);
-    });
-
-    // Tap-to-open dropdowns on mobile; prevent '#' jump only when needed
+    // Desktop: hover dropdowns (CSS). Mobile: navigate to landing page (no dropdown).
     document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
       a.addEventListener('click', (e) => {
-        const isMobile = window.matchMedia('(max-width: 1024px)').matches;
-
-        // Stop the page from jumping to top if href is "#"
-        if (a.getAttribute('href') === '#') e.preventDefault();
-
-        if (isMobile){
-          const li = a.parentElement;
-          const expanded = li.classList.toggle('open');
-          a.setAttribute('aria-expanded', String(expanded));
+        if (isMobile()){
+          const firstChildHref = a.parentElement.querySelector('.dropdown-menu a')?.getAttribute('href');
+          const target = a.getAttribute('data-mobile-href') || firstChildHref || '/';
+          e.preventDefault();
+          window.location.href = target;
+        } else {
+          // prevent jump if href is "#"
+          if ((a.getAttribute('href') || '#') === '#') e.preventDefault();
         }
       });
     });
-  }
 
-  // --- Optional: Home/news cards filler (runs only if the container exists) ---
-  function initNews(){
-    const container = document.getElementById('news-cards-container');
-    if (!container) return;
-
-    const homepageNewsData = [
-      {
-        title: "Tunza Esports renews KUER Season 3",
-        snippet: "A new format and more titles—KUER Season 3 is here.",
-        date: "September 1, 2025",
-        link: "/news/",
-        imageUrl: "/images/KUER-x-Tunza.png"
-      },
-      {
-        title: "Tunza Esports Partners with B34R CL4N",
-        snippet: "Through this partnership, Call of Duty Mobile within KUER get pro-level support.",
-        date: "September 5, 2025",
-        link: "/news/",
-        imageUrl: "/images/KUER-x-B34R.png"
-      },
-      {
-        title: "Safaricom Game Conference: Tunza Esports Championing the Growth of Competitive Gaming in Kenya",
-        snippet: "Safaricom Game Conference was a landmark event in Kenya’s gaming industry",
-        date: "September 8, 2025",
-        link: "/news/",
-        imageUrl: "/images/Safaricom-Gaming-Conference.JPG"
+    // Close menu if resizing to desktop
+    window.addEventListener('resize', () => {
+      if (!isMobile() && menu?.classList.contains('is-open')){
+        menu.classList.remove('is-open');
+        btn?.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('menu-open');
       }
-    ];
-
-    container.innerHTML = '';
-    homepageNewsData.forEach(item => {
-      const a = document.createElement('a');
-      a.href = item.link;
-      a.className = 'news-card-link';
-
-      const card = document.createElement('div');
-      card.className = 'news-card';
-      card.innerHTML = `
-        <div class="news-image-placeholder"></div>
-        <h3 class="news-card-title">${item.title}</h3>
-        <p class="news-card-text">${item.snippet}</p>
-        <p class="news-card-date">${item.date}</p>
-      `;
-
-      const ph = card.querySelector('.news-image-placeholder');
-      if (ph){
-        ph.style.backgroundImage = "url('" + (item.imageUrl || "/images/KUER-x-Tunza.png") + "')";
-        ph.style.backgroundSize = "cover";
-        ph.style.backgroundPosition = "center";
-        ph.style.borderRadius = "12px";
-      }
-
-      a.appendChild(card);
-      container.appendChild(a);
     });
-  }
 
-  // --- Partners carousel (auto-scroll; respects reduced motion) ---
-  function initPartnersCarousel(){
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    // Home news cards (only if container exists)
+    function initNews(){
+      const container = document.getElementById('news-cards-container');
+      if (!container) return;
 
-    const track = document.querySelector('.partners-carousel-track');
-    if (!track) return;
+      const homepageNewsData = [
+        { title: "Tunza Esports renews KUER Season 3", snippet: "A new format and more titles—KUER Season 3 is here.", date: "September 1, 2025", link: "/news/", imageUrl: "/images/KUER-x-Tunza.png" },
+        { title: "Tunza Esports Partners with B34R CL4N", snippet: "Through this partnership, Call of Duty Mobile within KUER get pro-level support.", date: "September 5, 2025", link: "/news/", imageUrl: "/images/KUER-x-B34R.png" },
+        { title: "Safaricom Game Conference: Tunza Esports Championing the Growth of Competitive Gaming in Kenya", snippet: "Safaricom Game Conference was a landmark event in Kenya’s gaming industry", date: "September 8, 2025", link: "/news/", imageUrl: "/images/Safaricom-Gaming-Conference.JPG" }
+      ];
 
-    // Only duplicate once
-    if (!track.dataset.duplicated){
-      const originals = Array.from(track.children).map(n => n.cloneNode(true));
-      let reps = 0;
-      while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
-        originals.forEach(n => track.appendChild(n.cloneNode(true)));
-        reps++;
-      }
-      track.dataset.duplicated = 'true';
+      container.innerHTML = '';
+      homepageNewsData.forEach(item => {
+        const a = document.createElement('a');
+        a.href = item.link;
+        a.className = 'news-card-link';
+
+        const card = document.createElement('div');
+        card.className = 'news-card';
+        card.innerHTML = `
+          <div class="news-image-placeholder"></div>
+          <h3 class="news-card-title">${item.title}</h3>
+          <p class="news-card-text">${item.snippet}</p>
+          <p class="news-card-date">${item.date}</p>
+        `;
+
+        const ph = card.querySelector('.news-image-placeholder');
+        if (ph){
+          ph.style.backgroundImage = "url('" + (item.imageUrl || "/images/KUER-x-Tunza.png") + "')";
+          ph.style.backgroundSize = "cover";
+          ph.style.backgroundPosition = "center";
+          ph.style.borderRadius = "12px";
+        }
+
+        a.appendChild(card);
+        container.appendChild(a);
+      });
     }
 
-    let x = 0, speed = 0.6, raf = 0;
-    const loop = () => {
-      const max = track.scrollWidth - track.clientWidth;
-      x = (x + speed) % (max || 1);
-      track.scrollLeft = x;
-      raf = requestAnimationFrame(loop);
-    };
-    const start = () => { if (!raf) loop(); };
-    const stop  = () => { if (raf) { cancelAnimationFrame(raf); raf = 0; } };
+    // Partners carousel (auto-scroll, pauses on hover/focus)
+    function initPartnersCarousel(){
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const track = document.querySelector('.partners-carousel-track');
+      if (!track) return;
 
-    start();
+      if (!track.dataset.duplicated){
+        const originals = Array.from(track.children).map(n => n.cloneNode(true));
+        let reps = 0;
+        while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
+          originals.forEach(n => track.appendChild(n.cloneNode(true)));
+          reps++;
+        }
+        track.dataset.duplicated = 'true';
+      }
 
-    track.addEventListener('mouseenter', stop);
-    track.addEventListener('mouseleave', start);
-    track.addEventListener('focusin',   stop);
-    track.addEventListener('focusout',  start);
+      let x = 0, speed = 0.6, raf = 0;
+      const loop = () => {
+        const max = track.scrollWidth - track.clientWidth;
+        x = (x + speed) % (max || 1);
+        track.scrollLeft = x;
+        raf = requestAnimationFrame(loop);
+      };
+      const start = () => { if (!raf) loop(); };
+      const stop  = () => { if (raf) cancelAnimationFrame(raf), raf = 0; };
 
-    let t;
-    window.addEventListener('resize', () => {
-      stop();
-      clearTimeout(t);
-      t = setTimeout(() => { x = 0; start(); }, 150);
-    });
-  }
+      start();
+      track.addEventListener('mouseenter', stop);
+      track.addEventListener('mouseleave', start);
+      track.addEventListener('focusin',   stop);
+      track.addEventListener('focusout',  start);
 
-  function init(){
-    initNews();
-    initPartnersCarousel();
-  }
+      let t;
+      window.addEventListener('resize', () => {
+        stop();
+        clearTimeout(t);
+        t = setTimeout(() => { x = 0; start(); }, 150);
+      });
+    }
 
-  if (document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', init, { once: true });
-  } else {
-    init();
-  }
-})();
-</script>
+    // Init on ready
+    if (document.readyState === 'loading'){
+      document.addEventListener('DOMContentLoaded', () => { initNews(); initPartnersCarousel(); }, { once: true });
+    } else {
+      initNews(); initPartnersCarousel();
+    }
+  })();
+  </script>
 </body>
 </html>
-
