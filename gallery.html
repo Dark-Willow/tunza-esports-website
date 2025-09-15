@@ -8,7 +8,7 @@ layout: null
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
   <title>Tunza Esports - Gallery</title>
@@ -27,25 +27,25 @@ layout: null
   <meta name="twitter:description" content="Photos and highlights from Tunza Esports tournaments, events, and training programs across Kenya." />
   <meta name="twitter:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" />
 
-  <!-- Favicons (dark set, cache-busted) -->
-  <link rel="icon" href="/favicon.ico?v=4" sizes="any">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=4">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4">
-  <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48x48-dark.png?v=4">
-  <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192-dark.png?v=4">
-  <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512-dark.png?v=4">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png?v=4">
-  <link rel="mask-icon" href="/images/tunza-logo-dark.svg" color="#000000">
+  <!-- Favicons (cache-busted) -->
+  <link rel="icon" href="/favicon.ico?v=5" sizes="any">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=5">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=5">
+  <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48x48-dark.png?v=5">
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192-dark.png?v=5">
+  <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512-dark.png?v=5">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png?v=5">
 
   <!-- PWA -->
-  <link rel="manifest" href="/site.webmanifest">
-  <meta name="theme-color" content="#0b0b16">
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#0b0b16" />
 
-  <!-- Organization schema (sitewide consistent) -->
+  <!-- Organization schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": "https://www.tunzaesports.org/#org",
     "name": "Tunza Esports",
     "url": "https://www.tunzaesports.org",
     "logo": "https://www.tunzaesports.org/images/android-chrome-512x512-dark.png",
@@ -65,8 +65,33 @@ layout: null
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/css/style.css" />
 
-  <!-- Minimal inline styles for partners carousel -->
+  <!-- Page-scoped, responsive tweaks (safe even if main CSS changes later) -->
   <style>
+    /* Mobile menu a11y helper */
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+    /* Gallery layout */
+    .gallery-container{max-width:1200px;margin:120px auto 0;padding:0 16px 40px}
+    .gallery-section{margin:48px 0}
+    .gallery-section-heading{font-family:'Syne',sans-serif;font-size:1.8rem;margin:0 0 16px}
+    .gallery-grid{
+      display:grid; gap:16px;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+    @media (min-width: 768px){ .gallery-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; } }
+    @media (min-width:1024px){ .gallery-grid{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
+
+    .gallery-card{
+      position:relative; display:flex; align-items:flex-end; justify-content:flex-start;
+      min-height:180px; border-radius:14px; overflow:hidden; text-decoration:none;
+      background:#0f0f17; outline:1px solid rgba(255,255,255,.06);
+      transition:transform .18s ease, outline-color .18s ease;
+    }
+    .gallery-card:hover{ transform:translateY(-2px); outline-color:rgba(255,255,255,.18) }
+    .gallery-card-content{ width:100%; padding:14px 16px; background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.5) 100%); }
+    .gallery-card h3{ margin:0; font-family:'Syne',sans-serif; font-size:1.05rem; }
+
+    /* Partners carousel visuals */
     .partners-section { padding: 40px 0; text-align:center; }
     .partners-carousel-track{ display:flex; gap:24px; overflow:hidden; padding:8px 0; scroll-behavior:auto; }
     .partner-logo{ flex:0 0 auto; width:240px; height:110px; display:flex; align-items:center; justify-content:center; background:#0f0f17; border-radius:12px; padding:8px; }
@@ -76,27 +101,36 @@ layout: null
   </style>
 </head>
 <body>
+  <!-- Header -->
   <section class="header">
-    <nav>
+    <nav class="wrap" role="navigation" aria-label="Primary">
       <a href="/" class="logo"><img src="/images/tunzalogo.png" alt="Tunza Esports Logo" /></a>
-      <div class="nav-links">
+
+      <!-- Mobile toggle -->
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">
+        <span class="fa fa-bars" aria-hidden="true"></span>
+        <span class="sr-only">Menu</span>
+      </button>
+
+      <!-- Nav links -->
+      <div id="nav-menu" class="nav-links">
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/about-us/">About Us</a></li>
 
           <li class="has-dropdown">
-            <a href="#">Our Services</a>
+            <a href="#" aria-haspopup="true" aria-expanded="false">Our Services</a>
             <ul class="dropdown-menu">
               <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
               <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
               <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
               <li><a href="/consultation/">Consultation</a></li>
-              <li><a href="/bootcamps-training-programs/">Training Programs</a></li>
+              <li><a href="/bootcamps-training-programs/">Bootcamps &amp; Training Programs</a></li>
             </ul>
           </li>
 
           <li class="has-dropdown">
-            <a href="#">Our Products</a>
+            <a href="#" aria-haspopup="true" aria-expanded="false">Our Products</a>
             <ul class="dropdown-menu">
               <li><a href="/ker/">KER</a></li>
               <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
@@ -114,22 +148,25 @@ layout: null
     </nav>
   </section>
 
+  <!-- Main -->
   <main class="gallery-container">
     <section class="gallery-section">
       <h2 class="gallery-section-heading">Esports Tournaments</h2>
       <div class="gallery-grid">
-        <a href="#" class="gallery-card">
+        <!-- Example card (swap href to your album or image viewer) -->
+        <a href="#" class="gallery-card" aria-label="KUER Season 3 gallery">
           <div class="gallery-card-content">
             <h3>KUER Season 3</h3>
           </div>
         </a>
+        <!-- Add more cards as needed -->
       </div>
     </section>
 
     <section class="gallery-section">
       <h2 class="gallery-section-heading">Gaming Events</h2>
       <div class="gallery-grid">
-        <a href="#" class="gallery-card">
+        <a href="#" class="gallery-card" aria-label="Gaming events gallery coming soon">
           <div class="gallery-card-content">
             <h3>COMING SOON</h3>
           </div>
@@ -140,7 +177,7 @@ layout: null
     <section class="gallery-section">
       <h2 class="gallery-section-heading">Bootcamps and Training Programs</h2>
       <div class="gallery-grid">
-        <a href="#" class="gallery-card">
+        <a href="#" class="gallery-card" aria-label="Bootcamps gallery coming soon">
           <div class="gallery-card-content">
             <h3>COMING SOON</h3>
           </div>
@@ -159,6 +196,7 @@ layout: null
     </div>
   </section>
 
+  <!-- Footer -->
   <footer>
     <div class="footer-content">
       <div class="footer-column">
@@ -196,27 +234,41 @@ layout: null
     </div>
   </footer>
 
+  <!-- Scripts: nav toggle + dropdowns + partners carousel + sticky nav -->
   <script>
-    // Sticky nav
-    window.addEventListener('scroll', function () {
-      const navbar = document.querySelector('.header nav');
-      if (navbar) navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
-    });
+  (function(){
+    // Mobile menu toggle
+    const btn  = document.querySelector('.nav-toggle');
+    const menu = document.getElementById('nav-menu');
+    if (btn && menu){
+      btn.addEventListener('click', () => {
+        const open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+        menu.classList.toggle('is-open', !open);
+      });
 
-    // Init when ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initPage);
-    } else {
-      initPage();
+      // Tap-to-open dropdowns on mobile
+      document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
+        a.addEventListener('click', (e) => {
+          if (window.matchMedia('(max-width: 1024px)').matches){
+            e.preventDefault();
+            const li = a.parentElement;
+            const expanded = li.classList.toggle('open');
+            a.setAttribute('aria-expanded', String(expanded));
+          }
+        });
+      });
     }
 
-    function initPage(){
+    // Sticky nav (kept to match your other pages)
+    function syncNavTop(){
       const navbar = document.querySelector('.header nav');
       if (navbar) navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
-      initPartnersCarousel();
     }
+    window.addEventListener('scroll', syncNavTop);
+    syncNavTop();
 
-    // Robust partners carousel (same as your working pages)
+    // Partners carousel
     function initPartnersCarousel(){
       if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const track = document.querySelector('.partners-carousel-track');
@@ -230,18 +282,18 @@ layout: null
       }
 
       let x = 0, speed = 0.6, raf;
-      function loop(){
+      const loop = () => {
         const max = track.scrollWidth - track.clientWidth;
         x = (x + speed) % (max || 1);
         track.scrollLeft = x;
         raf = requestAnimationFrame(loop);
-      }
+      };
       loop();
 
       track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
-      track.addEventListener('mouseleave', () => loop());
+      track.addEventListener('mouseleave', loop);
       track.addEventListener('focusin',   () => cancelAnimationFrame(raf));
-      track.addEventListener('focusout',  () => loop());
+      track.addEventListener('focusout',  loop);
 
       let t;
       window.addEventListener('resize', () => {
@@ -250,10 +302,13 @@ layout: null
         t = setTimeout(() => { x = 0; loop(); }, 150);
       });
     }
+
+    if (document.readyState === 'loading'){
+      document.addEventListener('DOMContentLoaded', initPartnersCarousel);
+    } else {
+      initPartnersCarousel();
+    }
+  })();
   </script>
 </body>
 </html>
-
-
-
-
