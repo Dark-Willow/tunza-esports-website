@@ -30,7 +30,7 @@ layout: null
   <meta name="twitter:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" />
   <meta name="twitter:image:alt" content="Tunza Esports logo" />
 
-  <!-- Favicons (match homepage) -->
+  <!-- Favicons -->
   <link rel="icon" href="/favicon.ico?v=4" sizes="any">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=4">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4">
@@ -44,7 +44,7 @@ layout: null
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0b0b16">
 
-  <!-- Organization schema (sitewide consistent) -->
+  <!-- Organization schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -61,52 +61,29 @@ layout: null
   }
   </script>
 
-  <!-- Fonts & CSS -->
+  <!-- Fonts & Global CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/css/style.css" />
-
-  <!-- Minimal inline CSS to ensure mobile nav works even without global rules -->
-  <style>
-    .header nav { position: sticky; top: 0; z-index: 50; }
-    .nav-toggle { display: none; background: transparent; border: 1px solid #2a2f3a; color: #fff; padding: .5rem .75rem; border-radius: 8px; }
-    @media (max-width:1024px){
-      .nav-toggle { display: inline-flex; align-items:center; gap:.5rem; }
-      .nav-links { display: none; }
-      .nav-links.is-open { display: block; }
-      .nav-links ul { display:flex; flex-direction:column; gap:.5rem; }
-      .nav-links .dropdown-menu { position: static; display: none; }
-      .nav-links .has-dropdown.open > .dropdown-menu { display: block; }
-    }
-
-    /* Partners carousel basics (kept light; JS animates via scrollLeft) */
-    .partners-section { padding: 40px 0; text-align:center; }
-    .partners-carousel-track{ display:flex; gap:24px; overflow:hidden; padding:8px 0; scroll-behavior:auto; }
-    .partner-logo{ flex:0 0 auto; width:240px; height:110px; display:flex; align-items:center; justify-content:center; background:#0f0f17; border-radius:12px; padding:8px; }
-    .partner-logo img{ max-height:90px; max-width:100%; object-fit:contain; display:block; }
-    @media (max-width: 768px){ .partner-logo{ width:180px; height:100px; } .partner-logo img{ max-height:80px; } }
-    @media (max-width: 480px){ .partner-logo{ width:150px; height:90px; } .partner-logo img{ max-height:70px; } }
-  </style>
 </head>
 
 <body>
-  <!-- Header -->
+  <!-- Header (full-width, transparent overlay like home) -->
   <section class="header">
-    <nav class="wrap" role="navigation" aria-label="Primary">
+    <nav role="navigation" aria-label="Primary">
       <a href="/" class="logo">
         <img src="/images/tunzalogo.png" alt="Tunza Esports Logo">
       </a>
 
       <!-- Mobile toggle -->
-      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
         <span class="fa fa-bars" aria-hidden="true"></span>
-        <span class="sr-only">Menu</span>
       </button>
 
-      <!-- Single nav-links container -->
+      <!-- Nav -->
       <div id="nav-menu" class="nav-links">
         <ul>
           <li><a href="/">Home</a></li>
@@ -127,7 +104,7 @@ layout: null
             <a href="#" aria-haspopup="true" aria-expanded="false">Our Products</a>
             <ul class="dropdown-menu">
               <li><a href="/ker/">KER</a></li>
-              <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
+              <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
               <li><a href="/tunzatourna/">TunzaTourna</a></li>
               <li><a href="/shop/">Shop</a></li>
             </ul>
@@ -160,11 +137,13 @@ layout: null
       </p>
     </section>
 
+    <!-- Desktop = grid; Mobile/Tablet = horizontal scroll (JS toggles classes) -->
     <section class="upcoming-events-grid-section">
       <h2 class="section-heading">Upcoming Events</h2>
-      <div class="events-grid-container">
 
-        <div class="event-card">
+      <div id="events-grid" class="events-grid-container">
+        <!-- Card 1 -->
+        <article class="event-card">
           <div class="event-image-wrapper">
             <picture>
               <source type="image/avif" srcset="/images/events/lan-party-480.avif 480w, /images/events/lan-party-768.avif 768w, /images/events/lan-party-1024.avif 1024w, /images/events/lan-party-1280.avif 1280w">
@@ -183,9 +162,10 @@ layout: null
             <p class="event-location">Small World Country Club, Nairobi</p>
             <p class="event-price">Starting KES 6,000</p>
           </div>
-        </div>
+        </article>
 
-        <div class="event-card">
+        <!-- Card 2 -->
+        <article class="event-card">
           <div class="event-image-wrapper">
             <picture>
               <source type="image/avif" srcset="/images/events/retro-night-480.avif 480w, /images/events/retro-night-768.avif 768w, /images/events/retro-night-1024.avif 1024w, /images/events/retro-night-1280.avif 1280w">
@@ -204,9 +184,10 @@ layout: null
             <p class="event-location">Ballpoint Social Club, Nairobi</p>
             <p class="event-price">Starting KES 2,000</p>
           </div>
-        </div>
+        </article>
 
-        <div class="event-card">
+        <!-- Card 3 -->
+        <article class="event-card">
           <div class="event-image-wrapper">
             <picture>
               <source type="image/avif" srcset="/images/events/fifa-tournament-480.avif 480w, /images/events/fifa-tournament-768.avif 768w, /images/events/fifa-tournament-1024.avif 1024w, /images/events/fifa-tournament-1280.avif 1280w">
@@ -225,9 +206,10 @@ layout: null
             <p class="event-location">Whistling Morans Ltd, Athi River</p>
             <p class="event-price">Starting KES 750</p>
           </div>
-        </div>
+        </article>
 
-        <div class="event-card">
+        <!-- Card 4 -->
+        <article class="event-card">
           <div class="event-image-wrapper">
             <picture>
               <source type="image/avif" srcset="/images/events/lan-party-480.avif 480w, /images/events/lan-party-768.avif 768w, /images/events/lan-party-1024.avif 1024w, /images/events/lan-party-1280.avif 1280w">
@@ -246,8 +228,7 @@ layout: null
             <p class="event-location">The Gaming Arena, Nairobi</p>
             <p class="event-price">Starting KES 1,000</p>
           </div>
-        </div>
-
+        </article>
       </div>
     </section>
 
@@ -260,7 +241,6 @@ layout: null
     <div class="newsletter-card">
       <h3>Hello guys! Get the latest information from us</h3>
 
-      <!-- Mailchimp (keeps your existing visual design) -->
       <form
         action="https://tunzaesports.us13.list-manage.com/subscribe/post?u=49268c059773710b44455bb33&id=f95ceda37f&f_id=00cde9e1f0"
         method="post"
@@ -312,7 +292,7 @@ layout: null
       <div class="footer-column">
         <h4>Tournaments</h4>
         <ul>
-          <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
+          <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
         </ul>
       </div>
       <div class="footer-column footer-logo-column">
@@ -332,16 +312,6 @@ layout: null
   <!-- Scripts -->
   <script>
   (function () {
-    // Sticky nav (match other pages)
-    window.addEventListener('scroll', function () {
-      const navbar = document.querySelector('.header nav');
-      if (navbar) navbar.style.top = window.scrollY > 0 ? (window.scrollY + 'px') : '0px';
-    });
-    (function initialTop(){
-      const navbar = document.querySelector('.header nav');
-      if (navbar) navbar.style.top = window.scrollY > 0 ? (window.scrollY + 'px') : '0px';
-    })();
-
     // Mobile nav + dropdowns
     function initNav() {
       const btn  = document.querySelector('.nav-toggle');
@@ -354,6 +324,7 @@ layout: null
         menu.classList.toggle('is-open', !open);
       });
 
+      // Tap-to-open dropdowns on mobile
       document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
         a.addEventListener('click', (e) => {
           if (window.matchMedia('(max-width:1024px)').matches){
@@ -366,7 +337,7 @@ layout: null
       });
     }
 
-    // Partners carousel (robust, reduced-motion aware)
+    // Partners carousel (same as home)
     function initPartnersCarousel(){
       if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -393,7 +364,6 @@ layout: null
       const stop  = () => { if (raf) cancelAnimationFrame(raf); raf = null; };
 
       start();
-
       track.addEventListener('mouseenter', stop);
       track.addEventListener('mouseleave', start);
       track.addEventListener('focusin',   stop);
@@ -407,6 +377,26 @@ layout: null
       });
     }
 
+    // Toggle horizontal scroll on mobile/tablet for events
+    function initResponsiveScrollRows() {
+      const el = document.getElementById('events-grid');
+      if (!el) return;
+
+      const mq = window.matchMedia('(max-width: 1024px)');
+      const apply = () => {
+        // These utility classes must exist in your global /css/style.css (we added them earlier)
+        if (mq.matches) {
+          el.classList.add('scroll-row','cards-snap');
+          el.querySelectorAll('.event-card').forEach(c => c.classList.add('card-snap'));
+        } else {
+          el.classList.remove('scroll-row','cards-snap');
+          el.querySelectorAll('.event-card').forEach(c => c.classList.remove('card-snap'));
+        }
+      };
+      apply();
+      mq.addEventListener('change', apply);
+    }
+
     const ready = (fn) => {
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', fn, { once: true });
@@ -418,6 +408,7 @@ layout: null
     ready(() => {
       initNav();
       initPartnersCarousel();
+      initResponsiveScrollRows();
     });
   })();
   </script>
