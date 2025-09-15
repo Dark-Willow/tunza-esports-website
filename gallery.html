@@ -21,6 +21,7 @@ layout: null
   <meta property="og:description" content="Photos and highlights from Tunza Esports tournaments, events, and training programs across Kenya." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" />
+  <meta property="og:image:alt" content="Tunza Esports logo" />
   <meta property="og:site_name" content="Tunza Esports" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Gallery - Tunza Esports" />
@@ -65,34 +66,66 @@ layout: null
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/css/style.css" />
 
-  <!-- Page-scoped, responsive tweaks (safe even if main CSS changes later) -->
+  <!-- Page-scoped, responsive tweaks (adds mobile/tablet horizontal-scrollers) -->
   <style>
-    /* Mobile menu a11y helper */
+    /* a11y helper for menu button */
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
-    /* Gallery layout */
-    .gallery-container{max-width:1200px;margin:120px auto 0;padding:0 16px 40px}
+    /* Page wrapper */
+    .gallery-container{max-width:1200px;margin:110px auto 0;padding:0 16px 48px}
     .gallery-section{margin:48px 0}
-    .gallery-section-heading{font-family:'Syne',sans-serif;font-size:1.8rem;margin:0 0 16px}
-    .gallery-grid{
-      display:grid; gap:16px;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-    }
-    @media (min-width: 768px){ .gallery-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; } }
-    @media (min-width:1024px){ .gallery-grid{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
+    .gallery-section-heading{font-family:'Syne',sans-serif;font-size:2rem;margin:0 0 16px}
 
+    /* Grid (desktop) */
+    .gallery-grid{
+      display:grid; gap:18px;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+    }
+    @media (min-width: 1024px){ .gallery-grid{ grid-template-columns:repeat(4,minmax(0,1fr)); gap:20px; } }
+    @media (max-width: 900px){
+      /* Turn each section into a horizontal scroller on tablet/phone */
+      .gallery-grid{
+        display:grid;
+        grid-auto-flow:column;
+        grid-auto-columns: min(78%, 380px);
+        overflow-x:auto; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch;
+        gap:14px; padding-bottom:6px;
+        scroll-snap-type:x mandatory;
+        scrollbar-width:none; /* Firefox */
+      }
+      .gallery-grid::-webkit-scrollbar{ display:none; } /* WebKit */
+    }
+
+    /* Cards */
     .gallery-card{
       position:relative; display:flex; align-items:flex-end; justify-content:flex-start;
-      min-height:180px; border-radius:14px; overflow:hidden; text-decoration:none;
-      background:#0f0f17; outline:1px solid rgba(255,255,255,.06);
-      transition:transform .18s ease, outline-color .18s ease;
+      height:200px; border-radius:16px; overflow:hidden; text-decoration:none; color:#FCFCFD;
+      background:#0f0f17; outline:1px solid rgba(255,255,255,.08);
+      transition:transform .18s ease, outline-color .18s ease, box-shadow .18s ease;
+      scroll-snap-align: start;
     }
-    .gallery-card:hover{ transform:translateY(-2px); outline-color:rgba(255,255,255,.18) }
-    .gallery-card-content{ width:100%; padding:14px 16px; background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.5) 100%); }
+    .gallery-card:hover{ transform:translateY(-2px); outline-color:rgba(255,255,255,.18); box-shadow:0 10px 24px rgba(0,0,0,.35); }
+
+    .gallery-card img{
+      position:absolute; inset:0; width:100%; height:100%;
+      object-fit:cover; display:block; filter:brightness(.92) contrast(1.02);
+    }
+    .gallery-card-content{
+      position:relative; z-index:1; width:100%;
+      padding:14px 16px;
+      background:linear-gradient(180deg,rgba(0,0,0,0) 0%, rgba(0,0,0,.6) 100%);
+    }
     .gallery-card h3{ margin:0; font-family:'Syne',sans-serif; font-size:1.05rem; }
 
-    /* Partners carousel visuals */
+    /* Optional swipe hint (shows only on small screens) */
+    .scroll-hint{
+      font-size:.9rem; opacity:.7; margin:6px 4px 0; display:none;
+    }
+    @media (max-width:900px){ .scroll-hint{ display:block; } }
+
+    /* Partners carousel visuals (matches other pages) */
     .partners-section { padding: 40px 0; text-align:center; }
+    .partners-section h2 { font-family:'Syne',sans-serif; font-size:2rem; margin:0 0 16px; }
     .partners-carousel-track{ display:flex; gap:24px; overflow:hidden; padding:8px 0; scroll-behavior:auto; }
     .partner-logo{ flex:0 0 auto; width:240px; height:110px; display:flex; align-items:center; justify-content:center; background:#0f0f17; border-radius:12px; padding:8px; }
     .partner-logo img{ max-height:90px; max-width:100%; object-fit:contain; display:block; }
@@ -150,37 +183,79 @@ layout: null
 
   <!-- Main -->
   <main class="gallery-container">
+    <!-- Esports Tournaments -->
     <section class="gallery-section">
       <h2 class="gallery-section-heading">Esports Tournaments</h2>
+      <p class="scroll-hint">Swipe to scroll →</p>
       <div class="gallery-grid">
-        <!-- Example card (swap href to your album or image viewer) -->
-        <a href="#" class="gallery-card" aria-label="KUER Season 3 gallery">
-          <div class="gallery-card-content">
-            <h3>KUER Season 3</h3>
-          </div>
+        <!-- Example cards: update href and images to your albums/photos -->
+        <a href="#" class="gallery-card" aria-label="KUER Season 3">
+          <img src="/images/KUER-x-Tunza.png" alt="KUER Season 3 highlights" loading="lazy" decoding="async" width="640" height="360">
+          <div class="gallery-card-content"><h3>KUER Season 3</h3></div>
         </a>
-        <!-- Add more cards as needed -->
+
+        <a href="#" class="gallery-card" aria-label="FIFA Tournament Highlights">
+          <img src="/images/Safaricom-Gaming-Conference.JPG" alt="FIFA Tournament highlights" loading="lazy" decoding="async" width="640" height="360">
+          <div class="gallery-card-content"><h3>FIFA Tournament</h3></div>
+        </a>
+
+        <a href="#" class="gallery-card" aria-label="Valorant Finals">
+          <img src="https://placehold.co/800x450/0b0b16/ffffff?text=Valorant+Finals" alt="Valorant finals photo" loading="lazy" decoding="async" width="800" height="450">
+          <div class="gallery-card-content"><h3>Valorant Finals</h3></div>
+        </a>
+
+        <a href="#" class="gallery-card" aria-label="CODM Championship">
+          <img src="/images/KUER-x-B34R.png" alt="CODM Championship recap" loading="lazy" decoding="async" width="640" height="360">
+          <div class="gallery-card-content"><h3>CODM Championship</h3></div>
+        </a>
       </div>
     </section>
 
+    <!-- Gaming Events -->
     <section class="gallery-section">
       <h2 class="gallery-section-heading">Gaming Events</h2>
+      <p class="scroll-hint">Swipe to scroll →</p>
       <div class="gallery-grid">
-        <a href="#" class="gallery-card" aria-label="Gaming events gallery coming soon">
-          <div class="gallery-card-content">
-            <h3>COMING SOON</h3>
-          </div>
+        <a href="#" class="gallery-card" aria-label="LAN Party: Mayhem">
+          <img src="/images/events/lan-party.jpg" alt="LAN Party Mayhem" loading="lazy" decoding="async" width="1280" height="720">
+          <div class="gallery-card-content"><h3>LAN Party: Mayhem</h3></div>
+        </a>
+
+        <a href="#" class="gallery-card" aria-label="Retro Night">
+          <img src="/images/events/retro-night.jpg" alt="Retro Night gaming event" loading="lazy" decoding="async" width="1280" height="720">
+          <div class="gallery-card-content"><h3>Retro Night</h3></div>
+        </a>
+
+        <a href="#" class="gallery-card" aria-label="FIFA 25 Casual">
+          <img src="/images/events/fifa-tournament.jpg" alt="FIFA 25 casual tournament" loading="lazy" decoding="async" width="1280" height="720">
+          <div class="gallery-card-content"><h3>FIFA 25 Casual</h3></div>
+        </a>
+
+        <a href="#" class="gallery-card" aria-label="Battle Royale Duos">
+          <img src="/images/events/lan-party.jpg" alt="Battle Royale Duos event" loading="lazy" decoding="async" width="1280" height="720">
+          <div class="gallery-card-content"><h3>Battle Royale Duos</h3></div>
         </a>
       </div>
     </section>
 
+    <!-- Bootcamps & Training -->
     <section class="gallery-section">
-      <h2 class="gallery-section-heading">Bootcamps and Training Programs</h2>
+      <h2 class="gallery-section-heading">Bootcamps & Training Programs</h2>
+      <p class="scroll-hint">Swipe to scroll →</p>
       <div class="gallery-grid">
-        <a href="#" class="gallery-card" aria-label="Bootcamps gallery coming soon">
-          <div class="gallery-card-content">
-            <h3>COMING SOON</h3>
-          </div>
+        <a href="#" class="gallery-card" aria-label="Ascend: Valorant Bootcamp">
+          <img src="https://placehold.co/800x450/101023/ffffff?text=Ascend+Bootcamp" alt="Ascend Valorant bootcamp" loading="lazy" decoding="async" width="800" height="450">
+          <div class="gallery-card-content"><h3>Ascend: Valorant</h3></div>
+        </a>
+
+        <a href="#" class="gallery-card" aria-label="Caster Workshop">
+          <img src="https://placehold.co/800x450/12122a/ffffff?text=Caster+Workshop" alt="Caster workshop" loading="lazy" decoding="async" width="800" height="450">
+          <div class="gallery-card-content"><h3>Caster Workshop</h3></div>
+        </a>
+
+        <a href="#" class="gallery-card" aria-label="Production & OBS 101">
+          <img src="/images/Production%20Setup.jpg" alt="Production & OBS 101" loading="lazy" decoding="async" width="1280" height="720">
+          <div class="gallery-card-content"><h3>Production &amp; OBS 101</h3></div>
         </a>
       </div>
     </section>
@@ -268,7 +343,7 @@ layout: null
     window.addEventListener('scroll', syncNavTop);
     syncNavTop();
 
-    // Partners carousel
+    // Partners carousel (auto-scroll)
     function initPartnersCarousel(){
       if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const track = document.querySelector('.partners-carousel-track');
@@ -304,7 +379,7 @@ layout: null
     }
 
     if (document.readyState === 'loading'){
-      document.addEventListener('DOMContentLoaded', initPartnersCarousel);
+      document.addEventListener('DOMContentLoaded', initPartnersCarousel, { once: true });
     } else {
       initPartnersCarousel();
     }
