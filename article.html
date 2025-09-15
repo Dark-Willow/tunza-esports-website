@@ -8,7 +8,7 @@ layout: null
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
   <title>Tunza Esports — Article</title>
@@ -72,42 +72,70 @@ layout: null
 
   <style>
     .article-content{padding:40px;max-width:900px;margin:100px auto 0;border-radius:12px;line-height:1.6}
-    .article-image-container{width:100%;height:500px;margin-bottom:30px;overflow:hidden;border-radius:8px}
+    /* Use aspect-ratio for responsive hero media, fallback to fixed height */
+    .article-image-container{width:100%;aspect-ratio:16/9;margin-bottom:30px;overflow:hidden;border-radius:8px}
+    @supports not (aspect-ratio: 1){
+      .article-image-container{height:500px}
+    }
     .article-image{width:100%;height:100%;object-fit:cover;display:block}
     .article-title{font-family:'Syne',sans-serif;font-size:2.5rem;color:#fff;margin-bottom:10px}
     .article-meta{font-family:'Oxanium',sans-serif;color:#ccc;font-size:.9rem;margin-bottom:20px}
     .article-body p{margin-bottom:20px;font-size:1.1rem;color:#fff}
     .notfound{color:#f7b500}
-    @media (max-width:768px){.article-content{padding:20px}.article-title{font-size:2rem}}
+    @media (max-width:768px){
+      .article-content{padding:20px}
+      .article-title{font-size:2rem}
+    }
+
+    /* Minimal helpers for mobile nav */
+    .nav-toggle{display:none;background:transparent;border:1px solid #2a2f3a;color:#fff;padding:.5rem .75rem;border-radius:8px}
+    @media (max-width:1024px){
+      .nav-toggle{display:inline-flex;align-items:center;gap:.5rem}
+      .nav-links{display:none}
+      .nav-links.is-open{display:block}
+      .nav-links ul{display:flex;flex-direction:column;gap:.5rem}
+      .nav-links .dropdown-menu{position:static;display:none}
+      .nav-links .has-dropdown.open > .dropdown-menu{display:block}
+    }
   </style>
 </head>
 <body>
+  <!-- Header -->
   <section class="header">
-    <nav>
+    <nav class="wrap" role="navigation" aria-label="Primary">
       <a href="/" class="logo"><img src="/images/tunzalogo.png" alt="Tunza Esports Logo"></a>
-      <div class="nav-links">
+
+      <!-- Mobile toggle -->
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">
+        <span class="fa fa-bars" aria-hidden="true"></span> Menu
+      </button>
+
+      <div id="nav-menu" class="nav-links">
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/about-us/">About Us</a></li>
+
           <li class="has-dropdown">
-            <a href="#">Our Services</a>
+            <a href="#" aria-haspopup="true" aria-expanded="false">Our Services</a>
             <ul class="dropdown-menu">
               <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
-              <li><a href="/esports-broadcasting/">Esports Broadcasting</a></li>
+              <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
               <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
               <li><a href="/consultation/">Consultation</a></li>
-              <li><a href="/bootcamps-training-programs/">Bootcamps & Training Programs</a></li>
+              <li><a href="/bootcamps-training-programs/">Bootcamps &amp; Training Programs</a></li>
             </ul>
           </li>
+
           <li class="has-dropdown">
-            <a href="#">Our Products</a>
+            <a href="#" aria-haspopup="true" aria-expanded="false">Our Products</a>
             <ul class="dropdown-menu">
               <li><a href="/ker/">KER</a></li>
-              <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
-              <li><a href="/Tunzatourna/">TunzaTourna</a></li>
+              <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
+              <li><a href="/tunzatourna/">TunzaTourna</a></li>
               <li><a href="/shop/">Shop</a></li>
             </ul>
           </li>
+
           <li><a href="/news/">News</a></li>
           <li><a href="/contact/">Contact Us</a></li>
           <li><a href="/gallery/">Gallery</a></li>
@@ -120,7 +148,7 @@ layout: null
   <main class="news-body">
     <div class="article-content">
       <div class="article-image-container">
-        <img id="article-image" src="" alt="Article Image" class="article-image">
+        <img id="article-image" src="" alt="Article Image" class="article-image" />
       </div>
       <h1 class="article-title" id="article-title"></h1>
       <p class="article-meta" id="article-date"></p>
@@ -130,6 +158,7 @@ layout: null
 
   <div class="spacer-before-partners"></div>
 
+  <!-- Footer -->
   <footer>
     <div class="footer-content">
       <div class="footer-column">
@@ -143,8 +172,8 @@ layout: null
       <div class="footer-column">
         <h4>Resources</h4>
         <ul>
-          <li><a href="/coming-soon/">Tunza Tourna</a></li>
-          <li><a href="/coming-soon/">Shop</a></li>
+          <li><a href="/tunzatourna/">Tunza Tourna</a></li>
+          <li><a href="/shop/">Shop</a></li>
         </ul>
       </div>
       <div class="footer-column">
@@ -172,7 +201,7 @@ layout: null
     // -------- constants --------
     const CANONICAL_ORIGIN = 'https://www.tunzaesports.org';
 
-    // -------- article data --------
+    // -------- article data (UNCHANGED TEXT) --------
     window.newsArticles = [
       {
         id: 1,
@@ -278,7 +307,6 @@ layout: null
       const key = slugRaw.toLowerCase().trim();
       const list = window.newsArticles || [];
       const idx = list.findIndex(a => (a.slug || '').toLowerCase().trim() === key);
-      console.debug('[article] slug:', slugRaw, '→', key, 'match index:', idx);
       return idx >= 0 ? list[idx] : null;
     }
 
@@ -348,7 +376,6 @@ layout: null
     }
 
     function showNotFound(slug) {
-      console.warn('[article] No article matched slug:', slug);
       document.getElementById('article-title').innerHTML = 'Article not found';
       document.getElementById('article-date').textContent = '';
       document.getElementById('article-body').innerHTML =
@@ -359,17 +386,37 @@ layout: null
 
     function run() {
       (window.newsArticles || []).forEach(a => { if (a.slug) a.slug = a.slug.trim(); });
-
       const slug = getSlug();
       const a = findArticle(slug);
-
       if (!a) { showNotFound(slug); return; }
-
       render(a);
       updateSeo(a);
     }
 
-    document.addEventListener('DOMContentLoaded', run);
+    // Mobile menu + dropdowns
+    function initNav(){
+      const btn  = document.querySelector('.nav-toggle');
+      const menu = document.getElementById('nav-menu');
+      if (btn && menu){
+        btn.addEventListener('click', () => {
+          const open = btn.getAttribute('aria-expanded') === 'true';
+          btn.setAttribute('aria-expanded', String(!open));
+          menu.classList.toggle('is-open', !open);
+        });
+        document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
+          a.addEventListener('click', (e) => {
+            if (window.matchMedia('(max-width: 1024px)').matches){
+              e.preventDefault();
+              const li = a.parentElement;
+              const expanded = li.classList.toggle('open');
+              a.setAttribute('aria-expanded', String(expanded));
+            }
+          });
+        });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => { initNav(); run(); });
   })();
   </script>
 </body>
