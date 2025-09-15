@@ -245,212 +245,245 @@ layout: null
   </footer>
 
   <script>
-  (function () {
-    // Mobile menu toggle + dropdowns
-    const btn  = document.querySelector('.nav-toggle');
-    const menu = document.getElementById('nav-menu');
-    if (btn && menu){
-      btn.addEventListener('click', () => {
-        const open = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!open));
-        menu.classList.toggle('is-open', !open);
+(function () {
+  // --- Mobile menu toggle + dropdowns ---
+  const btn  = document.querySelector('.nav-toggle');
+  const menu = document.getElementById('nav-menu');
+
+  if (btn && menu){
+    // Toggle whole menu
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      menu.classList.toggle('is-open', !open);
+    });
+
+    // Dropdown headers (Our Services / Our Products)
+    document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        // Prevent "#" jumping on desktop too
+        e.preventDefault();
+
+        // Only toggle open state on mobile/tablet
+        if (window.matchMedia('(max-width: 1024px)').matches){
+          const li = a.parentElement;
+          const expanded = li.classList.toggle('open');
+          a.setAttribute('aria-expanded', String(expanded));
+        }
       });
-      document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
-        a.addEventListener('click', (e) => {
+    });
+
+    // Close menu after clicking any non-header link (mobile/tablet)
+    document.querySelectorAll('#nav-menu a').forEach(link => {
+      // Skip the dropdown header toggles
+      if (!link.matches('.has-dropdown > a')) {
+        link.addEventListener('click', () => {
           if (window.matchMedia('(max-width: 1024px)').matches){
-            e.preventDefault();
-            const li = a.parentElement;
-            const expanded = li.classList.toggle('open');
-            a.setAttribute('aria-expanded', String(expanded));
+            menu.classList.remove('is-open');
+            btn.setAttribute('aria-expanded', 'false');
+            // Also collapse any open dropdowns
+            document.querySelectorAll('.has-dropdown.open').forEach(li => li.classList.remove('open'));
           }
         });
+      }
+    });
+
+    // Reset state when resizing back to desktop
+    window.addEventListener('resize', () => {
+      if (!window.matchMedia('(max-width: 1024px)').matches){
+        menu.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        document.querySelectorAll('.has-dropdown.open').forEach(li => li.classList.remove('open'));
+      }
+    });
+  }
+
+  // --- Partners carousel (unchanged from your version) ---
+  function initPartnersCarousel(){
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const track = document.querySelector('.partners-carousel-track');
+    if (!track) return;
+
+    const originals = Array.from(track.children).map(n => n.cloneNode(true));
+    let reps = 0;
+    while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
+      originals.forEach(n => track.appendChild(n.cloneNode(true)));
+      reps++;
+    }
+
+    let x = 0, speed = 0.6, raf;
+    function loop(){
+      const max = track.scrollWidth - track.clientWidth;
+      x = (x + speed) % (max || 1);
+      track.scrollLeft = x;
+      raf = requestAnimationFrame(loop);
+    }
+    loop();
+
+    const stop  = () => { if (raf) cancelAnimationFrame(raf); raf = null; };
+    const start = () => { if (!raf) loop(); };
+    track.addEventListener('mouseenter', stop);
+    track.addEventListener('mouseleave', start);
+    track.addEventListener('focusin',   stop);
+    track.addEventListener('focusout',  start);
+
+    let t;
+    window.addEventListener('resize', () => {
+      stop();
+      clearTimeout(t);
+      t = setTimeout(() => { x = 0; start(); }, 150);
+    });
+  }
+
+  // --- News listing (kept as-is, just runs if elements exist) ---
+  function initNews(){
+    const newsArticles = [
+      {
+        id: 1,
+        slug: "tunza-esports-renews-kuer-season-3-with-a-fresh-format",
+        title: "Tunza Esports Renews KUER Season 3 With a Fresh Format",
+        date: "September 1, 2025",
+        snippet: "For the first time, KUER will run in two separate periods.",
+        content: "",
+        tags: ["Tournament News","Community News"],
+        imageUrl: "/images/KUER-x-Tunza.png"
+      },
+      {
+        id: 2,
+        slug: "tunza-esports-partners-with-b34r-cl4n-to-strengthen-codm-in-university-esports-in-kenya",
+        title: "Tunza Esports Partners with B34R CL4N to strengthen CODM in University Esports in Kenya",
+        date: "September 5, 2025",
+        snippet: "Through this partnership, Call of Duty Mobile Battle Royale and Multiplayer within KUER get pro-level support.",
+        content: "",
+        tags: ["Partnership"],
+        imageUrl: "/images/KUER-x-B34R.png"
+      },
+      {
+        id: 3,
+        slug: "safaricom-game-conference-tunza-esports-championing-the-growth-of-competitive-gaming-in-kenya",
+        title: "Safaricom Game Conference: Tunza Esports Championing the Growth of Competitive Gaming in Kenya",
+        date: "September 8, 2025",
+        snippet: "The Safaricom Game Conference was a landmark event in Kenya’s gaming industry, bringing together innovators, gamers, and organizations shaping the future of Esports.",
+        content: "",
+        tags: ["Community News", "Partnership"],
+        imageUrl: "/images/Safaricom-Gaming-Conference.JPG"
+      },
+      { id: 4, title: "The Future of VR Gaming", date: "August 25, 2025", snippet: "Dive into the world of virtual reality and how it's shaping the next generation of competitive gaming.", content: "", tags: ["Community News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+3" },
+      { id: 5, title: "Tunza Esports Partners With Local Gaming Cafe", date: "August 5, 2025", snippet: "Weekly tournaments and community nights with The Gamers Hub in Nairobi.", content: "", tags: ["Partnership"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+4" },
+      { id: 6, title: "KUER Season 3: Registrations Now Open", date: "August 1, 2025", snippet: "Sign up your university team for the biggest KUER season yet.", content: "", tags: ["Product Updates","Tournament News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+5" },
+      { id: 7, title: "New Training Program Launched for Valorant Players", date: "July 28, 2025", snippet: "Introducing 'Ascend' — intensive coaching for aspiring Valorant pros.", content: "", tags: ["Community News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+6" },
+      { id: 8, title: "Video Game Events: FIFA Tournament Highlights", date: "July 25, 2025", snippet: "Top goals and clutch moments from our recent FIFA tournament.", content: "", tags: ["Partnership","Tournament News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+7" },
+      { id: 9, title: "Tunza Esports Joins Global Esports Federation", date: "July 20, 2025", snippet: "Proud member of the Global Esports Federation (GEF).", content: "", tags: ["Community News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+8" }
+    ];
+
+    const articlesContainer = document.getElementById('news-articles-container');
+    if (!articlesContainer) return; // Only run on pages that have the grid
+
+    const searchInput = document.querySelector('.keyword-search');
+    const searchButton = document.querySelector('.search-button');
+    const tags = document.querySelectorAll('.tag');
+    const loadMoreButton = document.querySelector('.load-more-button');
+
+    const articlesPerPage = 6;
+    let currentPage = 1;
+    let filteredArticles = [];
+
+    // ALWAYS link to /article/?slug=...
+    function cardUrl(article){
+      const slug = (article.slug || (article.title || String(article.id)))
+        .toLowerCase()
+        .replace(/&/g,' and ')
+        .replace(/[^a-z0-9]+/g,'-')
+        .replace(/-+/g,'-')
+        .replace(/(^-|-$)/g,'');
+      return `/article/?slug=${encodeURIComponent(slug)}`;
+    }
+
+    function renderNewsCards(articles) {
+      articlesContainer.innerHTML = '';
+      articles.forEach(article => {
+        const card = document.createElement('div');
+        card.className = "news-card";
+        card.setAttribute('data-tags', article.tags.join(','));
+
+        const url = cardUrl(article);
+        card.innerHTML = `
+          <img src="${article.imageUrl}" alt="${article.title} thumbnail" class="news-image" loading="lazy" decoding="async">
+          <div class="news-content">
+            <h3 class="news-title">${article.title}</h3>
+            <p class="news-date">${article.date}</p>
+            <p class="news-snippet">${article.snippet}</p>
+            <a href="${url}" class="read-more-button">Read More</a>
+          </div>
+        `;
+        articlesContainer.appendChild(card);
       });
     }
 
-    function initPartnersCarousel(){
-      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      const track = document.querySelector('.partners-carousel-track');
-      if (!track) return;
+    function filterAndSearch() {
+      const term = (searchInput && searchInput.value ? searchInput.value : '').toLowerCase();
+      const activeTag = document.querySelector('.tag.active')?.getAttribute('data-tag-name') || 'All';
 
-      const originals = Array.from(track.children).map(n => n.cloneNode(true));
-      let reps = 0;
-      while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
-        originals.forEach(n => track.appendChild(n.cloneNode(true)));
-        reps++;
-      }
-
-      let x = 0, speed = 0.6, raf;
-      function loop(){
-        const max = track.scrollWidth - track.clientWidth;
-        x = (x + speed) % (max || 1);
-        track.scrollLeft = x;
-        raf = requestAnimationFrame(loop);
-      }
-      loop();
-
-      const stop = () => { if (raf) cancelAnimationFrame(raf); raf = null; };
-      const start = () => { if (!raf) loop(); };
-      track.addEventListener('mouseenter', stop);
-      track.addEventListener('mouseleave', start);
-      track.addEventListener('focusin',   stop);
-      track.addEventListener('focusout',  start);
-
-      let t;
-      window.addEventListener('resize', () => {
-        stop();
-        clearTimeout(t);
-        t = setTimeout(() => { x = 0; start(); }, 150);
+      filteredArticles = newsArticles.filter(article => {
+        const titleMatches   = article.title.toLowerCase().includes(term);
+        const snippetMatches = article.snippet.toLowerCase().includes(term);
+        const tagMatches     = activeTag === "All" || article.tags.includes(activeTag);
+        return (titleMatches || snippetMatches) && tagMatches;
       });
+
+      currentPage = 1;
+      displayArticles();
     }
 
-    // NEWS LISTING
-    function initNews(){
-      const newsArticles = [
-        {
-          id: 1,
-          slug: "tunza-esports-renews-kuer-season-3-with-a-fresh-format",
-          title: "Tunza Esports Renews KUER Season 3 With a Fresh Format",
-          date: "September 1, 2025",
-          snippet: "For the first time, KUER will run in two separate periods.",
-          content: "",
-          tags: ["Tournament News","Community News"],
-          imageUrl: "/images/KUER-x-Tunza.png"
-        },
-        {
-          id: 2,
-          slug: "tunza-esports-partners-with-b34r-cl4n-to-strengthen-codm-in-university-esports-in-kenya",
-          title: "Tunza Esports Partners with B34R CL4N to strengthen CODM in University Esports in Kenya",
-          date: "September 5, 2025",
-          snippet: "Through this partnership, Call of Duty Mobile Battle Royale and Multiplayer within KUER get pro-level support.",
-          content: "",
-          tags: ["Partnership"],
-          imageUrl: "/images/KUER-x-B34R.png"
-        },
-        {
-          id: 3,
-          slug: "safaricom-game-conference-tunza-esports-championing-the-growth-of-competitive-gaming-in-kenya",
-          title: "Safaricom Game Conference: Tunza Esports Championing the Growth of Competitive Gaming in Kenya",
-          date: "September 8, 2025",
-          snippet: "The Safaricom Game Conference was a landmark event in Kenya’s gaming industry, bringing together innovators, gamers, and organizations shaping the future of Esports.",
-          content: "",
-          tags: ["Community News", "Partnership"],
-          imageUrl: "/images/Safaricom-Gaming-Conference.JPG"
-        },
-        { id: 4, title: "The Future of VR Gaming", date: "August 25, 2025", snippet: "Dive into the world of virtual reality and how it's shaping the next generation of competitive gaming.", content: "", tags: ["Community News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+3" },
-        { id: 5, title: "Tunza Esports Partners With Local Gaming Cafe", date: "August 5, 2025", snippet: "Weekly tournaments and community nights with The Gamers Hub in Nairobi.", content: "", tags: ["Partnership"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+4" },
-        { id: 6, title: "KUER Season 3: Registrations Now Open", date: "August 1, 2025", snippet: "Sign up your university team for the biggest KUER season yet.", content: "", tags: ["Product Updates","Tournament News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+5" },
-        { id: 7, title: "New Training Program Launched for Valorant Players", date: "July 28, 2025", snippet: "Introducing 'Ascend' — intensive coaching for aspiring Valorant pros.", content: "", tags: ["Community News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+6" },
-        { id: 8, title: "Video Game Events: FIFA Tournament Highlights", date: "July 25, 2025", snippet: "Top goals and clutch moments from our recent FIFA tournament.", content: "", tags: ["Partnership","Tournament News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+7" },
-        { id: 9, title: "Tunza Esports Joins Global Esports Federation", date: "July 20, 2025", snippet: "Proud member of the Global Esports Federation (GEF).", content: "", tags: ["Community News"], imageUrl: "https://placehold.co/600x400/101010/FFFFFF?text=Article+Image+8" }
-      ];
+    function displayArticles() {
+      const end = currentPage * articlesPerPage;
+      renderNewsCards(filteredArticles.slice(0, end));
+      updateLoadMoreButton();
+    }
 
-      const articlesContainer = document.getElementById('news-articles-container');
-      const searchInput = document.querySelector('.keyword-search');
-      const searchButton = document.querySelector('.search-button');
-      const tags = document.querySelectorAll('.tag');
-      const loadMoreButton = document.querySelector('.load-more-button');
+    function updateLoadMoreButton() {
+      if (!loadMoreButton) return;
+      const more = filteredArticles.length > currentPage * articlesPerPage;
+      loadMoreButton.style.display = more ? 'block' : 'none';
+      loadMoreButton.disabled = !more;
+    }
 
-      const articlesPerPage = 6;
-      let currentPage = 1;
-      let filteredArticles = [];
-
-      // ALWAYS link to /article/?slug=... (200 page)
-      function cardUrl(article){
-        const slug = (article.slug || (article.title || String(article.id)))
-          .toLowerCase()
-          .replace(/&/g,' and ')
-          .replace(/[^a-z0-9]+/g,'-')
-          .replace(/-+/g,'-')
-          .replace(/(^-|-$)/g,'');
-        return `/article/?slug=${encodeURIComponent(slug)}`;
-      }
-
-      function renderNewsCards(articles) {
-        if (!articlesContainer) return;
-        articlesContainer.innerHTML = '';
-        articles.forEach(article => {
-          const card = document.createElement('div');
-          card.className = "news-card";
-          card.setAttribute('data-tags', article.tags.join(','));
-
-          const url = cardUrl(article);
-          card.innerHTML = `
-            <img src="${article.imageUrl}" alt="${article.title} thumbnail" class="news-image" loading="lazy" decoding="async">
-            <div class="news-content">
-              <h3 class="news-title">${article.title}</h3>
-              <p class="news-date">${article.date}</p>
-              <p class="news-snippet">${article.snippet}</p>
-              <a href="${url}" class="read-more-button">Read More</a>
-            </div>
-          `;
-          articlesContainer.appendChild(card);
-        });
-      }
-
-      function filterAndSearch() {
-        const searchTerm = (searchInput?.value || '').toLowerCase();
-        const activeTag = document.querySelector('.tag.active')?.getAttribute('data-tag-name') || 'All';
-
-        filteredArticles = newsArticles.filter(article => {
-          const titleMatches   = article.title.toLowerCase().includes(searchTerm);
-          const snippetMatches = article.snippet.toLowerCase().includes(searchTerm);
-          const tagMatches     = activeTag === "All" || article.tags.includes(activeTag);
-          return (titleMatches || snippetMatches) && tagMatches;
-        });
-
-        currentPage = 1;
+    if (loadMoreButton) {
+      loadMoreButton.addEventListener('click', () => {
+        currentPage++;
         displayArticles();
-      }
-
-      function displayArticles() {
-        const end = currentPage * articlesPerPage;
-        const articlesToDisplay = filteredArticles.slice(0, end);
-        renderNewsCards(articlesToDisplay);
-        updateLoadMoreButton();
-      }
-
-      function updateLoadMoreButton() {
-        if (!loadMoreButton) return;
-        const more = filteredArticles.length > currentPage * articlesPerPage;
-        loadMoreButton.style.display = more ? 'block' : 'none';
-        loadMoreButton.disabled = !more;
-      }
-
-      if (loadMoreButton) {
-        loadMoreButton.addEventListener('click', () => {
-          currentPage++;
-          displayArticles();
-        });
-      }
-      if (searchButton) searchButton.addEventListener('click', filterAndSearch);
-      if (searchInput) {
-        searchInput.addEventListener('keyup', (e) => {
-          if (e.key === 'Enter') filterAndSearch();
-        });
-      }
-      tags.forEach(tag => {
-        tag.addEventListener('click', () => {
-          tags.forEach(t => t.classList.remove('active'));
-          tag.classList.add('active');
-          filterAndSearch();
-        });
       });
-
-      // Initial render
-      filterAndSearch();
     }
-
-    function init(){
-      initPartnersCarousel();
-      initNews();
+    if (searchButton) searchButton.addEventListener('click', filterAndSearch);
+    if (searchInput) {
+      searchInput.addEventListener('keyup', (e) => {
+        if (e.key === 'Enter') filterAndSearch();
+      });
     }
+    tags.forEach(tag => {
+      tag.addEventListener('click', () => {
+        tags.forEach(t => t.classList.remove('active'));
+        tag.classList.add('active');
+        filterAndSearch();
+      });
+    });
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init, { once: true });
-    } else {
-      init();
-    }
-  })();
-  </script>
+    // Initial render
+    filterAndSearch();
+  }
+
+  function init(){
+    initPartnersCarousel();
+    initNews();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, { once: true });
+  } else {
+    init();
+  }
+})();
+</script>
 </body>
 </html>
+
