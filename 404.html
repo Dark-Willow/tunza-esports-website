@@ -5,11 +5,14 @@
   <meta charset="utf-8">
   <title>Redirecting…</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <!-- Don’t index 404s -->
   <meta name="robots" content="noindex,follow">
+
   <!-- Avoid caching redirects on CDN/browser -->
   <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
   <meta http-equiv="Pragma" content="no-cache">
+
   <style>
     html,body{height:100%}
     body{
@@ -31,13 +34,13 @@
 
   <script>
   (function () {
-    var loc  = window.location;
-    var url  = new URL(loc.href);
+    var url  = new URL(window.location.href);
     var path = url.pathname.replace(/\/{2,}/g, '/').replace(/\/+$/, ''); // collapse // and strip trailing /
 
     function setFallbackAndGo(targetUrl){
       var a = document.getElementById('fallback');
       if (a) a.setAttribute('href', targetUrl);
+      // Use replace so 404 URL isn't kept in history
       location.replace(targetUrl);
     }
 
@@ -45,7 +48,7 @@
       try { return decodeURIComponent(s); } catch(e){ return s; }
     }
 
-    // Build article URL, preserving existing params (except id/slug), and the hash
+    // Build /article/?{id|slug}=... preserving other params + hash
     function buildArticleUrl(key, byId){
       var target = new URL('/article/', url.origin);
       target.searchParams.set(byId ? 'id' : 'slug', key);
@@ -56,7 +59,7 @@
       return target.href;
     }
 
-    // Case 1: /article/<slug> or /article/<id> (trailing slash optional)
+    // 1) /article/<slug-or-id>  (trailing slash optional)
     var m = path.match(/^\/article\/([^\/?#]+)\/?$/i);
     if (m) {
       var raw = m[1];
@@ -65,22 +68,37 @@
       return setFallbackAndGo(buildArticleUrl(key, byId));
     }
 
-    // Case 1b (optional legacy): /articles/<slug> -> /article/?slug=...
+    // 1b) Legacy: /articles/<slug> -> /article/?slug=...
     var n = path.match(/^\/articles\/([^\/?#]+)\/?$/i);
     if (n) {
       var slug = safeDecode(n[1]);
       return setFallbackAndGo(buildArticleUrl(slug, false));
     }
 
-    // Case 2 (optional): /news/<anything> -> /news/
+    // 2) Any deep news path -> /news/
     if (/^\/news\/.+/i.test(path)) {
       var newsUrl = new URL('/news/', url.origin);
       newsUrl.hash = url.hash;
+      // keep non-news params if useful later
+      url.searchParams.forEach(function(v, k){ newsUrl.searchParams.append(k, v); });
       return setFallbackAndGo(newsUrl.href);
+    }
+
+    // 3) Canonicalize *.html -> folder route (e.g., /about-us.html -> /about-us/)
+    if (/\.html$/i.test(path)) {
+      var targetPath = path
+        .replace(/\/?index\.html$/i, '/')  // /dir/index.html -> /dir/
+        .replace(/\.html$/i, '/');         // /page.html -> /page/
+      var pretty = new URL(targetPath, url.origin);
+      pretty.search = url.search;
+      pretty.hash   = url.hash;
+      return setFallbackAndGo(pretty.href);
     }
 
     // Default: home
     var home = new URL('/', url.origin);
+    home.search = url.search;
+    home.hash   = url.hash;
     setFallbackAndGo(home.href);
   })();
   </script>
