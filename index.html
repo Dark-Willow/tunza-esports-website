@@ -226,135 +226,151 @@
 
   <!-- Scripts (no sticky nav hacking; just menu + news + partners) -->
   <script>
-  (function(){
-    // Mobile menu toggle + dropdown behavior
-    const btn  = document.querySelector('.nav-toggle');
-    const menu = document.getElementById('nav-menu');
+(function(){
+  // --- Mobile menu toggle + dropdowns ---
+  const btn  = document.querySelector('.nav-toggle');
+  const menu = document.getElementById('nav-menu');
+  const nav  = document.querySelector('.header nav');
 
-    if (btn && menu){
-      btn.addEventListener('click', () => {
-        const open = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!open));
-        menu.classList.toggle('is-open', !open);
-      });
+  // Ensure the nav isn't stuck with an inline 'top' from older scripts
+  if (nav) nav.style.top = '';
 
-      // Prevent "#" jumping & toggle dropdowns on mobile
-      document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
-        a.addEventListener('click', (e) => {
-          e.preventDefault();
-          if (window.matchMedia('(max-width: 1024px)').matches){
-            const li = a.parentElement;
-            const expanded = li.classList.toggle('open');
-            a.setAttribute('aria-expanded', String(expanded));
-          }
-        });
-      });
-    }
+  if (btn && menu){
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      menu.classList.toggle('is-open', !open);
+    });
 
-    // News cards
-    function initNews(){
-      const homepageNewsData = [
-        {
-          title: "Tunza Esports renews KUER Season 3",
-          snippet: "A new format and more titles—KUER Season 3 is here.",
-          date: "September 1, 2025",
-          link: "/news/",
-          imageUrl: "/images/KUER-x-Tunza.png"
-        },
-        {
-          title: "Tunza Esports Partners with B34R CL4N",
-          snippet: "Through this partnership, Call of Duty Mobile within KUER get pro-level support.",
-          date: "September 5, 2025",
-          link: "/news/",
-          imageUrl: "/images/KUER-x-B34R.png"
-        },
-        {
-          title: "Safaricom Game Conference: Tunza Esports Championing the Growth of Competitive Gaming in Kenya",
-          snippet: "Safaricom Game Conference was a landmark event in Kenya’s gaming industry",
-          date: "September 8, 2025",
-          link: "/news/",
-          imageUrl: "/images/Safaricom-Gaming-Conference.JPG"
+    // Tap-to-open dropdowns on mobile; prevent '#' jump only when needed
+    document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const isMobile = window.matchMedia('(max-width: 1024px)').matches;
+
+        // Stop the page from jumping to top if href is "#"
+        if (a.getAttribute('href') === '#') e.preventDefault();
+
+        if (isMobile){
+          const li = a.parentElement;
+          const expanded = li.classList.toggle('open');
+          a.setAttribute('aria-expanded', String(expanded));
         }
-      ];
-
-      const container = document.getElementById('news-cards-container');
-      if (!container) return;
-
-      container.innerHTML = '';
-      homepageNewsData.forEach(item => {
-        const a = document.createElement('a');
-        a.href = item.link;
-        a.className = 'news-card-link';
-
-        const card = document.createElement('div');
-        card.className = 'news-card';
-        card.innerHTML = `
-          <div class="news-image-placeholder"></div>
-          <h3 class="news-card-title">${item.title}</h3>
-          <p class="news-card-text">${item.snippet}</p>
-          <p class="news-card-date">${item.date}</p>
-        `;
-
-        const ph = card.querySelector('.news-image-placeholder');
-        if (ph){
-          ph.style.backgroundImage = "url('" + (item.imageUrl || "/images/KUER-x-Tunza.png") + "')";
-          ph.style.backgroundSize = "cover";
-          ph.style.backgroundPosition = "center";
-          ph.style.borderRadius = "12px";
-        }
-
-        a.appendChild(card);
-        container.appendChild(a);
       });
-    }
+    });
+  }
 
-    // Partners carousel
-    function initPartnersCarousel(){
-      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  // --- Optional: Home/news cards filler (runs only if the container exists) ---
+  function initNews(){
+    const container = document.getElementById('news-cards-container');
+    if (!container) return;
 
-      const track = document.querySelector('.partners-carousel-track');
-      if (!track) return;
+    const homepageNewsData = [
+      {
+        title: "Tunza Esports renews KUER Season 3",
+        snippet: "A new format and more titles—KUER Season 3 is here.",
+        date: "September 1, 2025",
+        link: "/news/",
+        imageUrl: "/images/KUER-x-Tunza.png"
+      },
+      {
+        title: "Tunza Esports Partners with B34R CL4N",
+        snippet: "Through this partnership, Call of Duty Mobile within KUER get pro-level support.",
+        date: "September 5, 2025",
+        link: "/news/",
+        imageUrl: "/images/KUER-x-B34R.png"
+      },
+      {
+        title: "Safaricom Game Conference: Tunza Esports Championing the Growth of Competitive Gaming in Kenya",
+        snippet: "Safaricom Game Conference was a landmark event in Kenya’s gaming industry",
+        date: "September 8, 2025",
+        link: "/news/",
+        imageUrl: "/images/Safaricom-Gaming-Conference.JPG"
+      }
+    ];
 
+    container.innerHTML = '';
+    homepageNewsData.forEach(item => {
+      const a = document.createElement('a');
+      a.href = item.link;
+      a.className = 'news-card-link';
+
+      const card = document.createElement('div');
+      card.className = 'news-card';
+      card.innerHTML = `
+        <div class="news-image-placeholder"></div>
+        <h3 class="news-card-title">${item.title}</h3>
+        <p class="news-card-text">${item.snippet}</p>
+        <p class="news-card-date">${item.date}</p>
+      `;
+
+      const ph = card.querySelector('.news-image-placeholder');
+      if (ph){
+        ph.style.backgroundImage = "url('" + (item.imageUrl || "/images/KUER-x-Tunza.png") + "')";
+        ph.style.backgroundSize = "cover";
+        ph.style.backgroundPosition = "center";
+        ph.style.borderRadius = "12px";
+      }
+
+      a.appendChild(card);
+      container.appendChild(a);
+    });
+  }
+
+  // --- Partners carousel (auto-scroll; respects reduced motion) ---
+  function initPartnersCarousel(){
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const track = document.querySelector('.partners-carousel-track');
+    if (!track) return;
+
+    // Only duplicate once
+    if (!track.dataset.duplicated){
       const originals = Array.from(track.children).map(n => n.cloneNode(true));
       let reps = 0;
       while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
         originals.forEach(n => track.appendChild(n.cloneNode(true)));
         reps++;
       }
-
-      let x = 0, speed = 0.6, raf;
-      function loop(){
-        const max = track.scrollWidth - track.clientWidth;
-        x = (x + speed) % (max || 1);
-        track.scrollLeft = x;
-        raf = requestAnimationFrame(loop);
-      }
-      loop();
-
-      track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
-      track.addEventListener('mouseleave', () => loop());
-      track.addEventListener('focusin', () => cancelAnimationFrame(raf));
-      track.addEventListener('focusout', () => loop());
-
-      let t;
-      window.addEventListener('resize', () => {
-        cancelAnimationFrame(raf);
-        clearTimeout(t);
-        t = setTimeout(() => { x = 0; loop(); }, 150);
-      });
+      track.dataset.duplicated = 'true';
     }
 
-    function init(){
-      initNews();
-      initPartnersCarousel();
-    }
+    let x = 0, speed = 0.6, raf = 0;
+    const loop = () => {
+      const max = track.scrollWidth - track.clientWidth;
+      x = (x + speed) % (max || 1);
+      track.scrollLeft = x;
+      raf = requestAnimationFrame(loop);
+    };
+    const start = () => { if (!raf) loop(); };
+    const stop  = () => { if (raf) { cancelAnimationFrame(raf); raf = 0; } };
 
-    if (document.readyState === 'loading'){
-      document.addEventListener('DOMContentLoaded', init);
-    } else {
-      init();
-    }
-  })();
-  </script>
+    start();
+
+    track.addEventListener('mouseenter', stop);
+    track.addEventListener('mouseleave', start);
+    track.addEventListener('focusin',   stop);
+    track.addEventListener('focusout',  start);
+
+    let t;
+    window.addEventListener('resize', () => {
+      stop();
+      clearTimeout(t);
+      t = setTimeout(() => { x = 0; start(); }, 150);
+    });
+  }
+
+  function init(){
+    initNews();
+    initPartnersCarousel();
+  }
+
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init, { once: true });
+  } else {
+    init();
+  }
+})();
+</script>
 </body>
 </html>
+
