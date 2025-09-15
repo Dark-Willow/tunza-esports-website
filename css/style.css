@@ -1,9 +1,9 @@
 /* ==========================================================
-   Tunza Esports — ORIGINAL THEME (with mobile fixes)
-   - Transparent/overlay nav (like before)
-   - Original News + Newsletter styling
-   - Mobile horizontal scroll for Gallery, Directors, Events
-   - No JS-dependent sticky nav
+   Tunza Esports — ORIGINAL THEME (with fixes)
+   - Fixed, non-moving nav (desktop + mobile)
+   - Full-screen mobile drawer
+   - Shop Now spaced & stays white on hover
+   - Home hero covers whole screen
    ========================================================== */
 
 /* --------- Base / Reset --------- */
@@ -23,14 +23,16 @@ a:hover { color:#00E5FF; }
 .wrap, .container { width:min(1200px, 92vw); margin-inline:auto; padding-inline:16px; }
 
 /* ==========================================================
-   HEADER / NAV  (original look; desktop override below)
+   HEADER / NAV  (fixed on all breakpoints)
    ========================================================== */
 .header nav{
-  position:absolute; inset:0 0 auto 0;
+  position:fixed !important;  /* hard-lock to top */
+  top:0 !important; left:0; right:0;
   z-index:1000;
   padding:6px 75px;
   display:flex; align-items:center; justify-content:flex-start;
-  background:linear-gradient(to bottom, rgba(26,26,48,1) 0%, rgba(26,26,48,0) 100%);
+  background:linear-gradient(to bottom, rgba(26,26,48,.95) 0%, rgba(26,26,48,0) 85%);
+  transform:translateZ(0); /* prevents iOS jitter */
 }
 .header .logo img{ width:90px; height:90px; object-fit:contain; display:block; }
 
@@ -44,7 +46,7 @@ a:hover { color:#00E5FF; }
 .has-dropdown > a{ padding-right:18px; }
 .has-dropdown > a::after{
   content:'\25BE'; font-size:.7em; position:absolute; right:0; top:50%; transform:translateY(-50%);
-  color:#FCFCFD;
+  color:#FCFCFD; opacity:1; /* keep chevrons visible */
 }
 .dropdown-menu{
   display:none; position:absolute; left:50%; top:100%; transform:translateX(-50%);
@@ -57,40 +59,60 @@ a:hover { color:#00E5FF; }
 }
 .dropdown-menu li a:hover{ background:#0d0d21; color:#FCFCFD; }
 
-/* Shop button (original look) */
+/* Shop button */
 .shop-button{
-  font-weight:700; font-size:16px; color:#FCFCFD;
+  font-weight:700; font-size:16px; color:#fff;
   background:#B425EC; padding:10px 25px; border-radius:6px;
-  transition:background .25s ease;
+  transition:background .25s ease, color .25s ease, transform .2s;
 }
-.shop-button:hover{ background:#19D2EA; }
+.shop-button:hover{ background:#a018d8; color:#fff !important; }
 
-/* Mobile / tablet nav (<=1024px) — keeps transparent feel */
+/* Mobile / tablet (<=1024px): full-screen drawer */
 .nav-toggle{ display:none; }
 @media (max-width:1024px){
+  :root{ --nav-h:72px; }
+
   .header nav{ padding:6px 16px; }
+
   .nav-toggle{
     display:inline-flex; align-items:center; gap:.5rem;
     background:transparent; color:#fff; border:1px solid #2a2f3a;
     padding:.5rem .75rem; border-radius:10px; margin-left:auto;
   }
+
   .nav-links{
-    display:none; position:absolute; left:0; right:0; top:72px;
-    background:rgba(11,11,22,.98); border-top:1px solid #202433;
-    padding:14px 16px 18px; margin-left:0;
+    position:fixed;
+    inset:var(--nav-h) 0 0 0;                /* sits under the fixed bar */
+    height:calc(100dvh - var(--nav-h));      /* fill the screen */
+    display:none;
+    overflow:auto;
+    background:rgba(11,11,22,.98);
+    border-top:1px solid #202433;
+    text-align:center;
+    padding:20px 16px 40px;
   }
   .nav-links.is-open{ display:block; }
-  .nav-links > ul{ flex-direction:column; gap:10px; }
-  .dropdown-menu{ position:static; transform:none; margin-top:6px; display:none; }
-  .has-dropdown.open > .dropdown-menu{ display:block; }
-  .shop-button{ width:100%; text-align:center; margin-top:10px; }
+
+  .nav-links > ul{ flex-direction:column; gap:28px; }
+
+  /* breathing room between Gallery and Shop Now */
+  .nav-links > ul > li:last-child{ margin-bottom:24px; }
+
+  .nav-links .shop-button{
+    display:inline-block;
+    width:auto;
+    margin:40px auto 12px; /* move it away from Gallery */
+  }
+
+  /* prevent background scroll when menu is open (toggle this class with JS) */
+  body.menu-open{ overflow:hidden; }
 }
 
 /* ==========================================================
-   HERO SECTIONS (unchanged visual)
+   HERO SECTIONS
    ========================================================== */
 .home-hero-section{
-  min-height:962px; width:100%;
+  min-height:100dvh; width:100%;         /* full screen since nav is fixed */
   background-image:linear-gradient(rgba(4,9,30,.7), rgba(4,9,30,.7)), url(../images/TunzaEsportsBackground.png);
   background-size:cover; background-position:center; position:relative;
 }
@@ -154,6 +176,12 @@ a:hover { color:#00E5FF; }
   .video-gaming-events-hero-section .service-main-heading,
   .kuer-hero-section .service-main-heading,
   .news-hero-section .service-main-heading{ font-size:36px; }
+}
+
+/* Offset first non-hero section (because nav is fixed).
+   Home hero + the other hero sections are intentionally NOT offset. */
+.header + *:not(.home-hero-section):not(.service-hero-section):not(.esports-broadcasting-hero-section):not(.events-bootcamps-hero-section):not(.video-gaming-events-hero-section):not(.kuer-hero-section):not(.news-hero-section):not(.about-hero-section){
+  margin-top:96px;
 }
 
 /* ==========================================================
@@ -433,29 +461,7 @@ footer{ background:#0A0A1A; color:#FCFCFD; }
 @media (max-width:768px){ .coming-soon-hero-section h1{ font-size:3rem; } }
 @media (max-width:480px){ .coming-soon-hero-section h1{ font-size:2rem; } }
 
-/* ==== NAV: lock to top on desktop, never moved by JS ==== */
-.header nav { top: 0 !important; } /* defeats any leftover inline JS styles */
-
-/* Desktop: fixed overlay nav (mobile keeps absolute overlay) */
-@media (min-width:1025px){
-  .header nav{
-    position: fixed;
-    left: 0; right: 0; top: 0;
-    z-index: 1000;
-    background: linear-gradient(to bottom, rgba(26,26,48,0.95) 0%, rgba(26,26,48,0) 85%);
-  }
-
-  /* Offset first element unless it's an overlay hero */
-  .header + *:not(.home-hero-section):not(.service-hero-section):not(.esports-broadcasting-hero-section):not(.events-bootcamps-hero-section):not(.video-gaming-events-hero-section):not(.kuer-hero-section):not(.news-hero-section):not(.about-hero-section){
-    margin-top: 96px;
-  }
-}
-
-@media (max-width:1024px){
-  .header nav{ position: absolute; top: 0; left: 0; right: 0; }
-}
-
-/* ==== “Want our services?” CTA button — make it purple ==== */
+/* ==== CTA buttons in purple (used in “Want our services?” blocks) ==== */
 .cta-button,
 .cta-btn,
 .cta-card .cta-button,
