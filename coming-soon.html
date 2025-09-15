@@ -162,31 +162,71 @@ layout: null
   </footer>
 
   <script>
-  (function () {
-    // Mobile menu toggle + dropdowns
-    const btn  = document.querySelector('.nav-toggle');
-    const menu = document.getElementById('nav-menu');
+(function () {
+  const BP = 1024; // matches your CSS breakpoint
+  const btn  = document.querySelector('.nav-toggle');
+  const menu = document.getElementById('nav-menu');
+  const nav  = document.querySelector('.header nav');
 
-    if (btn && menu){
-      btn.addEventListener('click', () => {
-        const open = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!open));
-        menu.classList.toggle('is-open', !open);
-      });
+  // Ensure no leftover inline positioning from older scripts
+  if (nav) nav.style.top = '';
 
-      // Tap-to-open dropdowns on mobile
-      document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
-        a.addEventListener('click', (e) => {
-          if (window.matchMedia('(max-width:1024px)').matches){
-            e.preventDefault();
-            const li = a.parentElement;
-            const expanded = li.classList.toggle('open');
-            a.setAttribute('aria-expanded', String(expanded));
-          }
-        });
-      });
-    }
-  })();
-  </script>
+  if (!btn || !menu) return;
+
+  const isMobile = () => window.matchMedia(`(max-width:${BP}px)`).matches;
+
+  function openMenu(){
+    menu.classList.add('is-open');
+    btn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu(){
+    menu.classList.remove('is-open');
+    btn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    // close any open dropdowns
+    document.querySelectorAll('.nav-links .has-dropdown').forEach(li => {
+      li.classList.remove('open');
+      const a = li.querySelector(':scope > a');
+      if (a) a.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  // Toggle menu
+  btn.addEventListener('click', () => {
+    menu.classList.contains('is-open') ? closeMenu() : openMenu();
+  });
+
+  // Tap-to-open dropdowns on mobile only
+  document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
+    a.addEventListener('click', (e) => {
+      if (!isMobile()) return; // desktop uses CSS hover
+      e.preventDefault();
+      const li = a.parentElement;
+      const expanded = li.classList.toggle('open');
+      a.setAttribute('aria-expanded', String(expanded));
+    });
+  });
+
+  // Close on outside click (mobile)
+  document.addEventListener('click', (e) => {
+    if (!isMobile()) return;
+    if (!menu.contains(e.target) && e.target !== btn) closeMenu();
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
+
+  // Reset state when crossing the breakpoint
+  let last = isMobile();
+  window.addEventListener('resize', () => {
+    const now = isMobile();
+    if (now !== last) { closeMenu(); last = now; }
+  });
+})();
+</script>
 </body>
 </html>
+
