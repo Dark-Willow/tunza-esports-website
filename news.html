@@ -80,16 +80,10 @@ layout: null
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/css/style.css" />
 
-  <!-- Page-scoped minimal CSS -->
+  <!-- Page-scoped minimal CSS (only what’s unique here) -->
   <style>
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
     .news-image{width:100%;height:200px;object-fit:cover;border-radius:8px 8px 0 0;display:block}
-    .partners-section{padding:40px 0;text-align:center}
-    .partners-carousel-track{display:flex;gap:24px;overflow:hidden;padding:8px 0;scroll-behavior:auto}
-    .partner-logo{flex:0 0 auto;width:240px;height:110px;display:flex;align-items:center;justify-content:center;background:#0f0f17;border-radius:12px;padding:8px}
-    .partner-logo img{max-height:90px;max-width:100%;object-fit:contain;display:block}
-    @media (max-width:768px){.partner-logo{width:180px;height:100px}.partner-logo img{max-height:80px}}
-    @media (max-width:480px){.partner-logo{width:150px;height:90px}.partner-logo img{max-height:70px}}
   </style>
 </head>
 <body>
@@ -167,9 +161,9 @@ layout: null
       </aside>
 
       <div class="articles-container">
-        <div class="news-content-grid" id="news-articles-container"></div>
+        <div class="news-content-grid" id="news-articles-container" aria-live="polite"></div>
         <div class="load-more-container">
-          <button class="load-more-button">Load More</button>
+          <button class="load-more-button" type="button">Load More</button>
         </div>
       </div>
     </div>
@@ -207,9 +201,9 @@ layout: null
   <section class="partners-section">
     <h2>Our Partners, clients, friends</h2>
     <div class="partners-carousel-track">
-      <div class="partner-logo"><img src="/images/Esports-Africa-News.jpg" alt="Esports Africa News logo" loading="lazy"></div>
-      <div class="partner-logo"><img src="/images/Afrigamer.jpg" alt="Afrigamer logo" loading="lazy"></div>
-      <div class="partner-logo"><img src="/images/B34R-CL4N%20partner.jpg" alt="B34R CL4N" loading="lazy"></div>
+      <div class="partner-logo"><img src="/images/Esports-Africa-News.jpg" alt="Esports Africa News logo" loading="lazy" decoding="async"></div>
+      <div class="partner-logo"><img src="/images/Afrigamer.jpg" alt="Afrigamer logo" loading="lazy" decoding="async"></div>
+      <div class="partner-logo"><img src="/images/B34R-CL4N%20partner.jpg" alt="B34R CL4N" loading="lazy" decoding="async"></div>
     </div>
   </section>
 
@@ -273,13 +267,6 @@ layout: null
       });
     }
 
-    // Sticky nav (kept consistent across pages)
-    function syncNavTop(){
-      const navbar = document.querySelector('.header nav');
-      if (navbar) navbar.style.top = window.scrollY > 0 ? (window.scrollY + 'px') : '0px';
-    }
-    window.addEventListener('scroll', syncNavTop);
-
     function initPartnersCarousel(){
       if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const track = document.querySelector('.partners-carousel-track');
@@ -301,16 +288,18 @@ layout: null
       }
       loop();
 
-      track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
-      track.addEventListener('mouseleave', () => loop());
-      track.addEventListener('focusin',   () => cancelAnimationFrame(raf));
-      track.addEventListener('focusout',  () => loop());
+      const stop = () => { if (raf) cancelAnimationFrame(raf); raf = null; };
+      const start = () => { if (!raf) loop(); };
+      track.addEventListener('mouseenter', stop);
+      track.addEventListener('mouseleave', start);
+      track.addEventListener('focusin',   stop);
+      track.addEventListener('focusout',  start);
 
       let t;
       window.addEventListener('resize', () => {
-        cancelAnimationFrame(raf);
+        stop();
         clearTimeout(t);
-        t = setTimeout(() => { x = 0; loop(); }, 150);
+        t = setTimeout(() => { x = 0; start(); }, 150);
       });
     }
 
@@ -365,7 +354,7 @@ layout: null
       let currentPage = 1;
       let filteredArticles = [];
 
-      // Build /article/?slug=... URLs that match your article page router
+      // ALWAYS link to /article/?slug=... (200 page)
       function cardUrl(article){
         const slug = (article.slug || (article.title || String(article.id)))
           .toLowerCase()
@@ -422,8 +411,9 @@ layout: null
 
       function updateLoadMoreButton() {
         if (!loadMoreButton) return;
-        loadMoreButton.style.display =
-          (filteredArticles.length > currentPage * articlesPerPage) ? 'block' : 'none';
+        const more = filteredArticles.length > currentPage * articlesPerPage;
+        loadMoreButton.style.display = more ? 'block' : 'none';
+        loadMoreButton.disabled = !more;
       }
 
       if (loadMoreButton) {
@@ -451,13 +441,12 @@ layout: null
     }
 
     function init(){
-      syncNavTop();
       initPartnersCarousel();
       initNews();
     }
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init);
+      document.addEventListener('DOMContentLoaded', init, { once: true });
     } else {
       init();
     }
