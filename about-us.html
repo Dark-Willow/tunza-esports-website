@@ -243,4 +243,138 @@ layout: null
       >
         <input type="email" name="EMAIL" placeholder="Enter your email here" class="email-input" required />
         <div style="position:absolute; left:-5000px;" aria-hidden="true">
-          <input type="t
+          <input type="text" name="b_49268c059773710b44455bb33_f95ceda37f" tabindex="-1" value="">
+        </div>
+        <button type="submit" class="subscribe-button">Subscribe</button>
+      </form>
+      <p class="newsletter-card-disclaimer">Stay ahead in the game. Get exclusive tips, updates, and strategy guides straight to your inbox. No spam, just pure gaming goodness.</p>
+    </div>
+  </section>
+
+  <div class="spacer-before-partners"></div>
+
+  <!-- Partners -->
+  <section class="partners-section">
+    <h2>Our Partners, clients, friends</h2>
+    <div class="partners-carousel-track">
+      <div class="partner-logo"><img src="/images/Esports-Africa-News.jpg" alt="Esports Africa News" loading="lazy" decoding="async"></div>
+      <div class="partner-logo"><img src="/images/Afrigamer.jpg" alt="Afrigamer" loading="lazy" decoding="async"></div>
+      <div class="partner-logo"><img src="/images/B34R-CL4N%20partner.jpg" alt="B34R CL4N" loading="lazy" decoding="async"></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h4>About Us</h4>
+        <ul>
+          <li><a href="/">Home Page</a></li>
+          <li><a href="/contact/">Contact Us</a></li>
+          <li><a href="/privacy-policy/">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="/tunzatourna/">Tunza Tourna</a></li>
+          <li><a href="/shop/">Shop</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Tournaments</h4>
+        <ul>
+          <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
+        </ul>
+      </div>
+      <div class="footer-column footer-logo-column">
+        <img src="/images/tunzalogo.png" alt="Tunza Esports Logo" />
+        <p>Shaping the future of Kenya's Esports</p>
+        <p>info@tunzaesports.org</p>
+        <p>P.O BOX 45085-00100</p>
+        <p>Nairobi, Kenya</p>
+        <p>+254 107717520</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="copyright-text">&copy; 2025 Tunza Esports. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JS: mobile menu + dropdowns + partners carousel + sticky nav -->
+  <script>
+  (function(){
+    // Mobile menu toggle
+    const btn  = document.querySelector('.nav-toggle');
+    const menu = document.getElementById('nav-menu');
+    if (btn && menu){
+      btn.addEventListener('click', () => {
+        const open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+        menu.classList.toggle('is-open', !open);
+      });
+      // Tap-to-open dropdowns on mobile
+      document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
+        a.addEventListener('click', (e) => {
+          if (window.matchMedia('(max-width: 1024px)').matches){
+            e.preventDefault();
+            const li = a.parentElement;
+            const expanded = li.classList.toggle('open');
+            a.setAttribute('aria-expanded', String(expanded));
+          }
+        });
+      });
+    }
+
+    // Partners carousel (auto-scroll via scrollLeft; respects reduced motion)
+    function initPartnersCarousel(){
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const track = document.querySelector('.partners-carousel-track');
+      if (!track) return;
+
+      const originals = Array.from(track.children).map(n => n.cloneNode(true));
+      let reps = 0;
+      while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
+        originals.forEach(n => track.appendChild(n.cloneNode(true)));
+        reps++;
+      }
+
+      let x = 0, speed = 0.6, raf;
+      const loop = () => {
+        const max = track.scrollWidth - track.clientWidth;
+        x = (x + speed) % (max || 1);
+        track.scrollLeft = x;
+        raf = requestAnimationFrame(loop);
+      };
+      loop();
+
+      track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
+      track.addEventListener('mouseleave', loop);
+      track.addEventListener('focusin',   () => cancelAnimationFrame(raf));
+      track.addEventListener('focusout',  loop);
+
+      let t;
+      window.addEventListener('resize', () => {
+        cancelAnimationFrame(raf);
+        clearTimeout(t);
+        t = setTimeout(() => { x = 0; loop(); }, 150);
+      });
+    }
+
+    if (document.readyState === 'loading'){
+      document.addEventListener('DOMContentLoaded', initPartnersCarousel);
+    } else {
+      initPartnersCarousel();
+    }
+
+    // Sticky nav behavior (kept consistent with other pages)
+    window.addEventListener('scroll', function () {
+      const navbar = document.querySelector('.header nav');
+      if (navbar) navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
+    });
+    const navbar = document.querySelector('.header nav');
+    if (navbar) navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
+  })();
+  </script>
+</body>
+</html>
