@@ -47,7 +47,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/css/style.css" />
 
-  <!-- JSON-LD: Organization (single source of truth) -->
+  <!-- JSON-LD: Organization -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -64,7 +64,7 @@
   }
   </script>
 
-  <!-- JSON-LD: WebSite (enables sitelinks search box) -->
+  <!-- JSON-LD: WebSite -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -81,10 +81,15 @@
   }
   </script>
 
-  <!-- Page-specific minimal CSS -->
+  <!-- Page-scoped minimal CSS -->
   <style>
+    /* a11y helper */
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
     .news-image-placeholder{width:100%;aspect-ratio:3/2;background-size:cover;background-position:center;border-radius:12px;display:block}
     .newsletter-form-container{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+    /* Partners strip */
     .partners-carousel-track{display:flex;gap:24px;overflow:hidden;padding:8px 0}
     .partner-logo{flex:0 0 auto;width:240px;height:110px;display:flex;align-items:center;justify-content:center;background:#0f0f17;border-radius:12px;padding:8px}
     .partner-logo img{max-height:90px;max-width:100%;object-fit:contain;display:block}
@@ -96,14 +101,23 @@
 <body>
   <!-- Header / Nav -->
   <section class="header">
-    <nav>
+    <nav class="wrap" role="navigation" aria-label="Primary">
       <a href="/" class="logo"><img src="/images/tunzalogo.png" alt="Tunza Esports Logo" /></a>
-      <div class="nav-links">
+
+      <!-- Mobile toggle -->
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">
+        <span class="fa fa-bars" aria-hidden="true"></span>
+        <span class="sr-only">Menu</span>
+      </button>
+
+      <!-- Nav links -->
+      <div id="nav-menu" class="nav-links">
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/about-us/">About Us</a></li>
+
           <li class="has-dropdown">
-            <a href="#">Our Services</a>
+            <a href="#" aria-haspopup="true" aria-expanded="false">Our Services</a>
             <ul class="dropdown-menu">
               <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
               <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
@@ -112,8 +126,9 @@
               <li><a href="/bootcamps-training-programs/">Bootcamps &amp; Training Programs</a></li>
             </ul>
           </li>
+
           <li class="has-dropdown">
-            <a href="#">Our Products</a>
+            <a href="#" aria-haspopup="true" aria-expanded="false">Our Products</a>
             <ul class="dropdown-menu">
               <li><a href="/ker/">KER</a></li>
               <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
@@ -121,6 +136,7 @@
               <li><a href="/shop/">Shop</a></li>
             </ul>
           </li>
+
           <li><a href="/news/">News</a></li>
           <li><a href="/contact/">Contact Us</a></li>
           <li><a href="/gallery/">Gallery</a></li>
@@ -226,12 +242,38 @@
   <!-- Scripts -->
   <script>
   (function(){
-    // Sticky-ish nav
-    window.addEventListener("scroll", function () {
-      const nav = document.querySelector(".header nav");
-      if (nav) nav.style.top = window.scrollY > 0 ? (window.scrollY + "px") : "0px";
-    });
+    // Mobile menu toggle + dropdowns
+    const btn  = document.querySelector('.nav-toggle');
+    const menu = document.getElementById('nav-menu');
 
+    if (btn && menu){
+      btn.addEventListener('click', () => {
+        const open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+        menu.classList.toggle('is-open', !open);
+      });
+
+      document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
+        a.addEventListener('click', (e) => {
+          if (window.matchMedia('(max-width: 1024px)').matches){
+            e.preventDefault();
+            const li = a.parentElement;
+            const expanded = li.classList.toggle('open');
+            a.setAttribute('aria-expanded', String(expanded));
+          }
+        });
+      });
+    }
+
+    // Sticky-ish nav (kept for consistency with your other pages)
+    function syncNavTop(){
+      const nav = document.querySelector('.header nav');
+      if (nav) nav.style.top = window.scrollY > 0 ? (window.scrollY + 'px') : '0px';
+    }
+    window.addEventListener('scroll', syncNavTop);
+    syncNavTop();
+
+    // News cards
     function initNews(){
       const homepageNewsData = [
         {
@@ -257,17 +299,17 @@
         }
       ];
 
-      const container = document.getElementById("news-cards-container");
+      const container = document.getElementById('news-cards-container');
       if (!container) return;
 
-      container.innerHTML = "";
+      container.innerHTML = '';
       homepageNewsData.forEach(item => {
-        const a = document.createElement("a");
+        const a = document.createElement('a');
         a.href = item.link;
-        a.className = "news-card-link";
+        a.className = 'news-card-link';
 
-        const card = document.createElement("div");
-        card.className = "news-card";
+        const card = document.createElement('div');
+        card.className = 'news-card';
         card.innerHTML = `
           <div class="news-image-placeholder"></div>
           <h3 class="news-card-title">${item.title}</h3>
@@ -275,8 +317,8 @@
           <p class="news-card-date">${item.date}</p>
         `;
 
-        const ph = card.querySelector(".news-image-placeholder");
-        if (ph) {
+        const ph = card.querySelector('.news-image-placeholder');
+        if (ph){
           ph.style.backgroundImage = "url('" + (item.imageUrl || "/images/KUER-x-Tunza.png") + "')";
           ph.style.backgroundSize = "cover";
           ph.style.backgroundPosition = "center";
@@ -288,17 +330,18 @@
       });
     }
 
+    // Partners carousel
     function initPartnersCarousel(){
       if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
       const track = document.querySelector('.partners-carousel-track');
       if (!track) return;
 
-      let guard = 0;
       const originals = Array.from(track.children).map(n => n.cloneNode(true));
-      while ((track.scrollWidth || 0) < (track.clientWidth * 3) && guard < 10) {
+      let reps = 0;
+      while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
         originals.forEach(n => track.appendChild(n.cloneNode(true)));
-        guard++;
+        reps++;
       }
 
       let x = 0, speed = 0.6, raf;
