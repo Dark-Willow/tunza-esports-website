@@ -14,6 +14,7 @@ layout: null
 
   <title>Tunza Esports - Shop</title>
   <meta name="description" content="Official Tunza Esports shop for jerseys, merch, and gear. New drops and limited editions." />
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
 
   <!-- Canonical + Social -->
   <link rel="canonical" href="https://www.tunzaesports.org/shop/" />
@@ -47,12 +48,13 @@ layout: null
   <!-- Organization schema (sitewide consistent) -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Tunza Esports",
-    "url": "https://www.tunzaesports.org",
-    "logo": "https://www.tunzaesports.org/images/android-chrome-512x512-dark.png",
-    "sameAs": [
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "@id":"https://www.tunzaesports.org/#org",
+    "name":"Tunza Esports",
+    "url":"https://www.tunzaesports.org",
+    "logo":"https://www.tunzaesports.org/images/android-chrome-512x512-dark.png",
+    "sameAs":[
       "https://www.instagram.com/TunzaEsports",
       "https://x.com/TunzaEsports",
       "https://www.facebook.com/TunzaEsports"
@@ -82,10 +84,10 @@ layout: null
             <a href="#">Our Services</a>
             <ul class="dropdown-menu">
               <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
-              <li><a href="/esports-broadcasting/">Esports Broadcasting</a></li>
+              <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
               <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
               <li><a href="/consultation/">Consultation</a></li>
-              <li><a href="/bootcamps-training-programs/">Bootcamps & Training Programs</a></li>
+              <li><a href="/bootcamps-training-programs/">Bootcamps &amp; Training Programs</a></li>
             </ul>
           </li>
 
@@ -93,7 +95,7 @@ layout: null
             <a href="#">Our Products</a>
             <ul class="dropdown-menu">
               <li><a href="/ker/">KER</a></li>
-              <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
+              <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
               <li><a href="/tunzatourna/">TunzaTourna</a></li>
               <li><a href="/shop/">Shop</a></li>
             </ul>
@@ -136,7 +138,7 @@ layout: null
       <div class="footer-column">
         <h4>Tournaments</h4>
         <ul>
-          <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
+          <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
         </ul>
       </div>
 
@@ -167,13 +169,14 @@ layout: null
       nav.style.top = window.scrollY > 0 ? window.scrollY + 'px' : '0px';
     });
 
-    // Optional partners carousel guard (runs only if section exists)
+    // Optional partners carousel guard – only runs if the section exists on this page
     const partnersCarousel = document.querySelector('.partners-carousel-track');
     if (partnersCarousel) {
       partnersCarousel.innerHTML += partnersCarousel.innerHTML;
       const totalWidth = partnersCarousel.scrollWidth / 2;
       let position = 0;
       const speed = 0.5;
+
       function animate() {
         position -= speed;
         partnersCarousel.style.transform = `translateX(${position}px)`;
@@ -185,9 +188,3 @@ layout: null
   </script>
 </body>
 </html>
-
-
-
-
-
-
