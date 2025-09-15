@@ -58,7 +58,7 @@ layout: null
   }
   </script>
 
-  <!-- Breadcrumbs (Home > About Us) -->
+  <!-- Breadcrumbs (Home > About Us) for SEO only -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -78,7 +78,7 @@ layout: null
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/css/style.css" />
 
-  <!-- Page-scoped tweaks (keeps global CSS stable) -->
+  <!-- Page-scoped tweaks -->
   <style>
     /* Partners carousel visuals */
     .partners-section { padding: 40px 0; text-align:center; }
@@ -142,11 +142,8 @@ layout: null
     </nav>
   </section>
 
-  <!-- Hero -->
+  <!-- Hero (breadcrumb removed) -->
   <section class="about-hero-section">
-    <div class="breadcrumb">
-      <a href="/">Home</a> &rsaquo; About Us
-    </div>
     <h1 class="about-main-heading">About Us</h1>
     <p class="about-tagline">Shaping the future of Kenya’s esports through community, competition, and opportunity.</p>
   </section>
@@ -300,7 +297,7 @@ layout: null
     </div>
   </footer>
 
-  <!-- JS: mobile menu + dropdowns + partners carousel + (your) sticky nav -->
+  <!-- JS: mobile menu + dropdowns + partners carousel + sticky nav -->
   <script>
   (function(){
     // Mobile menu toggle
@@ -366,7 +363,7 @@ layout: null
       initPartnersCarousel();
     }
 
-    // Your existing "sticky" nav behavior (kept for consistency)
+    // Sticky nav behavior
     window.addEventListener('scroll', function () {
       const navbar = document.querySelector('.header nav');
       if (navbar) navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
@@ -377,4 +374,3 @@ layout: null
   </script>
 </body>
 </html>
-
