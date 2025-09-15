@@ -207,30 +207,95 @@ layout: null
 
   <!-- Minimal JS: mobile menu + mobile dropdowns -->
   <script>
-  (function(){
-    const btn  = document.querySelector('.nav-toggle');
-    const menu = document.getElementById('nav-menu');
+(function () {
+  const BP = 1024; // mobile/tablet breakpoint
+  const btn  = document.querySelector('.nav-toggle');
+  const menu = document.getElementById('nav-menu');
+  const nav  = document.querySelector('.header nav');
 
-    if (btn && menu){
-      btn.addEventListener('click', () => {
-        const open = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!open));
-        menu.classList.toggle('is-open', !open);
-      });
+  // Clear any old inline sticky styles that made the nav "move"
+  if (nav) nav.style.top = '';
 
-      // Tap-to-open dropdowns on mobile
-      document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
-        a.addEventListener('click', (e) => {
-          if (window.matchMedia('(max-width: 1024px)').matches){
-            e.preventDefault();
-            const li = a.parentElement;
-            const expanded = li.classList.toggle('open');
-            a.setAttribute('aria-expanded', String(expanded));
-          }
-        });
-      });
-    }
-  })();
-  </script>
+  const isMobile = () => window.matchMedia(`(max-width:${BP}px)`).matches;
+
+  function closeAllDropdowns(){
+    document.querySelectorAll('.nav-links .has-dropdown').forEach(li => {
+      li.classList.remove('open');
+      const a = li.querySelector(':scope > a');
+      if (a) a.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  function openMenu(){
+    menu.classList.add('is-open');
+    btn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden'; // lock scroll while menu open
+  }
+
+  function closeMenu(){
+    menu.classList.remove('is-open');
+    btn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    closeAllDropdowns();
+  }
+
+  if (btn && menu){
+    // Toggle main mobile menu
+    btn.addEventListener('click', () => {
+      const open = menu.classList.contains('is-open');
+      open ? closeMenu() : openMenu();
+    });
+
+    // Handle dropdown triggers and prevent "#" jumps
+    menu.addEventListener('click', (e) => {
+      const trigger = e.target.closest('.has-dropdown > a');
+      const link    = e.target.closest('a[href]');
+
+      // Prevent "#" navigation everywhere
+      if (link && link.getAttribute('href') === '#') {
+        e.preventDefault();
+      }
+
+      // Mobile/tablet: tap-to-toggle dropdowns
+      if (trigger) {
+        if (isMobile()){
+          e.preventDefault();
+          const li = trigger.parentElement;
+          const expanded = li.classList.toggle('open');
+          trigger.setAttribute('aria-expanded', String(expanded));
+        }
+      }
+
+      // Close menu after tapping a normal link on mobile (not a dropdown toggle)
+      if (link && isMobile() && !link.closest('.has-dropdown')) {
+        closeMenu();
+      }
+    });
+
+    // Click outside to close (mobile/tablet only)
+    document.addEventListener('click', (e) => {
+      if (!isMobile()) return;
+      if (!menu.contains(e.target) && e.target !== btn) closeMenu();
+    });
+
+    // ESC closes menu
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMenu();
+    });
+
+    // When crossing the breakpoint, reset menu/dropdowns
+    let lastMobile = isMobile();
+    window.addEventListener('resize', () => {
+      const nowMobile = isMobile();
+      if (nowMobile !== lastMobile){
+        closeMenu();
+        closeAllDropdowns();
+        lastMobile = nowMobile;
+      }
+    });
+  }
+})();
+</script>
 </body>
 </html>
+
