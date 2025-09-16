@@ -10,7 +10,7 @@
   <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
   <link rel="canonical" href="https://www.tunzaesports.org/" />
 
-  <!-- Open Graph / Twitter -->
+  <!-- OG / Twitter -->
   <meta property="og:url" content="https://www.tunzaesports.org/" />
   <meta property="og:title" content="Tunza Esports — Kenya esports tournaments, events & rankings" />
   <meta property="og:description" content="News, tournaments, and events from Tunza Esports — Tujenge Esports Kenya." />
@@ -48,45 +48,45 @@
 </head>
 
 <body>
-  <!-- Header / Desktop overlay nav -->
+  <!-- Header -->
   <section class="header">
-    <nav role="navigation" aria-label="Primary">
-      <a href="/" class="logo"><img src="/images/tunzalogo.png" alt="Tunza Esports Logo" /></a>
+    <nav class="site-nav" role="navigation" aria-label="Primary">
+      <a href="/" class="logo" aria-label="Home">
+        <img src="/images/tunzalogo.png" alt="Tunza Esports Logo" />
+      </a>
 
-      <!-- CENTER links (desktop) -->
-      <div class="nav-center desktop-only">
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about-us/">About Us</a></li>
+      <!-- Desktop links (centered) -->
+      <ul class="nav-main desktop-only">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about-us/">About Us</a></li>
 
-          <li class="has-dropdown">
-            <a href="#" aria-haspopup="true" aria-expanded="false">Our Services</a>
-            <ul class="dropdown-menu">
-              <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
-              <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
-              <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
-              <li><a href="/consultation/">Consultation</a></li>
-              <li><a href="/bootcamps-training-programs/">Bootcamps &amp; Training Programs</a></li>
-            </ul>
-          </li>
+        <li class="has-dropdown">
+          <a href="#" aria-haspopup="true" aria-expanded="false">Our Services</a>
+          <ul class="dropdown-menu">
+            <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
+            <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
+            <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
+            <li><a href="/consultation/">Consultation</a></li>
+            <li><a href="/bootcamps-training-programs/">Bootcamps &amp; Training Programs</a></li>
+          </ul>
+        </li>
 
-          <li class="has-dropdown">
-            <a href="#" aria-haspopup="true" aria-expanded="false">Our Products</a>
-            <ul class="dropdown-menu">
-              <li><a href="/ker/">KER</a></li>
-              <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
-              <li><a href="/tunzatourna/">TunzaTourna</a></li>
-              <li><a href="/shop/">Shop</a></li>
-            </ul>
-          </li>
+        <li class="has-dropdown">
+          <a href="#" aria-haspopup="true" aria-expanded="false">Our Products</a>
+          <ul class="dropdown-menu">
+            <li><a href="/ker/">KER</a></li>
+            <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
+            <li><a href="/tunzatourna/">TunzaTourna</a></li>
+            <li><a href="/shop/">Shop</a></li>
+          </ul>
+        </li>
 
-          <li><a href="/news/">News</a></li>
-          <li><a href="/contact/">Contact Us</a></li>
-          <li><a href="/gallery/">Gallery</a></li>
-        </ul>
-      </div>
+        <li><a href="/news/">News</a></li>
+        <li><a href="/contact/">Contact Us</a></li>
+        <li><a href="/gallery/">Gallery</a></li>
+      </ul>
 
-      <!-- RIGHT CTA (desktop) -->
+      <!-- Desktop CTA -->
       <a href="/shop/" class="shop-button desktop-only">Shop Now</a>
 
       <!-- Mobile hamburger -->
@@ -96,9 +96,8 @@
     </nav>
   </section>
 
-  <!-- Mobile full-screen drawer (isolated to mobile via CSS) -->
+  <!-- Mobile full-screen drawer -->
   <div id="mobile-drawer" class="mobile-drawer" aria-hidden="true">
-    <!-- Main panel -->
     <div class="drawer-panel is-active" data-panel="main">
       <ul class="drawer-list">
         <li><a href="/">Home</a></li>
@@ -112,7 +111,6 @@
       <a href="/shop/" class="shop-button drawer-cta">Shop Now</a>
     </div>
 
-    <!-- Services panel -->
     <div class="drawer-panel" data-panel="services">
       <button class="drawer-back" data-back="main"><i class="fa fa-arrow-left"></i> Back</button>
       <h3 class="drawer-title">Our Services</h3>
@@ -125,7 +123,6 @@
       </ul>
     </div>
 
-    <!-- Products panel -->
     <div class="drawer-panel" data-panel="products">
       <button class="drawer-back" data-back="main"><i class="fa fa-arrow-left"></i> Back</button>
       <h3 class="drawer-title">Our Products</h3>
@@ -145,12 +142,12 @@
     </div>
   </section>
 
-  <!-- NEWS (unchanged – keep your original cards/server output here) -->
+  <!-- NEWS (leave your original content here) -->
   <section class="news-section">
     <div class="container">
       <h2 class="news-heading">Lots of interesting information from us</h2>
       <div class="news-grid" id="news-cards-container">
-        <!-- Your existing news items go here -->
+        <!-- Keep your news items exactly as you had them -->
       </div>
     </div>
   </section>
@@ -161,9 +158,8 @@
     <h2 class="newsletter-main-heading">Get Gaming Guide and Information</h2>
     <div class="newsletter-card">
       <h3>Hello guys! Get the latest information from us</h3>
-      <form
-        action="https://tunzaesports.us13.list-manage.com/subscribe/post?u=49268c059773710b44455bb33&id=f95ceda37f&f_id=00cde9e1f0"
-        method="post" target="_blank" novalidate class="newsletter-form-container">
+      <form action="https://tunzaesports.us13.list-manage.com/subscribe/post?u=49268c059773710b44455bb33&id=f95ceda37f&f_id=00cde9e1f0"
+            method="post" target="_blank" novalidate class="newsletter-form-container">
         <input type="email" name="EMAIL" placeholder="Enter your email here" class="email-input" required />
         <div style="position:absolute; left:-5000px;" aria-hidden="true">
           <input type="text" name="b_49268c059773710b44455bb33_f95ceda37f" tabindex="-1" value="">
@@ -226,50 +222,46 @@
     </div>
   </footer>
 
-  <!-- JS: only mobile drawer + partners auto-scroll -->
+  <!-- JS: mobile drawer + partners auto-scroll -->
   <script>
   (function () {
-    // ----- Mobile drawer (does not affect desktop) -----
+    // --- Mobile drawer ---
     const toggle = document.querySelector('.nav-toggle');
     const drawer = document.getElementById('mobile-drawer');
-
     const isMobile = () => window.matchMedia('(max-width:1024px)').matches;
 
-    const openDrawer = () => {
+    function openDrawer(){
       if (!isMobile()) return;
       drawer.classList.add('is-open');
       drawer.setAttribute('aria-hidden', 'false');
       document.body.classList.add('drawer-lock');
-      toggle?.setAttribute('aria-expanded', 'true');
+      toggle?.setAttribute('aria-expanded','true');
       switchPanel('main');
-    };
-    const closeDrawer = () => {
+    }
+    function closeDrawer(){
       drawer.classList.remove('is-open');
       drawer.setAttribute('aria-hidden', 'true');
       document.body.classList.remove('drawer-lock');
-      toggle?.setAttribute('aria-expanded', 'false');
-    };
-    const switchPanel = (name) => {
-      drawer.querySelectorAll('.drawer-panel').forEach(p =>
-        p.classList.toggle('is-active', p.dataset.panel === name)
-      );
-    };
+      toggle?.setAttribute('aria-expanded','false');
+    }
+    function switchPanel(name){
+      drawer.querySelectorAll('.drawer-panel').forEach(p=>{
+        p.classList.toggle('is-active', p.dataset.panel === name);
+      });
+    }
 
     toggle?.addEventListener('click', () => {
-      if (drawer.classList.contains('is-open')) closeDrawer();
-      else openDrawer();
+      drawer.classList.contains('is-open') ? closeDrawer() : openDrawer();
     });
-
     drawer.addEventListener('click', (e) => {
       const go = e.target.closest('[data-go]')?.dataset.go;
       const back = e.target.closest('[data-back]')?.dataset.back;
       if (go) switchPanel(go);
       if (back) switchPanel(back);
     });
-
     window.addEventListener('resize', () => { if (!isMobile()) closeDrawer(); });
 
-    // ----- Partners carousel (auto-scroll, desktop + mobile) -----
+    // --- Partners carousel (auto-scroll) ---
     function initPartnersCarousel(){
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const track = document.querySelector('.partners-carousel-track');
@@ -277,7 +269,6 @@
 
       if (!track.dataset.dup){
         const originals = Array.from(track.children);
-        // Clone until track is ~3x wider than viewport
         let reps = 0;
         while (track.scrollWidth < track.clientWidth * 3 && reps < 6){
           originals.forEach(n => track.appendChild(n.cloneNode(true)));
@@ -287,15 +278,9 @@
       }
 
       let x = 0, speed = 0.6, raf = 0;
-      const loop = () => {
-        const max = track.scrollWidth - track.clientWidth;
-        x = (x + speed) % (max || 1);
-        track.scrollLeft = x;
-        raf = requestAnimationFrame(loop);
-      };
+      const loop = () => { const max = track.scrollWidth - track.clientWidth; x = (x + speed) % (max || 1); track.scrollLeft = x; raf = requestAnimationFrame(loop); };
       const start = () => { if (!raf) loop(); };
       const stop  = () => { if (raf) cancelAnimationFrame(raf), raf = 0; };
-
       start();
       track.addEventListener('mouseenter', stop);
       track.addEventListener('mouseleave', start);
