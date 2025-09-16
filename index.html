@@ -184,29 +184,83 @@
       <p class="copyright-text">&copy; 2025 Tunza Esports. All rights reserved.</p>
     </div>
   </footer>
-
-  <script>
+<script>
 (function () {
   'use strict';
 
   /* =========================================
-     HARD-LOCK NAV (prevents any script from moving it)
+     HARD-LOCK HEADER + SAFETY NET
+     - Keep the header fixed
+     - Keep the inner .site-nav STATIC
+     - Strip any inline "top" changes old scripts try to apply
      ========================================= */
-  const nav = document.querySelector('.site-nav');
-  function lockNav() {
-    if (!nav) return;
-    // Re-assert on every frame we’re called
-    if (getComputedStyle(nav).position !== 'fixed') nav.style.position = 'fixed';
-    if (nav.style.top !== '0px') nav.style.top = '0px';
-    nav.style.left = '0';
-    nav.style.right = '0';
-    nav.style.zIndex = '1000';
+  const header = document.querySelector('.header');
+  const nav    = document.querySelector('.site-nav');
+
+  function hardLockHeaderAndNav() {
+    if (header) {
+      header.style.position = 'fixed';
+      header.style.top      = '0';
+      header.style.left     = '0';
+      header.style.right    = '0';
+      header.style.zIndex   = '1000';
+    }
+    if (nav) {
+      // neutralize any old script trying to move nav
+      nav.style.position = 'static';
+      nav.style.removeProperty('top');
+      nav.style.removeProperty('left');
+      nav.style.removeProperty('right');
+    }
   }
-  // Initial lock + reassert on load/scroll/resize
-  lockNav();
-  window.addEventListener('load',  lockNav, { passive: true });
-  window.addEventListener('scroll', lockNav, { passive: true });
-  window.addEventListener('resize', lockNav);
+
+  // Run once and also on load/resize
+  hardLockHeaderAndNav();
+  window.addEventListener('load', hardLockHeaderAndNav);
+  window.addEventListener('resize', hardLockHeaderAndNav);
+
+  // Tiny safety net: if some script re-applies inline styles to the nav, remove them immediately.
+  if (nav) {
+    new MutationObserver(() => {
+      nav.style.position = 'static';
+      nav.style.removeProperty('top');
+      nav.style.removeProperty('left');
+      nav.style.removeProperty('right');
+    }).observe(nav, { attributes: true, attributeFilter: ['style', 'class'] });
+  }
+
+  /* =========================================
+     DROPDOWN HOVER INTENT (prevents instant close)
+     ========================================= */
+  document.querySelectorAll('.has-dropdown').forEach(parent => {
+    const trigger = parent.querySelector(':scope > a');
+    const menu    = parent.querySelector(':scope > .dropdown-menu');
+    if (!trigger || !menu) return;
+
+    let closeTimer;
+
+    const open = () => {
+      clearTimeout(closeTimer);
+      menu.style.display = 'block';
+      trigger.setAttribute('aria-expanded', 'true');
+    };
+
+    const scheduleClose = () => {
+      clearTimeout(closeTimer);
+      closeTimer = setTimeout(() => {
+        menu.style.display = 'none';
+        trigger.setAttribute('aria-expanded', 'false');
+      }, 180); // small delay keeps it open while moving the mouse
+    };
+
+    parent.addEventListener('mouseenter', open);
+    parent.addEventListener('mouseleave', scheduleClose);
+    parent.addEventListener('focusin', open);
+    parent.addEventListener('focusout', scheduleClose);
+
+    menu.addEventListener('mouseenter', () => clearTimeout(closeTimer));
+    menu.addEventListener('mouseleave', scheduleClose);
+  });
 
   /* =========================================
      MOBILE DRAWER
@@ -241,14 +295,13 @@
     drawer.classList.contains('is-open') ? closeDrawer() : openDrawer();
   });
 
-  // Drawer internal navigation (Our Services / Our Products)
+  // Drawer internal navigation + close on real link click
   drawer && drawer.addEventListener('click', (e) => {
     const go   = e.target.closest('[data-go]')?.dataset.go;
     const back = e.target.closest('[data-back]')?.dataset.back;
     if (go)   switchPanel(go);
     if (back) switchPanel(back);
 
-    // Close drawer when a real link is tapped
     const a = e.target.closest('a[href]');
     if (a && !a.hasAttribute('data-go') && !a.hasAttribute('data-back')) {
       closeDrawer();
@@ -355,5 +408,6 @@
 </script>
 </body>
 </html>
+
 
 
