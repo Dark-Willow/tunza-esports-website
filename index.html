@@ -4,37 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-
   <title>Tunza Esports — Home</title>
   <meta name="description" content="Tunza Esports organizes esports tournaments, gaming events, and community programs across Kenya. News, rankings, partnerships, and more." />
   <link rel="canonical" href="https://www.tunzaesports.org/" />
-
-  <!-- Social -->
-  <meta property="og:url" content="https://www.tunzaesports.org/" />
-  <meta property="og:title" content="Tunza Esports — Kenya esports tournaments, events & rankings" />
-  <meta property="og:description" content="News, tournaments, and events from Tunza Esports — Tujenge Esports Kenya." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" />
-  <meta property="og:image:alt" content="Tunza Esports logo" />
-  <meta name="twitter:card" content="summary_large_image" />
-
-  <!-- Icons -->
-  <link rel="icon" href="/favicon.ico?v=4" sizes="any">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png?v=4">
-  <meta name="theme-color" content="#0b0b16">
-
-  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <!-- Styles -->
   <link rel="stylesheet" href="/css/style.css" />
 </head>
-
 <body>
   <!-- Header -->
   <section class="header">
@@ -206,10 +185,23 @@
     </div>
   </footer>
 
-  <!-- JS: mobile drawer + partners auto-scroll + NEWS -->
+  <!-- JS: lock nav + mobile drawer + partners auto-scroll + news -->
   <script>
   (function () {
-    /* ---------- Mobile drawer ---------- */
+    /* ----- HARD LOCK NAV AGAINST OLD SCRIPTS ----- */
+    const nav = document.querySelector('.site-nav');
+    const lockNav = () => {
+      if (!nav) return;
+      nav.style.position = 'fixed';
+      nav.style.top = '0px';         // defeats any old 'top = scrollY' code
+      nav.style.left = '0';
+      nav.style.right = '0';
+      nav.style.zIndex = '1000';
+    };
+    window.addEventListener('load', lockNav);
+    window.addEventListener('scroll', lockNav, { passive: true });
+
+    /* ----- Mobile drawer ----- */
     const toggle = document.querySelector('.nav-toggle');
     const drawer = document.getElementById('mobile-drawer');
     const isMobile = () => window.matchMedia('(max-width:1024px)').matches;
@@ -245,13 +237,12 @@
     });
     window.addEventListener('resize', () => { if (!isMobile()) closeDrawer(); });
 
-    /* ---------- Partners carousel (auto-scroll) ---------- */
+    /* ----- Partners carousel (auto-scroll) ----- */
     function initPartnersCarousel(){
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const track = document.querySelector('.partners-carousel-track');
       if (!track) return;
 
-      // Duplicate children to make an endless strip
       if (!track.dataset.dup){
         const originals = Array.from(track.children);
         let reps = 0;
@@ -280,17 +271,15 @@
     }
     initPartnersCarousel();
 
-    /* ---------- News cards (RESTORED) ---------- */
+    /* ----- News cards (restored) ----- */
     function initNews(){
       const container = document.getElementById('news-cards-container');
       if (!container) return;
-
       const data = [
         { title: "Tunza Esports renews KUER Season 3", snippet: "A new format and more titles—KUER Season 3 is here.", date: "Sep 1, 2025", link: "/news/", imageUrl: "/images/KUER-x-Tunza.png" },
         { title: "Tunza Esports Partners with B34R CL4N", snippet: "Call of Duty Mobile within KUER gets pro-level support.", date: "Sep 5, 2025", link: "/news/", imageUrl: "/images/KUER-x-B34R.png" },
         { title: "Safaricom Game Conference", snippet: "A landmark event for Kenya’s gaming industry.", date: "Sep 8, 2025", link: "/news/", imageUrl: "/images/Safaricom-Gaming-Conference.JPG" }
       ];
-
       container.innerHTML = '';
       data.forEach(item => {
         const card = document.createElement('a');
@@ -310,7 +299,6 @@
           <p class="news-card-text">${item.snippet}</p>
           <p class="news-card-date">${item.date}</p>
         `);
-
         container.appendChild(card);
       });
     }
