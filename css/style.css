@@ -12,35 +12,40 @@ a:hover{color:#00E5FF}
 .wrap,.container{width:min(1200px,92vw);margin-inline:auto;padding-inline:16px}
 
 /* ==========================================================
-   HEADER — desktop overlay like your original
+   HEADER — desktop overlay like your original (now FIXED)
    ========================================================== */
 .header .site-nav{
-  position:absolute; left:0; right:0; top:0; z-index:1000;
+  position:fixed; left:0; right:0; top:0; z-index:1000;
   display:flex; align-items:center; gap:24px;
   padding:6px 75px;
   background:linear-gradient(to bottom, rgba(26,26,48,1) 0%, rgba(26,26,48,0) 100%);
+  transform:translateZ(0); /* prevents iOS jitter */
 }
 .header .logo img{width:90px;height:90px;object-fit:contain;display:block}
 
 .desktop-only{display:block}
 .mobile-only{display:none}
 
-.nav-main{list-style:none;padding-left:0;margin:0 auto; /* center block */
-  display:flex; align-items:center; gap:40px; flex:1 1 auto; justify-content:center}
+.nav-main{
+  list-style:none;padding-left:0;margin:0 auto;
+  display:flex; align-items:center; gap:40px;
+  flex:1 1 auto; justify-content:center
+}
 .nav-main>li{position:relative}
 .nav-main>li>a{display:block;padding:10px 0;font-size:16px}
 
 /* Dropdowns (brand gradient, not flat black) */
 .has-dropdown>a{padding-right:18px}
 .has-dropdown>a::after{
-  content:'\25BE'; font-size:.7em; position:absolute; right:-12px; top:50%; transform:translateY(-50%); color:#FCFCFD;
+  content:'\25BE'; font-size:.7em; position:absolute; right:-12px; top:50%;
+  transform:translateY(-50%); color:#FCFCFD;
 }
 .dropdown-menu{
   display:none; position:absolute; left:50%; top:100%; transform:translateX(-50%);
   list-style:none; padding:10px 12px; margin:8px 0 0 0; min-width:260px;
   border-radius:12px; border:1px solid rgba(255,255,255,.08);
   background:linear-gradient(180deg,#1a1a36 0%, #11112a 100%);
-  box-shadow:0 10px 24px rgba(0,0,0,.35);
+  box-shadow:0 10px 24px rgba(0,0,0,.35)
 }
 .dropdown-menu li a{display:block;padding:12px 12px;border-radius:8px;font-size:16px;color:#19D2EA}
 .dropdown-menu li a:hover{background:#0d0d21;color:#FCFCFD}
@@ -50,9 +55,14 @@ a:hover{color:#00E5FF}
 .shop-button{
   margin-left:auto;
   display:inline-block; font-weight:700; font-size:16px; color:#fff!important;
-  background:#B425EC; padding:10px 22px; border-radius:8px; transition:background .25s,transform .2s;
+  background:#B425EC; padding:10px 22px; border-radius:8px; transition:background .25s,transform .2s
 }
 .shop-button:hover{background:#9d2df0;color:#fff!important;transform:translateY(-2px)}
+
+/* Push first non-hero section down so the fixed nav doesn't cover it */
+.header + *:not(.home-hero-section):not(.service-hero-section):not(.esports-broadcasting-hero-section):not(.events-bootcamps-hero-section):not(.video-gaming-events-hero-section):not(.kuer-hero-section):not(.news-hero-section):not(.about-hero-section){
+  margin-top:96px;
+}
 
 /* ==========================================================
    MOBILE drawer — totally isolated from desktop
@@ -74,7 +84,7 @@ a:hover{color:#00E5FF}
 
   .mobile-drawer{
     position:fixed; inset:0; z-index:1500;
-    background:linear-gradient(180deg, rgba(11,11,22,1) 0%, rgba(11,11,22,0.98) 100%);
+    background:linear-gradient(180deg, rgba(11,11,22,1) 0%, rgba(11,11,22,0.98) 100%)
   }
   body.drawer-lock{overflow:hidden}
 
@@ -105,7 +115,7 @@ a:hover{color:#00E5FF}
 }
 
 /* ==========================================================
-   NEWS (unchanged)
+   NEWS
    ========================================================== */
 .news-section{padding:80px 75px;text-align:center;background:#0A0A1A}
 .news-heading{font-size:48px;margin-bottom:50px}
@@ -120,7 +130,7 @@ a:hover{color:#00E5FF}
 @media (max-width:768px){.news-section{padding:40px 15px}.news-heading{font-size:32px}}
 
 /* ==========================================================
-   NEWSLETTER (unchanged)
+   NEWSLETTER
    ========================================================== */
 .newsletter-outer{background:#0A0A1A;padding:80px 75px;text-align:center}
 .newsletter-pre-heading{font-size:18px;color:rgba(252,252,253,.8);margin-bottom:10px}
@@ -188,7 +198,9 @@ footer{background:#0A0A1A;color:#FCFCFD}
   .footer-bottom{padding:25px 15px}
 }
 
-/* Coming soon (unchanged) */
+/* ==========================================================
+   Coming soon
+   ========================================================== */
 .coming-soon-hero-section{min-height:calc(100vh - 120px);display:flex;align-items:center;justify-content:center;text-align:center}
 .coming-soon-hero-section h1{font-size:5rem;font-weight:700;text-transform:uppercase}
 @media (max-width:768px){.coming-soon-hero-section h1{font-size:3rem}}
