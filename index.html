@@ -43,29 +43,23 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <!-- Global stylesheet (replace this file with the CSS below) -->
+  <!-- Site stylesheet -->
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 
 <body>
-  <!-- Header -->
+  <!-- Desktop header (hidden on mobile by CSS) -->
   <section class="header">
     <nav role="navigation" aria-label="Primary">
       <a href="/" class="logo"><img src="/images/tunzalogo.png" alt="Tunza Esports Logo" /></a>
 
-      <!-- Mobile toggle -->
-      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
-        <span class="fa fa-bars" aria-hidden="true"></span>
-      </button>
-
-      <!-- Nav links -->
-      <div id="nav-menu" class="nav-links">
+      <div class="nav-links" id="desktop-nav">
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/about-us/">About Us</a></li>
 
           <li class="has-dropdown">
-            <a href="#" data-mobile-href="/our-services/" aria-haspopup="true" aria-expanded="false">Our Services</a>
+            <a href="#">Our Services</a>
             <ul class="dropdown-menu">
               <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
               <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
@@ -76,7 +70,7 @@
           </li>
 
           <li class="has-dropdown">
-            <a href="#" data-mobile-href="/our-products/" aria-haspopup="true" aria-expanded="false">Our Products</a>
+            <a href="#">Our Products</a>
             <ul class="dropdown-menu">
               <li><a href="/ker/">KER</a></li>
               <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
@@ -95,6 +89,59 @@
     </nav>
   </section>
 
+  <!-- Mobile FAB (only visible on mobile) -->
+  <button class="menu-fab" aria-controls="mobileMenu" aria-expanded="false" aria-label="Open menu">
+    <span class="fa fa-bars" aria-hidden="true"></span>
+  </button>
+
+  <!-- Full-screen mobile menu (covers the whole screen) -->
+  <div class="mmodal" id="mobileMenu" aria-hidden="true">
+    <!-- ROOT screen -->
+    <div class="mmodal-screen is-active" data-screen="root" role="menu" aria-label="Main menu">
+      <img class="mmodal-logo" src="/images/tunzalogo.png" alt="Tunza Esports" />
+      <ul class="mmodal-list">
+        <li><a href="/" role="menuitem">Home</a></li>
+        <li><a href="/about-us/" role="menuitem">About Us</a></li>
+
+        <li><button class="mmodal-link" data-goto="services" aria-haspopup="true" aria-controls="screen-services">Our Services <span class="chev">›</span></button></li>
+
+        <!-- Shop Now in the MIDDLE -->
+        <li class="menu-cta"><a href="/shop/" class="shop-button">Shop Now</a></li>
+
+        <li><button class="mmodal-link" data-goto="products" aria-haspopup="true" aria-controls="screen-products">Our Products <span class="chev">›</span></button></li>
+        <li><a href="/news/" role="menuitem">News</a></li>
+        <li><a href="/contact/" role="menuitem">Contact Us</a></li>
+        <li><a href="/gallery/" role="menuitem">Gallery</a></li>
+      </ul>
+      <button class="mmodal-close" aria-label="Close menu"><span class="fa fa-times"></span></button>
+    </div>
+
+    <!-- SERVICES screen -->
+    <div class="mmodal-screen" data-screen="services" id="screen-services" aria-label="Our Services">
+      <button class="mmodal-back"><span class="fa fa-chevron-left"></span> Back</button>
+      <h3>Our Services</h3>
+      <ul class="mmodal-sublist">
+        <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
+        <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
+        <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
+        <li><a href="/consultation/">Consultation</a></li>
+        <li><a href="/bootcamps-training-programs/">Bootcamps &amp; Training Programs</a></li>
+      </ul>
+    </div>
+
+    <!-- PRODUCTS screen -->
+    <div class="mmodal-screen" data-screen="products" id="screen-products" aria-label="Our Products">
+      <button class="mmodal-back"><span class="fa fa-chevron-left"></span> Back</button>
+      <h3>Our Products</h3>
+      <ul class="mmodal-sublist">
+        <li><a href="/ker/">KER</a></li>
+        <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
+        <li><a href="/tunzatourna/">TunzaTourna</a></li>
+        <li><a href="/shop/">Shop</a></li>
+      </ul>
+    </div>
+  </div>
+
   <!-- Hero -->
   <section class="home-hero-section" aria-label="Tunza Esports Hero">
     <div class="hero-content">
@@ -102,7 +149,7 @@
     </div>
   </section>
 
-  <!-- Dynamic News -->
+  <!-- News -->
   <section class="news-section">
     <div class="container">
       <h2 class="news-heading">Lots of interesting information from us</h2>
@@ -136,7 +183,7 @@
 
   <div class="spacer-before-partners"></div>
 
-  <!-- Partners carousel -->
+  <!-- Partners -->
   <section class="partners-section">
     <h2>Our Partners, clients, friends</h2>
     <div class="partners-carousel-track">
@@ -184,63 +231,47 @@
     </div>
   </footer>
 
-  <!-- JS: mobile drawer & helpers -->
+  <!-- Mobile menu JS -->
   <script>
     (function () {
-      const btn  = document.querySelector('.nav-toggle');
-      const menu = document.getElementById('nav-menu');
-      const isMobile = () => window.matchMedia('(max-width:1024px)').matches;
+      const fab   = document.querySelector('.menu-fab');
+      const modal = document.getElementById('mobileMenu');
 
-      if (btn && menu){
-        btn.addEventListener('click', () => {
-          const open = btn.getAttribute('aria-expanded') === 'true';
-          btn.setAttribute('aria-expanded', String(!open));
-          menu.classList.toggle('is-open', !open);
-          document.body.classList.toggle('menu-open', !open);
-        });
-      }
+      const openMenu = () => {
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        fab.setAttribute('aria-expanded', 'true');
+        document.body.classList.add('menu-open');
+        // always start at root
+        switchScreen('root');
+      };
 
-      // On mobile, "Our Services/Products" go to landing pages instead of opening dropdowns
-      document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
-        a.addEventListener('click', (e) => {
-          if (isMobile()){
-            e.preventDefault();
-            const firstChild = a.parentElement.querySelector('.dropdown-menu a');
-            const target = a.getAttribute('data-mobile-href') || (firstChild && firstChild.getAttribute('href')) || '/';
-            window.location.href = target;
-          } else {
-            if ((a.getAttribute('href') || '#') === '#') e.preventDefault();
-          }
-        });
+      const closeMenu = () => {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        fab.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('menu-open');
+      };
+
+      const switchScreen = (name) => {
+        modal.querySelectorAll('.mmodal-screen').forEach(s => s.classList.remove('is-active'));
+        const scr = modal.querySelector(`.mmodal-screen[data-screen="${name}"]`);
+        scr && scr.classList.add('is-active');
+      };
+
+      fab.addEventListener('click', openMenu);
+      modal.addEventListener('click', (e) => {
+        if (e.target.classList.contains('mmodal')) closeMenu(); // click outside content to close
       });
+      modal.querySelectorAll('.mmodal-close').forEach(btn => btn.addEventListener('click', closeMenu));
+      window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
 
-      // News cards (simple filler for home)
-      function initNews(){
-        const wrap = document.getElementById('news-cards-container');
-        if (!wrap) return;
-        const data = [
-          { title: "Tunza Esports renews KUER Season 3", snippet: "A new format and more titles—KUER Season 3 is here.", date: "September 1, 2025", link: "/news/", imageUrl: "/images/KUER-x-Tunza.png" },
-          { title: "Tunza Esports Partners with B34R CL4N", snippet: "Pro-level support for CODM within KUER.", date: "September 5, 2025", link: "/news/", imageUrl: "/images/KUER-x-B34R.png" },
-          { title: "Safaricom Game Conference", snippet: "A landmark event in Kenya’s gaming industry.", date: "September 8, 2025", link: "/news/", imageUrl: "/images/Safaricom-Gaming-Conference.JPG" }
-        ];
-        wrap.innerHTML = '';
-        data.forEach(item => {
-          const a = document.createElement('a');
-          a.href = item.link;
-          a.className = 'news-card-link';
-          a.innerHTML = `
-            <div class="news-card">
-              <div class="news-image-placeholder" style="background-image:url('${item.imageUrl}');background-size:cover;background-position:center;border-radius:12px"></div>
-              <h3 class="news-card-title">${item.title}</h3>
-              <p class="news-card-text">${item.snippet}</p>
-              <p class="news-card-date">${item.date}</p>
-            </div>`;
-          wrap.appendChild(a);
-        });
-      }
-      if (document.readyState === 'loading'){
-        document.addEventListener('DOMContentLoaded', initNews, { once:true });
-      } else { initNews(); }
+      modal.querySelectorAll('.mmodal-link[data-goto]').forEach(btn => {
+        btn.addEventListener('click', () => switchScreen(btn.dataset.goto));
+      });
+      modal.querySelectorAll('.mmodal-back').forEach(btn => {
+        btn.addEventListener('click', () => switchScreen('root'));
+      });
     })();
   </script>
 </body>
