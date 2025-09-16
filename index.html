@@ -185,125 +185,153 @@
     </div>
   </footer>
 
-  <!-- JS: lock nav + mobile drawer + partners auto-scroll + news -->
-  <script>
-  (function () {
-    /* ----- HARD LOCK NAV AGAINST OLD SCRIPTS ----- */
-    const nav = document.querySelector('.site-nav');
-    const lockNav = () => {
-      if (!nav) return;
-      nav.style.position = 'fixed';
-      nav.style.top = '0px';         // defeats any old 'top = scrollY' code
-      nav.style.left = '0';
-      nav.style.right = '0';
-      nav.style.zIndex = '1000';
-    };
-    window.addEventListener('load', lockNav);
-    window.addEventListener('scroll', lockNav, { passive: true });
+ <!-- JS: ultra-lock nav + mobile drawer + partners auto-scroll + news -->
+<script>
+(function () {
+  /* ===== ULTRA-LOCK NAV (replaces old scroll-based code) ===== */
+  const nav = document.querySelector('.site-nav');
 
-    /* ----- Mobile drawer ----- */
-    const toggle = document.querySelector('.nav-toggle');
-    const drawer = document.getElementById('mobile-drawer');
-    const isMobile = () => window.matchMedia('(max-width:1024px)').matches;
+  function pinNav() {
+    if (!nav) return;
+    // Force these with !important so legacy scripts can't override
+    nav.style.setProperty('position', 'fixed', 'important');
+    nav.style.setProperty('top', '0px', 'important');
+    nav.style.setProperty('left', '0', 'important');
+    nav.style.setProperty('right', '0', 'important');
+    nav.style.setProperty('z-index', '1000', 'important');
+    // Remove any transform that could cause visual "movement"
+    nav.style.removeProperty('transform');
+  }
 
-    function openDrawer(){
-      if (!isMobile()) return;
-      drawer.classList.add('is-open');
-      drawer.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('drawer-lock');
-      toggle?.setAttribute('aria-expanded','true');
-      switchPanel('main');
-    }
-    function closeDrawer(){
-      drawer.classList.remove('is-open');
-      drawer.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('drawer-lock');
-      toggle?.setAttribute('aria-expanded','false');
-    }
-    function switchPanel(name){
-      drawer.querySelectorAll('.drawer-panel').forEach(p=>{
-        p.classList.toggle('is-active', p.dataset.panel === name);
-      });
-    }
+  // Apply immediately and on key lifecycle events
+  pinNav();
+  window.addEventListener('load', pinNav, { passive: true });
+  window.addEventListener('resize', pinNav, { passive: true });
+  window.addEventListener('scroll', () => {
+    // If something tries to push the nav, snap it back
+    if (!nav) return;
+    if (nav.style.top !== '0px') nav.style.setProperty('top', '0px', 'important');
+    if (nav.style.position !== 'fixed') nav.style.setProperty('position', 'fixed', 'important');
+  }, { passive: true });
 
-    toggle?.addEventListener('click', () => {
-      drawer.classList.contains('is-open') ? closeDrawer() : openDrawer();
+  // Watch for any inline style changes and immediately revert them
+  if (nav) {
+    new MutationObserver(() => {
+      if (nav.style.position !== 'fixed') nav.style.setProperty('position', 'fixed', 'important');
+      if (nav.style.top !== '0px') nav.style.setProperty('top', '0px', 'important');
+    }).observe(nav, { attributes: true, attributeFilter: ['style'] });
+  }
+
+  /* ===== Mobile drawer ===== */
+  const toggle = document.querySelector('.nav-toggle');
+  const drawer = document.getElementById('mobile-drawer');
+  const isMobile = () => window.matchMedia('(max-width:1024px)').matches;
+
+  function openDrawer() {
+    if (!isMobile() || !drawer) return;
+    drawer.classList.add('is-open');
+    drawer.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('drawer-lock');
+    toggle?.setAttribute('aria-expanded', 'true');
+    switchPanel('main');
+  }
+  function closeDrawer() {
+    if (!drawer) return;
+    drawer.classList.remove('is-open');
+    drawer.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('drawer-lock');
+    toggle?.setAttribute('aria-expanded', 'false');
+  }
+  function switchPanel(name) {
+    if (!drawer) return;
+    drawer.querySelectorAll('.drawer-panel').forEach(p => {
+      p.classList.toggle('is-active', p.dataset.panel === name);
     });
-    drawer.addEventListener('click', (e) => {
-      const go = e.target.closest('[data-go]')?.dataset.go;
-      const back = e.target.closest('[data-back]')?.dataset.back;
-      if (go) switchPanel(go);
-      if (back) switchPanel(back);
-    });
-    window.addEventListener('resize', () => { if (!isMobile()) closeDrawer(); });
+  }
 
-    /* ----- Partners carousel (auto-scroll) ----- */
-    function initPartnersCarousel(){
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      const track = document.querySelector('.partners-carousel-track');
-      if (!track) return;
+  toggle?.addEventListener('click', () => {
+    if (!drawer) return;
+    drawer.classList.contains('is-open') ? closeDrawer() : openDrawer();
+  });
+  drawer?.addEventListener('click', (e) => {
+    const go = e.target.closest('[data-go]')?.dataset.go;
+    const back = e.target.closest('[data-back]')?.dataset.back;
+    if (go) switchPanel(go);
+    if (back) switchPanel(back);
+  });
+  window.addEventListener('resize', () => { if (!isMobile()) closeDrawer(); });
 
-      if (!track.dataset.dup){
-        const originals = Array.from(track.children);
-        let reps = 0;
-        while (track.scrollWidth < track.clientWidth * 3 && reps < 6){
-          originals.forEach(n => track.appendChild(n.cloneNode(true)));
-          reps++;
-        }
-        track.dataset.dup = '1';
+  /* ===== Partners carousel (auto-scroll) ===== */
+  function initPartnersCarousel() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const track = document.querySelector('.partners-carousel-track');
+    if (!track) return;
+
+    // Duplicate children so there is enough content to scroll smoothly
+    if (!track.dataset.dup) {
+      const originals = Array.from(track.children);
+      let reps = 0;
+      while (track.scrollWidth < track.clientWidth * 3 && reps < 6) {
+        originals.forEach(n => track.appendChild(n.cloneNode(true)));
+        reps++;
       }
-
-      let x = 0, speed = 0.6, raf = 0;
-      const loop = () => {
-        const max = track.scrollWidth - track.clientWidth;
-        x = (x + speed) % (max || 1);
-        track.scrollLeft = x;
-        raf = requestAnimationFrame(loop);
-      };
-      const start = () => { if (!raf) loop(); };
-      const stop  = () => { if (raf) cancelAnimationFrame(raf), raf = 0; };
-      start();
-      track.addEventListener('mouseenter', stop);
-      track.addEventListener('mouseleave', start);
-      track.addEventListener('focusin',   stop);
-      track.addEventListener('focusout',  start);
-      window.addEventListener('resize', () => { stop(); x = 0; start(); });
+      track.dataset.dup = '1';
     }
-    initPartnersCarousel();
 
-    /* ----- News cards (restored) ----- */
-    function initNews(){
-      const container = document.getElementById('news-cards-container');
-      if (!container) return;
-      const data = [
-        { title: "Tunza Esports renews KUER Season 3", snippet: "A new format and more titles—KUER Season 3 is here.", date: "Sep 1, 2025", link: "/news/", imageUrl: "/images/KUER-x-Tunza.png" },
-        { title: "Tunza Esports Partners with B34R CL4N", snippet: "Call of Duty Mobile within KUER gets pro-level support.", date: "Sep 5, 2025", link: "/news/", imageUrl: "/images/KUER-x-B34R.png" },
-        { title: "Safaricom Game Conference", snippet: "A landmark event for Kenya’s gaming industry.", date: "Sep 8, 2025", link: "/news/", imageUrl: "/images/Safaricom-Gaming-Conference.JPG" }
-      ];
-      container.innerHTML = '';
-      data.forEach(item => {
-        const card = document.createElement('a');
-        card.href = item.link;
-        card.className = 'news-card';
+    let x = 0, speed = 0.6, raf = 0;
+    const loop = () => {
+      const max = track.scrollWidth - track.clientWidth;
+      x = (x + speed) % (max || 1);
+      track.scrollLeft = x;
+      raf = requestAnimationFrame(loop);
+    };
+    const start = () => { if (!raf) loop(); };
+    const stop  = () => { if (raf) { cancelAnimationFrame(raf); raf = 0; } };
 
-        const img = document.createElement('div');
-        img.className = 'news-image-placeholder';
-        img.style.backgroundImage = `url('${item.imageUrl}')`;
-        img.style.backgroundSize = 'cover';
-        img.style.backgroundPosition = 'center';
-        img.style.backgroundRepeat = 'no-repeat';
+    start();
+    track.addEventListener('mouseenter', stop);
+    track.addEventListener('mouseleave', start);
+    track.addEventListener('focusin',   stop);
+    track.addEventListener('focusout',  start);
+    window.addEventListener('resize', () => { stop(); x = 0; start(); });
+  }
+  initPartnersCarousel();
 
-        card.appendChild(img);
-        card.insertAdjacentHTML('beforeend', `
-          <h3 class="news-card-title">${item.title}</h3>
-          <p class="news-card-text">${item.snippet}</p>
-          <p class="news-card-date">${item.date}</p>
-        `);
-        container.appendChild(card);
-      });
-    }
-    initNews();
-  })();
-  </script>
+  /* ===== News cards (restored) ===== */
+  function initNews() {
+    const container = document.getElementById('news-cards-container');
+    if (!container) return;
+    const data = [
+      { title: "Tunza Esports renews KUER Season 3", snippet: "A new format and more titles—KUER Season 3 is here.", date: "Sep 1, 2025", link: "/news/", imageUrl: "/images/KUER-x-Tunza.png" },
+      { title: "Tunza Esports Partners with B34R CL4N", snippet: "Call of Duty Mobile within KUER gets pro-level support.", date: "Sep 5, 2025", link: "/news/", imageUrl: "/images/KUER-x-B34R.png" },
+      { title: "Safaricom Game Conference", snippet: "A landmark event for Kenya’s gaming industry.", date: "Sep 8, 2025", link: "/news/", imageUrl: "/images/Safaricom-Gaming-Conference.JPG" }
+    ];
+
+    container.innerHTML = '';
+    data.forEach(item => {
+      const card = document.createElement('a');
+      card.href = item.link;
+      card.className = 'news-card';
+
+      const img = document.createElement('div');
+      img.className = 'news-image-placeholder';
+      img.style.backgroundImage = `url('${item.imageUrl}')`;
+      img.style.backgroundSize = 'cover';
+      img.style.backgroundPosition = 'center';
+      img.style.backgroundRepeat = 'no-repeat';
+
+      card.appendChild(img);
+      card.insertAdjacentHTML('beforeend', `
+        <h3 class="news-card-title">${item.title}</h3>
+        <p class="news-card-text">${item.snippet}</p>
+        <p class="news-card-date">${item.date}</p>
+      `);
+      container.appendChild(card);
+    });
+  }
+  initNews();
+})();
+</script>
 </body>
 </html>
+
