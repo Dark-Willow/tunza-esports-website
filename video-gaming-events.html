@@ -8,12 +8,11 @@ layout: null
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
   <title>Tunza Esports - Video Gaming Events</title>
   <meta name="description" content="LAN parties, gaming hangouts, and casual tournaments in Kenya. Join Tunza Esports events for fun, inclusive, community gaming experiences." />
-  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
 
   <!-- Canonical + Social -->
   <link rel="canonical" href="https://www.tunzaesports.org/video-gaming-events/" />
@@ -30,7 +29,7 @@ layout: null
   <meta name="twitter:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" />
   <meta name="twitter:image:alt" content="Tunza Esports logo" />
 
-  <!-- Favicons -->
+  <!-- Favicons (match homepage) -->
   <link rel="icon" href="/favicon.ico?v=4" sizes="any">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=4">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4">
@@ -44,12 +43,11 @@ layout: null
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0b0b16">
 
-  <!-- Organization schema -->
+  <!-- Organization schema (sitewide consistent) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "@id": "https://www.tunzaesports.org/#org",
     "name": "Tunza Esports",
     "url": "https://www.tunzaesports.org",
     "logo": "https://www.tunzaesports.org/images/android-chrome-512x512-dark.png",
@@ -61,7 +59,7 @@ layout: null
   }
   </script>
 
-  <!-- Fonts & Global CSS -->
+  <!-- Fonts & CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet" />
@@ -71,26 +69,26 @@ layout: null
 </head>
 
 <body>
-  <!-- Header (full-width, transparent overlay like home) -->
+  <!-- Header -->
   <section class="header">
-    <nav role="navigation" aria-label="Primary">
-      <a href="/" class="logo">
-        <img src="/images/tunzalogo.png" alt="Tunza Esports Logo">
-      </a>
+    <nav> class="wrap">
+  <a href="/" class="logo"><img src="/images/tunzalogo.png" alt="Tunza Esports Logo"></a>
+  <!-- Add this button -->
+  <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">
+    <span class="fa fa-bars" aria-hidden="true"></span> Menu
+  </button>
 
-      <!-- Mobile toggle -->
-      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
-        <span class="fa fa-bars" aria-hidden="true"></span>
-      </button>
-
-      <!-- Nav -->
-      <div id="nav-menu" class="nav-links">
+  <!-- Give the links a stable id for JS -->
+  <div id="nav-menu" class="nav-links">
+    <!-- … your existing <ul> … -->
+      <a href="/" class="logo"><img src="/images/tunzalogo.png" alt="Tunza Esports Logo"></a>
+      <div class="nav-links">
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/about-us/">About Us</a></li>
 
           <li class="has-dropdown">
-            <a href="#" aria-haspopup="true" aria-expanded="false">Our Services</a>
+            <a href="#">Our Services</a>
             <ul class="dropdown-menu">
               <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
               <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
@@ -101,10 +99,10 @@ layout: null
           </li>
 
           <li class="has-dropdown">
-            <a href="#" aria-haspopup="true" aria-expanded="false">Our Products</a>
+            <a href="#">Our Products</a>
             <ul class="dropdown-menu">
               <li><a href="/ker/">KER</a></li>
-              <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
+              <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
               <li><a href="/tunzatourna/">TunzaTourna</a></li>
               <li><a href="/shop/">Shop</a></li>
             </ul>
@@ -114,7 +112,6 @@ layout: null
           <li><a href="/contact/">Contact Us</a></li>
           <li><a href="/gallery/">Gallery</a></li>
         </ul>
-
         <a href="/shop/" class="shop-button">Shop Now</a>
       </div>
     </nav>
@@ -131,30 +128,19 @@ layout: null
   <main class="service-body">
 
     <section class="tournament-intro-section">
-      <h2 class="tournament-intro-heading">We Host Video Gaming Events That Aren’t Necessarily Competitive</h2>
+      <h2 class="tournament-intro-heading">We Host Video Gaming Events that are Not Necessarily Competitive</h2>
       <p class="tournament-intro-text">
         Join us for LAN parties, gaming hangouts, casual tournaments, and more. Our events bring people together to share their passion for gaming in a fun, relaxed environment.
       </p>
     </section>
 
-    <!-- Desktop = grid; Mobile/Tablet = horizontal scroll (JS toggles classes) -->
     <section class="upcoming-events-grid-section">
       <h2 class="section-heading">Upcoming Events</h2>
+      <div class="events-grid-container">
 
-      <div id="events-grid" class="events-grid-container">
-        <!-- Card 1 -->
-        <article class="event-card">
+        <div class="event-card">
           <div class="event-image-wrapper">
-            <picture>
-              <source type="image/avif" srcset="/images/events/lan-party-480.avif 480w, /images/events/lan-party-768.avif 768w, /images/events/lan-party-1024.avif 1024w, /images/events/lan-party-1280.avif 1280w">
-              <source type="image/webp" srcset="/images/events/lan-party-480.webp 480w, /images/events/lan-party-768.webp 768w, /images/events/lan-party-1024.webp 1024w, /images/events/lan-party-1280.webp 1280w">
-              <img class="event-image"
-                   src="/images/events/lan-party.jpg"
-                   srcset="/images/events/lan-party-480.jpg 480w, /images/events/lan-party-768.jpg 768w, /images/events/lan-party-1024.jpg 1024w, /images/events/lan-party-1280.jpg 1280w"
-                   sizes="(max-width: 768px) 92vw, (max-width: 1200px) 45vw, 360px"
-                   width="1280" height="720"
-                   alt="LAN Party setup with PCs and players" loading="lazy" decoding="async">
-            </picture>
+            <img src="/images/events/lan-party.jpg" alt="LAN Party setup with PCs and players" class="event-image" loading="lazy">
           </div>
           <div class="event-card-content">
             <h3>LAN Party: Mayhem</h3>
@@ -162,21 +148,11 @@ layout: null
             <p class="event-location">Small World Country Club, Nairobi</p>
             <p class="event-price">Starting KES 6,000</p>
           </div>
-        </article>
+        </div>
 
-        <!-- Card 2 -->
-        <article class="event-card">
+        <div class="event-card">
           <div class="event-image-wrapper">
-            <picture>
-              <source type="image/avif" srcset="/images/events/retro-night-480.avif 480w, /images/events/retro-night-768.avif 768w, /images/events/retro-night-1024.avif 1024w, /images/events/retro-night-1280.avif 1280w">
-              <source type="image/webp" srcset="/images/events/retro-night-480.webp 480w, /images/events/retro-night-768.webp 768w, /images/events/retro-night-1024.webp 1024w, /images/events/retro-night-1280.webp 1280w">
-              <img class="event-image"
-                   src="/images/events/retro-night.jpg"
-                   srcset="/images/events/retro-night-480.jpg 480w, /images/events/retro-night-768.jpg 768w, /images/events/retro-night-1024.jpg 1024w, /images/events/retro-night-1280.jpg 1280w"
-                   sizes="(max-width: 768px) 92vw, (max-width: 1200px) 45vw, 360px"
-                   width="1280" height="720"
-                   alt="Retro gaming consoles on display" loading="lazy" decoding="async">
-            </picture>
+            <img src="/images/events/retro-night.jpg" alt="Retro gaming consoles on display" class="event-image" loading="lazy">
           </div>
           <div class="event-card-content">
             <h3>Community Hangout: Retro Night</h3>
@@ -184,21 +160,11 @@ layout: null
             <p class="event-location">Ballpoint Social Club, Nairobi</p>
             <p class="event-price">Starting KES 2,000</p>
           </div>
-        </article>
+        </div>
 
-        <!-- Card 3 -->
-        <article class="event-card">
+        <div class="event-card">
           <div class="event-image-wrapper">
-            <picture>
-              <source type="image/avif" srcset="/images/events/fifa-tournament-480.avif 480w, /images/events/fifa-tournament-768.avif 768w, /images/events/fifa-tournament-1024.avif 1024w, /images/events/fifa-tournament-1280.avif 1280w">
-              <source type="image/webp" srcset="/images/events/fifa-tournament-480.webp 480w, /images/events/fifa-tournament-768.webp 768w, /images/events/fifa-tournament-1024.webp 1024w, /images/events/fifa-tournament-1280.webp 1280w">
-              <img class="event-image"
-                   src="/images/events/fifa-tournament.jpg"
-                   srcset="/images/events/fifa-tournament-480.jpg 480w, /images/events/fifa-tournament-768.jpg 768w, /images/events/fifa-tournament-1024.jpg 1024w, /images/events/fifa-tournament-1280.jpg 1280w"
-                   sizes="(max-width: 768px) 92vw, (max-width: 1200px) 45vw, 360px"
-                   width="1280" height="720"
-                   alt="Players competing in FIFA on large screens" loading="lazy" decoding="async">
-            </picture>
+            <img src="/images/events/fifa-tournament.jpg" alt="Players competing in FIFA on large screens" class="event-image" loading="lazy">
           </div>
           <div class="event-card-content">
             <h3>Casual Tournament: FIFA 25</h3>
@@ -206,21 +172,11 @@ layout: null
             <p class="event-location">Whistling Morans Ltd, Athi River</p>
             <p class="event-price">Starting KES 750</p>
           </div>
-        </article>
+        </div>
 
-        <!-- Card 4 -->
-        <article class="event-card">
+        <div class="event-card">
           <div class="event-image-wrapper">
-            <picture>
-              <source type="image/avif" srcset="/images/events/lan-party-480.avif 480w, /images/events/lan-party-768.avif 768w, /images/events/lan-party-1024.avif 1024w, /images/events/lan-party-1280.avif 1280w">
-              <source type="image/webp" srcset="/images/events/lan-party-480.webp 480w, /images/events/lan-party-768.webp 768w, /images/events/lan-party-1024.webp 1024w, /images/events/lan-party-1280.webp 1280w">
-              <img class="event-image"
-                   src="/images/events/lan-party.jpg"
-                   srcset="/images/events/lan-party-480.jpg 480w, /images/events/lan-party-768.jpg 768w, /images/events/lan-party-1024.jpg 1024w, /images/events/lan-party-1280.jpg 1280w"
-                   sizes="(max-width: 768px) 92vw, (max-width: 1200px) 45vw, 360px"
-                   width="1280" height="720"
-                   alt="Battle royale duos gaming setup" loading="lazy" decoding="async">
-            </picture>
+            <img src="/images/events/lan-party.jpg" alt="Battle Royale duos gaming setup" class="event-image" loading="lazy">
           </div>
           <div class="event-card-content">
             <h3>Battle Royale: Duos</h3>
@@ -228,7 +184,8 @@ layout: null
             <p class="event-location">The Gaming Arena, Nairobi</p>
             <p class="event-price">Starting KES 1,000</p>
           </div>
-        </article>
+        </div>
+
       </div>
     </section>
 
@@ -241,6 +198,7 @@ layout: null
     <div class="newsletter-card">
       <h3>Hello guys! Get the latest information from us</h3>
 
+      <!-- Mailchimp (keeps your existing visual design) -->
       <form
         action="https://tunzaesports.us13.list-manage.com/subscribe/post?u=49268c059773710b44455bb33&id=f95ceda37f&f_id=00cde9e1f0"
         method="post"
@@ -292,7 +250,7 @@ layout: null
       <div class="footer-column">
         <h4>Tournaments</h4>
         <ul>
-          <li><a href="https://www.kenyaesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
+          <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">Kenya University Esports Rankings</a></li>
         </ul>
       </div>
       <div class="footer-column footer-logo-column">
@@ -309,139 +267,63 @@ layout: null
     </div>
   </footer>
 
-  <!-- Scripts -->
   <script>
-(function () {
-  // ---------- NAV ----------
-  function initNav() {
-    const btn  = document.querySelector('.nav-toggle');
-    const menu = document.getElementById('nav-menu');
-    if (!btn || !menu) return;
-
-    const isMobile = () => window.matchMedia('(max-width:1024px)').matches;
-
-    // Toggle mobile menu
-    btn.addEventListener('click', () => {
-      const open = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', String(!open));
-      menu.classList.toggle('is-open', !open);
-    });
-
-    // Dropdown headers: prevent "#" jump always; only toggle on mobile
-    document.querySelectorAll('.nav-links .has-dropdown > a').forEach(a => {
-      a.addEventListener('click', (e) => {
-        e.preventDefault(); // avoid scroll-to-top on desktop
-        if (isMobile()){
-          const li = a.parentElement;
-          const expanded = li.classList.toggle('open');
-          a.setAttribute('aria-expanded', String(expanded));
-        }
+    (function () {
+      // Sticky nav
+      window.addEventListener('scroll', function () {
+        const navbar = document.querySelector('.header nav');
+        if (navbar) navbar.style.top = (window.scrollY > 0) ? (window.scrollY + 'px') : '0px';
       });
-    });
 
-    // Close menu after clicking any non-dropdown link (mobile)
-    menu.querySelectorAll('a').forEach(link => {
-      if (!link.matches('.has-dropdown > a')) {
-        link.addEventListener('click', () => {
-          if (isMobile()){
-            menu.classList.remove('is-open');
-            btn.setAttribute('aria-expanded','false');
-            menu.querySelectorAll('.has-dropdown.open').forEach(li => li.classList.remove('open'));
-          }
+      function initPartnersCarousel(){
+        // Respect reduced motion
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        const track = document.querySelector('.partners-carousel-track');
+        if (!track) return;
+
+        // Duplicate children until we have enough width (~3x viewport) for smooth loop
+        const originals = Array.from(track.children).map(n => n.cloneNode(true));
+        let reps = 0;
+        while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
+          originals.forEach(n => track.appendChild(n.cloneNode(true)));
+          reps++;
+        }
+
+        let x = 0, speed = 0.6, raf;
+        function loop(){
+          const max = track.scrollWidth - track.clientWidth;
+          x = (x + speed) % (max || 1);
+          track.scrollLeft = x;
+          raf = requestAnimationFrame(loop);
+        }
+        loop();
+
+        // Pause/resume on hover/focus
+        track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
+        track.addEventListener('mouseleave', () => loop());
+        track.addEventListener('focusin', () => cancelAnimationFrame(raf));
+        track.addEventListener('focusout', () => loop());
+
+        // Recalculate on resize
+        let t;
+        window.addEventListener('resize', () => {
+          cancelAnimationFrame(raf);
+          clearTimeout(t);
+          t = setTimeout(() => { x = 0; loop(); }, 150);
         });
       }
-    });
 
-    // Esc closes the mobile menu
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && isMobile() && menu.classList.contains('is-open')) {
-        menu.classList.remove('is-open');
-        btn.setAttribute('aria-expanded','false');
-        menu.querySelectorAll('.has-dropdown.open').forEach(li => li.classList.remove('open'));
-      }
-    });
-
-    // Reset state on resize to desktop
-    window.addEventListener('resize', () => {
-      if (!isMobile()){
-        menu.classList.remove('is-open');
-        btn.setAttribute('aria-expanded','false');
-        menu.querySelectorAll('.has-dropdown.open').forEach(li => li.classList.remove('open'));
-      }
-    });
-  }
-
-  // ---------- PARTNERS CAROUSEL ----------
-  function initPartnersCarousel(){
-    const track = document.querySelector('.partners-carousel-track');
-    if (!track) return;
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const originals = Array.from(track.children).map(n => n.cloneNode(true));
-    let reps = 0;
-    while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
-      originals.forEach(n => track.appendChild(n.cloneNode(true)));
-      reps++;
-    }
-
-    let x = 0, speed = 0.6, raf = null;
-    const loop = () => {
-      const max = track.scrollWidth - track.clientWidth;
-      x = (x + speed) % (max || 1);
-      track.scrollLeft = x;
-      raf = requestAnimationFrame(loop);
-    };
-    const start = () => { if (!raf) loop(); };
-    const stop  = () => { if (raf) cancelAnimationFrame(raf); raf = null; };
-
-    start();
-    track.addEventListener('mouseenter', stop);
-    track.addEventListener('mouseleave', start);
-    track.addEventListener('focusin',   stop);
-    track.addEventListener('focusout',  start);
-
-    let t;
-    window.addEventListener('resize', () => {
-      stop();
-      clearTimeout(t);
-      t = setTimeout(() => { x = 0; start(); }, 150);
-    });
-  }
-
-  // ---------- OPTIONAL: toggle horizontal scroll row ----------
-  function initResponsiveScrollRows() {
-    const el = document.getElementById('events-grid');
-    if (!el) return;
-
-    const mq = window.matchMedia('(max-width: 1024px)');
-    const apply = () => {
-      if (mq.matches) {
-        el.classList.add('scroll-row','cards-snap');
-        el.querySelectorAll('.event-card').forEach(c => c.classList.add('card-snap'));
+      if (document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', initPartnersCarousel);
       } else {
-        el.classList.remove('scroll-row','cards-snap');
-        el.querySelectorAll('.event-card').forEach(c => c.classList.remove('card-snap'));
+        initPartnersCarousel();
       }
-    };
-    apply();
-    mq.addEventListener('change', apply);
-  }
-
-  const ready = (fn) => {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', fn, { once: true });
-    } else {
-      fn();
-    }
-  };
-
-  ready(() => {
-    initNav();
-    initPartnersCarousel();
-    initResponsiveScrollRows(); // safe no-op if #events-grid absent
-  });
-})();
-</script>
+    })();
+  </script>
 </body>
 </html>
+
+
+
 
