@@ -12,14 +12,14 @@ a:hover{color:#00E5FF}
 .wrap,.container{width:min(1200px,92vw);margin-inline:auto;padding-inline:16px}
 
 /* ==========================================================
-   HEADER — desktop overlay like your original (now FIXED)
+   HEADER — desktop overlay (FIXED)
    ========================================================== */
 .header .site-nav{
   position:fixed; left:0; right:0; top:0; z-index:1000;
   display:flex; align-items:center; gap:24px;
   padding:6px 75px;
   background:linear-gradient(to bottom, rgba(26,26,48,1) 0%, rgba(26,26,48,0) 100%);
-  transform:translateZ(0); /* prevents iOS jitter */
+  transform:translateZ(0);
 }
 .header .logo img{width:90px;height:90px;object-fit:contain;display:block}
 
@@ -34,7 +34,7 @@ a:hover{color:#00E5FF}
 .nav-main>li{position:relative}
 .nav-main>li>a{display:block;padding:10px 0;font-size:16px}
 
-/* Dropdowns (brand gradient, not flat black) */
+/* Dropdowns */
 .has-dropdown>a{padding-right:18px}
 .has-dropdown>a::after{
   content:'\25BE'; font-size:.7em; position:absolute; right:-12px; top:50%;
@@ -59,14 +59,16 @@ a:hover{color:#00E5FF}
 }
 .shop-button:hover{background:#9d2df0;color:#fff!important;transform:translateY(-2px)}
 
-/* Push first non-hero section down so the fixed nav doesn't cover it */
+/* Ensure content after fixed header isn’t hidden (heroes are exempt) */
 .header + *:not(.home-hero-section):not(.service-hero-section):not(.esports-broadcasting-hero-section):not(.events-bootcamps-hero-section):not(.video-gaming-events-hero-section):not(.kuer-hero-section):not(.news-hero-section):not(.about-hero-section){
   margin-top:96px;
 }
 
 /* ==========================================================
-   MOBILE drawer — totally isolated from desktop
+   MOBILE drawer — isolated from desktop
    ========================================================== */
+#mobile-drawer{display:none !important;} /* never show on desktop */
+
 @media (max-width:1024px){
   .desktop-only{display:none}
   .mobile-only{display:inline-flex;margin-left:auto}
@@ -78,12 +80,10 @@ a:hover{color:#00E5FF}
     padding:.6rem .75rem;border-radius:10px
   }
 
-  /* Drawer base (hidden by default) */
-  #mobile-drawer{display:none}
-  #mobile-drawer.is-open{display:block}
-
+  /* Drawer */
+  #mobile-drawer.is-open{display:block !important}
   .mobile-drawer{
-    position:fixed; inset:0; z-index:1500;
+    position:fixed; inset:0; z-index:2000;
     background:linear-gradient(180deg, rgba(11,11,22,1) 0%, rgba(11,11,22,0.98) 100%)
   }
   body.drawer-lock{overflow:hidden}
@@ -120,7 +120,7 @@ a:hover{color:#00E5FF}
 .news-section{padding:80px 75px;text-align:center;background:#0A0A1A}
 .news-heading{font-size:48px;margin-bottom:50px}
 .news-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;justify-content:center}
-.news-card{background:transparent;padding:30px;border-radius:12px;transition:transform .3s,box-shadow .3s;text-align:left}
+.news-card{background:transparent;padding:30px;border-radius:12px;transition:transform .3s,box-shadow .3s;text-align:left;display:block}
 .news-card:hover{transform:translateY(-5px);box-shadow:0 8px 25px rgba(0,0,0,.3)}
 .news-image-placeholder{width:100%;height:180px;background:#333;border-radius:8px;margin-bottom:10px}
 .news-card-title{font-size:24px;margin-bottom:6px}
