@@ -25,7 +25,7 @@ a:hover{color:#00E5FF}
 }
 .header .logo img{width:90px;height:90px;object-fit:contain;display:block}
 
-/* DO NOT set display on .desktop-only globally (lets .nav-main stay flex) */
+/* we only toggle .desktop-only inside media query */
 .mobile-only{display:none}
 
 .nav-main{
@@ -36,22 +36,38 @@ a:hover{color:#00E5FF}
 .nav-main>li{position:relative}
 .nav-main>li>a{display:block;padding:10px 0;font-size:16px}
 
-/* Dropdowns */
+/* ---------------- Dropdowns: no flicker, no gap ---------------- */
 .has-dropdown>a{padding-right:18px}
 .has-dropdown>a::after{
   content:'\25BE'; font-size:.7em; position:absolute; right:-12px; top:50%;
   transform:translateY(-50%); color:#FCFCFD;
 }
+
 .dropdown-menu{
-  display:none; position:absolute; left:50%; top:100%; transform:translateX(-50%);
-  list-style:none; padding:10px 12px; margin:8px 0 0 0; min-width:260px;
+  /* removed margin-top gap; use transform instead */
+  position:absolute; left:50%; top:100%; transform:translate(-50%,10px);
+  list-style:none; padding:10px 12px; min-width:260px;
   border-radius:12px; border:1px solid rgba(255,255,255,.08);
   background:linear-gradient(180deg,#1a1a36 0%, #11112a 100%);
-  box-shadow:0 10px 24px rgba(0,0,0,.35)
+  box-shadow:0 10px 24px rgba(0,0,0,.35);
+  z-index:1100;
+
+  /* make hidden state smooth and still hoverable when shown */
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity .18s ease, transform .18s ease, visibility 0s linear .18s;
 }
-.dropdown-menu li a{display:block;padding:12px 12px;border-radius:8px;font-size:16px;color:#19D2EA}
+
+.has-dropdown:hover>.dropdown-menu,
+.has-dropdown:focus-within>.dropdown-menu{
+  opacity:1; visibility:visible; pointer-events:auto;
+  transform:translate(-50%,14px);
+  transition:opacity .18s ease, transform .18s ease;
+}
+
+.dropdown-menu li a{
+  display:block;padding:12px 12px;border-radius:8px;font-size:16px;color:#19D2EA
+}
 .dropdown-menu li a:hover{background:#0d0d21;color:#FCFCFD}
-.has-dropdown:hover>.dropdown-menu{display:block}
 
 /* Desktop CTA */
 .shop-button{
@@ -59,7 +75,8 @@ a:hover{color:#00E5FF}
   display:inline-block; font-weight:700; font-size:16px; color:#fff!important;
   background:#B425EC; padding:10px 22px; border-radius:8px; transition:background .25s,transform .2s
 }
-.shop-button:hover{background:#9d2df0;color:#fff!important;transform:translateY(-2px)}
+/* Hover goes BLUE as requested */
+.shop-button:hover{background:#19D2EA;color:#fff!important;transform:translateY(-2px)}
 
 /* Push first non-hero section down so the fixed nav doesn't cover it */
 .header + *:not(.home-hero-section):not(.service-hero-section):not(.esports-broadcasting-hero-section):not(.events-bootcamps-hero-section):not(.video-gaming-events-hero-section):not(.kuer-hero-section):not(.news-hero-section):not(.about-hero-section){
@@ -75,7 +92,6 @@ a:hover{color:#00E5FF}
 .drawer-panel.is-active{display:block}
 
 @media (max-width:1024px){
-  /* Only on mobile: toggle visibility helpers */
   .mobile-only{display:inline-flex}
   .desktop-only{display:none !important}
 
@@ -100,6 +116,7 @@ a:hover{color:#00E5FF}
   .drawer-list a,.drawer-link{font-size:22px;line-height:1.4;background:transparent;color:#FCFCFD;border:0;padding:8px 6px;border-radius:8px}
   .drawer-link{cursor:pointer}
   .drawer-back{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;border:1px solid #2b2f3a;background:rgba(255,255,255,.04);color:#fff;font-size:16px;margin:0 0 12px}
+  /* Shop Now centered on mobile drawer */
   .drawer-cta{display:inline-block;margin:34px auto 0;padding:14px 28px;font-size:18px}
 }
 
