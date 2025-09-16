@@ -8,7 +8,6 @@
   <title>Tunza Esports — Home</title>
   <meta name="description" content="Tunza Esports organizes esports tournaments, gaming events, and community programs across Kenya. News, rankings, partnerships, and more." />
   <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
-
   <link rel="canonical" href="https://www.tunzaesports.org/" />
 
   <!-- Open Graph / Twitter -->
@@ -44,52 +43,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <!-- Your stylesheet -->
+  <!-- Styles -->
   <link rel="stylesheet" href="/css/style.css" />
-
-  <!-- JSON-LD: Organization -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "@id": "https://www.tunzaesports.org/#org",
-    "name": "Tunza Esports",
-    "url": "https://www.tunzaesports.org",
-    "logo": "https://www.tunzaesports.org/images/android-chrome-512x512-dark.png",
-    "sameAs": [
-      "https://www.instagram.com/TunzaEsports",
-      "https://x.com/TunzaEsports",
-      "https://www.facebook.com/TunzaEsports"
-    ]
-  }
-  </script>
-
-  <!-- JSON-LD: WebSite -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "@id": "https://www.tunzaesports.org/#website",
-    "url": "https://www.tunzaesports.org/",
-    "name": "Tunza Esports",
-    "publisher": { "@id": "https://www.tunzaesports.org/#org" },
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://www.tunzaesports.org/news/?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
-  }
-  </script>
 </head>
 
 <body>
-  <!-- Header / Desktop nav (overlay) -->
+  <!-- Header / Desktop overlay nav -->
   <section class="header">
     <nav role="navigation" aria-label="Primary">
       <a href="/" class="logo"><img src="/images/tunzalogo.png" alt="Tunza Esports Logo" /></a>
 
-      <!-- Desktop nav links (hidden on mobile) -->
-      <div class="nav-links desktop-only">
+      <!-- CENTER links (desktop) -->
+      <div class="nav-center desktop-only">
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/about-us/">About Us</a></li>
@@ -115,23 +80,23 @@
             </ul>
           </li>
 
-          <!-- Shop Now IN THE MIDDLE (as a list item) -->
-          <li class="nav-cta"><a href="/shop/" class="shop-button">Shop Now</a></li>
-
           <li><a href="/news/">News</a></li>
           <li><a href="/contact/">Contact Us</a></li>
           <li><a href="/gallery/">Gallery</a></li>
         </ul>
       </div>
 
-      <!-- Mobile hamburger (shown on mobile only) -->
+      <!-- RIGHT CTA (desktop) -->
+      <a href="/shop/" class="shop-button desktop-only">Shop Now</a>
+
+      <!-- Mobile hamburger -->
       <button class="nav-toggle mobile-only" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Menu">
         <span class="fa fa-bars" aria-hidden="true"></span>
       </button>
     </nav>
   </section>
 
-  <!-- Mobile full-screen drawer -->
+  <!-- Mobile full-screen drawer (isolated to mobile via CSS) -->
   <div id="mobile-drawer" class="mobile-drawer" aria-hidden="true">
     <!-- Main panel -->
     <div class="drawer-panel is-active" data-panel="main">
@@ -144,7 +109,6 @@
         <li><a href="/contact/">Contact Us</a></li>
         <li><a href="/gallery/">Gallery</a></li>
       </ul>
-
       <a href="/shop/" class="shop-button drawer-cta">Shop Now</a>
     </div>
 
@@ -181,12 +145,12 @@
     </div>
   </section>
 
-  <!-- NEWS (left exactly as your site expects; no JS injection) -->
+  <!-- NEWS (unchanged – keep your original cards/server output here) -->
   <section class="news-section">
     <div class="container">
       <h2 class="news-heading">Lots of interesting information from us</h2>
       <div class="news-grid" id="news-cards-container">
-        <!-- Keep your original server/CMS-generated news cards here -->
+        <!-- Your existing news items go here -->
       </div>
     </div>
   </section>
@@ -195,10 +159,8 @@
   <section class="newsletter-outer">
     <p class="newsletter-pre-heading">Subscribe To Our Newsletter Today!</p>
     <h2 class="newsletter-main-heading">Get Gaming Guide and Information</h2>
-
     <div class="newsletter-card">
       <h3>Hello guys! Get the latest information from us</h3>
-
       <form
         action="https://tunzaesports.us13.list-manage.com/subscribe/post?u=49268c059773710b44455bb33&id=f95ceda37f&f_id=00cde9e1f0"
         method="post" target="_blank" novalidate class="newsletter-form-container">
@@ -208,7 +170,6 @@
         </div>
         <button type="submit" class="subscribe-button">Subscribe</button>
       </form>
-
       <p class="newsletter-card-disclaimer">
         Stay ahead in the game. Get exclusive tips, updates, and strategy guides straight to your inbox. No spam, just pure gaming goodness.
       </p>
@@ -217,7 +178,7 @@
 
   <div class="spacer-before-partners"></div>
 
-  <!-- Partners (unchanged visuals) -->
+  <!-- Partners carousel -->
   <section class="partners-section">
     <h2>Our Partners, clients, friends</h2>
     <div class="partners-carousel-track">
@@ -265,28 +226,29 @@
     </div>
   </footer>
 
-  <!-- Minimal JS: just the mobile drawer -->
+  <!-- JS: only mobile drawer + partners auto-scroll -->
   <script>
   (function () {
+    // ----- Mobile drawer (does not affect desktop) -----
     const toggle = document.querySelector('.nav-toggle');
     const drawer = document.getElementById('mobile-drawer');
 
+    const isMobile = () => window.matchMedia('(max-width:1024px)').matches;
+
     const openDrawer = () => {
+      if (!isMobile()) return;
       drawer.classList.add('is-open');
       drawer.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('drawer-lock'); // stop page scroll
+      document.body.classList.add('drawer-lock');
       toggle?.setAttribute('aria-expanded', 'true');
-      // show main panel
       switchPanel('main');
     };
-
     const closeDrawer = () => {
       drawer.classList.remove('is-open');
       drawer.setAttribute('aria-hidden', 'true');
       document.body.classList.remove('drawer-lock');
       toggle?.setAttribute('aria-expanded', 'false');
     };
-
     const switchPanel = (name) => {
       drawer.querySelectorAll('.drawer-panel').forEach(p =>
         p.classList.toggle('is-active', p.dataset.panel === name)
@@ -301,19 +263,47 @@
     drawer.addEventListener('click', (e) => {
       const go = e.target.closest('[data-go]')?.dataset.go;
       const back = e.target.closest('[data-back]')?.dataset.back;
-      if (go) { switchPanel(go); }
-      if (back) { switchPanel(back); }
+      if (go) switchPanel(go);
+      if (back) switchPanel(back);
     });
 
-    // Close drawer on ESC
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeDrawer();
-    });
+    window.addEventListener('resize', () => { if (!isMobile()) closeDrawer(); });
 
-    // If resizing up to desktop, just close the drawer
-    window.addEventListener('resize', () => {
-      if (window.matchMedia('(min-width:1025px)').matches) closeDrawer();
-    });
+    // ----- Partners carousel (auto-scroll, desktop + mobile) -----
+    function initPartnersCarousel(){
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const track = document.querySelector('.partners-carousel-track');
+      if (!track) return;
+
+      if (!track.dataset.dup){
+        const originals = Array.from(track.children);
+        // Clone until track is ~3x wider than viewport
+        let reps = 0;
+        while (track.scrollWidth < track.clientWidth * 3 && reps < 6){
+          originals.forEach(n => track.appendChild(n.cloneNode(true)));
+          reps++;
+        }
+        track.dataset.dup = '1';
+      }
+
+      let x = 0, speed = 0.6, raf = 0;
+      const loop = () => {
+        const max = track.scrollWidth - track.clientWidth;
+        x = (x + speed) % (max || 1);
+        track.scrollLeft = x;
+        raf = requestAnimationFrame(loop);
+      };
+      const start = () => { if (!raf) loop(); };
+      const stop  = () => { if (raf) cancelAnimationFrame(raf), raf = 0; };
+
+      start();
+      track.addEventListener('mouseenter', stop);
+      track.addEventListener('mouseleave', start);
+      track.addEventListener('focusin',   stop);
+      track.addEventListener('focusout',  start);
+      window.addEventListener('resize', () => { stop(); x = 0; start(); });
+    }
+    initPartnersCarousel();
   })();
   </script>
 </body>
