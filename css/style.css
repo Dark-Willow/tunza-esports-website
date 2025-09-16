@@ -1,8 +1,5 @@
 /* ==========================================================
-   Tunza Esports — ORIGINAL THEME (baseline)
-   - Transparent/overlay nav
-   - Original News + Newsletter styling
-   - Mobile horizontal scroll for Gallery, Directors, Events
+   Tunza Esports — ORIGINAL THEME (baseline) + Mobile full-screen menu
    ========================================================== */
 
 /* --------- Base / Reset --------- */
@@ -12,20 +9,17 @@ body {
   font-family:'Oxanium', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
   color:#FCFCFD; background:#0A0A1A;
 }
-
-/* Headings/links */
 h1,h2,h3,h4 { font-family:'Syne', ui-sans-serif, system-ui, sans-serif; color:#FCFCFD; line-height:1.2; }
 a { color:#FCFCFD; text-decoration:none; transition:color .25s ease; }
 a:hover { color:#00E5FF; }
-
-/* Layout helpers */
 .wrap, .container { width:min(1200px, 92vw); margin-inline:auto; padding-inline:16px; }
 
 /* ==========================================================
-   HEADER / NAV  (transparent overlay)
+   DESKTOP HEADER / NAV (transparent overlay)
+   (hidden on mobile)
    ========================================================== */
 .header nav{
-  position:absolute; inset:0 0 auto 0; /* top:0; left:0; right:0 */
+  position:absolute; inset:0 0 auto 0;
   z-index:1000;
   padding:6px 75px;
   display:flex; align-items:center; justify-content:flex-start;
@@ -33,56 +27,102 @@ a:hover { color:#00E5FF; }
 }
 .header .logo img{ width:90px; height:90px; object-fit:contain; display:block; }
 
-/* desktop links (original spacing) */
 .nav-links{ margin-left:200px; flex:1 1 auto; display:flex; align-items:center; gap:25px; }
 .nav-links > ul{ list-style:none; display:flex; align-items:center; gap:53px; }
 .nav-links li{ position:relative; }
 .nav-links > ul > li > a{ font-size:16px; padding:10px 0; display:block; }
 
-/* dropdown (hover on desktop) */
+/* Desktop dropdown */
 .has-dropdown > a{ padding-right:18px; }
 .has-dropdown > a::after{
-  content:'\25BE'; font-size:.7em; position:absolute; right:0; top:50%; transform:translateY(-50%);
-  color:#FCFCFD;
+  content:'\25BE'; font-size:.7em; position:absolute; right:0; top:50%; transform:translateY(-50%); color:#FCFCFD;
 }
 .dropdown-menu{
   display:none; position:absolute; left:50%; top:100%; transform:translateX(-50%);
-  min-width:200px; padding:6px 14px; border-radius:10px;
-  background:#1a1a36; box-shadow:0 10px 24px rgba(0,0,0,.35);
+  min-width:240px; padding:10px 12px; border-radius:12px;
+  background:linear-gradient(180deg, rgba(26,26,48,.98) 0%, rgba(11,11,22,.98) 100%);
+  box-shadow:0 10px 24px rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.08);
 }
 .has-dropdown:hover > .dropdown-menu{ display:block; }
-.dropdown-menu li a{
-  display:block; padding:12px 10px; font-size:16px; color:#19D2EA;
-}
-.dropdown-menu li a:hover{ background:#0d0d21; color:#FCFCFD; }
+.dropdown-menu li a{ display:block; padding:12px; font-size:16px; color:#19D2EA; border-radius:8px; }
+.dropdown-menu li a:hover{ background:rgba(255,255,255,.06); color:#FCFCFD; }
 
-/* Shop button (original look) */
+/* Desktop Shop button */
 .shop-button{
-  font-weight:700; font-size:16px; color:#FCFCFD;
-  background:#B425EC; padding:10px 25px; border-radius:6px;
-  transition:background .25s ease;
+  margin-left:auto;
+  font-weight:700; font-size:16px; color:#fff !important;
+  background:#B425EC; padding:10px 22px; border-radius:8px;
+  transition:background .25s ease, transform .2s ease; white-space:nowrap;
 }
-.shop-button:hover{ background:#19D2EA; }
+.shop-button:hover{ background:#a018d8; color:#fff !important; transform:translateY(-1px); }
 
-/* Mobile / tablet nav (<=1024px) — overlay panel */
-.nav-toggle{ display:none; }
+/* ==========================================================
+   MOBILE: remove the navbar entirely + full-screen dark menu
+   ========================================================== */
+.menu-fab{ display:none; } /* hidden on desktop */
+
 @media (max-width:1024px){
-  .header nav{ padding:6px 16px; }
-  .nav-toggle{
-    display:inline-flex; align-items:center; gap:.5rem;
-    background:transparent; color:#fff; border:1px solid #2a2f3a;
-    padding:.5rem .75rem; border-radius:10px; margin-left:auto;
+  /* Remove the whole navbar on mobile */
+  .header nav{ display:none; }
+
+  /* Floating hamburger (top-right) */
+  .menu-fab{
+    display:inline-flex; align-items:center; justify-content:center;
+    position:fixed; top:12px; right:14px; z-index:1100;
+    width:42px; height:42px; border-radius:10px;
+    background:rgba(26,26,48,.9); color:#fff; border:1px solid #2a2f3a;
   }
-  .nav-links{
-    display:none; position:absolute; left:0; right:0; top:72px;
-    background:rgba(11,11,22,.98); border-top:1px solid #202433;
-    padding:14px 16px 18px; margin-left:0;
+
+  /* Full-screen overlay menu */
+  .mmodal{
+    position:fixed; inset:0; z-index:1090;
+    display:none; align-items:stretch; justify-content:center;
+    background:rgba(11,11,22,.98);
   }
-  .nav-links.is-open{ display:block; }
-  .nav-links > ul{ flex-direction:column; gap:10px; }
-  .dropdown-menu{ position:static; transform:none; margin-top:6px; display:none; }
-  .has-dropdown.open > .dropdown-menu{ display:block; }
-  .shop-button{ width:100%; text-align:center; margin-top:10px; }
+  .mmodal.is-open{ display:flex; }
+
+  body.menu-open{ overflow:hidden; }
+
+  .mmodal-screen{
+    margin:auto; width:min(680px, 92vw);
+    display:none; flex-direction:column; align-items:center; text-align:center;
+    padding:24px 10px 40px;
+  }
+  .mmodal-screen.is-active{ display:flex; }
+
+  .mmodal-logo{ width:86px; height:auto; margin:8px auto 18px; opacity:.95; }
+
+  .mmodal-list, .mmodal-sublist{
+    list-style:none; width:100%;
+    display:flex; flex-direction:column; gap:22px;
+  }
+  .mmodal-list a, .mmodal-sublist a, .mmodal-link{
+    font-size:22px; line-height:1; padding:14px 10px; color:#FCFCFD; background:transparent;
+    border:0; text-align:center; cursor:pointer;
+  }
+  .mmodal-link .chev{ opacity:.8; margin-left:.35rem; }
+
+  .menu-cta{ margin:6px 0 6px; }
+  .menu-cta .shop-button{
+    display:inline-block; padding:14px 24px; border-radius:10px; background:#B425EC; color:#fff !important;
+  }
+  .menu-cta .shop-button:hover{ background:#a018d8; color:#fff !important; }
+
+  .mmodal-close{
+    position:absolute; top:12px; right:14px;
+    width:42px; height:42px; border-radius:10px;
+    background:rgba(26,26,48,.9); color:#fff; border:1px solid #2a2f3a;
+  }
+
+  .mmodal-back{
+    align-self:flex-start;
+    display:inline-flex; gap:8px; align-items:center;
+    margin:6px 0 18px 6px; padding:10px 14px; border-radius:10px;
+    background:rgba(26,26,48,.9); color:#fff; border:1px solid #2a2f3a;
+  }
+
+  .mmodal-screen h3{ font-family:'Syne'; font-size:28px; margin:0 auto 14px; }
 }
 
 /* ==========================================================
@@ -90,65 +130,16 @@ a:hover { color:#00E5FF; }
    ========================================================== */
 .home-hero-section{
   min-height:962px; width:100%;
-  background-image:linear-gradient(rgba(4,9,30,.7), rgba(4,9,30,.7)), url(../images/TunzaEsportsBackground.png);
+  background-image:linear-gradient(rgba(4,9,30,.7), rgba(4,9,30,.7)), url(/images/TunzaEsportsBackground.png);
   background-size:cover; background-position:center; position:relative;
 }
-.home-hero-section .hero-content{
-  position:absolute; left:438px; top:426px; max-width:700px;
-}
+.home-hero-section .hero-content{ position:absolute; left:438px; top:426px; max-width:700px; }
 .home-hero-section .hero-content h1{ font-size:64px; font-weight:700; }
 
 @media (max-width:768px){
+  .home-hero-section{ min-height:100dvh; } /* fill screen on mobile */
   .home-hero-section .hero-content{ left:50%; transform:translateX(-50%); top:250px; text-align:center; }
   .home-hero-section .hero-content h1{ font-size:40px; }
-}
-
-/* Generic service/news hero blocks */
-.service-hero-section,
-.esports-broadcasting-hero-section,
-.events-bootcamps-hero-section,
-.video-gaming-events-hero-section,
-.kuer-hero-section,
-.news-hero-section{
-  min-height:450px; width:100%;
-  background-size:cover; background-position:center;
-  display:flex; flex-direction:column; justify-content:center; align-items:center;
-  text-align:center; padding:0 75px; position:relative;
-}
-.service-hero-section .breadcrumb,
-.esports-broadcasting-hero-section .breadcrumb,
-.events-bootcamps-hero-section .breadcrumb,
-.video-gaming-events-hero-section .breadcrumb,
-.kuer-hero-section .breadcrumb,
-.news-hero-section .breadcrumb{
-  position:absolute; top:150px; font-size:16px; color:rgba(252,252,253,.7);
-}
-.service-hero-section .service-main-heading,
-.esports-broadcasting-hero-section .service-main-heading,
-.events-bootcamps-hero-section .service-main-heading,
-.video-gaming-events-hero-section .service-main-heading,
-.kuer-hero-section .service-main-heading,
-.news-hero-section .service-main-heading{ font-size:64px; }
-
-@media (max-width:768px){
-  .service-hero-section,
-  .esports-broadcasting-hero-section,
-  .events-bootcamps-hero-section,
-  .video-gaming-events-hero-section,
-  .kuer-hero-section,
-  .news-hero-section{ padding:0 15px; min-height:350px; }
-  .service-hero-section .breadcrumb,
-  .esports-broadcasting-hero-section .breadcrumb,
-  .events-bootcamps-hero-section .breadcrumb,
-  .video-gaming-events-hero-section .breadcrumb,
-  .kuer-hero-section .breadcrumb,
-  .news-hero-section .breadcrumb{ top:120px; }
-  .service-hero-section .service-main-heading,
-  .esports-broadcasting-hero-section .service-main-heading,
-  .events-bootcamps-hero-section .service-main-heading,
-  .video-gaming-events-hero-section .service-main-heading,
-  .kuer-hero-section .service-main-heading,
-  .news-hero-section .service-main-heading{ font-size:36px; }
 }
 
 /* ==========================================================
@@ -229,7 +220,7 @@ a:hover { color:#00E5FF; }
 }
 
 /* ==========================================================
-   ABOUT: intro, list, directors (directors scroll on mobile)
+   ABOUT, LISTS, DIRECTORS (unchanged desktop + mobile scroll)
    ========================================================== */
 .about-intro-section{ padding:80px 75px 40px; text-align:center; }
 .intro-heading{ font-size:40px; margin-bottom:20px; }
@@ -238,7 +229,6 @@ a:hover { color:#00E5FF; }
 .intro-box{ width:390px; min-height:540px; display:flex; flex-direction:column; align-items:center; }
 .box-image-placeholder{ width:350px; height:480px; background:#333; border-radius:8px; }
 
-/* List */
 .list-section{ padding:40px 75px 80px; }
 .list-container{ display:flex; flex-wrap:wrap; gap:40px; justify-content:flex-start; padding-left:120px; }
 .list-column{ list-style:none; flex-basis:45%; max-width:500px; }
@@ -251,19 +241,15 @@ a:hover { color:#00E5FF; }
   .list-column, .list-column:last-child{ flex-basis:100%; margin-left:0; max-width:none; }
 }
 
-/* Directors (grid on desktop; horizontal scroll on ≤1024px) */
 .directors-section{ padding:50px 65px; text-align:center; }
 .directors-heading{ font-size:48px; margin-bottom:20px; }
 .directors-subheading{ font-size:16px; color:rgba(252,252,253,.7); margin-bottom:40px; }
-.director-cards-container{
-  display:flex; justify-content:center; gap:5px; flex-wrap:wrap;
-}
+.director-cards-container{ display:flex; justify-content:center; gap:5px; flex-wrap:wrap; }
 .director-card{ width:224px; padding:20px; border-radius:12px; text-align:center; }
 .director-image{ width:224px; height:458px; border-radius:8px; object-fit:cover; object-position:top; margin-bottom:15px; }
 .director-name{ font-size:20px; font-weight:700; color:#9B8AFB; margin-bottom:5px; }
 .director-title{ font-size:14px; color:rgba(252,252,253,.6); }
 
-/* Horizontal scroll on tablet/phone */
 @media (max-width:1024px){
   .director-cards-container{
     flex-wrap:nowrap; overflow-x:auto; gap:16px; padding:6px 10px;
@@ -274,7 +260,7 @@ a:hover { color:#00E5FF; }
 }
 
 /* ==========================================================
-   TOURNAMENT ORG / EVENTS (Upcoming Events scroll on mobile)
+   EVENTS
    ========================================================== */
 .tournament-intro-section{ padding:80px 75px 40px; text-align:center; }
 .tournament-intro-heading{ font-size:48px; margin-bottom:20px; }
@@ -296,40 +282,14 @@ a:hover { color:#00E5FF; }
   .tournament-intro-heading{ font-size:38px; }
   .tournament-content-container{ flex-direction:column; gap:30px; }
 }
-
 @media (max-width:768px){
   .tournament-intro-section, .tournament-content-section{ padding:40px 15px; }
   .tournament-intro-heading{ font-size:32px; }
   .small-image-container{ flex-direction:column; gap:15px; }
 }
 
-/* Upcoming Events grid (desktop) */
-.upcoming-events-grid-section{ padding:50px 75px; text-align:center; }
-.upcoming-events-grid-section .section-heading{ font-size:3rem; margin-bottom:30px; }
-.events-grid-container{
-  display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr));
-  gap:30px; align-items:stretch; padding:20px 0;
-}
-.event-card{ background:#1a1a36; border:1px solid #3f3f6c; border-radius:12px; overflow:hidden; display:flex; flex-direction:column; }
-.event-image-wrapper{ height:150px; overflow:hidden; }
-.event-image{ width:100%; height:100%; object-fit:cover; display:block; }
-.event-card-content{ padding:20px; display:flex; flex-direction:column; }
-.event-card-content h3{ font-size:1.25rem; color:#00E5FF; margin-bottom:6px; }
-.event-date, .event-location{ font-size:.875rem; color:#FCFCFD; opacity:.7; margin-bottom:12px; }
-.event-price{ font-size:1.1rem; font-weight:700; margin-top:auto; }
-
-/* Tablet/phone: horizontally scrollable events row */
-@media (max-width:1024px){
-  .events-grid-container{
-    display:flex; gap:16px; overflow-x:auto; padding:8px 10px 20px;
-    scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
-  }
-  .events-grid-container::-webkit-scrollbar{ height:6px; }
-  .event-card{ flex:0 0 auto; width:clamp(270px, 84vw, 360px); scroll-snap-align:start; }
-}
-
 /* ==========================================================
-   GALLERY (cards scroll on mobile)
+   GALLERY
    ========================================================== */
 .gallery-container{ max-width:1200px; margin:50px auto; padding:95px; }
 .gallery-section{ margin-bottom:60px; }
@@ -383,41 +343,6 @@ a:hover { color:#00E5FF; }
 .privacy-policy-container h1{ font-size:2.5rem; text-align:center; }
 .privacy-policy-container h2{ font-size:1.75rem; }
 .privacy-policy-container ul{ list-style:disc; margin-left:2rem; }
-
-/* ==========================================================
-   FOOTER
-   ========================================================== */
-footer{ background:#0A0A1A; color:#FCFCFD; }
-.footer-content{
-  display:flex; justify-content:space-between; flex-wrap:wrap; gap:40px;
-  padding:80px 75px 40px; border-bottom:1px solid rgba(252,252,253,.1);
-}
-.footer-column{ flex-basis:200px; flex-grow:1; text-align:left; }
-.footer-column h4{ font-size:24px; margin-bottom:25px; }
-.footer-column ul{ list-style:none; }
-.footer-column li{ margin-bottom:10px; }
-.footer-column a{ color:rgba(252,252,253,.7); }
-.footer-column a:hover{ color:#00E5FF; }
-.footer-logo-column{ flex-basis:280px; text-align:right; flex-grow:1; }
-.footer-logo-column img{ width:100px; display:block; margin-left:auto; margin-bottom:15px; }
-.footer-logo-column p{ font-size:16px; line-height:1.5; color:rgba(252,252,253,.7); margin-bottom:5px; }
-.footer-bottom{ text-align:left; padding:30px 75px; }
-.copyright-text{ font-size:14px; color:rgba(252,252,253,.6); }
-
-/* Responsive footer tweaks */
-@media (max-width:992px){
-  .footer-content{ justify-content:center; gap:30px; padding:60px 30px 30px; }
-  .footer-column{ flex-basis:calc(50% - 15px); max-width:300px; }
-  .footer-logo-column{ flex-basis:100%; text-align:center; }
-  .footer-logo-column img{ margin-inline:auto; }
-  .footer-bottom{ padding:25px 30px; text-align:center; }
-}
-@media (max-width:768px){
-  .footer-content{ flex-direction:column; align-items:center; gap:25px; }
-  .footer-column, .footer-logo-column{ flex-basis:100%; text-align:center; }
-  .footer-column h4{ margin-bottom:15px; }
-  .footer-bottom{ padding:25px 15px; }
-}
 
 /* ==========================================================
    COMING SOON
