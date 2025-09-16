@@ -15,7 +15,9 @@ a:hover{color:#00E5FF}
    HEADER — fixed overlay like your original
    ========================================================== */
 .header .site-nav{
-  position:fixed; left:0; right:0; top:0; z-index:1000;
+  position:fixed !important;   /* hard-lock it */
+  top:0 !important;            /* hard-lock it */
+  left:0; right:0; z-index:1000;
   display:flex; align-items:center; gap:24px;
   padding:6px 75px;
   background:linear-gradient(to bottom, rgba(26,26,48,1) 0%, rgba(26,26,48,0) 100%);
@@ -23,7 +25,7 @@ a:hover{color:#00E5FF}
 }
 .header .logo img{width:90px;height:90px;object-fit:contain;display:block}
 
-.desktop-only{display:block}
+/* DO NOT set display on .desktop-only globally (lets .nav-main stay flex) */
 .mobile-only{display:none}
 
 .nav-main{
@@ -67,9 +69,15 @@ a:hover{color:#00E5FF}
 /* ==========================================================
    MOBILE drawer — isolated from desktop
    ========================================================== */
+/* Drawer is hidden globally */
+#mobile-drawer{display:none !important}
+.drawer-panel{display:none}
+.drawer-panel.is-active{display:block}
+
 @media (max-width:1024px){
-  .desktop-only{display:none}
-  .mobile-only{display:inline-flex;margin-left:auto}
+  /* Only on mobile: toggle visibility helpers */
+  .mobile-only{display:inline-flex}
+  .desktop-only{display:none !important}
 
   .header .site-nav{padding:8px 16px}
 
@@ -82,11 +90,11 @@ a:hover{color:#00E5FF}
     position:fixed; inset:0; z-index:1500;
     background:linear-gradient(180deg, rgba(11,11,22,1) 0%, rgba(11,11,22,0.98) 100%)
   }
+  /* Show drawer only when opened on mobile */
+  #mobile-drawer.is-open{display:block !important}
+
   body.drawer-lock{overflow:hidden}
-
-  .drawer-panel{display:none;height:100%;overflow:auto;padding:96px 22px 32px}
-  .drawer-panel.is-active{display:block}
-
+  .drawer-panel{height:100%;overflow:auto;padding:96px 22px 32px}
   .drawer-title{font-family:'Syne';font-size:28px;margin:0 0 14px;text-align:center}
   .drawer-list{list-style:none;padding:0;margin:0 auto;max-width:520px;display:flex;flex-direction:column;gap:18px;text-align:center}
   .drawer-list a,.drawer-link{font-size:22px;line-height:1.4;background:transparent;color:#FCFCFD;border:0;padding:8px 6px;border-radius:8px}
@@ -194,30 +202,8 @@ footer{background:#0A0A1A;color:#FCFCFD}
   .footer-bottom{padding:25px 15px}
 }
 
-/* ==========================================================
-   Coming soon
-   ========================================================== */
+/* Coming soon */
 .coming-soon-hero-section{min-height:calc(100vh - 120px);display:flex;align-items:center;justify-content:center;text-align:center}
 .coming-soon-hero-section h1{font-size:5rem;font-weight:700;text-transform:uppercase}
 @media (max-width:768px){.coming-soon-hero-section h1{font-size:3rem}}
 @media (max-width:480px){.coming-soon-hero-section h1{font-size:2rem}}
-
-/* ==========================================================
-   Drawer visibility HARD RULES — keep at the very end
-   ========================================================== */
-/* Hide drawer globally on all screens unless explicitly opened on mobile */
-#mobile-drawer { display: none !important; }
-#mobile-drawer[aria-hidden="true"]{ display:none !important; }
-.drawer-panel { display:none; }
-.drawer-panel.is-active { display:block; }
-
-/* Desktop/Mobile control helpers */
-.mobile-only{ display:none; }
-.desktop-only{ display:block; }
-
-/* Only on mobile: show drawer when toggled open */
-@media (max-width:1024px){
-  #mobile-drawer.is-open { display:block !important; }
-  .mobile-only{ display:inline-flex; }
-  .desktop-only{ display:none; }
-}
