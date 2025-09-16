@@ -13,43 +13,30 @@ h1,h2,h3,h4 { font-family:'Syne', ui-sans-serif, system-ui, sans-serif; color:#F
 a { color:#FCFCFD; text-decoration:none; transition:color .25s ease; }
 a:hover { color:#00E5FF; }
 
-/* Layout helper */
 .wrap, .container { width:min(1200px, 92vw); margin-inline:auto; padding-inline:16px; }
 
 /* ==========================================================
-   HEADER / NAV — desktop overlay (original behaviour)
+   HEADER / NAV — desktop overlay (like your screenshot)
    ========================================================== */
 .header nav{
-  position:absolute; inset:0 0 auto 0; /* overlay at the very top of the page */
+  position:absolute; inset:0 0 auto 0; /* on top of hero, scrolls away */
   z-index:1000;
   padding:6px 75px;
-  display:flex; align-items:center; justify-content:flex-start;
+  display:flex; align-items:center; gap:24px;
   background:linear-gradient(to bottom, rgba(26,26,48,1) 0%, rgba(26,26,48,0) 100%);
 }
 .header .logo img{ width:90px; height:90px; object-fit:contain; display:block; }
 
-/* Desktop nav links */
+/* Center links group (desktop) */
 .desktop-only { display:block; }
 .mobile-only  { display:none; }
 
-.nav-links { margin-left:200px; flex:1 1 auto; display:flex; align-items:center; }
-.nav-links > ul{
-  list-style:none; display:flex; align-items:center; gap:32px;
-}
-.nav-links li{ position:relative; }
-.nav-links > ul > li > a{ font-size:16px; padding:10px 0; display:block; }
+.nav-center{ flex:1 1 auto; display:flex; justify-content:center; }
+.nav-center > ul{ list-style:none; display:flex; align-items:center; gap:40px; }
+.nav-center li{ position:relative; }
+.nav-center > ul > li > a{ font-size:16px; padding:10px 0; display:block; }
 
-/* Put “Shop Now” IN THE MIDDLE (as a nav item) */
-.nav-cta { margin-inline:16px; }
-.shop-button{
-  font-weight:700; font-size:16px; color:#fff !important;
-  background:#B425EC; padding:10px 22px; border-radius:8px;
-  transition:background .25s ease, transform .2s ease;
-  display:inline-block;
-}
-.shop-button:hover{ background:#9d2df0; color:#fff !important; transform:translateY(-2px); }
-
-/* Desktop dropdowns */
+/* Dropdowns with brand gradient (not flat black) */
 .has-dropdown > a{ padding-right:18px; }
 .has-dropdown > a::after{
   content:'\25BE'; font-size:.7em; position:absolute; right:-12px; top:50%;
@@ -70,17 +57,26 @@ a:hover { color:#00E5FF; }
 }
 .dropdown-menu li a:hover{ background:#0d0d21; color:#FCFCFD; }
 
+/* Right CTA (desktop) */
+.shop-button{
+  font-weight:700; font-size:16px; color:#fff !important;
+  background:#B425EC; padding:10px 22px; border-radius:8px;
+  transition:background .25s ease, transform .2s ease;
+  display:inline-block;
+}
+.shop-button:hover{ background:#9d2df0; color:#fff !important; transform:translateY(-2px); }
+
 /* ==========================================================
-   MOBILE — hide desktop links, use full-screen drawer
+   MOBILE — full-screen drawer, desktop unaffected
    ========================================================== */
 @media (max-width:1024px){
   .desktop-only { display:none; }
-  .mobile-only  { display:inline-flex; align-items:center; gap:.5rem; }
+  .mobile-only  { display:inline-flex; margin-left:auto; }
 
   .header nav{ padding:8px 16px; }
   .nav-toggle{
     background:transparent; color:#fff; border:1px solid #2a2f3a;
-    padding:.6rem .75rem; border-radius:10px; margin-left:auto;
+    padding:.6rem .75rem; border-radius:10px;
   }
 
   /* Drawer base */
@@ -90,32 +86,25 @@ a:hover { color:#00E5FF; }
     display:none;
   }
   .mobile-drawer.is-open{ display:block; }
-
-  /* Stop page scroll when open */
   body.drawer-lock{ overflow:hidden; }
 
   .drawer-panel{
     display:none; height:100%; overflow:auto;
-    padding:96px 22px 32px; /* space from top, inside full screen */
+    padding:96px 22px 32px;
   }
   .drawer-panel.is-active{ display:block; }
 
   .drawer-title{
-    font-family:'Syne'; font-size:28px; margin:0 0 14px;
-    text-align:center;
+    font-family:'Syne'; font-size:28px; margin:0 0 14px; text-align:center;
   }
-
   .drawer-list{
     list-style:none; padding:0; margin:0 auto; max-width:520px;
-    display:flex; flex-direction:column; gap:18px;
-    text-align:center;
+    display:flex; flex-direction:column; gap:18px; text-align:center;
   }
-  .drawer-list a,
-  .drawer-link{
+  .drawer-list a, .drawer-link{
     font-size:22px; line-height:1.4; background:transparent; color:#FCFCFD;
     border:0; padding:8px 6px; border-radius:8px;
   }
-
   .drawer-link{ cursor:pointer; }
 
   .drawer-back{
@@ -124,18 +113,14 @@ a:hover { color:#00E5FF; }
     background:rgba(255,255,255,.04); color:#fff; font-size:16px;
     margin:0 0 12px 0;
   }
-
-  /* Big centered CTA */
-  .drawer-cta{
-    display:inline-block; margin:34px auto 0; padding:14px 28px; font-size:18px;
-  }
+  .drawer-cta{ display:inline-block; margin:34px auto 0; padding:14px 28px; font-size:18px; }
 }
 
 /* ==========================================================
-   HERO — full-screen
+   HERO (original big overlay hero)
    ========================================================== */
 .home-hero-section{
-  min-height:100vh; width:100%;
+  min-height:962px; width:100%;
   background-image:linear-gradient(rgba(4,9,30,.7), rgba(4,9,30,.7)), url(/images/TunzaEsportsBackground.png);
   background-size:cover; background-position:center; position:relative;
 }
@@ -200,7 +185,7 @@ a:hover { color:#00E5FF; }
 }
 
 /* ==========================================================
-   PARTNERS (unchanged visuals)
+   PARTNERS (auto-scroll track)
    ========================================================== */
 .partners-section{ padding:80px 0 0; text-align:center; background:#0A0A1A; }
 .partners-section h2{ font-size:56px; margin:0 0 30px; padding:0 75px; }
