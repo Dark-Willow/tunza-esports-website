@@ -189,44 +189,49 @@
   'use strict';
 
   /* =========================================
-     HARD-LOCK HEADER + SAFETY NET
-     - Keep the header fixed
-     - Keep the inner .site-nav STATIC
-     - Strip any inline "top" changes old scripts try to apply
+     HARD-LOCK HEADER + NAV (with tiny safety net)
+     - Header stays fixed to the top
+     - Inner .site-nav stays static (so no script can "top = scrollY")
+     - Clears any inline "top"/"transform" that might get injected
      ========================================= */
   const header = document.querySelector('.header');
   const nav    = document.querySelector('.site-nav');
 
-  function hardLockHeaderAndNav() {
+  function reassertHeaderAndNav() {
     if (header) {
-      header.style.position = 'fixed';
-      header.style.top      = '0';
-      header.style.left     = '0';
-      header.style.right    = '0';
-      header.style.zIndex   = '1000';
+      header.style.setProperty('position', 'fixed', 'important');
+      header.style.setProperty('top',      '0px',   'important');
+      header.style.left   = '0';
+      header.style.right  = '0';
+      header.style.zIndex = '1000';
+      header.style.removeProperty('transform');  // avoid iOS fixed jitter issues
     }
     if (nav) {
-      // neutralize any old script trying to move nav
-      nav.style.position = 'static';
+      nav.style.setProperty('position', 'static', 'important');
       nav.style.removeProperty('top');
       nav.style.removeProperty('left');
       nav.style.removeProperty('right');
+      nav.style.removeProperty('transform');
     }
   }
 
-  // Run once and also on load/resize
-  hardLockHeaderAndNav();
-  window.addEventListener('load', hardLockHeaderAndNav);
-  window.addEventListener('resize', hardLockHeaderAndNav);
+  // Run now + on critical events
+  reassertHeaderAndNav();
+  window.addEventListener('load',   reassertHeaderAndNav, { passive: true });
+  window.addEventListener('resize', reassertHeaderAndNav);
+  window.addEventListener('scroll', reassertHeaderAndNav, { passive: true });
 
-  // Tiny safety net: if some script re-applies inline styles to the nav, remove them immediately.
+  // Tiny safety net: kill any inline onscroll that tries to move the nav
+  try { if (typeof window.onscroll === 'function') window.onscroll = null; } catch {}
+
+  // Watch for any inline style changes and immediately revert
+  if (header) {
+    new MutationObserver(reassertHeaderAndNav)
+      .observe(header, { attributes: true, attributeFilter: ['style', 'class'] });
+  }
   if (nav) {
-    new MutationObserver(() => {
-      nav.style.position = 'static';
-      nav.style.removeProperty('top');
-      nav.style.removeProperty('left');
-      nav.style.removeProperty('right');
-    }).observe(nav, { attributes: true, attributeFilter: ['style', 'class'] });
+    new MutationObserver(reassertHeaderAndNav)
+      .observe(nav, { attributes: true, attributeFilter: ['style', 'class'] });
   }
 
   /* =========================================
@@ -237,28 +242,25 @@
     const menu    = parent.querySelector(':scope > .dropdown-menu');
     if (!trigger || !menu) return;
 
-    let closeTimer;
+    let hideTimer;
 
     const open = () => {
-      clearTimeout(closeTimer);
+      clearTimeout(hideTimer);
       menu.style.display = 'block';
       trigger.setAttribute('aria-expanded', 'true');
     };
-
     const scheduleClose = () => {
-      clearTimeout(closeTimer);
-      closeTimer = setTimeout(() => {
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(() => {
         menu.style.display = 'none';
         trigger.setAttribute('aria-expanded', 'false');
-      }, 180); // small delay keeps it open while moving the mouse
+      }, 200); // small delay so users can move the mouse into the dropdown
     };
 
     parent.addEventListener('mouseenter', open);
     parent.addEventListener('mouseleave', scheduleClose);
-    parent.addEventListener('focusin', open);
-    parent.addEventListener('focusout', scheduleClose);
-
-    menu.addEventListener('mouseenter', () => clearTimeout(closeTimer));
+    trigger.addEventListener('focus', open);
+    menu.addEventListener('mouseenter', () => clearTimeout(hideTimer));
     menu.addEventListener('mouseleave', scheduleClose);
   });
 
@@ -319,7 +321,6 @@
     const track = document.querySelector('.partners-carousel-track');
     if (!track) return;
 
-    // Duplicate children until we have enough width to loop smoothly
     if (!track.dataset.dup){
       const originals = Array.from(track.children);
       let reps = 0;
@@ -408,6 +409,7 @@
 </script>
 </body>
 </html>
+
 
 
 
