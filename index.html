@@ -187,58 +187,86 @@
 
   <script>
 (function () {
-  /* Hard-lock the nav in case any legacy script tries to move it */
+  'use strict';
+
+  /* =========================================
+     HARD-LOCK NAV (prevents any script from moving it)
+     ========================================= */
   const nav = document.querySelector('.site-nav');
-  if (nav) {
-    nav.style.position = 'fixed';
-    nav.style.top = '0px';
+  function lockNav() {
+    if (!nav) return;
+    // Re-assert on every frame we’re called
+    if (getComputedStyle(nav).position !== 'fixed') nav.style.position = 'fixed';
+    if (nav.style.top !== '0px') nav.style.top = '0px';
     nav.style.left = '0';
     nav.style.right = '0';
     nav.style.zIndex = '1000';
   }
+  // Initial lock + reassert on load/scroll/resize
+  lockNav();
+  window.addEventListener('load',  lockNav, { passive: true });
+  window.addEventListener('scroll', lockNav, { passive: true });
+  window.addEventListener('resize', lockNav);
 
-  /* Mobile drawer */
-  const toggle  = document.querySelector('.nav-toggle');
-  const drawer  = document.getElementById('mobile-drawer');
+  /* =========================================
+     MOBILE DRAWER
+     ========================================= */
+  const toggle   = document.querySelector('.nav-toggle');
+  const drawer   = document.getElementById('mobile-drawer');
   const isMobile = () => window.matchMedia('(max-width:1024px)').matches;
 
-  function openDrawer(){
-    if (!isMobile()) return;
-    drawer.classList.add('is-open');
-    drawer.setAttribute('aria-hidden','false');
-    document.body.classList.add('drawer-lock');
-    toggle?.setAttribute('aria-expanded','true');
-    switchPanel('main');
-  }
-  function closeDrawer(){
-    drawer.classList.remove('is-open');
-    drawer.setAttribute('aria-hidden','true');
-    document.body.classList.remove('drawer-lock');
-    toggle?.setAttribute('aria-expanded','false');
-  }
   function switchPanel(name){
-    drawer.querySelectorAll('.drawer-panel').forEach(p=>{
+    if (!drawer) return;
+    drawer.querySelectorAll('.drawer-panel').forEach(p => {
       p.classList.toggle('is-active', p.dataset.panel === name);
     });
   }
+  function openDrawer(){
+    if (!drawer || !isMobile()) return;
+    drawer.classList.add('is-open');
+    drawer.setAttribute('aria-hidden','false');
+    document.body.classList.add('drawer-lock');
+    toggle && toggle.setAttribute('aria-expanded','true');
+    switchPanel('main');
+  }
+  function closeDrawer(){
+    if (!drawer) return;
+    drawer.classList.remove('is-open');
+    drawer.setAttribute('aria-hidden','true');
+    document.body.classList.remove('drawer-lock');
+    toggle && toggle.setAttribute('aria-expanded','false');
+  }
 
-  toggle?.addEventListener('click', () => {
+  toggle && toggle.addEventListener('click', () => {
     drawer.classList.contains('is-open') ? closeDrawer() : openDrawer();
   });
-  drawer.addEventListener('click', (e) => {
+
+  // Drawer internal navigation (Our Services / Our Products)
+  drawer && drawer.addEventListener('click', (e) => {
     const go   = e.target.closest('[data-go]')?.dataset.go;
     const back = e.target.closest('[data-back]')?.dataset.back;
     if (go)   switchPanel(go);
     if (back) switchPanel(back);
+
+    // Close drawer when a real link is tapped
+    const a = e.target.closest('a[href]');
+    if (a && !a.hasAttribute('data-go') && !a.hasAttribute('data-back')) {
+      closeDrawer();
+    }
   });
+
+  // If viewport becomes desktop while open, close the drawer
   window.addEventListener('resize', () => { if (!isMobile()) closeDrawer(); });
 
-  /* Partners carousel (auto-scroll) */
+  /* =========================================
+     PARTNERS CAROUSEL (auto-scroll, pauses on hover/focus)
+     ========================================= */
   function initPartnersCarousel(){
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const track = document.querySelector('.partners-carousel-track');
     if (!track) return;
 
+    // Duplicate children until we have enough width to loop smoothly
     if (!track.dataset.dup){
       const originals = Array.from(track.children);
       let reps = 0;
@@ -251,13 +279,14 @@
 
     let x = 0, speed = 0.6, raf = 0;
     const loop = () => {
-      const max = track.scrollWidth - track.clientWidth;
-      x = (x + speed) % (max || 1);
+      const max = Math.max(1, track.scrollWidth - track.clientWidth);
+      x = (x + speed) % max;
       track.scrollLeft = x;
       raf = requestAnimationFrame(loop);
     };
     const start = () => { if (!raf) loop(); };
     const stop  = () => { if (raf) cancelAnimationFrame(raf), raf = 0; };
+
     start();
     track.addEventListener('mouseenter', stop);
     track.addEventListener('mouseleave', start);
@@ -267,15 +296,37 @@
   }
   initPartnersCarousel();
 
-  /* News cards */
+  /* =========================================
+     NEWS CARDS (restored)
+     ========================================= */
   function initNews(){
     const container = document.getElementById('news-cards-container');
     if (!container) return;
+
     const data = [
-      { title: "Tunza Esports renews KUER Season 3", snippet: "A new format and more titles—KUER Season 3 is here.", date: "Sep 1, 2025", link: "/news/", imageUrl: "/images/KUER-x-Tunza.png" },
-      { title: "Tunza Esports Partners with B34R CL4N", snippet: "Call of Duty Mobile within KUER gets pro-level support.", date: "Sep 5, 2025", link: "/news/", imageUrl: "/images/KUER-x-B34R.png" },
-      { title: "Safaricom Game Conference", snippet: "A landmark event for Kenya’s gaming industry.", date: "Sep 8, 2025", link: "/news/", imageUrl: "/images/Safaricom-Gaming-Conference.JPG" }
+      {
+        title: "Tunza Esports renews KUER Season 3",
+        snippet: "A new format and more titles—KUER Season 3 is here.",
+        date: "Sep 1, 2025",
+        link: "/news/",
+        imageUrl: "/images/KUER-x-Tunza.png"
+      },
+      {
+        title: "Tunza Esports Partners with B34R CL4N",
+        snippet: "Call of Duty Mobile within KUER gets pro-level support.",
+        date: "Sep 5, 2025",
+        link: "/news/",
+        imageUrl: "/images/KUER-x-B34R.png"
+      },
+      {
+        title: "Safaricom Game Conference",
+        snippet: "A landmark event for Kenya’s gaming industry.",
+        date: "Sep 8, 2025",
+        link: "/news/",
+        imageUrl: "/images/Safaricom-Gaming-Conference.JPG"
+      }
     ];
+
     container.innerHTML = '';
     data.forEach(item => {
       const card = document.createElement('a');
@@ -295,6 +346,7 @@
         <p class="news-card-text">${item.snippet}</p>
         <p class="news-card-date">${item.date}</p>
       `);
+
       container.appendChild(card);
     });
   }
@@ -303,4 +355,5 @@
 </script>
 </body>
 </html>
+
 
