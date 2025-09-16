@@ -12,10 +12,10 @@ a:hover{color:#00E5FF}
 .wrap,.container{width:min(1200px,92vw);margin-inline:auto;padding-inline:16px}
 
 /* ==========================================================
-   HEADER — desktop overlay (FIXED)
+   HEADER — desktop overlay (HARD-LOCKED)
    ========================================================== */
 .header .site-nav{
-  position:fixed; left:0; right:0; top:0; z-index:1000;
+  position:fixed !important; left:0; right:0; top:0 !important; z-index:1000;
   display:flex; align-items:center; gap:24px;
   padding:6px 75px;
   background:linear-gradient(to bottom, rgba(26,26,48,1) 0%, rgba(26,26,48,0) 100%);
@@ -59,15 +59,15 @@ a:hover{color:#00E5FF}
 }
 .shop-button:hover{background:#9d2df0;color:#fff!important;transform:translateY(-2px)}
 
-/* Ensure content after fixed header isn’t hidden (heroes are exempt) */
+/* Offset first non-hero section so the fixed nav doesn’t cover it */
 .header + *:not(.home-hero-section):not(.service-hero-section):not(.esports-broadcasting-hero-section):not(.events-bootcamps-hero-section):not(.video-gaming-events-hero-section):not(.kuer-hero-section):not(.news-hero-section):not(.about-hero-section){
   margin-top:96px;
 }
 
 /* ==========================================================
-   MOBILE drawer — isolated from desktop
+   MOBILE drawer
    ========================================================== */
-#mobile-drawer{display:none !important;} /* never show on desktop */
+#mobile-drawer{display:none !important;}
 
 @media (max-width:1024px){
   .desktop-only{display:none}
@@ -80,7 +80,6 @@ a:hover{color:#00E5FF}
     padding:.6rem .75rem;border-radius:10px
   }
 
-  /* Drawer */
   #mobile-drawer.is-open{display:block !important}
   .mobile-drawer{
     position:fixed; inset:0; z-index:2000;
