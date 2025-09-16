@@ -24,7 +24,7 @@
   <meta name="twitter:description" content="News, tournaments, and events from Tunza Esports — Tujenge Esports Kenya." />
   <meta name="twitter:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png" />
 
-  <!-- Icons / PWA -->
+  <!-- Icons -->
   <link rel="icon" href="/favicon.ico?v=4" sizes="any">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=4">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4">
@@ -33,6 +33,7 @@
   <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512-dark.png?v=4">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png?v=4">
   <link rel="mask-icon" href="/images/tunza-logo-dark.svg" color="#000000">
+
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0b0b16">
 
@@ -43,104 +44,102 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <!-- Site stylesheet -->
+  <!-- Site CSS -->
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 
 <body>
-  <!-- Desktop header (hidden on mobile by CSS) -->
+  <!-- Header -->
   <section class="header">
     <nav role="navigation" aria-label="Primary">
       <a href="/" class="logo"><img src="/images/tunzalogo.png" alt="Tunza Esports Logo" /></a>
 
-      <div class="nav-links" id="desktop-nav">
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about-us/">About Us</a></li>
+      <!-- Desktop links -->
+      <ul class="nav-desktop" role="menubar">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about-us/">About Us</a></li>
 
-          <li class="has-dropdown">
-            <a href="#">Our Services</a>
-            <ul class="dropdown-menu">
-              <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
-              <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
-              <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
-              <li><a href="/consultation/">Consultation</a></li>
-              <li><a href="/bootcamps-training-programs/">Bootcamps &amp; Training Programs</a></li>
-            </ul>
-          </li>
+        <li class="has-dropdown" aria-haspopup="true">
+          <a href="#" aria-expanded="false">Our Services</a>
+          <ul class="dropdown-menu">
+            <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
+            <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
+            <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
+            <li><a href="/consultation/">Consultation</a></li>
+            <li><a href="/bootcamps-training-programs/">Bootcamps &amp; Training Programs</a></li>
+          </ul>
+        </li>
 
-          <li class="has-dropdown">
-            <a href="#">Our Products</a>
-            <ul class="dropdown-menu">
-              <li><a href="/ker/">KER</a></li>
-              <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
-              <li><a href="/tunzatourna/">TunzaTourna</a></li>
-              <li><a href="/shop/">Shop</a></li>
-            </ul>
-          </li>
+        <li class="has-dropdown" aria-haspopup="true">
+          <a href="#" aria-expanded="false">Our Products</a>
+          <ul class="dropdown-menu">
+            <li><a href="/ker/">KER</a></li>
+            <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
+            <li><a href="/tunzatourna/">TunzaTourna</a></li>
+            <li><a href="/shop/">Shop</a></li>
+          </ul>
+        </li>
 
-          <li><a href="/news/">News</a></li>
-          <li><a href="/contact/">Contact Us</a></li>
-          <li><a href="/gallery/">Gallery</a></li>
-        </ul>
+        <li><a href="/news/">News</a></li>
+        <li><a href="/contact/">Contact Us</a></li>
+        <li><a href="/gallery/">Gallery</a></li>
+      </ul>
 
-        <a href="/shop/" class="shop-button">Shop Now</a>
-      </div>
+      <!-- Desktop CTA -->
+      <a href="/shop/" class="shop-button">Shop Now</a>
+
+      <!-- Mobile toggle -->
+      <button class="nav-toggle" aria-expanded="false" aria-controls="drawer" aria-label="Menu">
+        <span class="fa fa-bars" aria-hidden="true"></span>
+      </button>
     </nav>
+
+    <!-- Mobile full-screen drawer -->
+    <div id="drawer" class="menu-drawer" aria-hidden="true">
+      <div class="menu-inner">
+        <!-- Root -->
+        <div class="menu-panel menu-root is-active" data-panel="root">
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about-us/">About Us</a></li>
+            <li><a href="#" class="go-sub" data-target="services">Our Services ▸</a></li>
+            <li><a href="#" class="go-sub" data-target="products">Our Products ▸</a></li>
+            <li><a href="/news/">News</a></li>
+            <li><a href="/contact/">Contact Us</a></li>
+            <li><a href="/gallery/">Gallery</a></li>
+          </ul>
+          <div class="menu-cta">
+            <a href="/shop/" class="shop-button">Shop Now</a>
+          </div>
+        </div>
+
+        <!-- Services subpage -->
+        <div class="menu-panel" id="panel-services" data-panel="services" aria-hidden="true">
+          <button class="menu-back" data-back="root">← Back</button>
+          <div class="menu-title">Our Services</div>
+          <div class="menu-list">
+            <a href="/esports-tournament-organization/">Esports Tournament Organization</a>
+            <a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a>
+            <a href="/video-gaming-events/">Video Gaming Events</a>
+            <a href="/consultation/">Consultation</a>
+            <a href="/bootcamps-training-programs/">Bootcamps &amp; Training Programs</a>
+          </div>
+        </div>
+
+        <!-- Products subpage -->
+        <div class="menu-panel" id="panel-products" data-panel="products" aria-hidden="true">
+          <button class="menu-back" data-back="root">← Back</button>
+          <div class="menu-title">Our Products</div>
+          <div class="menu-list">
+            <a href="/ker/">KER</a>
+            <a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a>
+            <a href="/tunzatourna/">TunzaTourna</a>
+            <a href="/shop/">Shop</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
-
-  <!-- Mobile FAB (only visible on mobile) -->
-  <button class="menu-fab" aria-controls="mobileMenu" aria-expanded="false" aria-label="Open menu">
-    <span class="fa fa-bars" aria-hidden="true"></span>
-  </button>
-
-  <!-- Full-screen mobile menu (covers the whole screen) -->
-  <div class="mmodal" id="mobileMenu" aria-hidden="true">
-    <!-- ROOT screen -->
-    <div class="mmodal-screen is-active" data-screen="root" role="menu" aria-label="Main menu">
-      <img class="mmodal-logo" src="/images/tunzalogo.png" alt="Tunza Esports" />
-      <ul class="mmodal-list">
-        <li><a href="/" role="menuitem">Home</a></li>
-        <li><a href="/about-us/" role="menuitem">About Us</a></li>
-
-        <li><button class="mmodal-link" data-goto="services" aria-haspopup="true" aria-controls="screen-services">Our Services <span class="chev">›</span></button></li>
-
-        <!-- Shop Now in the MIDDLE -->
-        <li class="menu-cta"><a href="/shop/" class="shop-button">Shop Now</a></li>
-
-        <li><button class="mmodal-link" data-goto="products" aria-haspopup="true" aria-controls="screen-products">Our Products <span class="chev">›</span></button></li>
-        <li><a href="/news/" role="menuitem">News</a></li>
-        <li><a href="/contact/" role="menuitem">Contact Us</a></li>
-        <li><a href="/gallery/" role="menuitem">Gallery</a></li>
-      </ul>
-      <button class="mmodal-close" aria-label="Close menu"><span class="fa fa-times"></span></button>
-    </div>
-
-    <!-- SERVICES screen -->
-    <div class="mmodal-screen" data-screen="services" id="screen-services" aria-label="Our Services">
-      <button class="mmodal-back"><span class="fa fa-chevron-left"></span> Back</button>
-      <h3>Our Services</h3>
-      <ul class="mmodal-sublist">
-        <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
-        <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
-        <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
-        <li><a href="/consultation/">Consultation</a></li>
-        <li><a href="/bootcamps-training-programs/">Bootcamps &amp; Training Programs</a></li>
-      </ul>
-    </div>
-
-    <!-- PRODUCTS screen -->
-    <div class="mmodal-screen" data-screen="products" id="screen-products" aria-label="Our Products">
-      <button class="mmodal-back"><span class="fa fa-chevron-left"></span> Back</button>
-      <h3>Our Products</h3>
-      <ul class="mmodal-sublist">
-        <li><a href="/ker/">KER</a></li>
-        <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
-        <li><a href="/tunzatourna/">TunzaTourna</a></li>
-        <li><a href="/shop/">Shop</a></li>
-      </ul>
-    </div>
-  </div>
 
   <!-- Hero -->
   <section class="home-hero-section" aria-label="Tunza Esports Hero">
@@ -169,7 +168,7 @@
         action="https://tunzaesports.us13.list-manage.com/subscribe/post?u=49268c059773710b44455bb33&id=f95ceda37f&f_id=00cde9e1f0"
         method="post" target="_blank" novalidate class="newsletter-form-container">
         <input type="email" name="EMAIL" placeholder="Enter your email here" class="email-input" required />
-        <div style="position:absolute; left:-5000px;" aria-hidden="true">
+        <div style="position:absolute;left:-5000px" aria-hidden="true">
           <input type="text" name="b_49268c059773710b44455bb33_f95ceda37f" tabindex="-1" value="">
         </div>
         <button type="submit" class="subscribe-button">Subscribe</button>
@@ -180,8 +179,6 @@
       </p>
     </div>
   </section>
-
-  <div class="spacer-before-partners"></div>
 
   <!-- Partners -->
   <section class="partners-section">
@@ -231,48 +228,103 @@
     </div>
   </footer>
 
-  <!-- Mobile menu JS -->
+  <!-- Minimal JS: mobile drawer + news filler + partners scroll -->
   <script>
-    (function () {
-      const fab   = document.querySelector('.menu-fab');
-      const modal = document.getElementById('mobileMenu');
+  (function () {
+    const $ = (sel, ctx=document) => ctx.querySelector(sel);
+    const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
 
-      const openMenu = () => {
-        modal.classList.add('is-open');
-        modal.setAttribute('aria-hidden', 'false');
-        fab.setAttribute('aria-expanded', 'true');
-        document.body.classList.add('menu-open');
-        // always start at root
-        switchScreen('root');
-      };
+    const toggle = $('.nav-toggle');
+    const drawer = $('#drawer');
 
-      const closeMenu = () => {
-        modal.classList.remove('is-open');
-        modal.setAttribute('aria-hidden', 'true');
-        fab.setAttribute('aria-expanded', 'false');
-        document.body.classList.remove('menu-open');
-      };
-
-      const switchScreen = (name) => {
-        modal.querySelectorAll('.mmodal-screen').forEach(s => s.classList.remove('is-active'));
-        const scr = modal.querySelector(`.mmodal-screen[data-screen="${name}"]`);
-        scr && scr.classList.add('is-active');
-      };
-
-      fab.addEventListener('click', openMenu);
-      modal.addEventListener('click', (e) => {
-        if (e.target.classList.contains('mmodal')) closeMenu(); // click outside content to close
+    function openDrawer() {
+      drawer.classList.add('is-open');
+      drawer.setAttribute('aria-hidden','false');
+      toggle?.setAttribute('aria-expanded','true');
+      document.body.style.overflow='hidden';
+      // show root panel by default
+      showPanel('root');
+    }
+    function closeDrawer() {
+      drawer.classList.remove('is-open');
+      drawer.setAttribute('aria-hidden','true');
+      toggle?.setAttribute('aria-expanded','false');
+      document.body.style.overflow='';
+    }
+    function showPanel(name){
+      $$('.menu-panel', drawer).forEach(p=>{
+        const on = (p.dataset.panel === name);
+        p.classList.toggle('is-active', on);
+        p.setAttribute('aria-hidden', on ? 'false' : 'true');
       });
-      modal.querySelectorAll('.mmodal-close').forEach(btn => btn.addEventListener('click', closeMenu));
-      window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+    }
 
-      modal.querySelectorAll('.mmodal-link[data-goto]').forEach(btn => {
-        btn.addEventListener('click', () => switchScreen(btn.dataset.goto));
+    toggle?.addEventListener('click', () => {
+      if (drawer.classList.contains('is-open')) closeDrawer(); else openDrawer();
+    });
+    drawer?.addEventListener('click', (e) => {
+      // close when clicking outside inner card
+      if (e.target === drawer) closeDrawer();
+    });
+
+    // Navigate to sub pages inside drawer
+    $$('.go-sub', drawer).forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        e.preventDefault();
+        showPanel(a.dataset.target);
       });
-      modal.querySelectorAll('.mmodal-back').forEach(btn => {
-        btn.addEventListener('click', () => switchScreen('root'));
+    });
+    $$('.menu-back', drawer).forEach(btn=>{
+      btn.addEventListener('click', ()=> showPanel(btn.dataset.back || 'root'));
+    });
+
+    // News cards
+    function initNews(){
+      const container = document.getElementById('news-cards-container');
+      if (!container) return;
+      const data = [
+        { title: "Tunza Esports renews KUER Season 3", snippet: "A new format and more titles—KUER Season 3 is here.", date: "Sep 1, 2025", link: "/news/", imageUrl: "/images/KUER-x-Tunza.png" },
+        { title: "Tunza Esports Partners with B34R CL4N", snippet: "Call of Duty Mobile within KUER gets pro-level support.", date: "Sep 5, 2025", link: "/news/", imageUrl: "/images/KUER-x-B34R.png" },
+        { title: "Safaricom Game Conference", snippet: "A landmark event for Kenya’s gaming industry.", date: "Sep 8, 2025", link: "/news/", imageUrl: "/images/Safaricom-Gaming-Conference.JPG" }
+      ];
+      container.innerHTML='';
+      data.forEach(item=>{
+        const a=document.createElement('a'); a.href=item.link; a.className='news-card-link';
+        const card=document.createElement('div'); card.className='news-card';
+        card.innerHTML=`
+          <div class="news-image-placeholder"></div>
+          <h3 class="news-card-title">${item.title}</h3>
+          <p class="news-card-text">${item.snippet}</p>
+          <p class="news-card-date">${item.date}</p>`;
+        const ph=card.querySelector('.news-image-placeholder');
+        ph.style.backgroundImage = `url('${item.imageUrl}')`;
+        ph.style.backgroundSize = 'cover';
+        ph.style.backgroundPosition = 'center';
+        a.appendChild(card);
+        container.appendChild(a);
       });
-    })();
+    }
+
+    // Partners auto-scroll
+    function initPartnersCarousel(){
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const track=document.querySelector('.partners-carousel-track'); if (!track) return;
+      if (!track.dataset.dup){
+        const originals=Array.from(track.children).map(n=>n.cloneNode(true));
+        for (let i=0;i<4;i++) originals.forEach(n=>track.appendChild(n.cloneNode(true)));
+        track.dataset.dup='1';
+      }
+      let x=0,speed=0.6,raf=0;
+      const loop=()=>{const max=track.scrollWidth-track.clientWidth; x=(x+speed)%(max||1); track.scrollLeft=x; raf=requestAnimationFrame(loop)};
+      const start=()=>{if(!raf) loop()}; const stop=()=>{if(raf){cancelAnimationFrame(raf);raf=0}};
+      start(); track.addEventListener('mouseenter',stop); track.addEventListener('mouseleave',start);
+      window.addEventListener('resize',()=>{stop();x=0;start()});
+    }
+
+    if (document.readyState==='loading'){
+      document.addEventListener('DOMContentLoaded', ()=>{initNews();initPartnersCarousel()},{once:true});
+    }else{initNews();initPartnersCarousel();}
+  })();
   </script>
 </body>
 </html>
