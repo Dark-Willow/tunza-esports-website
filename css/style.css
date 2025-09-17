@@ -1,5 +1,5 @@
 /* ==========================================================
-   Tunza Esports — Desktop overlay header + Mobile drawer
+   Tunza Esports — Global styles + Fixed header + About page
    ========================================================== */
 
 /* Base */
@@ -11,152 +11,151 @@ a{color:#FCFCFD;text-decoration:none;transition:color .25s ease}
 a:hover{color:#00E5FF}
 .wrap,.container{width:min(1200px,92vw);margin-inline:auto;padding-inline:16px}
 
+/* Vars */
+:root{ --nav-h: 96px; --pad-x: 75px; }
+@media (max-width:1024px){ :root{ --nav-h: 72px; --pad-x: 20px; }}
+
 /* ==========================================================
-   HEADER — fixed overlay like your original
+   HEADER — fixed overlay
    ========================================================== */
-/* Container is fixed (overlay), so it never moves */
 .header{
-  position:fixed; top:0; left:0; right:0; z-index:1000;
-  background:linear-gradient(to bottom, rgba(26,26,48,1) 0%, rgba(26,26,48,0) 100%);
+  position:fixed !important; top:0 !important; left:0; right:0; z-index:1000;
+  background:linear-gradient(to bottom, rgba(26,26,48,.98) 0%, rgba(26,26,48,0) 100%);
+  overflow:visible; /* allow dropdown to overflow */
 }
-
-/* Nav inside is static, so any JS trying to set nav.style.top is ignored */
-.header .site-nav{
-  position:static !important;
+.header nav.wrap{
   display:flex; align-items:center; gap:24px;
-  padding:6px 75px;
+  padding-block:8px; padding-inline:var(--pad-x);
 }
-.header .logo img{width:90px;height:90px;object-fit:contain;display:block}
 
-/* we only toggle .desktop-only inside media query */
-.mobile-only{display:none}
+/* Logo */
+.logo img{width:90px;height:90px;object-fit:contain;display:block}
 
-.nav-main{
-  list-style:none;padding-left:0;margin:0 auto;
-  display:flex; align-items:center; gap:40px;
-  flex:1 1 auto; justify-content:center
-}
-.nav-main>li{position:relative}
-.nav-main>li>a{display:block;padding:10px 0;font-size:16px}
+/* Desktop navigation */
+.nav-toggle{display:none}
+.nav-links{margin-left:auto;display:flex;align-items:center;gap:24px}
+.nav-links>ul{list-style:none;display:flex;align-items:center;gap:40px}
+.nav-links>ul>li{position:relative}
+.nav-links a{display:block;padding:10px 0;font-size:16px}
 
-/* ---------------- Dropdowns: no flicker, no gap ---------------- */
+/* Dropdowns (desktop) */
 .has-dropdown>a{padding-right:18px}
 .has-dropdown>a::after{
   content:'\25BE'; font-size:.7em; position:absolute; right:-12px; top:50%;
   transform:translateY(-50%); color:#FCFCFD;
 }
-
 .dropdown-menu{
-  /* removed margin-top gap; use transform instead */
-  position:absolute; left:50%; top:100%; transform:translate(-50%,10px);
-  list-style:none; padding:10px 12px; min-width:260px;
+  display:none; position:absolute; left:50%; transform:translateX(-50%);
+  top:calc(100% + 8px); /* removes the “dead gap” flicker */
+  list-style:none; padding:10px 12px; margin:0; min-width:260px;
   border-radius:12px; border:1px solid rgba(255,255,255,.08);
   background:linear-gradient(180deg,#1a1a36 0%, #11112a 100%);
   box-shadow:0 10px 24px rgba(0,0,0,.35);
-  z-index:1100;
-
-  /* make hidden state smooth and still hoverable when shown */
-  opacity:0; visibility:hidden; pointer-events:none;
-  transition:opacity .18s ease, transform .18s ease, visibility 0s linear .18s;
 }
-
-.has-dropdown:hover>.dropdown-menu,
-.has-dropdown:focus-within>.dropdown-menu{
-  opacity:1; visibility:visible; pointer-events:auto;
-  transform:translate(-50%,14px);
-  transition:opacity .18s ease, transform .18s ease;
-}
-
-.dropdown-menu li a{
-  display:block;padding:12px 12px;border-radius:8px;font-size:16px;color:#19D2EA
-}
+.dropdown-menu li a{display:block;padding:12px 12px;border-radius:8px;font-size:16px;color:#19D2EA}
 .dropdown-menu li a:hover{background:#0d0d21;color:#FCFCFD}
+.has-dropdown:hover>.dropdown-menu{display:block}
 
-/* Desktop CTA */
+/* CTA */
 .shop-button{
-  margin-left:auto;
   display:inline-block; font-weight:700; font-size:16px; color:#fff!important;
   background:#B425EC; padding:10px 22px; border-radius:8px; transition:background .25s,transform .2s
 }
-/* Hover goes BLUE as requested */
-.shop-button:hover{background:#19D2EA;color:#fff!important;transform:translateY(-2px)}
-
-/* Push first non-hero section down so the fixed nav doesn't cover it */
-.header + *:not(.home-hero-section):not(.service-hero-section):not(.esports-broadcasting-hero-section):not(.events-bootcamps-hero-section):not(.video-gaming-events-hero-section):not(.kuer-hero-section):not(.news-hero-section):not(.about-hero-section){
-  margin-top:96px;
-}
+.shop-button:hover{background:#19D2EA !important;color:#fff!important;transform:translateY(-2px)}
 
 /* ==========================================================
-   MOBILE drawer — isolated from desktop
+   MOBILE navigation overlay
    ========================================================== */
-/* Drawer is hidden globally */
-#mobile-drawer{display:none !important}
-.drawer-panel{display:none}
-.drawer-panel.is-active{display:block}
-
 @media (max-width:1024px){
-  .mobile-only{display:inline-flex}
-  .desktop-only{display:none !important}
-
-  .header .site-nav{padding:8px 16px}
-
-  .nav-toggle{
-    background:transparent;color:#fff;border:1px solid #2a2f3a;
-    padding:.6rem .75rem;border-radius:10px
+  .nav-toggle{display:inline-flex;align-items:center;justify-content:center;margin-left:auto;
+    background:transparent;color:#fff;border:1px solid #2a2f3a;padding:.6rem .75rem;border-radius:10px}
+  .nav-links{display:none}
+  .nav-links.is-open{
+    display:block; position:fixed; inset:0; z-index:1500;
+    background:linear-gradient(180deg, rgba(11,11,22,1) 0%, rgba(11,11,22,.98) 100%);
+    padding:calc(var(--nav-h) + 24px) var(--pad-x) 40px; overflow:auto;
   }
-
-  .mobile-drawer{
-    position:fixed; inset:0; z-index:1500;
-    background:linear-gradient(180deg, rgba(11,11,22,1) 0%, rgba(11,11,22,0.98) 100%)
+  .nav-links>ul{flex-direction:column;gap:16px}
+  .nav-links a{font-size:22px}
+  .nav-links .has-dropdown.open>.dropdown-menu{
+    display:block; position:static; transform:none; top:auto;
+    background:transparent; border:0; box-shadow:none; padding:0; margin-top:8px;
   }
-  /* Show drawer only when opened on mobile */
-  #mobile-drawer.is-open{display:block !important}
-
-  body.drawer-lock{overflow:hidden}
-  .drawer-panel{height:100%;overflow:auto;padding:96px 22px 32px}
-  .drawer-title{font-family:'Syne';font-size:28px;margin:0 0 14px;text-align:center}
-  .drawer-list{list-style:none;padding:0;margin:0 auto;max-width:520px;display:flex;flex-direction:column;gap:18px;text-align:center}
-  .drawer-list a,.drawer-link{font-size:22px;line-height:1.4;background:transparent;color:#FCFCFD;border:0;padding:8px 6px;border-radius:8px}
-  .drawer-link{cursor:pointer}
-  .drawer-back{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;border:1px solid #2b2f3a;background:rgba(255,255,255,.04);color:#fff;font-size:16px;margin:0 0 12px}
-  /* Shop Now centered on mobile drawer */
-  .drawer-cta{display:inline-block;margin:34px auto 0;padding:14px 28px;font-size:18px}
+  .nav-links .dropdown-menu li a{padding:10px 8px;color:#FCFCFD;border-radius:6px}
+  .nav-links .dropdown-menu li a:hover{background:rgba(255,255,255,.06)}
+  .nav-links .shop-button{display:block;margin:32px auto 0}
 }
 
 /* ==========================================================
-   HERO
+   ABOUT HERO
    ========================================================== */
-.home-hero-section{
-  min-height:962px;width:100%;
-  background-image:linear-gradient(rgba(4,9,30,.7), rgba(4,9,30,.7)), url(/images/TunzaEsportsBackground.png);
-  background-size:cover;background-position:center;position:relative
+.about-hero-section{
+  position:relative; min-height:520px;
+  display:flex; flex-direction:column; justify-content:flex-end;
+  padding:calc(var(--nav-h) + 40px) var(--pad-x) 80px;
+  isolation:isolate;
 }
-.home-hero-section .hero-content{position:absolute;left:438px;top:426px;max-width:700px}
-.home-hero-section .hero-content h1{font-size:64px;font-weight:700}
-@media (max-width:768px){
-  .home-hero-section .hero-content{left:50%;transform:translateX(-50%);top:240px;text-align:center}
-  .home-hero-section .hero-content h1{font-size:40px}
+.about-hero-section::before{
+  content:""; position:absolute; inset:0; z-index:-1;
+  background:
+    linear-gradient(180deg, rgba(10,10,26,.88) 0%, rgba(10,10,26,.55) 45%, rgba(10,10,26,.35) 100%),
+    url("/images/TunzaEsportsBackground.png") center/cover no-repeat;
+}
+.about-main-heading{font-size:56px;margin:0 0 12px}
+.about-tagline{font-size:18px;color:rgba(252,252,253,.85);max-width:900px}
+@media (max-width:1024px){
+  .about-main-heading{font-size:42px}
+  .about-tagline{font-size:16px}
 }
 
 /* ==========================================================
-   NEWS
+   ABOUT — Intro blocks
    ========================================================== */
-.news-section{padding:80px 75px;text-align:center;background:#0A0A1A}
-.news-heading{font-size:48px;margin-bottom:50px}
-.news-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;justify-content:center}
-.news-card{background:transparent;padding:30px;border-radius:12px;transition:transform .3s,box-shadow .3s;text-align:left}
-.news-card:hover{transform:translateY(-5px);box-shadow:0 8px 25px rgba(0,0,0,.3)}
-.news-image-placeholder{width:100%;height:180px;background:#333;border-radius:8px;margin-bottom:10px}
-.news-card-title{font-size:24px;margin-bottom:6px}
-.news-card-text{font-size:16px;line-height:1.6;color:rgba(252,252,253,.7);margin-bottom:10px}
-.news-card-date{font-size:14px;color:#00E5FF}
-@media (max-width:992px){.news-section{padding:60px 30px}.news-heading{font-size:38px}}
-@media (max-width:768px){.news-section{padding:40px 15px}.news-heading{font-size:32px}}
+.about-intro-section{padding:60px var(--pad-x);text-align:center}
+.intro-heading{font-size:40px;margin-bottom:10px}
+.intro-text{max-width:920px;margin:0 auto 28px;color:rgba(252,252,253,.8);line-height:1.7}
+.intro-boxes-container{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:8px
+}
+.intro-box .box-image{width:100%;height:480px;object-fit:cover;border-radius:12px;display:block}
+@media (max-width:1024px){
+  .intro-heading{font-size:34px}
+  .intro-boxes-container{grid-template-columns:1fr;gap:16px}
+  .intro-box .box-image{height:340px}
+}
 
 /* ==========================================================
-   NEWSLETTER
+   ABOUT — Bullet lists
    ========================================================== */
-.newsletter-outer{background:#0A0A1A;padding:80px 75px;text-align:center}
+.list-section{padding:30px var(--pad-x) 10px}
+.list-container{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;max-width:1100px;margin:0 auto}
+.list-column{list-style:disc;padding-left:22px;line-height:1.9;color:rgba(252,252,253,.85)}
+@media (max-width:900px){.list-container{grid-template-columns:1fr}}
+
+/* ==========================================================
+   ABOUT — Directors
+   ========================================================== */
+.directors-section{padding:70px var(--pad-x)}
+.directors-heading{font-size:36px;margin-bottom:8px;text-align:center}
+.directors-subheading{max-width:920px;margin:0 auto 32px;text-align:center;color:rgba(252,252,253,.8);line-height:1.7}
+.director-cards-container{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:18px;align-items:stretch
+}
+.director-card{
+  background:linear-gradient(180deg,#141428 0%,#0f0f22 100%);border:1px solid rgba(255,255,255,.06);
+  border-radius:14px;padding:16px 14px;text-align:center;box-shadow:0 6px 16px rgba(0,0,0,.25)
+}
+.director-image{width:100%;height:180px;object-fit:cover;border-radius:10px;display:block;margin-bottom:10px}
+.director-name{font-size:18px;margin:6px 0 2px}
+.director-title{font-size:14px;color:rgba(252,252,253,.75)}
+@media (max-width:1200px){.director-cards-container{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:720px){.director-cards-container{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:480px){.director-cards-container{grid-template-columns:1fr}}
+
+/* ==========================================================
+   NEWSLETTER (global component)
+   ========================================================== */
+.newsletter-outer{background:#0A0A1A;padding:80px var(--pad-x);text-align:center}
 .newsletter-pre-heading{font-size:18px;color:rgba(252,252,253,.8);margin-bottom:10px}
 .newsletter-main-heading{font-family:'Syne';font-size:48px;margin-bottom:50px}
 .newsletter-card{max-width:800px;margin:0 auto;padding:40px;border-radius:16px;color:#FCFCFD;background:linear-gradient(135deg,#19D2EA 0%,#B425EC 100%);box-shadow:0 10px 30px rgba(0,0,0,.5)}
@@ -166,37 +165,33 @@ a:hover{color:#00E5FF}
 .email-input::placeholder{color:rgba(252,252,253,.6)}
 .subscribe-button{padding:15px 30px;border:0;border-radius:8px;font-weight:700;font-size:16px;background:#be00e5;color:#FCFCFD;cursor:pointer;transition:background .25s,transform .2s}
 .subscribe-button:hover{background:#a000c0;transform:translateY(-2px)}
-.newsletter-card-disclaimer{font-size:14px;color:rgba(252,252,253,.8);max-width:600px;margin:20px auto 0}
+.newsletter-card-disclaimer{font-size:14px;color:rgba(252,252,253,.9);max-width:600px;margin:20px auto 0}
 @media (max-width:600px){
-  .newsletter-outer{padding:60px 20px}
+  .newsletter-outer{padding:60px var(--pad-x)}
   .newsletter-main-heading{font-size:34px}
   .newsletter-form-container{flex-direction:column;align-items:stretch}
   .email-input,.subscribe-button{width:100%}
 }
 
 /* ==========================================================
-   PARTNERS carousel (auto-scroll)
+   PARTNERS carousel
    ========================================================== */
-.partners-section{padding:80px 0 0;text-align:center;background:#0A0A1A}
-.partners-section h2{font-size:56px;margin:0 0 30px;padding:0 75px}
+.partners-section{padding:60px 0;text-align:center;background:#0A0A1A}
+.partners-section h2{font-size:36px;margin:0 0 20px;padding:0 var(--pad-x)}
 .partners-carousel-track{
-  display:flex;gap:10px;overflow:hidden;padding:0 75px 20px;
+  display:flex;gap:20px;overflow:hidden;padding:0 var(--pad-x) 10px;
   -webkit-mask-image:linear-gradient(to right, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
           mask-image:linear-gradient(to right, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
 }
 .partner-logo{flex:0 0 auto;width:clamp(160px,22vw,240px);height:clamp(80px,12vw,110px);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:10px 14px;background:transparent;box-shadow:0 6px 16px rgba(0,0,0,.25);transition:transform .25s,box-shadow .25s}
 .partner-logo img{max-width:200px;max-height:120px;object-fit:contain;display:block}
 .partner-logo:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(0,0,0,.35)}
-@media (max-width:640px){
-  .partners-section h2{font-size:36px;padding:0 24px}
-  .partners-carousel-track{padding:0 24px 16px;gap:20px}
-}
 
 /* ==========================================================
    FOOTER
    ========================================================== */
 footer{background:#0A0A1A;color:#FCFCFD}
-.footer-content{display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px;padding:80px 75px 40px;border-bottom:1px solid rgba(252,252,253,.1)}
+.footer-content{display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px;padding:80px var(--pad-x) 40px;border-bottom:1px solid rgba(252,252,253,.1)}
 .footer-column{flex-basis:200px;flex-grow:1;text-align:left}
 .footer-column h4{font-size:24px;margin-bottom:25px}
 .footer-column ul{list-style:none}
@@ -206,26 +201,24 @@ footer{background:#0A0A1A;color:#FCFCFD}
 .footer-logo-column{flex-basis:280px;text-align:right;flex-grow:1}
 .footer-logo-column img{width:100px;display:block;margin-left:auto;margin-bottom:15px}
 .footer-logo-column p{font-size:16px;line-height:1.5;color:rgba(252,252,253,.7);margin-bottom:5px}
-.footer-bottom{text-align:left;padding:30px 75px}
+.footer-bottom{text-align:left;padding:30px var(--pad-x)}
 .copyright-text{font-size:14px;color:rgba(252,252,253,.6)}
 @media (max-width:992px){
-  .footer-content{justify-content:center;gap:30px;padding:60px 30px 30px}
+  .footer-content{justify-content:center;gap:30px;padding:60px var(--pad-x) 30px}
   .footer-column{flex-basis:calc(50% - 15px);max-width:300px}
   .footer-logo-column{flex-basis:100%;text-align:center}
   .footer-logo-column img{margin-inline:auto}
-  .footer-bottom{padding:25px 30px;text-align:center}
+  .footer-bottom{padding:25px var(--pad-x);text-align:center}
 }
 @media (max-width:768px){
   .footer-content{flex-direction:column;align-items:center;gap:25px}
   .footer-column,.footer-logo-column{flex-basis:100%;text-align:center}
   .footer-column h4{margin-bottom:15px}
-  .footer-bottom{padding:25px 15px}
+  .footer-bottom{padding:25px var(--pad-x)}
 }
 
-/* Coming soon */
-.coming-soon-hero-section{min-height:calc(100vh - 120px);display:flex;align-items:center;justify-content:center;text-align:center}
+/* Coming soon (global) */
+.coming-soon-hero-section{min-height:calc(100vh - var(--nav-h));display:flex;align-items:center;justify-content:center;text-align:center}
 .coming-soon-hero-section h1{font-size:5rem;font-weight:700;text-transform:uppercase}
 @media (max-width:768px){.coming-soon-hero-section h1{font-size:3rem}}
 @media (max-width:480px){.coming-soon-hero-section h1{font-size:2rem}}
-
-
