@@ -1,165 +1,78 @@
-/* ==========================================================
-   Tunza Esports — Global + Header (works on all pages)
-   ========================================================== */
-
-/* Base */
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%;overflow-x:hidden}
-body{font-family:'Oxanium',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;color:#FCFCFD;background:#0A0A1A}
-h1,h2,h3,h4{font-family:'Syne',ui-sans-serif,system-ui,sans-serif;color:#FCFCFD;line-height:1.2}
-a{color:#FCFCFD;text-decoration:none;transition:color .25s ease}
-a:hover{color:#00E5FF}
-.wrap,.container{width:min(1200px,92vw);margin-inline:auto;padding-inline:16px}
-
-/* ==========================================================
-   HEADER — fixed overlay (targets ANY nav inside .header)
-   ========================================================== */
-.header nav{
-  position:fixed; top:0; left:0; right:0; z-index:1000;
-  display:flex; align-items:center; gap:24px;
-  padding:10px 75px;
-  background:linear-gradient(to bottom, rgba(26,26,48,1) 0%, rgba(26,26,48,0) 100%);
-  transform:translateZ(0);
+/* ===============================
+   ABOUT — TWO-COLUMN BULLET LIST
+   =============================== */
+.list-section{
+  background:#0A0A1A;
+  padding:64px 16px 84px;                 /* comfortable spacing */
 }
 
-/* Logo */
-.header .logo img{width:90px;height:90px;object-fit:contain;display:block}
-
-/* Burger hidden on desktop */
-.nav-toggle{display:none; background:transparent; color:#fff; border:1px solid #2a2f3a; padding:.6rem .75rem; border-radius:10px}
-
-/* Nav links block */
-.nav-links{margin-left:auto; display:flex; align-items:center; gap:32px}
-.nav-links > ul{list-style:none; display:flex; gap:40px; align-items:center}
-.nav-links > ul > li{position:relative}
-.nav-links > ul > li > a{display:block; padding:10px 0; font-size:16px}
-
-/* Dropdowns (stable, no flicker) */
-.has-dropdown > a{padding-right:18px}
-.has-dropdown > a::after{
-  content:'\25BE'; font-size:.7em; position:absolute; right:-12px; top:50%;
-  transform:translateY(-50%); color:#FCFCFD;
-}
-.dropdown-menu{
-  display:none; position:absolute; left:50%; top:calc(100% + 10px); transform:translateX(-50%);
-  list-style:none; padding:10px 12px; margin:0; min-width:260px;
-  border-radius:12px; border:1px solid rgba(255,255,255,.08);
-  background:linear-gradient(180deg,#1a1a36 0%, #11112a 100%);
-  box-shadow:0 10px 24px rgba(0,0,0,.35);
-}
-.dropdown-menu li a{display:block; padding:12px 12px; border-radius:8px; font-size:16px; color:#19D2EA}
-.dropdown-menu li a:hover{background:#0d0d21; color:#FCFCFD}
-/* Keep open on hover or when focusing inside */
-.has-dropdown:hover>.dropdown-menu,
-.has-dropdown:focus-within>.dropdown-menu{display:block}
-
-/* CTA */
-.shop-button{
-  display:inline-block; font-weight:700; font-size:16px; color:#fff!important;
-  background:#B425EC; padding:10px 22px; border-radius:8px; transition:background .25s,transform .2s,color .2s
-}
-.shop-button:hover{background:#00E5FF; color:#0A0A1A!important; transform:translateY(-2px)}
-
-/* Space after header for first non-hero section (heroes manage their own padding) */
-.header + *:not(.home-hero-section):not(.about-hero-section):not(.service-hero-section):not(.esports-broadcasting-hero-section):not(.events-bootcamps-hero-section):not(.video-gaming-events-hero-section):not(.kuer-hero-section):not(.news-hero-section){
-  margin-top:96px;
+.list-section .list-container{
+  width:min(1100px,92vw);                 /* centered max width */
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(2, minmax(320px,1fr));
+  column-gap:48px;
+  row-gap:6px;
 }
 
-/* ==========================================================
-   MOBILE NAV (slides down; CTA centered)
-   ========================================================== */
-@media (max-width:1024px){
-  .nav-toggle{display:inline-flex; margin-left:auto}
-  .nav-links{
-    position:fixed; left:0; right:0; top:96px; bottom:0; display:none;
-    flex-direction:column; align-items:center; gap:18px;
-    padding:24px 22px 32px; background:linear-gradient(180deg,#0b0b16 0%, rgba(11,11,22,.98) 100%);
-  }
-  .nav-links.is-open{display:flex}
-  .nav-links > ul{flex-direction:column; gap:16px}
-  .nav-links .has-dropdown.open > .dropdown-menu{
-    display:block; position:static; transform:none; margin:0; padding:0; border:0; box-shadow:none;
-    background:transparent;
-  }
-  .nav-links .dropdown-menu li a{padding:10px 0}
-  .nav-links .shop-button{display:block; margin:24px auto 0}
+.list-section .list-column{
+  list-style:none;                         /* custom bullets below */
+  margin:0;
+  padding:0;
 }
 
-/* ==========================================================
-   ABOUT — HERO (centered like your reference)
-   ========================================================== */
-.about-hero-section{
-  position:relative; width:100%;
-  min-height:520px;
-  display:flex; align-items:center; justify-content:center; text-align:center;
-  padding-top:140px; /* keeps content clear of fixed header */
-  background-image:
-    linear-gradient(180deg, rgba(6,10,30,.70) 0%, rgba(6,10,30,.55) 50%, rgba(6,10,30,.35) 100%),
-    url('/images/About%20Us.jpg');           /* <-- your hero image */
-  background-size:cover; background-position:center;
-}
-.about-hero-inner{max-width:1000px; padding:0 16px}
-.breadcrumbs{
-  font-size:14px; color:rgba(252,252,253,.8); margin-bottom:12px;
-}
-.about-hero-title{
-  font-size:64px; line-height:1.1; letter-spacing:.4px; margin-bottom:0;
-}
-@media (max-width:768px){
-  .about-hero-section{min-height:420px; padding-top:120px}
-  .about-hero-title{font-size:40px}
+.list-section .list-column li{
+  font-family:'Oxanium',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
+  position:relative;
+  margin:10px 0;
+  padding-left:30px;                       /* space for chevron */
+  font-size:20px;
+  line-height:1.55;
+  color:rgba(252,252,253,.7);
 }
 
-/* ==========================================================
-   ABOUT — INTRO (heading + paragraph)
-   ========================================================== */
-.about-intro-section{
-  background:#0A0A1A; padding:72px 16px; text-align:center;
-}
-.about-intro-section .intro-heading{
-  font-family:'Syne'; font-size:42px; margin:0 0 16px;
-}
-.about-intro-section .intro-text{
-  width:min(900px,92vw); margin:0 auto; color:rgba(252,252,253,.8); line-height:1.7;
+/* Brand chevron */
+.list-section .list-column li::before{
+  content:'\25B8';                         /* small right-pointing chevron */
+  position:absolute;
+  left:0;
+  top:0.55em;
+  transform:translateY(-50%);
+  font-size:18px;
+  line-height:1;
+  color:#00E5FF;
+  font-weight:700;
 }
 
-/* Optional three image row (kept simple, responsive) */
-.intro-boxes-container{
-  width:min(1200px,92vw); margin:34px auto 0;
-  display:grid; grid-template-columns:repeat(3,1fr); gap:18px;
-}
-.intro-box .box-image{width:100%; height:420px; object-fit:cover; border-radius:8px; display:block}
+/* Breakpoints */
 @media (max-width:900px){
-  .intro-boxes-container{grid-template-columns:1fr; gap:14px}
-  .intro-box .box-image{height:300px}
+  .list-section .list-container{ grid-template-columns:1fr; }
 }
 
-/* ==========================================================
-   ABOUT — TWO COLUMN LIST
-   ========================================================== */
-.list-section{padding:48px 16px 70px; background:#0A0A1A}
-.list-container{width:min(1000px,92vw); margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:26px}
-.list-column{list-style:disc; padding-left:22px; color:rgba(252,252,253,.9); line-height:1.8}
-@media (max-width:800px){.list-container{grid-template-columns:1fr}}
+@media (max-width:600px){
+  .list-section{ padding:48px 16px 64px; }
+  .list-section .list-column li{ font-size:18px; line-height:1.6; }
+}
 
-/* =========================
-   Directors (fixed version)
-   ========================= */
+
+/* ===============================
+   DIRECTORS — RESPONSIVE GRID
+   =============================== */
 .directors-section{
-  padding:80px 16px;
   background:#0A0A1A;
   color:#FCFCFD;
   text-align:center;
+  padding:80px 16px;
 }
 
 .directors-section .directors-heading{
-  font-family:'Syne', sans-serif;
+  font-family:'Syne', ui-sans-serif, system-ui, sans-serif;
   font-size:40px;
   margin:0 0 10px;
 }
 
 .directors-section .directors-subheading{
-  font-family:'Oxanium', sans-serif;
+  font-family:'Oxanium',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
   font-size:16px;
   color:rgba(252,252,253,.75);
   line-height:1.7;
@@ -167,17 +80,24 @@ a:hover{color:#00E5FF}
   margin:0 auto 28px;
 }
 
-/* Grid (auto-resizes; no fixed widths) */
+/* Grid that adapts (no fixed card widths) */
 .directors-section .director-cards-container{
   width:min(1100px,92vw);
   margin:0 auto;
   display:grid;
-  grid-template-columns:repeat(5,1fr);
+  grid-template-columns:repeat(5, 1fr);
   gap:18px;
 }
-@media (max-width:1100px){ .directors-section .director-cards-container{ grid-template-columns:repeat(3,1fr) } }
-@media (max-width:700px){  .directors-section .director-cards-container{ grid-template-columns:repeat(2,1fr) } }
-@media (max-width:520px){  .directors-section .director-cards-container{ grid-template-columns:1fr } }
+
+@media (max-width:1100px){
+  .directors-section .director-cards-container{ grid-template-columns:repeat(3,1fr); }
+}
+@media (max-width:700px){
+  .directors-section .director-cards-container{ grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width:520px){
+  .directors-section .director-cards-container{ grid-template-columns:1fr; }
+}
 
 /* Card */
 .directors-section .director-card{
@@ -188,7 +108,7 @@ a:hover{color:#00E5FF}
   display:flex;
   flex-direction:column;
   align-items:stretch;
-  padding:0;                 /* let image fill top edge */
+  padding:0;                                /* image hugs the top edge */
   transition:transform .2s ease, box-shadow .2s ease;
 }
 .directors-section .director-card:hover{
@@ -196,26 +116,33 @@ a:hover{color:#00E5FF}
   box-shadow:0 10px 28px rgba(0,0,0,.35);
 }
 
-/* Image area — works with either:
+/* Image area — supports either:
    <figure class="director-photo"><img ...></figure>
    OR  <img class="director-image" ...>
    OR  <div class="director-image-placeholder"> */
 .directors-section .director-photo,
 .directors-section .director-image-placeholder{
   width:100%;
-  aspect-ratio:4/5; /* consistent height across cards */
+  aspect-ratio:4/5;                         /* consistent portrait ratio */
   background:linear-gradient(180deg,#17172a 0%, #101020 100%);
   display:block;
   overflow:hidden;
 }
+
 .directors-section .director-photo img{
-  width:100%; height:100%; object-fit:cover; display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
 }
-/* If your markup uses img.director-image directly */
+
+/* If using <img class="director-image"> directly */
 .directors-section img.director-image{
-  width:100%; height:100%;
+  width:100%;
+  height:100%;
   aspect-ratio:4/5;
-  object-fit:cover; display:block;
+  object-fit:cover;
+  display:block;
 }
 
 /* Text */
@@ -223,313 +150,23 @@ a:hover{color:#00E5FF}
   padding:14px 12px 18px;
   text-align:center;
 }
+
 .directors-section .director-name{
-  font-family:'Syne', sans-serif;
+  font-family:'Syne', ui-sans-serif, system-ui, sans-serif;
   font-size:20px;
   font-weight:700;
-  color:#9B8AFB;            /* brand purple */
+  color:#9B8AFB;                            /* brand purple */
   margin:0 0 4px;
 }
+
 .directors-section .director-title{
-  font-family:'Oxanium', sans-serif;
+  font-family:'Oxanium',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
   font-size:14px;
   color:rgba(252,252,253,.6);
   margin:0;
 }
 
-/* Mobile padding tune-up */
+/* Slightly tighter padding on small screens */
 @media (max-width:768px){
   .directors-section{ padding:60px 16px; }
 }
-/* ==========================================================
-   NEWSLETTER (reused)
-   ========================================================== */
-.newsletter-outer{background:#0A0A1A;padding:80px 75px;text-align:center}
-.newsletter-pre-heading{font-size:18px;color:rgba(252,252,253,.8);margin-bottom:10px}
-.newsletter-main-heading{font-family:'Syne';font-size:48px;margin-bottom:50px}
-.newsletter-card{max-width:800px;margin:0 auto;padding:40px;border-radius:16px;color:#FCFCFD;background:linear-gradient(135deg,#19D2EA 0%,#B425EC 100%);box-shadow:0 10px 30px rgba(0,0,0,.5)}
-.newsletter-card h3{font-size:24px;font-weight:700;margin-bottom:30px}
-.newsletter-form-container{display:flex;gap:15px;justify-content:center;flex-wrap:wrap;margin-bottom:25px}
-.email-input{width:60%;max-width:400px;padding:15px 20px;border:0;border-radius:8px;background:rgba(255,255,255,.15);color:#fff;font-size:16px;outline:0}
-.email-input::placeholder{color:rgba(252,252,253,.6)}
-.subscribe-button{padding:15px 30px;border:0;border-radius:8px;font-weight:700;font-size:16px;background:#be00e5;color:#FCFCFD;cursor:pointer;transition:background .25s,transform .2s}
-.subscribe-button:hover{background:#a000c0;transform:translateY(-2px)}
-.newsletter-card-disclaimer{font-size:14px;color:rgba(252,252,253,.8);max-width:600px;margin:20px auto 0}
-@media (max-width:600px){
-  .newsletter-outer{padding:60px 20px}
-  .newsletter-main-heading{font-size:34px}
-  .newsletter-form-container{flex-direction:column;align-items:stretch}
-  .email-input,.subscribe-button{width:100%}
-}
-
-/* ==========================================================
-   PARTNERS carousel
-   ========================================================== */
-.partners-section{padding:60px 0;text-align:center;background:#0A0A1A}
-.partners-section h2{font-size:40px;margin:0 0 20px}
-.partners-carousel-track{
-  display:flex;gap:18px;overflow:hidden;padding:0 16px 4px;
-  -webkit-mask-image:linear-gradient(to right, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
-          mask-image:linear-gradient(to right, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
-}
-.partner-logo{flex:0 0 auto;width:clamp(160px,22vw,240px);height:clamp(80px,12vw,110px);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:10px 14px;background:transparent;box-shadow:0 6px 16px rgba(0,0,0,.25);transition:transform .25s,box-shadow .25s}
-.partner-logo img{max-width:200px;max-height:120px;object-fit:contain;display:block}
-.partner-logo:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(0,0,0,.35)}
-
-/* ==========================================================
-   FOOTER
-   ========================================================== */
-footer{background:#0A0A1A;color:#FCFCFD}
-.footer-content{display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px;padding:80px 75px 40px;border-bottom:1px solid rgba(252,252,253,.1)}
-.footer-column{flex-basis:200px;flex-grow:1;text-align:left}
-.footer-column h4{font-size:24px;margin-bottom:25px}
-.footer-column ul{list-style:none}
-.footer-column li{margin-bottom:10px}
-.footer-column a{color:rgba(252,252,253,.7)}
-.footer-column a:hover{color:#00E5FF}
-.footer-logo-column{flex-basis:280px;text-align:right;flex-grow:1}
-.footer-logo-column img{width:100px;display:block;margin-left:auto;margin-bottom:15px}
-.footer-logo-column p{font-size:16px;line-height:1.5;color:rgba(252,252,253,.7);margin-bottom:5px}
-.footer-bottom{text-align:left;padding:30px 75px}
-.copyright-text{font-size:14px;color:rgba(252,252,253,.6)}
-@media (max-width:992px){
-  .footer-content{justify-content:center;gap:30px;padding:60px 30px 30px}
-  .footer-column{flex-basis:calc(50% - 15px);max-width:300px}
-  .footer-logo-column{flex-basis:100%;text-align:center}
-  .footer-logo-column img{margin-inline:auto}
-  .footer-bottom{padding:25px 30px;text-align:center}
-}
-@media (max-width:768px){
-  .footer-content{flex-direction:column;align-items:center;gap:25px}
-  .footer-column,.footer-logo-column{flex-basis:100%;text-align:center}
-  .footer-column h4{margin-bottom:15px}
-  .footer-bottom{padding:25px 15px}
-}
-/* ==========================================================
-   Tunza Esports — Global + Header (works on all pages)
-   ========================================================== */
-
-/* Base */
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%;overflow-x:hidden}
-body{font-family:'Oxanium',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;color:#FCFCFD;background:#0A0A1A}
-h1,h2,h3,h4{font-family:'Syne',ui-sans-serif,system-ui,sans-serif;color:#FCFCFD;line-height:1.2}
-a{color:#FCFCFD;text-decoration:none;transition:color .25s ease}
-a:hover{color:#00E5FF}
-.wrap,.container{width:min(1200px,92vw);margin-inline:auto;padding-inline:16px}
-
-/* ==========================================================
-   HEADER — fixed overlay (targets ANY nav inside .header)
-   ========================================================== */
-.header nav{
-  position:fixed; top:0; left:0; right:0; z-index:1000;
-  display:flex; align-items:center; gap:24px;
-  padding:10px 75px;
-  background:linear-gradient(to bottom, rgba(26,26,48,1) 0%, rgba(26,26,48,0) 100%);
-  transform:translateZ(0);
-}
-
-/* Logo */
-.header .logo img{width:90px;height:90px;object-fit:contain;display:block}
-
-/* Burger hidden on desktop */
-.nav-toggle{display:none; background:transparent; color:#fff; border:1px solid #2a2f3a; padding:.6rem .75rem; border-radius:10px}
-
-/* Nav links block */
-.nav-links{margin-left:auto; display:flex; align-items:center; gap:32px}
-.nav-links > ul{list-style:none; display:flex; gap:40px; align-items:center}
-.nav-links > ul > li{position:relative}
-.nav-links > ul > li > a{display:block; padding:10px 0; font-size:16px}
-
-/* Dropdowns (stable, no flicker) */
-.has-dropdown > a{padding-right:18px}
-.has-dropdown > a::after{
-  content:'\25BE'; font-size:.7em; position:absolute; right:-12px; top:50%;
-  transform:translateY(-50%); color:#FCFCFD;
-}
-.dropdown-menu{
-  display:none; position:absolute; left:50%; top:calc(100% + 10px); transform:translateX(-50%);
-  list-style:none; padding:10px 12px; margin:0; min-width:260px;
-  border-radius:12px; border:1px solid rgba(255,255,255,.08);
-  background:linear-gradient(180deg,#1a1a36 0%, #11112a 100%);
-  box-shadow:0 10px 24px rgba(0,0,0,.35);
-}
-.dropdown-menu li a{display:block; padding:12px 12px; border-radius:8px; font-size:16px; color:#19D2EA}
-.dropdown-menu li a:hover{background:#0d0d21; color:#FCFCFD}
-/* Keep open on hover or when focusing inside */
-.has-dropdown:hover>.dropdown-menu,
-.has-dropdown:focus-within>.dropdown-menu{display:block}
-
-/* CTA */
-.shop-button{
-  display:inline-block; font-weight:700; font-size:16px; color:#fff!important;
-  background:#B425EC; padding:10px 22px; border-radius:8px; transition:background .25s,transform .2s,color .2s
-}
-.shop-button:hover{background:#00E5FF; color:#0A0A1A!important; transform:translateY(-2px)}
-
-/* Space after header for first non-hero section (heroes manage their own padding) */
-.header + *:not(.home-hero-section):not(.about-hero-section):not(.service-hero-section):not(.esports-broadcasting-hero-section):not(.events-bootcamps-hero-section):not(.video-gaming-events-hero-section):not(.kuer-hero-section):not(.news-hero-section){
-  margin-top:96px;
-}
-
-/* ==========================================================
-   MOBILE NAV (slides down; CTA centered)
-   ========================================================== */
-@media (max-width:1024px){
-  .nav-toggle{display:inline-flex; margin-left:auto}
-  .nav-links{
-    position:fixed; left:0; right:0; top:96px; bottom:0; display:none;
-    flex-direction:column; align-items:center; gap:18px;
-    padding:24px 22px 32px; background:linear-gradient(180deg,#0b0b16 0%, rgba(11,11,22,.98) 100%);
-  }
-  .nav-links.is-open{display:flex}
-  .nav-links > ul{flex-direction:column; gap:16px}
-  .nav-links .has-dropdown.open > .dropdown-menu{
-    display:block; position:static; transform:none; margin:0; padding:0; border:0; box-shadow:none;
-    background:transparent;
-  }
-  .nav-links .dropdown-menu li a{padding:10px 0}
-  .nav-links .shop-button{display:block; margin:24px auto 0}
-}
-
-/* ==========================================================
-   ABOUT — HERO (centered like your reference)
-   ========================================================== */
-.about-hero-section{
-  position:relative; width:100%;
-  min-height:520px;
-  display:flex; align-items:center; justify-content:center; text-align:center;
-  padding-top:140px; /* keeps content clear of fixed header */
-  background-image:
-    linear-gradient(180deg, rgba(6,10,30,.70) 0%, rgba(6,10,30,.55) 50%, rgba(6,10,30,.35) 100%),
-    url('/images/About%20Us.jpg');           /* <-- your hero image */
-  background-size:cover; background-position:center;
-}
-.about-hero-inner{max-width:1000px; padding:0 16px}
-.breadcrumbs{
-  font-size:14px; color:rgba(252,252,253,.8); margin-bottom:12px;
-}
-.about-hero-title{
-  font-size:64px; line-height:1.1; letter-spacing:.4px; margin-bottom:0;
-}
-@media (max-width:768px){
-  .about-hero-section{min-height:420px; padding-top:120px}
-  .about-hero-title{font-size:40px}
-}
-
-/* ==========================================================
-   ABOUT — INTRO (heading + paragraph)
-   ========================================================== */
-.about-intro-section{
-  background:#0A0A1A; padding:72px 16px; text-align:center;
-}
-.about-intro-section .intro-heading{
-  font-family:'Syne'; font-size:42px; margin:0 0 16px;
-}
-.about-intro-section .intro-text{
-  width:min(900px,92vw); margin:0 auto; color:rgba(252,252,253,.8); line-height:1.7;
-}
-
-/* Optional three image row (kept simple, responsive) */
-.intro-boxes-container{
-  width:min(1200px,92vw); margin:34px auto 0;
-  display:grid; grid-template-columns:repeat(3,1fr); gap:18px;
-}
-.intro-box .box-image{width:100%; height:420px; object-fit:cover; border-radius:8px; display:block}
-@media (max-width:900px){
-  .intro-boxes-container{grid-template-columns:1fr; gap:14px}
-  .intro-box .box-image{height:300px}
-}
-
-/* ==========================================================
-   ABOUT — TWO COLUMN LIST
-   ========================================================== */
-.list-section{padding:48px 16px 70px; background:#0A0A1A}
-.list-container{width:min(1000px,92vw); margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:26px}
-.list-column{list-style:disc; padding-left:22px; color:rgba(252,252,253,.9); line-height:1.8}
-@media (max-width:800px){.list-container{grid-template-columns:1fr}}
-
-/* ==========================================================
-   DIRECTORS GRID
-   ========================================================== */
-.directors-section{padding:80px 16px}
-.directors-heading{text-align:center; font-size:40px; margin-bottom:10px}
-.directors-subheading{text-align:center; color:rgba(252,252,253,.8); width:min(900px,92vw); margin:0 auto 28px; line-height:1.7}
-.director-cards-container{
-  width:min(1100px,92vw); margin:0 auto;
-  display:grid; grid-template-columns:repeat(5,1fr); gap:18px;
-}
-.director-card{background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06); border-radius:14px; padding:16px; text-align:center}
-.director-image{width:100%; height:200px; object-fit:cover; border-radius:10px; display:block; margin-bottom:10px}
-.director-name{font-size:18px; margin-bottom:4px}
-.director-title{font-size:14px; color:rgba(252,252,253,.75)}
-@media (max-width:1100px){.director-cards-container{grid-template-columns:repeat(3,1fr)}}
-@media (max-width:700px){.director-cards-container{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:520px){.director-cards-container{grid-template-columns:1fr}}
-
-/* ==========================================================
-   NEWSLETTER (reused)
-   ========================================================== */
-.newsletter-outer{background:#0A0A1A;padding:80px 75px;text-align:center}
-.newsletter-pre-heading{font-size:18px;color:rgba(252,252,253,.8);margin-bottom:10px}
-.newsletter-main-heading{font-family:'Syne';font-size:48px;margin-bottom:50px}
-.newsletter-card{max-width:800px;margin:0 auto;padding:40px;border-radius:16px;color:#FCFCFD;background:linear-gradient(135deg,#19D2EA 0%,#B425EC 100%);box-shadow:0 10px 30px rgba(0,0,0,.5)}
-.newsletter-card h3{font-size:24px;font-weight:700;margin-bottom:30px}
-.newsletter-form-container{display:flex;gap:15px;justify-content:center;flex-wrap:wrap;margin-bottom:25px}
-.email-input{width:60%;max-width:400px;padding:15px 20px;border:0;border-radius:8px;background:rgba(255,255,255,.15);color:#fff;font-size:16px;outline:0}
-.email-input::placeholder{color:rgba(252,252,253,.6)}
-.subscribe-button{padding:15px 30px;border:0;border-radius:8px;font-weight:700;font-size:16px;background:#be00e5;color:#FCFCFD;cursor:pointer;transition:background .25s,transform .2s}
-.subscribe-button:hover{background:#a000c0;transform:translateY(-2px)}
-.newsletter-card-disclaimer{font-size:14px;color:rgba(252,252,253,.8);max-width:600px;margin:20px auto 0}
-@media (max-width:600px){
-  .newsletter-outer{padding:60px 20px}
-  .newsletter-main-heading{font-size:34px}
-  .newsletter-form-container{flex-direction:column;align-items:stretch}
-  .email-input,.subscribe-button{width:100%}
-}
-
-/* ==========================================================
-   PARTNERS carousel
-   ========================================================== */
-.partners-section{padding:60px 0;text-align:center;background:#0A0A1A}
-.partners-section h2{font-size:40px;margin:0 0 20px}
-.partners-carousel-track{
-  display:flex;gap:18px;overflow:hidden;padding:0 16px 4px;
-  -webkit-mask-image:linear-gradient(to right, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
-          mask-image:linear-gradient(to right, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
-}
-.partner-logo{flex:0 0 auto;width:clamp(160px,22vw,240px);height:clamp(80px,12vw,110px);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:10px 14px;background:transparent;box-shadow:0 6px 16px rgba(0,0,0,.25);transition:transform .25s,box-shadow .25s}
-.partner-logo img{max-width:200px;max-height:120px;object-fit:contain;display:block}
-.partner-logo:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(0,0,0,.35)}
-
-/* ==========================================================
-   FOOTER
-   ========================================================== */
-footer{background:#0A0A1A;color:#FCFCFD}
-.footer-content{display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px;padding:80px 75px 40px;border-bottom:1px solid rgba(252,252,253,.1)}
-.footer-column{flex-basis:200px;flex-grow:1;text-align:left}
-.footer-column h4{font-size:24px;margin-bottom:25px}
-.footer-column ul{list-style:none}
-.footer-column li{margin-bottom:10px}
-.footer-column a{color:rgba(252,252,253,.7)}
-.footer-column a:hover{color:#00E5FF}
-.footer-logo-column{flex-basis:280px;text-align:right;flex-grow:1}
-.footer-logo-column img{width:100px;display:block;margin-left:auto;margin-bottom:15px}
-.footer-logo-column p{font-size:16px;line-height:1.5;color:rgba(252,252,253,.7);margin-bottom:5px}
-.footer-bottom{text-align:left;padding:30px 75px}
-.copyright-text{font-size:14px;color:rgba(252,252,253,.6)}
-@media (max-width:992px){
-  .footer-content{justify-content:center;gap:30px;padding:60px 30px 30px}
-  .footer-column{flex-basis:calc(50% - 15px);max-width:300px}
-  .footer-logo-column{flex-basis:100%;text-align:center}
-  .footer-logo-column img{margin-inline:auto}
-  .footer-bottom{padding:25px 30px;text-align:center}
-}
-@media (max-width:768px){
-  .footer-content{flex-direction:column;align-items:center;gap:25px}
-  .footer-column,.footer-logo-column{flex-basis:100%;text-align:center}
-  .footer-column h4{margin-bottom:15px}
-  .footer-bottom{padding:25px 15px}
-}
-
-
