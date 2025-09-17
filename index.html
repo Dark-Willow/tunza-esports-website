@@ -162,7 +162,7 @@
 (function () {
   'use strict';
 
-  /* ================= NAVBAR SCROLL (keep behavior) ================= */
+  /* ============ NAVBAR SCROLL (keep behavior) ============ */
   function applyNavbarTop() {
     const navbar = document.querySelector('.header nav');
     if (!navbar) return;
@@ -170,7 +170,7 @@
   }
   window.addEventListener('scroll', applyNavbarTop);
 
-  /* ================= MOBILE MENU: ensure toggle & overlay ================= */
+  /* ============ ENSURE HAMBURGER EXISTS ============ */
   function ensureMobileToggle() {
     const nav = document.querySelector('.header nav');
     if (!nav) return null;
@@ -183,21 +183,18 @@
       toggle.setAttribute('aria-label', 'Open menu');
       toggle.innerHTML = '<i class="fa-solid fa-bars" aria-hidden="true"></i>';
       const logo = nav.querySelector('.logo');
-      if (logo) {
-        nav.insertBefore(toggle, logo); // menu left, logo right
-      } else {
-        nav.insertBefore(toggle, nav.firstChild);
-      }
+      if (logo) nav.insertBefore(toggle, logo); else nav.insertBefore(toggle, nav.firstChild);
     }
     return toggle;
   }
 
+  /* ============ ENSURE OVERLAY EXISTS ============ */
   function ensureOverlay() {
     let overlay = document.getElementById('mobileMenu');
     if (overlay) return overlay;
 
     const html = `
-    <div class="mobile-menu-overlay" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-menu-overlay" id="mobileMenu" aria-hidden="true" style="z-index:99999;pointer-events:auto;">
       <div class="mobile-menu-header">
         <span style="font-family:'Syne',sans-serif;">Menu</span>
         <button class="mobile-close" aria-label="Close menu">&times;</button>
@@ -250,6 +247,7 @@
     return overlay;
   }
 
+  /* ============ WIRE OVERLAY (robust click/touch handling) ============ */
   function wireOverlay(openBtn, overlay) {
     if (!openBtn || !overlay) return;
     if (overlay.dataset.wired === '1') return; // avoid double wiring
@@ -265,7 +263,6 @@
       servicesScreen.hidden = which !== 'services';
       productsScreen.hidden = which !== 'products';
     }
-
     function openOverlay() {
       overlay.classList.add('open');
       overlay.setAttribute('aria-hidden', 'false');
@@ -282,33 +279,36 @@
       document.body.style.overflow = '';
     }
 
-    // open from hamburger
-    openBtn.addEventListener('click', (e) => { e.preventDefault(); openOverlay(); });
+    // open (hamburger)
+    ['click', 'touchend'].forEach(evt =>
+      openBtn.addEventListener(evt, (e) => { e.preventDefault(); openOverlay(); }, {passive:false})
+    );
 
-    // robust delegated handling (works on icon or text taps)
-    overlay.addEventListener('click', (e) => {
-      const closeBtn = e.target.closest('.mobile-close');
-      if (closeBtn) { e.preventDefault(); closeOverlay(); return; }
-
-      const backBtn = e.target.closest('[data-back]');
-      if (backBtn) { e.preventDefault(); showScreen('main'); return; }
-
-      const openTrigger = e.target.closest('[data-open-submenu]');
-      if (openTrigger) {
+    // delegate EVERYTHING inside overlay (captures icon taps too)
+    function innerHandler(e) {
+      const target = e.target;
+      // close (X)
+      if (target.closest('.mobile-close')) { e.preventDefault(); closeOverlay(); return; }
+      // back
+      if (target.closest('[data-back]')) { e.preventDefault(); showScreen('main'); return; }
+      // open submenus
+      const trigger = target.closest('[data-open-submenu]');
+      if (trigger) {
         e.preventDefault();
-        const which = openTrigger.getAttribute('data-open-submenu');
+        const which = trigger.getAttribute('data-open-submenu');
         if (which === 'services' || which === 'products') showScreen(which);
         return;
       }
+      // navigate links
+      const navLink = target.closest('a.mobile-link');
+      if (navLink && navLink.getAttribute('href')) { closeOverlay(); }
+    }
+    // handle both click and touch (and capture to beat other listeners)
+    ['click', 'touchend'].forEach(evt =>
+      overlay.addEventListener(evt, innerHandler, {capture:true, passive:false})
+    );
 
-      const navLink = e.target.closest('a.mobile-link');
-      if (navLink && navLink.getAttribute('href')) {
-        // close after navigating
-        closeOverlay();
-      }
-    });
-
-    // ESC key closes
+    // ESC to close
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && overlay.classList.contains('open')) closeOverlay();
     });
@@ -324,14 +324,14 @@
 
     function closeAllDropdowns() {
       document.querySelectorAll('.nav-links .dropdown-menu').forEach(m => {
-        m.style.display = ''; // let CSS handle on desktop
+        m.style.display = '';
         m.removeAttribute('data-open');
       });
     }
 
     dropdownLinks.forEach(a => {
       a.addEventListener('click', (e) => {
-        if (!isTouchLayout()) return; // desktop hover handles it
+        if (!isTouchLayout()) return;
         e.preventDefault();
         const li = a.closest('li.has-dropdown');
         const menu = li ? li.querySelector('.dropdown-menu') : null;
@@ -355,18 +355,17 @@
     });
   }
 
-  /* ================= PARTNERS: carousel + your 3 logos ================= */
+  /* ============ PARTNERS: carousel + 3 logos (home only) ============ */
   function initPartners() {
     const carouselTrack = document.querySelector('.partners-carousel-track');
     if (!carouselTrack) return;
 
     const partnerLogos = [
-      { src: '/images/Esports-Africa-News.jpg',      alt: 'Esports Africa News' },
-      { src: '/images/Afrigamer.jpg',                alt: 'Afrigamer' },
-      { src: '/images/B34R-CL4N%20partner.jpg',      alt: 'B34R CL4N Partner' }
+      { src: '/images/Esports-Africa-News.jpg', alt: 'Esports Africa News' },
+      { src: '/images/Afrigamer.jpg', alt: 'Afrigamer' },
+      { src: '/images/B34R-CL4N%20partner.jpg', alt: 'B34R CL4N Partner' }
     ];
 
-    // Build logos (replace placeholders)
     carouselTrack.innerHTML = '';
     partnerLogos.forEach(p => {
       const img = document.createElement('img');
@@ -376,7 +375,7 @@
       carouselTrack.appendChild(img);
     });
 
-    // Duplicate content for seamless loop
+    // seamless loop
     carouselTrack.innerHTML += carouselTrack.innerHTML;
 
     let scrollAmount = 0;
@@ -396,15 +395,16 @@
     carouselTrack.addEventListener('mouseleave', () => autoScroll());
   }
 
-  /* ================= NEWS: your 3 articles with images ================= */
+  /* ============ NEWS: 3 articles with images (home only) ============ */
   function initNews() {
+    const newsContainer = document.getElementById('news-cards-container');
+    if (!newsContainer) return;
+
     const homepageNewsData = [
       { title: "Tunza Esports renews KUER Season 3", snippet: "A new format and more titles—KUER Season 3 is here.", date: "Sep 1, 2025", link: "/news/", imageUrl: "/images/KUER-x-Tunza.png" },
       { title: "Tunza Esports Partners with B34R CL4N", snippet: "Call of Duty Mobile within KUER gets pro-level support.", date: "Sep 5, 2025", link: "/news/", imageUrl: "/images/KUER-x-B34R.png" },
       { title: "Safaricom Game Conference", snippet: "A landmark event for Kenya’s gaming industry.", date: "Sep 8, 2025", link: "/news/", imageUrl: "/images/Safaricom-Gaming-Conference.JPG" }
     ];
-    const newsContainer = document.getElementById('news-cards-container');
-    if (!newsContainer) return;
 
     newsContainer.innerHTML = '';
     homepageNewsData.forEach(item => {
@@ -425,15 +425,17 @@
     });
   }
 
-  /* ==================== INIT ON DOM READY ==================== */
+  /* ============ INIT ============ */
   function init() {
-    applyNavbarTop();               // set initial top
-    const openBtn = ensureMobileToggle();
-    const overlay = ensureOverlay();
-    wireOverlay(openBtn, overlay);  // <— fixes submenu clicks
-    initDesktopDropdownTouch();     // <— makes desktop dropdowns tap-friendly on small/touch
-    initPartners();
-    initNews();
+    applyNavbarTop();
+
+    const openBtn = ensureMobileToggle();     // creates hamburger if missing
+    const overlay = ensureOverlay();          // creates overlay if missing
+    wireOverlay(openBtn, overlay);            // <-- makes Services/Products taps work
+
+    initDesktopDropdownTouch();               // taps on desktop dropdowns (small/touch)
+    initPartners();                           // home-only; safe no-op elsewhere
+    initNews();                               // home-only; safe no-op elsewhere
   }
 
   if (document.readyState === 'loading') {
@@ -445,5 +447,6 @@
 </script>
 </body>
 </html>
+
 
 
