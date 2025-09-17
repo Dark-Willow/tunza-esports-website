@@ -18,7 +18,6 @@ a:hover{color:#00E5FF}
 .header{
   position:fixed; top:0; left:0; right:0; z-index:1000;
   background:linear-gradient(to bottom, rgba(26,26,48,1) 0%, rgba(26,26,48,0) 100%);
-  transform:translateZ(0);
 }
 
 /* Nav inside is static, so any JS trying to set nav.style.top is ignored */
@@ -228,4 +227,5 @@ footer{background:#0A0A1A;color:#FCFCFD}
 .coming-soon-hero-section h1{font-size:5rem;font-weight:700;text-transform:uppercase}
 @media (max-width:768px){.coming-soon-hero-section h1{font-size:3rem}}
 @media (max-width:480px){.coming-soon-hero-section h1{font-size:2rem}}
+
 
