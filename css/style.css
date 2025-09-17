@@ -1,49 +1,47 @@
 /* ==========================================================
-   Tunza Esports — Global + Header (works on all pages)
+   Tunza Esports — Universal CSS (works across ALL pages)
+   - Fixed desktop nav (no scrolling/jumping)
+   - Stable dropdowns
+   - Mobile menu & drawer supported
+   - Sections for Home, About, Services, KUER, News, Contact, Gallery, etc.
    ========================================================== */
 
-/* Base */
+/* ---------- Reset & Base ---------- */
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100%;overflow-x:hidden}
 body{
   font-family:'Oxanium',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
-  color:#FCFCFD;background:#0A0A1A
+  color:#FCFCFD;background:#0A0A1A;position:relative
 }
-h1,h2,h3,h4{
-  font-family:'Syne',ui-sans-serif,system-ui,sans-serif;
-  color:#FCFCFD;line-height:1.2
-}
+h1,h2,h3,h4{font-family:'Syne',ui-sans-serif,system-ui,sans-serif;color:#FCFCFD;line-height:1.2}
 a{color:#FCFCFD;text-decoration:none;transition:color .25s ease}
 a:hover{color:#00E5FF}
 .wrap,.container{width:min(1200px,92vw);margin-inline:auto;padding-inline:16px}
 
 /* ==========================================================
-   HEADER — fixed overlay (targets ANY nav inside .header)
+   HEADER — fixed overlay (applies to ANY <nav> inside .header)
    ========================================================== */
 .header nav{
-  position:fixed; top:0; left:0; right:0; z-index:1000;
+  position:fixed !important; top:0 !important; left:0; right:0; z-index:1000;
   display:flex; align-items:center; gap:24px;
-  padding:10px 75px;
+  padding:6px 75px;
   background:linear-gradient(to bottom, rgba(26,26,48,1) 0%, rgba(26,26,48,0) 100%);
   transform:translateZ(0);
 }
 .header .logo img{width:90px;height:90px;object-fit:contain;display:block}
 
-/* Burger hidden on desktop */
+/* Desktop navigation block */
 .nav-toggle{
-  display:none; background:transparent; color:#fff;
-  border:1px solid #2a2f3a; padding:.6rem .75rem; border-radius:10px
+  display:none; background:transparent; color:#fff; border:1px solid #2a2f3a; padding:.6rem .75rem; border-radius:10px
 }
-
-/* Nav links block */
 .nav-links{margin-left:auto; display:flex; align-items:center; gap:32px}
-.nav-links > ul{list-style:none; display:flex; gap:40px; align-items:center}
-.nav-links > ul > li{position:relative}
-.nav-links > ul > li > a{display:block; padding:10px 0; font-size:16px}
+.nav-links>ul{list-style:none; display:flex; gap:40px; align-items:center}
+.nav-links>ul>li{position:relative}
+.nav-links>ul>li>a{display:block; padding:10px 0; font-size:16px}
 
-/* Dropdowns (stable, no flicker) */
-.has-dropdown > a{padding-right:18px}
-.has-dropdown > a::after{
+/* Dropdowns — stable (no flicker) */
+.has-dropdown>a{padding-right:18px}
+.has-dropdown>a::after{
   content:'\25BE'; font-size:.7em; position:absolute; right:-12px; top:50%;
   transform:translateY(-50%); color:#FCFCFD;
 }
@@ -53,39 +51,28 @@ a:hover{color:#00E5FF}
   border-radius:12px; border:1px solid rgba(255,255,255,.08);
   background:linear-gradient(180deg,#1a1a36 0%, #11112a 100%);
   box-shadow:0 10px 24px rgba(0,0,0,.35);
-  z-index:1100;
 }
-/* Hover buffer to prevent gap flicker */
-.has-dropdown{position:relative}
-.has-dropdown > .dropdown-menu::before{
-  content:""; position:absolute; left:0; right:0; top:-10px; height:10px;
-}
-
-.dropdown-menu li a{
-  display:block; padding:12px 12px; border-radius:8px; font-size:16px; color:#19D2EA
-}
+.dropdown-menu li a{display:block; padding:12px 12px; border-radius:8px; font-size:16px; color:#19D2EA}
 .dropdown-menu li a:hover{background:#0d0d21; color:#FCFCFD}
-
-/* Keep open on hover or when focusing inside */
+/* keep open while pointer moves into the menu or when focused inside */
 .has-dropdown:hover>.dropdown-menu,
 .has-dropdown:focus-within>.dropdown-menu{display:block}
 
 /* CTA */
 .shop-button{
   display:inline-block; font-weight:700; font-size:16px; color:#fff!important;
-  background:#B425EC; padding:10px 22px; border-radius:8px;
-  transition:background .25s,transform .2s,color .2s
+  background:#B425EC; padding:10px 22px; border-radius:8px; transition:background .25s,transform .2s,color .2s
 }
-/* Turn blue on hover (desktop) */
+/* Hover must turn blue (requested) */
 .shop-button:hover{background:#00E5FF; color:#0A0A1A!important; transform:translateY(-2px)}
 
-/* Space after header for first non-hero section (heroes manage own padding) */
-.header + *:not(.home-hero-section):not(.about-hero-section):not(.service-hero-section):not(.esports-broadcasting-hero-section):not(.events-bootcamps-hero-section):not(.video-gaming-events-hero-section):not(.kuer-hero-section):not(.news-hero-section){
+/* Push first NON-hero section down so fixed nav won’t cover it */
+.header + *:not(.home-hero-section):not(.about-hero-section):not(.service-hero-section):not(.esports-broadcasting-hero-section):not(.events-bootcamps-hero-section):not(.video-gaming-events-hero-section):not(.kuer-hero-section):not(.news-hero-section):not(.consultation-hero-section):not(.products-coming-soon-hero-section):not(.coming-soon-hero-section){
   margin-top:96px;
 }
 
 /* ==========================================================
-   MOBILE NAV (slides down; CTA centered)
+   MOBILE NAV (shared for pages that use .nav-links overlay)
    ========================================================== */
 @media (max-width:1024px){
   .nav-toggle{display:inline-flex; margin-left:auto}
@@ -95,10 +82,9 @@ a:hover{color:#00E5FF}
     padding:24px 22px 32px; background:linear-gradient(180deg,#0b0b16 0%, rgba(11,11,22,.98) 100%);
   }
   .nav-links.is-open{display:flex}
-  .nav-links > ul{flex-direction:column; gap:16px}
-  .nav-links .has-dropdown.open > .dropdown-menu{
-    display:block; position:static; transform:none; margin:0; padding:0; border:0; box-shadow:none;
-    background:transparent;
+  .nav-links>ul{flex-direction:column; gap:16px}
+  .nav-links .has-dropdown.open>.dropdown-menu{
+    display:block; position:static; transform:none; margin:0; padding:0; border:0; box-shadow:none; background:transparent;
   }
   .nav-links .dropdown-menu li a{padding:10px 0}
   /* Center the CTA on mobile */
@@ -106,144 +92,126 @@ a:hover{color:#00E5FF}
 }
 
 /* ==========================================================
-   ABOUT — HERO (centered like reference)
+   (Optional) Legacy MOBILE DRAWER support (#mobile-drawer)
+   — used on some pages; safe to keep included
+   ========================================================== */
+#mobile-drawer{display:none !important}
+#mobile-drawer.is-open{display:block !important}
+.mobile-drawer{position:fixed; inset:0; z-index:1500; background:linear-gradient(180deg, rgba(11,11,22,1) 0%, rgba(11,11,22,0.98) 100%)}
+.drawer-panel{display:none}
+.drawer-panel.is-active{display:block}
+body.drawer-lock{overflow:hidden}
+@media (max-width:1024px){
+  .drawer-panel{height:100%;overflow:auto;padding:96px 22px 32px}
+  .drawer-title{font-family:'Syne';font-size:28px;margin:0 0 14px;text-align:center}
+  .drawer-list{list-style:none;padding:0;margin:0 auto;max-width:520px;display:flex;flex-direction:column;gap:18px;text-align:center}
+  .drawer-list a,.drawer-link{font-size:22px;line-height:1.4;background:transparent;color:#FCFCFD;border:0;padding:8px 6px;border-radius:8px}
+  .drawer-link{cursor:pointer}
+  .drawer-back{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;border:1px solid #2b2f3a;background:rgba(255,255,255,.04);color:#fff;font-size:16px;margin:0 0 12px}
+  /* Center drawer CTA */
+  .drawer-cta{display:block;margin:34px auto 0;padding:14px 28px;font-size:18px}
+}
+
+/* ==========================================================
+   HOME — Hero (unchanged from your design)
+   ========================================================== */
+.home-hero-section{
+  min-height:962px;width:100%;
+  background-image:linear-gradient(rgba(4,9,30,.7), rgba(4,9,30,.7)), url(../images/TunzaEsportsBackground.png);
+  background-size:cover;background-position:center;position:relative
+}
+.home-hero-section .hero-content{position:absolute;left:438px;top:426px;max-width:700px}
+.home-hero-section .hero-content h1{font-weight:700;font-size:64px}
+@media (max-width:768px){
+  .home-hero-section .hero-content{left:50%;transform:translateX(-50%);top:250px;text-align:center}
+  .home-hero-section .hero-content h1{font-size:40px}
+}
+
+/* ==========================================================
+   ABOUT — Hero + Intro + Bullets
    ========================================================== */
 .about-hero-section{
-  position:relative; width:100%;
-  min-height:520px;
-  display:flex; align-items:center; justify-content:center; text-align:center;
-  padding-top:140px; /* keeps content clear of fixed header */
-  background-image:
-    linear-gradient(180deg, rgba(6,10,30,.70) 0%, rgba(6,10,30,.55) 50%, rgba(6,10,30,.35) 100%),
-    url('/images/About%20Us.jpg');
-  background-size:cover; background-position:center;
+  min-height:450px;width:100%;
+  background-image:linear-gradient(rgba(4,9,30,.7), rgba(4,9,30,.7)), url(../images/About%20Us.jpg);
+  background-size:cover;background-position:center;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+  padding:0 75px; position:relative
 }
-.about-hero-inner{max-width:1000px; padding:0 16px}
-.breadcrumbs{font-size:14px; color:rgba(252,252,253,.8); margin-bottom:12px}
-.about-hero-title{font-size:64px; line-height:1.1; letter-spacing:.4px; margin-bottom:0}
+.about-hero-section .about-main-heading{font-weight:700;font-size:64px;margin-bottom:25px}
+.about-hero-section .about-tagline{font-size:20px;color:rgba(252,252,253,.8);max-width:800px;line-height:1.5}
 @media (max-width:768px){
-  .about-hero-section{min-height:420px; padding-top:120px}
-  .about-hero-title{font-size:40px}
+  .about-hero-section{min-height:350px;padding:0 15px}
+  .about-hero-section .about-main-heading{font-size:36px}
+  .about-hero-section .about-tagline{font-size:16px}
 }
 
-/* ==========================================================
-   ABOUT — INTRO (heading + paragraph + optional image row)
-   ========================================================== */
-.about-intro-section{background:#0A0A1A; padding:72px 16px; text-align:center}
-.about-intro-section .intro-heading{font-family:'Syne'; font-size:42px; margin:0 0 16px}
-.about-intro-section .intro-text{
-  width:min(900px,92vw); margin:0 auto; color:rgba(252,252,253,.8); line-height:1.7
-}
-.intro-boxes-container{
-  width:min(1200px,92vw); margin:34px auto 0;
-  display:grid; grid-template-columns:repeat(3,1fr); gap:18px;
-}
-.intro-box .box-image{width:100%; height:420px; object-fit:cover; border-radius:8px; display:block}
-@media (max-width:900px){
-  .intro-boxes-container{grid-template-columns:1fr; gap:14px}
-  .intro-box .box-image{height:300px}
+.about-intro-section{padding:80px 75px 40px;background:#0A0A1A;text-align:center}
+.about-intro-section .intro-heading{font-size:40px;margin-bottom:20px}
+.about-intro-section .intro-text{font-size:16px;color:rgba(252,252,253,.7);max-width:700px;margin:0 auto 50px;line-height:1.5}
+.about-intro-section .intro-boxes-container{display:flex;justify-content:center;gap:40px;flex-wrap:wrap}
+.about-intro-section .intro-box{width:390px;min-height:540px;display:flex;flex-direction:column;align-items:center}
+.about-intro-section .box-image{width:350px;height:480px;object-fit:cover;border-radius:8px;display:block}
+@media (max-width:768px){
+  .about-intro-section{padding:40px 15px}
+  .about-intro-section .intro-heading{font-size:32px}
+  .about-intro-section .intro-box{width:90%}
+  .about-intro-section .box-image{width:100%;height:350px}
 }
 
-/* ==========================================================
-   ABOUT — TWO-COLUMN BULLET LIST
-   ========================================================== */
-.list-section{
-  background:#0A0A1A;
-  padding:64px 16px 84px;
-}
-.list-section .list-container{
-  width:min(1100px,92vw);
-  margin:0 auto;
-  display:grid;
-  grid-template-columns:repeat(2, minmax(320px,1fr));
-  column-gap:48px;
-  row-gap:6px;
-}
-.list-section .list-column{list-style:none; margin:0; padding:0}
+.list-section{padding:40px 75px 80px;background:#0A0A1A}
+.list-section .list-container{display:flex;justify-content:flex-start;flex-wrap:wrap;gap:40px;padding-left:120px}
+.list-section .list-column{list-style:none;flex-basis:45%;max-width:500px;padding-left:0}
+.list-section .list-column:last-child{margin-left:170px}
 .list-section .list-column li{
-  font-family:'Oxanium',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
-  position:relative;
-  margin:10px 0; padding-left:30px;
-  font-size:20px; line-height:1.55;
-  color:rgba(252,252,253,.7);
+  position:relative;padding-left:30px;margin-bottom:5px;font-size:20px;line-height:1.4;color:rgba(252,252,253,.7)
 }
-/* Brand chevron bullet */
 .list-section .list-column li::before{
-  content:'\25B8'; position:absolute; left:0; top:0.55em; transform:translateY(-50%);
-  font-size:18px; line-height:1; color:#00E5FF; font-weight:700;
+  content:'\25B8'; position:absolute; left:0; top:5px; font-size:16px; color:#00E5FF
 }
-@media (max-width:900px){ .list-section .list-container{ grid-template-columns:1fr } }
-@media (max-width:600px){
-  .list-section{ padding:48px 16px 64px }
-  .list-section .list-column li{ font-size:18px; line-height:1.6 }
+@media (max-width:768px){
+  .list-section{padding:40px 15px}
+  .list-section .list-container{padding-left:20px;gap:30px;flex-direction:column}
+  .list-section .list-column{flex-basis:100%;max-width:none}
+  .list-section .list-column:last-child{margin-left:0}
 }
 
 /* ==========================================================
-   DIRECTORS — RESPONSIVE GRID
+   DIRECTORS
    ========================================================== */
-.directors-section{
-  background:#0A0A1A; color:#FCFCFD; text-align:center; padding:80px 16px;
-}
-.directors-section .directors-heading{
-  font-family:'Syne', ui-sans-serif, system-ui, sans-serif;
-  font-size:40px; margin:0 0 10px;
-}
-.directors-section .directors-subheading{
-  font-family:'Oxanium',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
-  font-size:16px; color:rgba(252,252,253,.75); line-height:1.7;
-  max-width:900px; margin:0 auto 28px;
-}
-/* Grid (auto-resizes; no fixed widths) */
+.directors-section{padding:80px 65px;background:#0A0A1A;text-align:center}
+.directors-section .directors-heading{font-size:48px;margin-bottom:20px}
+.directors-section .directors-subheading{font-size:16px;color:rgba(252,252,253,.7);line-height:1.6;max-width:900px;margin:0 auto 40px}
 .directors-section .director-cards-container{
-  width:min(1100px,92vw);
-  margin:0 auto;
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:18px;
+  display:flex;justify-content:center;gap:5px;flex-wrap:wrap
 }
-@media (max-width:1100px){ .directors-section .director-cards-container{ grid-template-columns:repeat(3,1fr) } }
-@media (max-width:700px){  .directors-section .director-cards-container{ grid-template-columns:repeat(2,1fr) } }
-@media (max-width:520px){  .directors-section .director-cards-container{ grid-template-columns:1fr } }
-
-/* Card */
+/* Card keeps your portrait ratio 4:5 exactly like comp */
 .directors-section .director-card{
-  background:rgba(255,255,255,.03);
-  border:1px solid rgba(255,255,255,.06);
-  border-radius:14px; overflow:hidden;
-  display:flex; flex-direction:column; align-items:stretch;
-  padding:0;
-  transition:transform .2s ease, box-shadow .2s ease;
+  background:transparent;padding:20px;border-radius:12px;text-align:center;width:224px;display:flex;flex-direction:column;align-items:center
 }
-.directors-section .director-card:hover{
-  transform:translateY(-3px);
-  box-shadow:0 10px 28px rgba(0,0,0,.35);
-}
-
-/* Image area — works with <figure> or plain <img> */
-.directors-section .director-photo,
-.directors-section .director-image-placeholder{
-  width:100%; aspect-ratio:4/5;
-  background:linear-gradient(180deg,#17172a 0%, #101020 100%);
-  display:block; overflow:hidden;
-}
-.directors-section .director-photo img{
-  width:100%; height:100%; object-fit:cover; display:block;
-}
-.directors-section img.director-image{
-  width:100%; height:100%; aspect-ratio:4/5; object-fit:cover; display:block;
+.directors-section .director-image{width:224px;height:458px;object-fit:cover;object-position:top;border-radius:8px;display:block;margin-bottom:15px}
+.directors-section .director-name{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#9B8AFB;margin-bottom:5px}
+.directors-section .director-title{font-size:14px;color:rgba(252,252,253,.6)}
+@media (max-width:768px){
+  .directors-section{padding:60px 30px}
+  .directors-section .director-cards-container{justify-content:space-around;gap:15px}
+  .directors-section .director-card{width:180px}
+  .directors-section .director-image{width:180px;height:368px}
 }
 
-/* Text */
-.directors-section .director-info{ padding:14px 12px 18px; text-align:center }
-.directors-section .director-name{
-  font-family:'Syne', ui-sans-serif, system-ui, sans-serif;
-  font-size:20px; font-weight:700; color:#9B8AFB; margin:0 0 4px;
-}
-.directors-section .director-title{
-  font-family:'Oxanium',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
-  font-size:14px; color:rgba(252,252,253,.6); margin:0;
-}
-@media (max-width:768px){ .directors-section{ padding:60px 16px } }
+/* ==========================================================
+   NEWS (home cards)
+   ========================================================== */
+.news-section{padding:80px 75px;text-align:center;background:#0A0A1A}
+.news-heading{font-size:48px;margin-bottom:50px}
+.news-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;justify-content:center}
+.news-card{background:transparent;padding:30px;border-radius:12px;transition:transform .3s,box-shadow .3s;text-align:left}
+.news-card:hover{transform:translateY(-5px);box-shadow:0 8px 25px rgba(0,0,0,.3)}
+.news-image-placeholder{width:100%;height:180px;background:#333;border-radius:8px;margin-bottom:10px}
+.news-card-title{font-size:24px;margin-bottom:6px}
+.news-card-text{font-size:16px;line-height:1.6;color:rgba(252,252,253,.7);margin-bottom:10px}
+.news-card-date{font-size:14px;color:#00E5FF}
+@media (max-width:992px){.news-section{padding:60px 30px}.news-heading{font-size:38px}}
+@media (max-width:768px){.news-section{padding:40px 15px}.news-heading{font-size:32px}}
 
 /* ==========================================================
    NEWSLETTER (reused)
@@ -251,21 +219,12 @@ a:hover{color:#00E5FF}
 .newsletter-outer{background:#0A0A1A;padding:80px 75px;text-align:center}
 .newsletter-pre-heading{font-size:18px;color:rgba(252,252,253,.8);margin-bottom:10px}
 .newsletter-main-heading{font-family:'Syne';font-size:48px;margin-bottom:50px}
-.newsletter-card{
-  max-width:800px;margin:0 auto;padding:40px;border-radius:16px;color:#FCFCFD;
-  background:linear-gradient(135deg,#19D2EA 0%,#B425EC 100%);box-shadow:0 10px 30px rgba(0,0,0,.5)
-}
+.newsletter-card{max-width:800px;margin:0 auto;padding:40px;border-radius:16px;color:#FCFCFD;background:linear-gradient(135deg,#19D2EA 0%,#B425EC 100%);box-shadow:0 10px 30px rgba(0,0,0,.5)}
 .newsletter-card h3{font-size:24px;font-weight:700;margin-bottom:30px}
 .newsletter-form-container{display:flex;gap:15px;justify-content:center;flex-wrap:wrap;margin-bottom:25px}
-.email-input{
-  width:60%;max-width:400px;padding:15px 20px;border:0;border-radius:8px;
-  background:rgba(255,255,255,.15);color:#fff;font-size:16px;outline:0
-}
+.email-input{width:60%;max-width:400px;padding:15px 20px;border:0;border-radius:8px;background:rgba(255,255,255,.15);color:#fff;font-size:16px;outline:0}
 .email-input::placeholder{color:rgba(252,252,253,.6)}
-.subscribe-button{
-  padding:15px 30px;border:0;border-radius:8px;font-weight:700;font-size:16px;
-  background:#be00e5;color:#FCFCFD;cursor:pointer;transition:background .25s,transform .2s
-}
+.subscribe-button{padding:15px 30px;border:0;border-radius:8px;font-weight:700;font-size:16px;background:#be00e5;color:#FCFCFD;cursor:pointer;transition:background .25s,transform .2s}
 .subscribe-button:hover{background:#a000c0;transform:translateY(-2px)}
 .newsletter-card-disclaimer{font-size:14px;color:rgba(252,252,253,.8);max-width:600px;margin:20px auto 0}
 @media (max-width:600px){
@@ -276,7 +235,7 @@ a:hover{color:#00E5FF}
 }
 
 /* ==========================================================
-   PARTNERS carousel
+   PARTNERS carousel (auto-scroll visuals)
    ========================================================== */
 .partners-section{padding:60px 0;text-align:center;background:#0A0A1A}
 .partners-section h2{font-size:40px;margin:0 0 20px}
@@ -285,24 +244,184 @@ a:hover{color:#00E5FF}
   -webkit-mask-image:linear-gradient(to right, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
           mask-image:linear-gradient(to right, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
 }
-.partner-logo{
-  flex:0 0 auto;width:clamp(160px,22vw,240px);height:clamp(80px,12vw,110px);
-  display:flex;align-items:center;justify-content:center;
-  border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:10px 14px;
-  background:transparent;box-shadow:0 6px 16px rgba(0,0,0,.25);
-  transition:transform .25s,box-shadow .25s
-}
+.partner-logo{flex:0 0 auto;width:clamp(160px,22vw,240px);height:clamp(80px,12vw,110px);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:10px 14px;background:transparent;box-shadow:0 6px 16px rgba(0,0,0,.25);transition:transform .25s,box-shadow .25s}
 .partner-logo img{max-width:200px;max-height:120px;object-fit:contain;display:block}
 .partner-logo:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(0,0,0,.35)}
+
+/* ==========================================================
+   SERVICE / PRODUCT HEROES (Tournament, Broadcasting, Events, Video, Consultation, KUER, News, Products Coming Soon)
+   ========================================================== */
+.service-hero-section,
+.esports-broadcasting-hero-section,
+.events-bootcamps-hero-section,
+.video-gaming-events-hero-section,
+.consultation-hero-section,
+.kuer-hero-section,
+.news-hero-section,
+.products-coming-soon-hero-section,
+.coming-soon-hero-section{
+  min-height:450px;width:100%;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+  padding:0 75px; position:relative
+}
+.service-hero-section{background-image:linear-gradient(rgba(4,9,30,.7),rgba(4,9,30,.7)),url(../images/Esports%20Tournament%20Main.jpg);background-size:cover;background-position:center}
+.esports-broadcasting-hero-section{background-image:linear-gradient(rgba(4,9,30,.7),rgba(4,9,30,.7)),url(../images/Production%20Setup.jpg);background-size:cover;background-position:center}
+.events-bootcamps-hero-section{background-image:linear-gradient(rgba(4,9,30,.7),rgba(4,9,30,.7)),url(../images/events-bootcamps-hero.jpg);background-size:cover;background-position:center}
+.video-gaming-events-hero-section{background-image:linear-gradient(rgba(4,9,30,.7),rgba(4,9,30,.7)),url(../images/Gaming%20Events.jpg);background-size:cover;background-position:center}
+.consultation-hero-section{background-image:linear-gradient(rgba(4,9,30,.7),rgba(4,9,30,.7)),url(../images/Consultation.jpg);background-size:cover;background-position:center}
+.kuer-hero-section{min-height:550px;background-image:linear-gradient(rgba(4,9,30,.7),rgba(4,9,30,.7)),url(../images/KUER.jpg);background-size:cover;background-position:center}
+.news-hero-section{min-height:550px;background-image:linear-gradient(rgba(4,9,30,.7),rgba(4,9,30,.7)),url(../images/News.jpg);background-size:cover;background-position:center}
+.products-coming-soon-hero-section{min-height:calc(100vh - 120px);background:#111129}
+.coming-soon-hero-section{min-height:calc(100vh - 120px);background:#0a0a1a}
+.service-main-heading,.coming-soon-main-heading{font-weight:700;font-size:64px;margin-bottom:25px}
+@media (max-width:768px){
+  .service-hero-section,
+  .esports-broadcasting-hero-section,
+  .events-bootcamps-hero-section,
+  .video-gaming-events-hero-section,
+  .consultation-hero-section,
+  .kuer-hero-section,
+  .news-hero-section{min-height:350px;padding:0 15px}
+  .service-main-heading,.coming-soon-main-heading{font-size:36px}
+}
+@media (max-width:480px){
+  .service-hero-section,
+  .esports-broadcasting-hero-section,
+  .events-bootcamps-hero-section,
+  .video-gaming-events-hero-section,
+  .consultation-hero-section,
+  .kuer-hero-section,
+  .news-hero-section{min-height:300px}
+  .coming-soon-main-heading{font-size:32px}
+}
+
+/* ==========================================================
+   Tournament / Common service content bits (kept from your CSS)
+   ========================================================== */
+.tournament-intro-section{padding:80px 75px 40px;background:#0A0A1A;text-align:center}
+.tournament-intro-heading{font-size:48px;margin-bottom:20px}
+.tournament-intro-text{font-size:16px;color:rgba(252,252,253,.7);max-width:800px;margin:0 auto;line-height:1.5}
+.tournament-content-section{padding:40px 75px 80px;background:#0A0A1A}
+.tournament-content-container{display:flex;justify-content:space-between;gap:40px}
+.tournament-list-column{flex-basis:50%;display:flex;flex-direction:column;align-items:center}
+.list-group{margin-bottom:40px;width:80%;text-align:left}
+.list-group .list-heading{font-size:24px;margin-bottom:15px}
+.list-group ul{list-style:none}
+.list-group li{position:relative;padding-left:25px;margin-bottom:15px;font-size:17px;line-height:1.5;color:rgba(252,252,253,.7)}
+.list-group li::before{content:'\25B8';position:absolute;left:0;top:5px;font-size:12px;color:#00E5FF}
+.tournament-image-column{flex-basis:50%;display:flex;flex-direction:column;gap:20px}
+.main-tournament-image{width:100%;height:380px;object-fit:cover;border-radius:12px}
+.small-image-container{display:flex;gap:20px}
+.small-tournament-image{flex-grow:1;height:250px;object-fit:cover;border-radius:12px}
+@media (max-width:992px){
+  .tournament-intro-section,.tournament-content-section{padding:60px 30px}
+  .tournament-intro-heading{font-size:38px}
+  .tournament-content-container{flex-direction:column;gap:30px}
+  .tournament-list-column,.tournament-image-column{flex-basis:100%}
+}
+@media (max-width:768px){
+  .tournament-intro-section,.tournament-content-section{padding:40px 15px}
+  .tournament-intro-heading{font-size:32px}
+  .small-image-container{flex-direction:column;gap:15px}
+}
+
+/* ==========================================================
+   KUER Content blocks
+   ========================================================== */
+.service-main-text-container{padding:50px 75px;text-align:center}
+.service-main-text-container .service-body-heading{font-weight:700;font-size:48px;margin-bottom:15px}
+.service-main-text-container .service-body-text{font-size:18px;color:rgba(252,252,253,.7);max-width:800px;margin:0 auto}
+.kuer-content-columns{display:flex;justify-content:space-between;gap:75px;padding:0 75px 50px}
+.kuer-column-left{flex:1;display:flex;flex-direction:column;gap:30px}
+.kuer-column-right{flex:1;display:flex;flex-wrap:wrap;gap:20px}
+.placeholder-card{width:calc(50% - 10px);height:150px;background:#3f3f6c;border-radius:8px}
+@media (max-width:1024px){
+  .kuer-content-columns{flex-direction:column;gap:40px}
+  .kuer-column-right{justify-content:center}
+}
+@media (max-width:768px){
+  .service-main-text-container{padding:50px 25px}
+  .service-main-text-container .service-body-heading{font-size:36px}
+  .kuer-content-columns{padding:0 25px 50px}
+}
+@media (max-width:480px){
+  .service-main-text-container .service-body-heading{font-size:28px}
+  .kuer-column-right .placeholder-card{width:100%}
+}
+
+/* ==========================================================
+   NEWS page blocks
+   ========================================================== */
+.news-content-wrapper{max-width:1200px;margin:50px auto;padding:0 75px;display:grid;grid-template-columns:1fr;gap:40px}
+.news-body{padding:0}
+.news-content-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:40px}
+.news-card{background:#1a1a2e;border-radius:12px;overflow:hidden;box-shadow:0 4px 8px rgba(0,0,0,.2);transition:transform .3s}
+.news-card:hover{transform:translateY(-10px)}
+.news-image{width:100%;height:200px;object-fit:cover;display:block}
+.news-content{padding:20px}
+.news-title{font-size:24px;font-weight:700;margin-bottom:10px}
+.news-date{font-size:14px;color:rgba(252,252,253,.6);margin-bottom:15px}
+.read-more-button{display:inline-block;padding:8px 15px;background:#B425EC;color:#FCFCFD;border-radius:8px;margin-top:15px;transition:background .3s}
+.read-more-button:hover{background:#19D2EA}
+@media (max-width:992px){.news-content-wrapper{padding:0 30px}}
+@media (max-width:768px){
+  .news-hero-section .service-main-heading{font-size:48px}
+  .news-content-wrapper{padding:0 15px}
+  .news-content-grid{grid-template-columns:1fr}
+}
+
+/* ==========================================================
+   Contact page
+   ========================================================== */
+.contact-section-wrapper{max-width:900px;margin:50px auto;padding:100px;background:transparent;color:#fcfcfd;text-align:center;border-radius:12px}
+.contact-header{margin-bottom:40px}
+.contact-header h1{font-size:48px;margin-bottom:10px}
+.contact-header p{font-size:18px;color:rgba(252,252,253,.8)}
+.contact-form{display:flex;flex-direction:column;gap:20px}
+.form-row{display:flex;justify-content:space-between;gap:20px}
+.form-group{flex:1;display:flex;flex-direction:column;text-align:left}
+.form-group.full-width{flex:100%}
+.form-group label{font-size:16px;margin-bottom:8px}
+.form-group input,.form-group textarea{
+  width:100%;padding:12px;background:#0c0c1b;border:1px solid #333;border-radius:8px;color:#fcfcfd;font-size:16px
+}
+.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(252,252,253,.5)}
+.form-group small{margin-top:5px;color:#E71111;font-size:12px;text-align:right}
+.form-submit button{width:100%;padding:15px;background:#B425EC;color:#fcfcfd;border:0;border-radius:8px;font-size:18px;font-weight:700;cursor:pointer;transition:background .3s}
+.form-submit button:hover{background:#19D2EA}
+@media (max-width:768px){
+  .contact-section-wrapper{padding:30px}
+  .form-row{flex-direction:column;gap:15px}
+}
+
+/* ==========================================================
+   Gallery
+   ========================================================== */
+.gallery-container{max-width:1200px;margin:50px auto;padding:95px}
+.gallery-section{margin-bottom:60px}
+.gallery-section-heading{font-size:32px;text-align:center;margin-bottom:30px}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:20px}
+.gallery-card{display:block;border-radius:12px;overflow:hidden;transition:transform .3s;background:#2b397b}
+.gallery-card:first-of-type{background:#2b397b}
+.gallery-card:hover{transform:translateY(-10px)}
+.gallery-card-content{padding:50px 20px;text-align:center}
+.gallery-card-content h3{font-size:24px;font-weight:700;text-transform:uppercase}
+@media (max-width:768px){.gallery-container{padding:0 30px}}
+
+/* ==========================================================
+   Privacy Policy
+   ========================================================== */
+.privacy-policy-container{max-width:960px;margin:0 auto;padding:2rem 1rem;line-height:1.6;color:#ccc}
+.privacy-policy-container h1,.privacy-policy-container h2{font-family:'Syne',sans-serif;color:#fff;margin-top:6rem;margin-bottom:1rem}
+.privacy-policy-container h1{text-align:center;font-size:2.5rem}
+.privacy-policy-container h2{font-size:1.75rem}
+.privacy-policy-container ul{list-style:disc;margin-left:2rem}
 
 /* ==========================================================
    FOOTER
    ========================================================== */
 footer{background:#0A0A1A;color:#FCFCFD}
-.footer-content{
-  display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px;
-  padding:80px 75px 40px;border-bottom:1px solid rgba(252,252,253,.1)
-}
+.footer-content{display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px;padding:80px 75px 40px;border-bottom:1px solid rgba(252,252,253,.1)}
 .footer-column{flex-basis:200px;flex-grow:1;text-align:left}
 .footer-column h4{font-size:24px;margin-bottom:25px}
 .footer-column ul{list-style:none}
