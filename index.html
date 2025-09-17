@@ -158,203 +158,241 @@
       <p class="copyright-text">&copy; 2025 Tunza Esports. All rights reserved.</p>
     </div>
   </footer>
+<script defer>
+(function () {
+  'use strict';
 
-  <!-- ===== JS: nav safety net + mobile menu + partners + news ===== -->
-  <script>
-  (function () {
-    'use strict';
-
-    /* -----------------------------------------
-       NAV SAFETY NET (forces full-width & fixed)
-       ----------------------------------------- */
-    const nav = document.querySelector('.header nav');
-    function lockNav() {
-      if (!nav) return;
-      // Full-bleed + fixed
-      if (getComputedStyle(nav).position !== 'fixed') nav.style.position = 'fixed';
-      nav.style.left = '0';
-      nav.style.right = '0';
-      nav.style.top = '0';
-      nav.style.width = '100%';
-      nav.style.zIndex = '1000';
-      // Nuke any rogue width limit someone set inline
-      nav.style.maxWidth = 'none';
-      nav.style.margin = '0';
-    }
-    lockNav();
-    window.addEventListener('load',   lockNav, { passive: true });
-    window.addEventListener('scroll', lockNav, { passive: true });
-    window.addEventListener('resize', lockNav);
-
-    /* -----------------------------------------
-       MOBILE MENU (matches site-wide CSS)
-       ----------------------------------------- */
-    const BP   = 1024;
-    const btn  = document.querySelector('.nav-toggle');
-    const menu = document.getElementById('nav-menu');
-    const isMobile = () => window.matchMedia(`(max-width:${BP}px)`).matches;
-
-    function closeAllDropdowns(){
-      document.querySelectorAll('.nav-links .has-dropdown').forEach(li => {
-        li.classList.remove('open');
-        const a = li.querySelector(':scope > a');
-        if (a) a.setAttribute('aria-expanded', 'false');
-      });
-    }
-    function openMenu(){
-      menu.classList.add('is-open');
-      btn.setAttribute('aria-expanded', 'true');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeMenu(){
-      menu.classList.remove('is-open');
-      btn.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-      closeAllDropdowns();
-    }
-
-    if (btn && menu){
-      // Toggle
-      btn.addEventListener('click', () => {
-        menu.classList.contains('is-open') ? closeMenu() : openMenu();
-      });
-
-      // Inside menu: tap-to-open dropdowns on mobile; close on real link
-      menu.addEventListener('click', (e) => {
-        const a = e.target.closest('a');
-        if (!a) return;
-
-        if (a.getAttribute('href') === '#') e.preventDefault();
-
-        if (a.parentElement && a.parentElement.classList.contains('has-dropdown')) {
-          if (isMobile()){
-            e.preventDefault();
-            const li = a.parentElement;
-            const expanded = li.classList.toggle('open');
-            a.setAttribute('aria-expanded', String(expanded));
+  /* ====== keep your existing navbar scroll code as-is ====== */
+  window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.header nav');
+      if (navbar) {
+          if (window.scrollY > 0) {
+              navbar.style.top = window.scrollY + 'px';
+          } else {
+              navbar.style.top = '0px';
           }
-          return;
-        }
+      }
+  });
 
-        if (isMobile()) closeMenu();
-      });
-
-      // Click outside closes (mobile)
-      document.addEventListener('click', (e) => {
-        if (!isMobile()) return;
-        if (!menu.contains(e.target) && e.target !== btn) closeMenu();
-      });
-
-      // ESC closes
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeMenu();
-      });
-
-      // Breakpoint reset
-      let last = isMobile();
-      window.addEventListener('resize', () => {
-        const now = isMobile();
-        if (now !== last){ closeMenu(); last = now; }
-      });
-    }
-
-    /* -----------------------------------------
-       DESKTOP DROPDOWN HOVER INTENT (anti-flicker)
-       ----------------------------------------- */
-    document.querySelectorAll('.has-dropdown').forEach(parent => {
-      const trigger = parent.querySelector(':scope > a');
-      const menuEl  = parent.querySelector(':scope > .dropdown-menu');
-      if (!trigger || !menuEl) return;
-
-      let hideTimer;
-      const open = () => { clearTimeout(hideTimer); menuEl.style.display = 'block'; trigger.setAttribute('aria-expanded', 'true'); };
-      const scheduleClose = () => {
-        clearTimeout(hideTimer);
-        hideTimer = setTimeout(() => { menuEl.style.display = 'none'; trigger.setAttribute('aria-expanded', 'false'); }, 160);
-      };
-
-      parent.addEventListener('mouseenter', open);
-      parent.addEventListener('mouseleave', scheduleClose);
-      trigger.addEventListener('focus', open);
-      menuEl.addEventListener('mouseenter', () => clearTimeout(hideTimer));
-      menuEl.addEventListener('mouseleave', scheduleClose);
-    });
-
-    /* -----------------------------------------
-       PARTNERS CAROUSEL (auto-scroll)
-       ----------------------------------------- */
-    function initPartnersCarousel(){
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      const track = document.querySelector('.partners-carousel-track');
-      if (!track) return;
-
-      if (!track.dataset.dup){
-        const originals = Array.from(track.children);
-        let reps = 0;
-        while (track.scrollWidth < track.clientWidth * 3 && reps < 6){
-          originals.forEach(n => track.appendChild(n.cloneNode(true)));
-          reps++;
-        }
-        track.dataset.dup = '1';
+  window.addEventListener('DOMContentLoaded', function() {
+      const navbar = document.querySelector('.header nav');
+      if (navbar) {
+          if (window.scrollY > 0) {
+              navbar.style.top = window.scrollY + 'px';
+          } else {
+              navbar.style.top = '0px';
+          }
       }
 
-      let x = 0, speed = 0.6, raf = 0;
-      const loop = () => {
-        const max = Math.max(1, track.scrollWidth - track.clientWidth);
-        x = (x + speed) % max;
-        track.scrollLeft = x;
-        raf = requestAnimationFrame(loop);
-      };
-      const start = () => { if (!raf) loop(); };
-      const stop  = () => { if (raf) cancelAnimationFrame(raf), raf = 0; };
+      /* ---------- helpers to ensure mobile menu exists everywhere ---------- */
+      function ensureMobileToggle() {
+        const nav = document.querySelector('.header nav');
+        if (!nav) return null;
+        let toggle = nav.querySelector('.mobile-nav-toggle');
+        if (!toggle) {
+          toggle = document.createElement('button');
+          toggle.className = 'mobile-nav-toggle';
+          toggle.setAttribute('aria-controls', 'mobileMenu');
+          toggle.setAttribute('aria-expanded', 'false');
+          toggle.setAttribute('aria-label', 'Open menu');
+          toggle.innerHTML = '<i class="fa-solid fa-bars" aria-hidden="true"></i>';
+          const logo = nav.querySelector('.logo');
+          if (logo) {
+            nav.insertBefore(toggle, logo); // menu left, logo right
+          } else {
+            nav.insertBefore(toggle, nav.firstChild);
+          }
+        }
+        return toggle;
+      }
 
-      start();
-      track.addEventListener('mouseenter', stop);
-      track.addEventListener('mouseleave', start);
-      track.addEventListener('focusin',    stop);
-      track.addEventListener('focusout',   start);
-      window.addEventListener('resize', () => { stop(); x = 0; start(); });
-    }
-    initPartnersCarousel();
+      function ensureOverlay() {
+        let overlay = document.getElementById('mobileMenu');
+        if (overlay) return overlay;
+        const html = `
+        <div class="mobile-menu-overlay" id="mobileMenu" aria-hidden="true">
+          <div class="mobile-menu-header">
+            <span style="font-family:'Syne',sans-serif;">Menu</span>
+            <button class="mobile-close" aria-label="Close menu">&times;</button>
+          </div>
+          <div class="mobile-menu-body">
+            <div class="mobile-menu-screen" id="mobileMainScreen">
+              <h2 class="mobile-menu-title">Navigate</h2>
+              <ul class="mobile-menu-list">
+                <li><a class="mobile-link" href="index.html">Home</a></li>
+                <li><a class="mobile-link" href="about-us.html">About Us</a></li>
+                <li><a href="#" class="mobile-link action" data-open-submenu="services">Our Services <i class="fa-solid fa-chevron-right" aria-hidden="true"></i></a></li>
+                <li><a href="#" class="mobile-link action" data-open-submenu="products">Our Products <i class="fa-solid fa-chevron-right" aria-hidden="true"></i></a></li>
+                <li><a class="mobile-link" href="news.html">News</a></li>
+                <li><a class="mobile-link" href="contact.html">Contact Us</a></li>
+                <li><a class="mobile-link" href="gallery.html">Gallery</a></li>
+              </ul>
+            </div>
 
-    /* -----------------------------------------
-       NEWS CARDS
-       ----------------------------------------- */
-    function initNews(){
-      const container = document.getElementById('news-cards-container');
-      if (!container) return;
+            <div class="mobile-menu-screen" id="mobileServicesScreen" hidden>
+              <button class="mobile-back" data-back><i class="fa-solid fa-arrow-left-long"></i> Back</button>
+              <h2 class="mobile-menu-title">Our Services</h2>
+              <p class="mobile-subnote">Explore what we do.</p>
+              <ul class="mobile-menu-list">
+                <li><a class="mobile-link" href="esports-tournament-organization.html">Esports Tournament Organization</a></li>
+                <li><a class="mobile-link" href="esports-broadcasting.html">Esports Broadcasting</a></li>
+                <li><a class="mobile-link" href="video-gaming-events.html">Video Gaming Events</a></li>
+                <li><a class="mobile-link" href="consultation.html">Consultation</a></li>
+                <li><a class="mobile-link" href="bootcamps-training-programs.html">Bootcamps & Training Programs</a></li>
+              </ul>
+            </div>
 
-      const data = [
-        { title: "Tunza Esports renews KUER Season 3", snippet: "A new format and more titles—KUER Season 3 is here.", date: "Sep 1, 2025", link: "/news/", imageUrl: "/images/KUER-x-Tunza.png" },
-        { title: "Tunza Esports Partners with B34R CL4N", snippet: "Call of Duty Mobile within KUER gets pro-level support.", date: "Sep 5, 2025", link: "/news/", imageUrl: "/images/KUER-x-B34R.png" },
-        { title: "Safaricom Game Conference", snippet: "A landmark event for Kenya’s gaming industry.", date: "Sep 8, 2025", link: "/news/", imageUrl: "/images/Safaricom-Gaming-Conference.JPG" }
-      ];
+            <div class="mobile-menu-screen" id="mobileProductsScreen" hidden>
+              <button class="mobile-back" data-back><i class="fa-solid fa-arrow-left-long"></i> Back</button>
+              <h2 class="mobile-menu-title">Our Products</h2>
+              <p class="mobile-subnote">Platforms & tools from Tunza Esports.</p>
+              <ul class="mobile-menu-list">
+                <li><a class="mobile-link" href="ker.html">KER</a></li>
+                <li><a class="mobile-link" href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
+                <li><a class="mobile-link" href="Tunzatourna.html">TunzaTourna</a></li>
+                <li><a class="mobile-link" href="coming-soon.html">Shop</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="mobile-menu-footer">
+            <div class="mobile-kicker">© 2025 Tunza Esports</div>
+          </div>
+        </div>`;
+        document.body.insertAdjacentHTML('beforeend', html);
+        return document.getElementById('mobileMenu');
+      }
 
-      container.innerHTML = '';
-      data.forEach(item => {
-        const card = document.createElement('a');
-        card.href = item.link;
-        card.className = 'news-card';
+      function wireOverlay(openBtn, overlay) {
+        if (!openBtn || !overlay) return;
 
-        const img = document.createElement('div');
-        img.className = 'news-image-placeholder';
-        img.style.backgroundImage = `url('${item.imageUrl}')`;
-        img.style.backgroundSize = 'cover';
-        img.style.backgroundPosition = 'center';
-        img.style.backgroundRepeat = 'no-repeat';
+        const mainScreen     = overlay.querySelector('#mobileMainScreen');
+        const servicesScreen = overlay.querySelector('#mobileServicesScreen');
+        const productsScreen = overlay.querySelector('#mobileProductsScreen');
 
-        card.appendChild(img);
-        card.insertAdjacentHTML('beforeend', `
-          <h3 class="news-card-title">${item.title}</h3>
-          <p class="news-card-text">${item.snippet}</p>
-          <p class="news-card-date">${item.date}</p>
-        `);
+        function showScreen(which) {
+          if (!mainScreen || !servicesScreen || !productsScreen) return;
+          mainScreen.hidden     = which !== 'main';
+          servicesScreen.hidden = which !== 'services';
+          productsScreen.hidden = which !== 'products';
+        }
 
-        container.appendChild(card);
-      });
-    }
-    initNews();
-  })();
-  </script>
+        function openOverlay() {
+          overlay.classList.add('open');
+          overlay.setAttribute('aria-hidden', 'false');
+          openBtn.setAttribute('aria-expanded', 'true');
+          showScreen('main');
+          document.documentElement.style.overflow = 'hidden';
+          document.body.style.overflow = 'hidden';
+        }
+        function closeOverlay() {
+          overlay.classList.remove('open');
+          overlay.setAttribute('aria-hidden', 'true');
+          openBtn.setAttribute('aria-expanded', 'false');
+          document.documentElement.style.overflow = '';
+          document.body.style.overflow = '';
+        }
+
+        openBtn.addEventListener('click', (e) => { e.preventDefault(); openOverlay(); });
+
+        // Delegated clicks inside the overlay: close/back/submenus/links
+        overlay.addEventListener('click', (e) => {
+          if (e.target.closest('.mobile-close')) { e.preventDefault(); closeOverlay(); return; }
+          if (e.target.closest('[data-back]'))   { e.preventDefault(); showScreen('main'); return; }
+          const openTrigger = e.target.closest('[data-open-submenu]');
+          if (openTrigger) {
+            e.preventDefault();
+            const which = openTrigger.getAttribute('data-open-submenu');
+            if (which === 'services' || which === 'products') showScreen(which);
+            return;
+          }
+          const navLink = e.target.closest('a.mobile-link');
+          if (navLink && navLink.getAttribute('href')) closeOverlay();
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && overlay.classList.contains('open')) closeOverlay();
+        });
+      }
+      /* ---------- end helpers ---------- */
+
+      /* ====== PARTNERS: build from your three images + autoscroll loop ====== */
+      (function initPartners() {
+        const carouselTrack = document.querySelector('.partners-carousel-track');
+        if (!carouselTrack) return;
+
+        const partnerLogos = [
+          { src: '/images/Esports-Africa-News.jpg', alt: 'Esports Africa News' },
+          { src: '/images/Afrigamer.jpg',           alt: 'Afrigamer' },
+          { src: '/images/B34R-CL4N%20partner.jpg', alt: 'B34R CL4N Partner' }
+        ];
+
+        // Build logos (replace placeholders)
+        carouselTrack.innerHTML = '';
+        partnerLogos.forEach(p => {
+          const img = document.createElement('img');
+          img.className = 'partner-logo';
+          img.src = p.src;
+          img.alt = p.alt;
+          carouselTrack.appendChild(img);
+        });
+
+        // Duplicate content for seamless loop
+        carouselTrack.innerHTML += carouselTrack.innerHTML;
+
+        let scrollAmount = 0;
+        const scrollSpeed = 0.5;
+        let animationFrameId;
+
+        function autoScroll() {
+          scrollAmount += scrollSpeed;
+          const originalContentWidth = carouselTrack.scrollWidth / 2;
+          if (scrollAmount >= originalContentWidth) scrollAmount = 0;
+          carouselTrack.scrollLeft = scrollAmount;
+          animationFrameId = requestAnimationFrame(autoScroll);
+        }
+
+        autoScroll();
+        carouselTrack.addEventListener('mouseenter', () => cancelAnimationFrame(animationFrameId));
+        carouselTrack.addEventListener('mouseleave', () => autoScroll());
+      })();
+
+      /* ====== NEWS: use your 3 articles with images ====== */
+      (function initNews() {
+        const homepageNewsData = [
+          { title: "Tunza Esports renews KUER Season 3", snippet: "A new format and more titles—KUER Season 3 is here.", date: "Sep 1, 2025", link: "/news/", imageUrl: "/images/KUER-x-Tunza.png" },
+          { title: "Tunza Esports Partners with B34R CL4N", snippet: "Call of Duty Mobile within KUER gets pro-level support.", date: "Sep 5, 2025", link: "/news/", imageUrl: "/images/KUER-x-B34R.png" },
+          { title: "Safaricom Game Conference", snippet: "A landmark event for Kenya’s gaming industry.", date: "Sep 8, 2025", link: "/news/", imageUrl: "/images/Safaricom-Gaming-Conference.JPG" }
+        ];
+
+        const newsContainer = document.getElementById('news-cards-container');
+        if (!newsContainer) return;
+
+        newsContainer.innerHTML = '';
+        homepageNewsData.forEach(item => {
+          const newsLink = document.createElement('a');
+          newsLink.href = item.link;
+          newsLink.className = 'news-card-link';
+
+          const newsCard = document.createElement('div');
+          newsCard.className = 'news-card';
+          newsCard.innerHTML = `
+            ${item.imageUrl ? `<img class="news-image" src="${item.imageUrl}" alt="${item.title}">` : `<div class="news-image-placeholder"></div>`}
+            <h3 class="news-card-title">${item.title}</h3>
+            <p class="news-card-text">${item.snippet}</p>
+            <p class="news-card-date">${item.date}</p>
+          `;
+          newsLink.appendChild(newsCard);
+          newsContainer.appendChild(newsLink);
+        });
+      })();
+
+      /* ====== MOBILE OVERLAY MENU (global, consistent across pages) ====== */
+      const openBtn  = ensureMobileToggle();
+      const overlay  = ensureOverlay();
+      wireOverlay(openBtn, overlay);
+  });
+})();
+</script>
 </body>
 </html>
+
