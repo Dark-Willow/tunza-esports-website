@@ -14,81 +14,272 @@ layout: null
   <title>Tunza Esports — About Us</title>
   <meta name="description" content="Learn about Tunza Esports: our mission, team, and work building Kenya’s esports ecosystem through tournaments, broadcasting, training, and community." />
 
+  <!-- Canonical + Social -->
   <link rel="canonical" href="https://www.tunzaesports.org/about-us/">
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet" />
+  <meta property="og:url" content="https://www.tunzaesports.org/about-us/">
+  <meta property="og:title" content="About Tunza Esports">
+  <meta property="og:description" content="We’re shaping the future of Kenya’s esports through tournaments, broadcasting, training, and community. Meet the team behind Tunza Esports.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png">
+  <meta property="og:site_name" content="Tunza Esports">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About Tunza Esports">
+  <meta name="twitter:description" content="We’re shaping the future of Kenya’s esports through tournaments, broadcasting, training, and community. Meet the team behind Tunza Esports.">
+  <meta name="twitter:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png">
+
+  <!-- Favicons -->
+  <link rel="icon" href="/favicon.ico?v=5" sizes="any">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=5">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=5">
+  <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48x48-dark.png?v=5">
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192-dark.png?v=5">
+  <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512-dark.png?v=5">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png?v=5">
+
+  <!-- PWA -->
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0b0b16">
+  <meta name="msapplication-TileColor" content="#0b0b16">
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Site CSS -->
   <link rel="stylesheet" href="/css/style.css" />
+
+  <!-- Page-scoped CSS: hero + directors + tiny nav/dropdown tweaks -->
+  <style>
+    /* Make sure the fixed nav never overlaps first content on non-hero pages */
+    .header + *:not(.about-hero-section){
+      margin-top:96px;
+    }
+
+    /* Dropdown gap fix so hover doesn't flicker off */
+    .has-dropdown{position:relative}
+    .has-dropdown .dropdown-menu{
+      top:100%; margin-top:0; padding-top:8px;
+    }
+    .has-dropdown .dropdown-menu::before{
+      content:""; position:absolute; left:0; right:0; top:-8px; height:8px;
+    }
+
+    /* Shop hover = blue */
+    .shop-button:hover{ background:#00E5FF !important; color:#0A0A1A !important; }
+
+    /* Mobile drawer CTA centered (already, but enforce) */
+    @media (max-width:1024px){
+      .drawer-cta{ display:block; margin:34px auto 0; text-align:center; }
+    }
+
+    /* ====== ABOUT HERO ====== */
+    .about-hero-section{
+      position:relative;
+      padding:160px 16px 140px;
+      color:#FCFCFD;
+      background-image:
+        linear-gradient(180deg, rgba(10,10,26,.75) 0%, rgba(10,10,26,.65) 45%, rgba(10,10,26,.80) 100%),
+        url('/images/About%20Us.jpg'); /* if your file is About-Us.jpg then change path accordingly */
+      background-size:cover; background-position:center;
+    }
+    .about-hero-inner{
+      width:min(1200px,92vw); margin:0 auto;
+    }
+    .about-main-heading{
+      font-family:'Syne', ui-sans-serif, system-ui, sans-serif;
+      font-size:64px; line-height:1.1; margin:0 0 14px;
+    }
+    .about-tagline{
+      font-size:18px; color:rgba(252,252,253,.85); max-width:840px;
+    }
+    @media (max-width:768px){
+      .about-main-heading{ font-size:42px }
+      .about-hero-section{ padding:140px 16px 110px }
+    }
+
+    /* ====== INTRO TEXT ====== */
+    .about-intro-section{ padding:64px 16px; background:#0A0A1A; color:#FCFCFD; text-align:center }
+    .about-intro-section .intro-heading{
+      font-family:'Syne', ui-sans-serif, system-ui, sans-serif;
+      font-size:36px; margin:0 0 10px;
+    }
+    .about-intro-section .intro-text{
+      width:min(900px,92vw); margin:0 auto 28px; color:rgba(252,252,253,.85); line-height:1.7;
+    }
+    .intro-boxes-container{
+      width:min(1100px,92vw); margin:20px auto 0;
+      display:grid; gap:16px; grid-template-columns:repeat(3,1fr);
+    }
+    .intro-box .box-image{ width:100%; height:420px; object-fit:cover; display:block; border-radius:10px }
+    @media (max-width:900px){
+      .intro-boxes-container{ grid-template-columns:1fr; }
+      .intro-box .box-image{ height:320px }
+    }
+
+    /* ====== LISTS ====== */
+    .list-section{ background:#0A0A1A; color:#FCFCFD; padding:20px 16px 64px }
+    .list-container{
+      width:min(1100px,92vw); margin:0 auto;
+      display:grid; gap:22px; grid-template-columns:repeat(2,1fr);
+    }
+    .list-column{ list-style:disc; padding-left:24px; line-height:1.8; color:rgba(252,252,253,.9) }
+    @media (max-width:900px){ .list-container{ grid-template-columns:1fr } }
+
+    /* ====== DIRECTORS ====== */
+    .directors-section{padding:80px 16px;background:#0A0A1A}
+    .directors-heading{text-align:center;font-size:40px;margin-bottom:10px}
+    .directors-subheading{
+      text-align:center;color:rgba(252,252,253,.8);
+      width:min(900px,92vw);margin:0 auto 28px;line-height:1.7
+    }
+    .director-cards-container{
+      width:min(1100px,92vw);margin:0 auto;
+      display:grid;grid-template-columns:repeat(5,1fr);gap:18px
+    }
+    @media (max-width:1100px){.director-cards-container{grid-template-columns:repeat(3,1fr)}}
+    @media (max-width:700px){.director-cards-container{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:520px){.director-cards-container{grid-template-columns:1fr}}
+
+    .director-card{
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:14px;overflow:hidden;
+      display:flex;flex-direction:column;align-items:stretch;
+      transition:transform .2s ease, box-shadow .2s ease
+    }
+    .director-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.35)}
+
+    .director-photo{
+      width:100%;
+      aspect-ratio: 4 / 5;
+      background:linear-gradient(180deg,#17172a 0%,#101020 100%);
+      position:relative;overflow:hidden
+    }
+    .director-photo img{
+      width:100%;height:100%;object-fit:cover;display:block
+    }
+
+    .director-info{padding:14px 12px 18px;text-align:center}
+    .director-name{font-size:18px;margin:0 0 4px}
+    .director-title{font-size:14px;color:rgba(252,252,253,.75);margin:0}
+
+    /* Partners visuals minor polish (optional) */
+    .partners-section { padding: 40px 0; text-align:center; background:#0A0A1A }
+    .partners-carousel-track{ display:flex; gap:24px; overflow:hidden; padding:8px 0 }
+    .partner-logo{ flex:0 0 auto; width:220px; height:110px; display:flex; align-items:center; justify-content:center; background:#0f0f17; border-radius:12px; padding:10px; border:1px solid rgba(255,255,255,.06) }
+    .partner-logo img{ max-height:90px; max-width:100%; object-fit:contain; display:block }
+    @media (max-width:700px){
+      .partner-logo{ width:200px; height:100px }
+      .partner-logo img{ max-height:80px }
+    }
+  </style>
 </head>
 <body>
-  <!-- Header -->
+  <!-- Header (same structure as home for shared CSS/JS) -->
   <section class="header">
-    <nav class="wrap" role="navigation" aria-label="Primary">
+    <nav class="site-nav" role="navigation" aria-label="Primary">
       <a href="/" class="logo" aria-label="Home">
         <img src="/images/tunzalogo.png" alt="Tunza Esports Logo" />
       </a>
 
+      <!-- Desktop links (centered) -->
+      <ul class="nav-main desktop-only">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about-us/">About Us</a></li>
+
+        <li class="has-dropdown">
+          <a href="#" aria-haspopup="true" aria-expanded="false">Our Services</a>
+          <ul class="dropdown-menu">
+            <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
+            <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
+            <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
+            <li><a href="/consultation/">Consultation</a></li>
+            <li><a href="/bootcamps-training-programs/">Bootcamps &amp; Training Programs</a></li>
+          </ul>
+        </li>
+
+        <li class="has-dropdown">
+          <a href="#" aria-haspopup="true" aria-expanded="false">Our Products</a>
+          <ul class="dropdown-menu">
+            <li><a href="/ker/">KER</a></li>
+            <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
+            <li><a href="/tunzatourna/">TunzaTourna</a></li>
+            <li><a href="/shop/">Shop</a></li>
+          </ul>
+        </li>
+
+        <li><a href="/news/">News</a></li>
+        <li><a href="/contact/">Contact Us</a></li>
+        <li><a href="/gallery/">Gallery</a></li>
+      </ul>
+
+      <!-- Desktop CTA -->
+      <a href="/shop/" class="shop-button desktop-only">Shop Now</a>
+
       <!-- Mobile hamburger -->
-      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
+      <button class="nav-toggle mobile-only" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Menu">
         <span class="fa fa-bars" aria-hidden="true"></span>
       </button>
-
-      <!-- Links -->
-      <div id="nav-menu" class="nav-links" aria-hidden="true">
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about-us/">About Us</a></li>
-
-          <li class="has-dropdown">
-            <a href="#" aria-haspopup="true" aria-expanded="false">Our Services</a>
-            <ul class="dropdown-menu">
-              <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
-              <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
-              <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
-              <li><a href="/consultation/">Consultation</a></li>
-              <li><a href="/bootcamps-training-programs/">Bootcamps &amp; Training Programs</a></li>
-            </ul>
-          </li>
-
-          <li class="has-dropdown">
-            <a href="#" aria-haspopup="true" aria-expanded="false">Our Products</a>
-            <ul class="dropdown-menu">
-              <li><a href="/ker/">KER</a></li>
-              <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
-              <li><a href="/tunzatourna/">TunzaTourna</a></li>
-              <li><a href="/shop/">Shop</a></li>
-            </ul>
-          </li>
-
-          <li><a href="/news/">News</a></li>
-          <li><a href="/contact/">Contact Us</a></li>
-          <li><a href="/gallery/">Gallery</a></li>
-        </ul>
-        <a href="/shop/" class="shop-button">Shop Now</a>
-      </div>
     </nav>
   </section>
 
-  <!-- ABOUT HERO (centered like your reference) -->
+  <!-- Mobile full-screen drawer -->
+  <div id="mobile-drawer" class="mobile-drawer" aria-hidden="true">
+    <div class="drawer-panel is-active" data-panel="main">
+      <ul class="drawer-list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about-us/">About Us</a></li>
+        <li><button class="drawer-link" data-go="services">Our Services</button></li>
+        <li><button class="drawer-link" data-go="products">Our Products</button></li>
+        <li><a href="/news/">News</a></li>
+        <li><a href="/contact/">Contact Us</a></li>
+        <li><a href="/gallery/">Gallery</a></li>
+      </ul>
+      <a href="/shop/" class="shop-button drawer-cta">Shop Now</a>
+    </div>
+
+    <div class="drawer-panel" data-panel="services">
+      <button class="drawer-back" data-back="main"><i class="fa fa-arrow-left"></i> Back</button>
+      <h3 class="drawer-title">Our Services</h3>
+      <ul class="drawer-list">
+        <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
+        <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
+        <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
+        <li><a href="/consultation/">Consultation</a></li>
+        <li><a href="/bootcamps-training-programs/">Bootcamps &amp; Training Programs</a></li>
+      </ul>
+    </div>
+
+    <div class="drawer-panel" data-panel="products">
+      <button class="drawer-back" data-back="main"><i class="fa fa-arrow-left"></i> Back</button>
+      <h3 class="drawer-title">Our Products</h3>
+      <ul class="drawer-list">
+        <li><a href="/ker/">KER</a></li>
+        <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
+        <li><a href="/tunzatourna/">TunzaTourna</a></li>
+        <li><a href="/shop/">Shop</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- HERO -->
   <section class="about-hero-section" aria-label="About Tunza Esports">
     <div class="about-hero-inner">
-      <p class="breadcrumbs">Home &gt; About Us</p>
-      <h1 class="about-hero-title">About Us</h1>
+      <h1 class="about-main-heading">About Us</h1>
+      <p class="about-tagline">Shaping the future of Kenya’s esports through community, competition, and opportunity.</p>
     </div>
   </section>
 
-  <!-- Intro with headline + paragraph (the tagline lives here) -->
+  <!-- INTRO -->
   <section class="about-intro-section">
     <h2 class="intro-heading">We Unite To Make Esports Great In Kenya</h2>
     <p class="intro-text">
-      Tunza Esports is committed to growing esports across institutions by educating, organizing events,
-      and building competitive communities. We are actively involved in developing the esports ecosystem
-      and its surroundings.
+      Tunza Esports is committed to growing esports across institutions by educating, organizing events, and building competitive communities.
+      We are actively involved in developing the esports ecosystem and its surroundings.
     </p>
-
-    <!-- Optional image row (delete if not needed) -->
     <div class="intro-boxes-container">
       <div class="intro-box">
         <img src="/images/1.2.png" alt="Esports community building" class="box-image" loading="lazy" decoding="async">
@@ -102,7 +293,7 @@ layout: null
     </div>
   </section>
 
-  <!-- Two-column list -->
+  <!-- LISTS -->
   <section class="list-section">
     <div class="list-container">
       <ul class="list-column">
@@ -120,10 +311,10 @@ layout: null
     </div>
   </section>
 
-  <!-- Directors -->
+  <!-- DIRECTORS -->
   <section class="directors-section">
     <div class="container">
-      <h2 class="directors-heading">Our Company Directors</h2>
+      <h2 class="directors-heading">Directors</h2>
       <p class="directors-subheading">
         Tunza Esports is led by a dynamic team with a shared passion for gaming, innovation, and youth empowerment.
         Together, we’re building sustainable pathways for esports development in Kenya — from institutions to the broader community.
@@ -131,29 +322,53 @@ layout: null
 
       <div class="director-cards-container">
         <div class="director-card">
-          <img src="/images/Shirley-Adema.png" alt="Shirley Adema" class="director-image" loading="lazy" decoding="async">
-          <h3 class="director-name">Shirley Adema</h3>
-          <p class="director-title">Chief Executive Officer</p>
+          <figure class="director-photo">
+            <img src="/images/Shirley-Adema.png" alt="Shirley Adema" loading="lazy" decoding="async">
+          </figure>
+          <div class="director-info">
+            <h3 class="director-name">Shirley Adema</h3>
+            <p class="director-title">Chief Executive Officer</p>
+          </div>
         </div>
+
         <div class="director-card">
-          <img src="/images/Elinah-Ongaro.png" alt="Elinah Ongaro" class="director-image" loading="lazy" decoding="async">
-          <h3 class="director-name">Elinah Ongaro</h3>
-          <p class="director-title">Company Secretary</p>
+          <figure class="director-photo">
+            <img src="/images/Elinah-Ongaro.png" alt="Elinah Ongaro" loading="lazy" decoding="async">
+          </figure>
+          <div class="director-info">
+            <h3 class="director-name">Elinah Ongaro</h3>
+            <p class="director-title">Company Secretary</p>
+          </div>
         </div>
+
         <div class="director-card">
-          <img src="/images/Rickie%20Maweu.png" alt="Rickie Maweu" class="director-image" loading="lazy" decoding="async">
-          <h3 class="director-name">Rickie Maweu</h3>
-          <p class="director-title">Operations Director</p>
+          <figure class="director-photo">
+            <img src="/images/Rickie%20Maweu.png" alt="Rickie Maweu" loading="lazy" decoding="async">
+          </figure>
+          <div class="director-info">
+            <h3 class="director-name">Rickie Maweu</h3>
+            <p class="director-title">Operations Director</p>
+          </div>
         </div>
+
         <div class="director-card">
-          <img src="/images/Esports.png" alt="Sandra Vihenda" class="director-image" loading="lazy" decoding="async">
-          <h3 class="director-name">Sandra Vihenda</h3>
-          <p class="director-title">Company Treasurer</p>
+          <figure class="director-photo">
+            <img src="/images/Esports.png" alt="Sandra Vihenda" loading="lazy" decoding="async">
+          </figure>
+          <div class="director-info">
+            <h3 class="director-name">Sandra Vihenda</h3>
+            <p class="director-title">Company Treasurer</p>
+          </div>
         </div>
+
         <div class="director-card">
-          <img src="/images/Esports.png" alt="Austin Kuka" class="director-image" loading="lazy" decoding="async">
-          <h3 class="director-name">Austin Kuka</h3>
-          <p class="director-title">Non-Executive Director</p>
+          <figure class="director-photo">
+            <img src="/images/Esports.png" alt="Austin Kuka" loading="lazy" decoding="async">
+          </figure>
+          <div class="director-info">
+            <h3 class="director-name">Austin Kuka</h3>
+            <p class="director-title">Non-Executive Director</p>
+          </div>
         </div>
       </div>
     </div>
@@ -165,8 +380,9 @@ layout: null
     <h2 class="newsletter-main-heading">Get Gaming Guide and Information</h2>
     <div class="newsletter-card">
       <h3>Hello guys! Get the latest information from us</h3>
-      <form action="https://tunzaesports.us13.list-manage.com/subscribe/post?u=49268c059773710b44455bb33&id=f95ceda37f&f_id=00cde9e1f0"
-            method="post" target="_blank" novalidate class="newsletter-form-container" aria-label="Newsletter signup">
+      <form
+        action="https://tunzaesports.us13.list-manage.com/subscribe/post?u=49268c059773710b44455bb33&id=f95ceda37f&f_id=00cde9e1f0"
+        method="post" target="_blank" novalidate class="newsletter-form-container" aria-label="Newsletter signup form">
         <input type="email" name="EMAIL" placeholder="Enter your email here" class="email-input" required />
         <div style="position:absolute; left:-5000px;" aria-hidden="true">
           <input type="text" name="b_49268c059773710b44455bb33_f95ceda37f" tabindex="-1" value="">
@@ -178,6 +394,8 @@ layout: null
       </p>
     </div>
   </section>
+
+  <div class="spacer-before-partners"></div>
 
   <!-- Partners -->
   <section class="partners-section">
@@ -227,99 +445,75 @@ layout: null
     </div>
   </footer>
 
-  <!-- JS: tiny sticky safety + mobile menu + partners carousel -->
+  <!-- JS: tiny nav safety net + mobile drawer + partners carousel -->
   <script>
   (function () {
     'use strict';
-    const BP = 1024;
 
-    /* Sticky safety: keep header fixed even if some legacy code tries to move it */
-    const headerNav = document.querySelector('.header nav');
-    function lockHeader(){
-      if (!headerNav) return;
-      const cs = getComputedStyle(headerNav);
-      if (cs.position !== 'fixed') headerNav.style.position = 'fixed';
-      if (headerNav.style.top !== '0px') headerNav.style.top = '0px';
-      headerNav.style.left = '0'; headerNav.style.right = '0'; headerNav.style.zIndex = '1000';
+    /* ===== Sticky nav safety net ===== */
+    const nav = document.querySelector('.site-nav');
+    function lockNav(){
+      if (!nav) return;
+      if (getComputedStyle(nav).position !== 'fixed') nav.style.position = 'fixed';
+      if (nav.style.top !== '0px') nav.style.top = '0px';
+      nav.style.left = '0';
+      nav.style.right = '0';
+      nav.style.zIndex = '1000';
     }
-    lockHeader();
-    window.addEventListener('load',  lockHeader, { passive: true });
-    window.addEventListener('scroll', lockHeader, { passive: true });
-    window.addEventListener('resize', lockHeader);
+    lockNav();
+    window.addEventListener('load',  lockNav, { passive:true });
+    window.addEventListener('scroll', lockNav, { passive:true });
+    window.addEventListener('resize', lockNav);
 
-    /* Mobile menu */
-    const btn  = document.querySelector('.nav-toggle');
-    const menu = document.getElementById('nav-menu');
-    const isMobile = () => window.matchMedia(`(max-width:${BP}px)`).matches;
+    /* ===== Mobile drawer ===== */
+    const toggle  = document.querySelector('.nav-toggle');
+    const drawer  = document.getElementById('mobile-drawer');
+    const isMobile = () => window.matchMedia('(max-width:1024px)').matches;
 
-    function closeDropdowns(){
-      document.querySelectorAll('.nav-links .has-dropdown').forEach(li => {
-        li.classList.remove('open');
-        const a = li.querySelector(':scope > a');
-        if (a) a.setAttribute('aria-expanded','false');
+    function switchPanel(name){
+      if (!drawer) return;
+      drawer.querySelectorAll('.drawer-panel').forEach(p=>{
+        p.classList.toggle('is-active', p.dataset.panel === name);
       });
     }
-    function openMenu(){
-      if (!menu) return;
-      menu.classList.add('is-open');
-      btn && btn.setAttribute('aria-expanded','true');
-      menu.setAttribute('aria-hidden','false');
-      document.body.style.overflow='hidden';
+    function openDrawer(){
+      if (!drawer || !isMobile()) return;
+      drawer.classList.add('is-open');
+      drawer.setAttribute('aria-hidden','false');
+      document.body.classList.add('drawer-lock');
+      toggle && toggle.setAttribute('aria-expanded','true');
+      switchPanel('main');
     }
-    function closeMenu(){
-      if (!menu) return;
-      menu.classList.remove('is-open');
-      btn && btn.setAttribute('aria-expanded','false');
-      menu.setAttribute('aria-hidden','true');
-      document.body.style.overflow='';
-      closeDropdowns();
+    function closeDrawer(){
+      if (!drawer) return;
+      drawer.classList.remove('is-open');
+      drawer.setAttribute('aria-hidden','true');
+      document.body.classList.remove('drawer-lock');
+      toggle && toggle.setAttribute('aria-expanded','false');
     }
+    toggle && toggle.addEventListener('click', () => {
+      drawer.classList.contains('is-open') ? closeDrawer() : openDrawer();
+    });
+    drawer && drawer.addEventListener('click', (e) => {
+      const go   = e.target.closest('[data-go]')?.dataset.go;
+      const back = e.target.closest('[data-back]')?.dataset.back;
+      if (go)   switchPanel(go);
+      if (back) switchPanel(back);
+      const a = e.target.closest('a[href]');
+      if (a && !a.hasAttribute('data-go') && !a.hasAttribute('data-back')) closeDrawer();
+    });
+    window.addEventListener('resize', () => { if (!isMobile()) closeDrawer(); });
 
-    if (btn && menu){
-      btn.addEventListener('click', () => {
-        menu.classList.contains('is-open') ? closeMenu() : openMenu();
-      });
-
-      menu.addEventListener('click', e => {
-        const a = e.target.closest('a');
-        if (!a) return;
-
-        if (a.parentElement && a.parentElement.classList.contains('has-dropdown')){
-          if (isMobile()){
-            e.preventDefault();
-            const li = a.parentElement;
-            const open = li.classList.toggle('open');
-            a.setAttribute('aria-expanded', String(open));
-          }
-          return;
-        }
-        if (isMobile()) closeMenu();
-      });
-
-      document.addEventListener('click', e => {
-        if (!isMobile()) return;
-        if (!menu.contains(e.target) && e.target !== btn) closeMenu();
-      });
-
-      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
-
-      let last = isMobile();
-      window.addEventListener('resize', () => {
-        const now = isMobile();
-        if (now !== last){ closeMenu(); last = now; }
-      });
-    }
-
-    /* Partners carousel */
+    /* ===== Partners carousel (auto-scroll) ===== */
     function initPartnersCarousel(){
-      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const track = document.querySelector('.partners-carousel-track');
       if (!track) return;
 
       if (!track.dataset.dup){
         const originals = Array.from(track.children);
         let reps = 0;
-        while (track.scrollWidth < track.clientWidth * 3 && reps < 8){
+        while (track.scrollWidth < track.clientWidth * 3 && reps < 6){
           originals.forEach(n => track.appendChild(n.cloneNode(true)));
           reps++;
         }
@@ -335,8 +529,8 @@ layout: null
       };
       const start = () => { if (!raf) loop(); };
       const stop  = () => { if (raf) cancelAnimationFrame(raf), raf = 0; };
-
       start();
+
       track.addEventListener('mouseenter', stop);
       track.addEventListener('mouseleave', start);
       track.addEventListener('focusin',   stop);
