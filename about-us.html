@@ -15,55 +15,35 @@ layout: null
   <meta name="description" content="Learn about Tunza Esports: our mission, team, and work building Kenya’s esports ecosystem through tournaments, broadcasting, training, and community." />
 
   <link rel="canonical" href="https://www.tunzaesports.org/about-us/">
-  <meta property="og:url" content="https://www.tunzaesports.org/about-us/">
-  <meta property="og:title" content="About Tunza Esports">
-  <meta property="og:description" content="We’re shaping the future of Kenya’s esports through tournaments, broadcasting, training, and community. Meet the team behind Tunza Esports.">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png">
-  <meta property="og:site_name" content="Tunza Esports">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="About Tunza Esports">
-  <meta name="twitter:description" content="We’re shaping the future of Kenya’s esports through tournaments, broadcasting, training, and community. Meet the team behind Tunza Esports.">
-  <meta name="twitter:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png">
-
-  <!-- Favicons -->
-  <link rel="icon" href="/favicon.ico?v=6" sizes="any">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=6">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=6">
-  <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48x48-dark.png?v=6">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png?v=6">
-  <meta name="theme-color" content="#0b0b16">
-
-  <!-- Fonts & CSS -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="/css/style.css?v=6" />
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
   <!-- Header -->
-  <section class="header" role="banner">
+  <section class="header">
     <nav class="wrap" role="navigation" aria-label="Primary">
       <a href="/" class="logo" aria-label="Home">
-        <img src="/images/tunzalogo.png" alt="Tunza Esports Logo">
+        <img src="/images/tunzalogo.png" alt="Tunza Esports Logo" />
       </a>
 
-      <!-- Mobile toggle -->
+      <!-- Mobile hamburger -->
       <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
         <span class="fa fa-bars" aria-hidden="true"></span>
       </button>
 
-      <!-- Nav links -->
-      <div id="nav-menu" class="nav-links">
+      <!-- Links -->
+      <div id="nav-menu" class="nav-links" aria-hidden="true">
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/about-us/">About Us</a></li>
 
           <li class="has-dropdown">
             <a href="#" aria-haspopup="true" aria-expanded="false">Our Services</a>
-            <ul class="dropdown-menu" role="menu">
+            <ul class="dropdown-menu">
               <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
               <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
               <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
@@ -74,7 +54,7 @@ layout: null
 
           <li class="has-dropdown">
             <a href="#" aria-haspopup="true" aria-expanded="false">Our Products</a>
-            <ul class="dropdown-menu" role="menu">
+            <ul class="dropdown-menu">
               <li><a href="/ker/">KER</a></li>
               <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
               <li><a href="/tunzatourna/">TunzaTourna</a></li>
@@ -91,19 +71,24 @@ layout: null
     </nav>
   </section>
 
-  <!-- Hero -->
+  <!-- ABOUT HERO (centered like your reference) -->
   <section class="about-hero-section" aria-label="About Tunza Esports">
-    <h1 class="about-main-heading">About Us</h1>
-    <p class="about-tagline">Shaping the future of Kenya’s esports through community, competition, and opportunity.</p>
+    <div class="about-hero-inner">
+      <p class="breadcrumbs">Home &gt; About Us</p>
+      <h1 class="about-hero-title">About Us</h1>
+    </div>
   </section>
 
-  <!-- Intro -->
+  <!-- Intro with headline + paragraph (the tagline lives here) -->
   <section class="about-intro-section">
     <h2 class="intro-heading">We Unite To Make Esports Great In Kenya</h2>
     <p class="intro-text">
-      Tunza Esports is committed to growing esports across institutions by educating, organizing events, and building competitive communities.
-      We are actively involved in developing the esports ecosystem and its surroundings.
+      Tunza Esports is committed to growing esports across institutions by educating, organizing events,
+      and building competitive communities. We are actively involved in developing the esports ecosystem
+      and its surroundings.
     </p>
+
+    <!-- Optional image row (delete if not needed) -->
     <div class="intro-boxes-container">
       <div class="intro-box">
         <img src="/images/1.2.png" alt="Esports community building" class="box-image" loading="lazy" decoding="async">
@@ -117,7 +102,7 @@ layout: null
     </div>
   </section>
 
-  <!-- Lists -->
+  <!-- Two-column list -->
   <section class="list-section">
     <div class="list-container">
       <ul class="list-column">
@@ -143,6 +128,7 @@ layout: null
         Tunza Esports is led by a dynamic team with a shared passion for gaming, innovation, and youth empowerment.
         Together, we’re building sustainable pathways for esports development in Kenya — from institutions to the broader community.
       </p>
+
       <div class="director-cards-container">
         <div class="director-card">
           <img src="/images/Shirley-Adema.png" alt="Shirley Adema" class="director-image" loading="lazy" decoding="async">
@@ -179,16 +165,17 @@ layout: null
     <h2 class="newsletter-main-heading">Get Gaming Guide and Information</h2>
     <div class="newsletter-card">
       <h3>Hello guys! Get the latest information from us</h3>
-      <form
-        action="https://tunzaesports.us13.list-manage.com/subscribe/post?u=49268c059773710b44455bb33&id=f95ceda37f&f_id=00cde9e1f0"
-        method="post" target="_blank" novalidate class="newsletter-form-container" aria-label="Newsletter signup form">
+      <form action="https://tunzaesports.us13.list-manage.com/subscribe/post?u=49268c059773710b44455bb33&id=f95ceda37f&f_id=00cde9e1f0"
+            method="post" target="_blank" novalidate class="newsletter-form-container" aria-label="Newsletter signup">
         <input type="email" name="EMAIL" placeholder="Enter your email here" class="email-input" required />
         <div style="position:absolute; left:-5000px;" aria-hidden="true">
           <input type="text" name="b_49268c059773710b44455bb33_f95ceda37f" tabindex="-1" value="">
         </div>
         <button type="submit" class="subscribe-button">Subscribe</button>
       </form>
-      <p class="newsletter-card-disclaimer">Stay ahead in the game. Get exclusive tips, updates, and strategy guides straight to your inbox. No spam, just pure gaming goodness.</p>
+      <p class="newsletter-card-disclaimer">
+        Stay ahead in the game. Get exclusive tips, updates, and strategy guides straight to your inbox. No spam, just pure gaming goodness.
+      </p>
     </div>
   </section>
 
@@ -240,43 +227,52 @@ layout: null
     </div>
   </footer>
 
-  <!-- JS: mobile menu + partners carousel + tiny safety net -->
+  <!-- JS: tiny sticky safety + mobile menu + partners carousel -->
   <script>
   (function () {
     'use strict';
     const BP = 1024;
-    const btn  = document.querySelector('.nav-toggle');
-    const menu = document.getElementById('nav-menu');
-    const header = document.querySelector('.header');
 
-    /* Tiny safety net: keep header fixed even if another script meddles */
+    /* Sticky safety: keep header fixed even if some legacy code tries to move it */
+    const headerNav = document.querySelector('.header nav');
     function lockHeader(){
-      if (!header) return;
-      header.style.setProperty('position','fixed','important');
-      header.style.setProperty('top','0px','important');
-      header.style.left='0'; header.style.right='0'; header.style.zIndex='1000';
-      header.style.removeProperty('transform');
+      if (!headerNav) return;
+      const cs = getComputedStyle(headerNav);
+      if (cs.position !== 'fixed') headerNav.style.position = 'fixed';
+      if (headerNav.style.top !== '0px') headerNav.style.top = '0px';
+      headerNav.style.left = '0'; headerNav.style.right = '0'; headerNav.style.zIndex = '1000';
     }
     lockHeader();
-    ['load','resize','scroll'].forEach(ev=>window.addEventListener(ev, lockHeader, {passive:true}));
+    window.addEventListener('load',  lockHeader, { passive: true });
+    window.addEventListener('scroll', lockHeader, { passive: true });
+    window.addEventListener('resize', lockHeader);
 
+    /* Mobile menu */
+    const btn  = document.querySelector('.nav-toggle');
+    const menu = document.getElementById('nav-menu');
     const isMobile = () => window.matchMedia(`(max-width:${BP}px)`).matches;
 
-    function closeAllDropdowns(){
+    function closeDropdowns(){
       document.querySelectorAll('.nav-links .has-dropdown').forEach(li => {
         li.classList.remove('open');
         const a = li.querySelector(':scope > a');
-        if (a) a.setAttribute('aria-expanded', 'false');
+        if (a) a.setAttribute('aria-expanded','false');
       });
     }
     function openMenu(){
-      if (!menu || !btn) return;
-      menu.classList.add('is-open'); btn.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden';
+      if (!menu) return;
+      menu.classList.add('is-open');
+      btn && btn.setAttribute('aria-expanded','true');
+      menu.setAttribute('aria-hidden','false');
+      document.body.style.overflow='hidden';
     }
     function closeMenu(){
-      if (!menu || !btn) return;
-      menu.classList.remove('is-open'); btn.setAttribute('aria-expanded','false'); document.body.style.overflow='';
-      closeAllDropdowns();
+      if (!menu) return;
+      menu.classList.remove('is-open');
+      btn && btn.setAttribute('aria-expanded','false');
+      menu.setAttribute('aria-hidden','true');
+      document.body.style.overflow='';
+      closeDropdowns();
     }
 
     if (btn && menu){
@@ -284,30 +280,28 @@ layout: null
         menu.classList.contains('is-open') ? closeMenu() : openMenu();
       });
 
-      menu.addEventListener('click', (e) => {
+      menu.addEventListener('click', e => {
         const a = e.target.closest('a');
         if (!a) return;
 
-        if (a.getAttribute('href') === '#') e.preventDefault();
-
-        if (a.parentElement && a.parentElement.classList.contains('has-dropdown')) {
+        if (a.parentElement && a.parentElement.classList.contains('has-dropdown')){
           if (isMobile()){
             e.preventDefault();
             const li = a.parentElement;
-            const expanded = li.classList.toggle('open');
-            a.setAttribute('aria-expanded', String(expanded));
+            const open = li.classList.toggle('open');
+            a.setAttribute('aria-expanded', String(open));
           }
           return;
         }
         if (isMobile()) closeMenu();
       });
 
-      document.addEventListener('click', (e) => {
+      document.addEventListener('click', e => {
         if (!isMobile()) return;
         if (!menu.contains(e.target) && e.target !== btn) closeMenu();
       });
 
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 
       let last = isMobile();
       window.addEventListener('resize', () => {
@@ -322,39 +316,34 @@ layout: null
       const track = document.querySelector('.partners-carousel-track');
       if (!track) return;
 
-      const originals = Array.from(track.children).map(n => n.cloneNode(true));
-      let reps = 0;
-      while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
-        originals.forEach(n => track.appendChild(n.cloneNode(true)));
-        reps++;
+      if (!track.dataset.dup){
+        const originals = Array.from(track.children);
+        let reps = 0;
+        while (track.scrollWidth < track.clientWidth * 3 && reps < 8){
+          originals.forEach(n => track.appendChild(n.cloneNode(true)));
+          reps++;
+        }
+        track.dataset.dup = '1';
       }
 
-      let x = 0, speed = 0.6, raf;
+      let x = 0, speed = 0.6, raf = 0;
       const loop = () => {
-        const max = track.scrollWidth - track.clientWidth;
-        x = (x + speed) % (max || 1);
+        const max = Math.max(1, track.scrollWidth - track.clientWidth);
+        x = (x + speed) % max;
         track.scrollLeft = x;
         raf = requestAnimationFrame(loop);
       };
-      loop();
+      const start = () => { if (!raf) loop(); };
+      const stop  = () => { if (raf) cancelAnimationFrame(raf), raf = 0; };
 
-      const stop = () => cancelAnimationFrame(raf);
+      start();
       track.addEventListener('mouseenter', stop);
-      track.addEventListener('focusin', stop);
-      track.addEventListener('mouseleave', loop);
-      track.addEventListener('focusout', loop);
-
-      let t;
-      window.addEventListener('resize', () => {
-        cancelAnimationFrame(raf); clearTimeout(t);
-        t = setTimeout(() => { x = 0; loop(); }, 120);
-      });
+      track.addEventListener('mouseleave', start);
+      track.addEventListener('focusin',   stop);
+      track.addEventListener('focusout',  start);
+      window.addEventListener('resize', () => { stop(); x = 0; start(); });
     }
-    if (document.readyState === 'loading'){
-      document.addEventListener('DOMContentLoaded', initPartnersCarousel);
-    } else {
-      initPartnersCarousel();
-    }
+    initPartnersCarousel();
   })();
   </script>
 </body>
