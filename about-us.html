@@ -14,7 +14,6 @@ layout: null
   <title>Tunza Esports — About Us</title>
   <meta name="description" content="Learn about Tunza Esports: our mission, team, and work building Kenya’s esports ecosystem through tournaments, broadcasting, training, and community." />
 
-  <!-- Canonical + Social -->
   <link rel="canonical" href="https://www.tunzaesports.org/about-us/">
   <meta property="og:url" content="https://www.tunzaesports.org/about-us/">
   <meta property="og:title" content="About Tunza Esports">
@@ -27,48 +26,13 @@ layout: null
   <meta name="twitter:description" content="We’re shaping the future of Kenya’s esports through tournaments, broadcasting, training, and community. Meet the team behind Tunza Esports.">
   <meta name="twitter:image" content="https://www.tunzaesports.org/images/android-chrome-512x512-dark.png">
 
-  <!-- Favicons (cache-busted) -->
-  <link rel="icon" href="/favicon.ico?v=5" sizes="any">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=5">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=5">
-  <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48x48-dark.png?v=5">
-  <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192-dark.png?v=5">
-  <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512-dark.png?v=5">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png?v=5">
-
-  <!-- PWA -->
-  <link rel="manifest" href="/site.webmanifest">
+  <!-- Favicons -->
+  <link rel="icon" href="/favicon.ico?v=6" sizes="any">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=6">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=6">
+  <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48x48-dark.png?v=6">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-dark.png?v=6">
   <meta name="theme-color" content="#0b0b16">
-  <meta name="msapplication-TileColor" content="#0b0b16">
-
-  <!-- Organization schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "@id": "https://www.tunzaesports.org/#org",
-    "name": "Tunza Esports",
-    "url": "https://www.tunzaesports.org",
-    "logo": "https://www.tunzaesports.org/images/android-chrome-512x512-dark.png",
-    "sameAs": [
-      "https://www.instagram.com/TunzaEsports",
-      "https://x.com/TunzaEsports",
-      "https://www.facebook.com/TunzaEsports"
-    ]
-  }
-  </script>
-
-  <!-- Breadcrumbs (Home > About Us) for SEO only -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.tunzaesports.org/" },
-      { "@type": "ListItem", "position": 2, "name": "About Us", "item": "https://www.tunzaesports.org/about-us/" }
-    ]
-  }
-  </script>
 
   <!-- Fonts & CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -76,37 +40,19 @@ layout: null
   <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="/css/style.css" />
-
-  <!-- Page-scoped tweaks -->
-  <style>
-    /* a11y helper for visually-hidden text */
-    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-
-    /* Partners carousel visuals */
-    .partners-section { padding: 40px 0; text-align:center; }
-    .partners-carousel-track{ display:flex; gap:24px; overflow:hidden; padding:8px 0; scroll-behavior:auto; }
-    .partner-logo{ flex:0 0 auto; width:200px; height:100px; display:flex; align-items:center; justify-content:center; background:#0f0f17; border-radius:12px; padding:8px; }
-    .partner-logo img{ max-height:80px; max-width:100%; object-fit:contain; display:block; }
-    @media (min-width: 768px){
-      .partner-logo{ width:240px; height:110px; }
-      .partner-logo img{ max-height:90px; }
-    }
-    /* Make the three intro images fill their cards nicely */
-    .about-intro-section .box-image { width:100%; height:480px; object-fit:cover; border-radius:8px; display:block; }
-    @media (max-width: 768px){ .about-intro-section .box-image{ height:350px; } }
-  </style>
+  <link rel="stylesheet" href="/css/style.css?v=6" />
 </head>
 <body>
   <!-- Header -->
-  <section class="header">
+  <section class="header" role="banner">
     <nav class="wrap" role="navigation" aria-label="Primary">
-      <a href="/" class="logo"><img src="/images/tunzalogo.png" alt="Tunza Esports Logo"></a>
+      <a href="/" class="logo" aria-label="Home">
+        <img src="/images/tunzalogo.png" alt="Tunza Esports Logo">
+      </a>
 
       <!-- Mobile toggle -->
       <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
         <span class="fa fa-bars" aria-hidden="true"></span>
-        <span class="sr-only">Menu</span>
       </button>
 
       <!-- Nav links -->
@@ -117,7 +63,7 @@ layout: null
 
           <li class="has-dropdown">
             <a href="#" aria-haspopup="true" aria-expanded="false">Our Services</a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu" role="menu">
               <li><a href="/esports-tournament-organization/">Esports Tournament Organization</a></li>
               <li><a href="/esports-production-broadcasting/">Esports Production &amp; Broadcasting</a></li>
               <li><a href="/video-gaming-events/">Video Gaming Events</a></li>
@@ -128,7 +74,7 @@ layout: null
 
           <li class="has-dropdown">
             <a href="#" aria-haspopup="true" aria-expanded="false">Our Products</a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu" role="menu">
               <li><a href="/ker/">KER</a></li>
               <li><a href="https://www.kenyauniversityesportsrankings.org" target="_blank" rel="noopener">KUER</a></li>
               <li><a href="/tunzatourna/">TunzaTourna</a></li>
@@ -145,8 +91,8 @@ layout: null
     </nav>
   </section>
 
-  <!-- Hero (breadcrumb removed) -->
-  <section class="about-hero-section">
+  <!-- Hero -->
+  <section class="about-hero-section" aria-label="About Tunza Esports">
     <h1 class="about-main-heading">About Us</h1>
     <p class="about-tagline">Shaping the future of Kenya’s esports through community, competition, and opportunity.</p>
   </section>
@@ -235,12 +181,7 @@ layout: null
       <h3>Hello guys! Get the latest information from us</h3>
       <form
         action="https://tunzaesports.us13.list-manage.com/subscribe/post?u=49268c059773710b44455bb33&id=f95ceda37f&f_id=00cde9e1f0"
-        method="post"
-        target="_blank"
-        novalidate
-        class="newsletter-form-container"
-        aria-label="Newsletter signup form"
-      >
+        method="post" target="_blank" novalidate class="newsletter-form-container" aria-label="Newsletter signup form">
         <input type="email" name="EMAIL" placeholder="Enter your email here" class="email-input" required />
         <div style="position:absolute; left:-5000px;" aria-hidden="true">
           <input type="text" name="b_49268c059773710b44455bb33_f95ceda37f" tabindex="-1" value="">
@@ -250,8 +191,6 @@ layout: null
       <p class="newsletter-card-disclaimer">Stay ahead in the game. Get exclusive tips, updates, and strategy guides straight to your inbox. No spam, just pure gaming goodness.</p>
     </div>
   </section>
-
-  <div class="spacer-before-partners"></div>
 
   <!-- Partners -->
   <section class="partners-section">
@@ -301,128 +240,122 @@ layout: null
     </div>
   </footer>
 
-  <!-- JS: mobile menu + dropdowns + partners carousel + sticky nav -->
+  <!-- JS: mobile menu + partners carousel + tiny safety net -->
   <script>
-(function () {
-  const BP = 1024; // mobile/tablet breakpoint
-  const btn  = document.querySelector('.nav-toggle');
-  const menu = document.getElementById('nav-menu');
-  const nav  = document.querySelector('.header nav');
+  (function () {
+    'use strict';
+    const BP = 1024;
+    const btn  = document.querySelector('.nav-toggle');
+    const menu = document.getElementById('nav-menu');
+    const header = document.querySelector('.header');
 
-  // make sure nothing is pushing the nav down
-  if (nav) nav.style.top = '';
+    /* Tiny safety net: keep header fixed even if another script meddles */
+    function lockHeader(){
+      if (!header) return;
+      header.style.setProperty('position','fixed','important');
+      header.style.setProperty('top','0px','important');
+      header.style.left='0'; header.style.right='0'; header.style.zIndex='1000';
+      header.style.removeProperty('transform');
+    }
+    lockHeader();
+    ['load','resize','scroll'].forEach(ev=>window.addEventListener(ev, lockHeader, {passive:true}));
 
-  const isMobile = () => window.matchMedia(`(max-width:${BP}px)`).matches;
+    const isMobile = () => window.matchMedia(`(max-width:${BP}px)`).matches;
 
-  function closeAllDropdowns(){
-    document.querySelectorAll('.nav-links .has-dropdown').forEach(li => {
-      li.classList.remove('open');
-      const a = li.querySelector(':scope > a');
-      if (a) a.setAttribute('aria-expanded', 'false');
-    });
-  }
-  function openMenu(){
-    menu.classList.add('is-open');
-    btn.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeMenu(){
-    menu.classList.remove('is-open');
-    btn.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-    closeAllDropdowns();
-  }
-
-  if (btn && menu){
-    // Main toggle
-    btn.addEventListener('click', () => {
-      menu.classList.contains('is-open') ? closeMenu() : openMenu();
-    });
-
-    // All clicks inside the nav
-    menu.addEventListener('click', (e) => {
-      const a = e.target.closest('a');
-      if (!a) return;
-
-      // prevent "#" jump anywhere
-      if (a.getAttribute('href') === '#') e.preventDefault();
-
-      // tap-to-open dropdowns on mobile/tablet
-      if (a.parentElement && a.parentElement.classList.contains('has-dropdown')) {
-        if (isMobile()){
-          e.preventDefault();
-          const li = a.parentElement;
-          const expanded = li.classList.toggle('open');
-          a.setAttribute('aria-expanded', String(expanded));
-        }
-        return;
-      }
-
-      // normal link click: close menu on mobile
-      if (isMobile()) closeMenu();
-    });
-
-    // Click outside closes menu (mobile only)
-    document.addEventListener('click', (e) => {
-      if (!isMobile()) return;
-      if (!menu.contains(e.target) && e.target !== btn) closeMenu();
-    });
-
-    // ESC closes menu
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeMenu();
-    });
-
-    // Breakpoint changes: reset state
-    let last = isMobile();
-    window.addEventListener('resize', () => {
-      const now = isMobile();
-      if (now !== last){ closeMenu(); last = now; }
-    });
-  }
-
-  // ---- Partners carousel (unchanged) ----
-  function initPartnersCarousel(){
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const track = document.querySelector('.partners-carousel-track');
-    if (!track) return;
-
-    const originals = Array.from(track.children).map(n => n.cloneNode(true));
-    let reps = 0;
-    while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
-      originals.forEach(n => track.appendChild(n.cloneNode(true)));
-      reps++;
+    function closeAllDropdowns(){
+      document.querySelectorAll('.nav-links .has-dropdown').forEach(li => {
+        li.classList.remove('open');
+        const a = li.querySelector(':scope > a');
+        if (a) a.setAttribute('aria-expanded', 'false');
+      });
+    }
+    function openMenu(){
+      if (!menu || !btn) return;
+      menu.classList.add('is-open'); btn.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden';
+    }
+    function closeMenu(){
+      if (!menu || !btn) return;
+      menu.classList.remove('is-open'); btn.setAttribute('aria-expanded','false'); document.body.style.overflow='';
+      closeAllDropdowns();
     }
 
-    let x = 0, speed = 0.6, raf;
-    const loop = () => {
-      const max = track.scrollWidth - track.clientWidth;
-      x = (x + speed) % (max || 1);
-      track.scrollLeft = x;
-      raf = requestAnimationFrame(loop);
-    };
-    loop();
+    if (btn && menu){
+      btn.addEventListener('click', () => {
+        menu.classList.contains('is-open') ? closeMenu() : openMenu();
+      });
 
-    track.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
-    track.addEventListener('mouseleave', loop);
-    track.addEventListener('focusin',   () => cancelAnimationFrame(raf));
-    track.addEventListener('focusout',  loop);
+      menu.addEventListener('click', (e) => {
+        const a = e.target.closest('a');
+        if (!a) return;
 
-    let t;
-    window.addEventListener('resize', () => {
-      cancelAnimationFrame(raf);
-      clearTimeout(t);
-      t = setTimeout(() => { x = 0; loop(); }, 150);
-    });
-  }
+        if (a.getAttribute('href') === '#') e.preventDefault();
 
-  if (document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', initPartnersCarousel);
-  } else {
-    initPartnersCarousel();
-  }
-})();
-</script>
+        if (a.parentElement && a.parentElement.classList.contains('has-dropdown')) {
+          if (isMobile()){
+            e.preventDefault();
+            const li = a.parentElement;
+            const expanded = li.classList.toggle('open');
+            a.setAttribute('aria-expanded', String(expanded));
+          }
+          return;
+        }
+        if (isMobile()) closeMenu();
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!isMobile()) return;
+        if (!menu.contains(e.target) && e.target !== btn) closeMenu();
+      });
+
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+
+      let last = isMobile();
+      window.addEventListener('resize', () => {
+        const now = isMobile();
+        if (now !== last){ closeMenu(); last = now; }
+      });
+    }
+
+    /* Partners carousel */
+    function initPartnersCarousel(){
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const track = document.querySelector('.partners-carousel-track');
+      if (!track) return;
+
+      const originals = Array.from(track.children).map(n => n.cloneNode(true));
+      let reps = 0;
+      while ((track.scrollWidth || 0) < (track.clientWidth * 3) && reps < 10) {
+        originals.forEach(n => track.appendChild(n.cloneNode(true)));
+        reps++;
+      }
+
+      let x = 0, speed = 0.6, raf;
+      const loop = () => {
+        const max = track.scrollWidth - track.clientWidth;
+        x = (x + speed) % (max || 1);
+        track.scrollLeft = x;
+        raf = requestAnimationFrame(loop);
+      };
+      loop();
+
+      const stop = () => cancelAnimationFrame(raf);
+      track.addEventListener('mouseenter', stop);
+      track.addEventListener('focusin', stop);
+      track.addEventListener('mouseleave', loop);
+      track.addEventListener('focusout', loop);
+
+      let t;
+      window.addEventListener('resize', () => {
+        cancelAnimationFrame(raf); clearTimeout(t);
+        t = setTimeout(() => { x = 0; loop(); }, 120);
+      });
+    }
+    if (document.readyState === 'loading'){
+      document.addEventListener('DOMContentLoaded', initPartnersCarousel);
+    } else {
+      initPartnersCarousel();
+    }
+  })();
+  </script>
 </body>
 </html>
-
