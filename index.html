@@ -15,14 +15,12 @@
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-  <!-- Header -->
   <section class="header">
     <nav class="site-nav" role="navigation" aria-label="Primary">
       <a href="/" class="logo" aria-label="Home">
         <img src="/images/tunzalogo.png" alt="Tunza Esports Logo" />
       </a>
 
-      <!-- Desktop links (centered) -->
       <ul class="nav-main desktop-only">
         <li><a href="/">Home</a></li>
         <li><a href="/about-us/">About Us</a></li>
@@ -53,17 +51,14 @@
         <li><a href="/gallery/">Gallery</a></li>
       </ul>
 
-      <!-- Desktop CTA -->
       <a href="/shop/" class="shop-button desktop-only">Shop Now</a>
 
-      <!-- Mobile hamburger -->
       <button class="nav-toggle mobile-only" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Menu">
         <span class="fa fa-bars" aria-hidden="true"></span>
       </button>
     </nav>
   </section>
 
-  <!-- Mobile full-screen drawer -->
   <div id="mobile-drawer" class="mobile-drawer" aria-hidden="true">
     <div class="drawer-panel is-active" data-panel="main">
       <ul class="drawer-list">
@@ -102,14 +97,12 @@
     </div>
   </div>
 
-  <!-- Hero -->
   <section class="home-hero-section" aria-label="Tunza Esports Hero">
     <div class="hero-content">
       <h1>Tujenge Esports Kenya</h1>
     </div>
   </section>
 
-  <!-- NEWS -->
   <section class="news-section">
     <div class="container">
       <h2 class="news-heading">Lots of interesting information from us</h2>
@@ -117,14 +110,13 @@
     </div>
   </section>
 
-  <!-- Newsletter -->
   <section class="newsletter-outer">
     <p class="newsletter-pre-heading">Subscribe To Our Newsletter Today!</p>
     <h2 class="newsletter-main-heading">Get Gaming Guide and Information</h2>
     <div class="newsletter-card">
       <h3>Hello guys! Get the latest information from us</h3>
       <form action="https://tunzaesports.us13.list-manage.com/subscribe/post?u=49268c059773710b44455bb33&id=f95ceda37f&f_id=00cde9e1f0"
-            method="post" target="_blank" novalidate class="newsletter-form-container">
+          method="post" target="_blank" novalidate class="newsletter-form-container">
         <input type="email" name="EMAIL" placeholder="Enter your email here" class="email-input" required />
         <div style="position:absolute; left:-5000px;" aria-hidden="true">
           <input type="text" name="b_49268c059773710b44455bb33_f95ceda37f" tabindex="-1" value="">
@@ -137,7 +129,6 @@
     </div>
   </section>
 
-  <!-- Partners carousel -->
   <section class="partners-section">
     <h2>Our Partners, clients, friends</h2>
     <div class="partners-carousel-track">
@@ -147,7 +138,6 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer>
     <div class="footer-content">
       <div class="footer-column">
@@ -187,56 +177,10 @@
 <script>
 (function () {
   'use strict';
-
+  
   /* =========================================
-     HARD-LOCK HEADER + NAV (with tiny safety net)
-     - Header stays fixed to the top
-     - Inner .site-nav stays static (so no script can "top = scrollY")
-     - Clears any inline "top"/"transform" that might get injected
-     ========================================= */
-  const header = document.querySelector('.header');
-  const nav    = document.querySelector('.site-nav');
-
-  function reassertHeaderAndNav() {
-    if (header) {
-      header.style.setProperty('position', 'fixed', 'important');
-      header.style.setProperty('top',      '0px',   'important');
-      header.style.left   = '0';
-      header.style.right  = '0';
-      header.style.zIndex = '1000';
-      header.style.removeProperty('transform');  // avoid iOS fixed jitter issues
-    }
-    if (nav) {
-      nav.style.setProperty('position', 'static', 'important');
-      nav.style.removeProperty('top');
-      nav.style.removeProperty('left');
-      nav.style.removeProperty('right');
-      nav.style.removeProperty('transform');
-    }
-  }
-
-  // Run now + on critical events
-  reassertHeaderAndNav();
-  window.addEventListener('load',   reassertHeaderAndNav, { passive: true });
-  window.addEventListener('resize', reassertHeaderAndNav);
-  window.addEventListener('scroll', reassertHeaderAndNav, { passive: true });
-
-  // Tiny safety net: kill any inline onscroll that tries to move the nav
-  try { if (typeof window.onscroll === 'function') window.onscroll = null; } catch {}
-
-  // Watch for any inline style changes and immediately revert
-  if (header) {
-    new MutationObserver(reassertHeaderAndNav)
-      .observe(header, { attributes: true, attributeFilter: ['style', 'class'] });
-  }
-  if (nav) {
-    new MutationObserver(reassertHeaderAndNav)
-      .observe(nav, { attributes: true, attributeFilter: ['style', 'class'] });
-  }
-
-  /* =========================================
-     DROPDOWN HOVER INTENT (prevents instant close)
-     ========================================= */
+      DROPDOWN HOVER INTENT (prevents instant close)
+      ========================================= */
   document.querySelectorAll('.has-dropdown').forEach(parent => {
     const trigger = parent.querySelector(':scope > a');
     const menu    = parent.querySelector(':scope > .dropdown-menu');
@@ -265,10 +209,10 @@
   });
 
   /* =========================================
-     MOBILE DRAWER
-     ========================================= */
-  const toggle   = document.querySelector('.nav-toggle');
-  const drawer   = document.getElementById('mobile-drawer');
+      MOBILE DRAWER
+      ========================================= */
+  const toggle    = document.querySelector('.nav-toggle');
+  const drawer    = document.getElementById('mobile-drawer');
   const isMobile = () => window.matchMedia('(max-width:1024px)').matches;
 
   function switchPanel(name){
@@ -314,8 +258,8 @@
   window.addEventListener('resize', () => { if (!isMobile()) closeDrawer(); });
 
   /* =========================================
-     PARTNERS CAROUSEL (auto-scroll, pauses on hover/focus)
-     ========================================= */
+      PARTNERS CAROUSEL (auto-scroll, pauses on hover/focus)
+      ========================================= */
   function initPartnersCarousel(){
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const track = document.querySelector('.partners-carousel-track');
@@ -344,15 +288,15 @@
     start();
     track.addEventListener('mouseenter', stop);
     track.addEventListener('mouseleave', start);
-    track.addEventListener('focusin',   stop);
-    track.addEventListener('focusout',  start);
+    track.addEventListener('focusin',    stop);
+    track.addEventListener('focusout',   start);
     window.addEventListener('resize', () => { stop(); x = 0; start(); });
   }
   initPartnersCarousel();
 
   /* =========================================
-     NEWS CARDS (restored)
-     ========================================= */
+      NEWS CARDS (restored)
+      ========================================= */
   function initNews(){
     const container = document.getElementById('news-cards-container');
     if (!container) return;
@@ -409,7 +353,3 @@
 </script>
 </body>
 </html>
-
-
-
-
