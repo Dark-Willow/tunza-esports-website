@@ -142,24 +142,105 @@ a:hover{color:#00E5FF}
 .list-column{list-style:disc; padding-left:22px; color:rgba(252,252,253,.9); line-height:1.8}
 @media (max-width:800px){.list-container{grid-template-columns:1fr}}
 
-/* ==========================================================
-   DIRECTORS GRID
-   ========================================================== */
-.directors-section{padding:80px 16px}
-.directors-heading{text-align:center; font-size:40px; margin-bottom:10px}
-.directors-subheading{text-align:center; color:rgba(252,252,253,.8); width:min(900px,92vw); margin:0 auto 28px; line-height:1.7}
-.director-cards-container{
-  width:min(1100px,92vw); margin:0 auto;
-  display:grid; grid-template-columns:repeat(5,1fr); gap:18px;
+/* =========================
+   Directors (fixed version)
+   ========================= */
+.directors-section{
+  padding:80px 16px;
+  background:#0A0A1A;
+  color:#FCFCFD;
+  text-align:center;
 }
-.director-card{background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06); border-radius:14px; padding:16px; text-align:center}
-.director-image{width:100%; height:200px; object-fit:cover; border-radius:10px; display:block; margin-bottom:10px}
-.director-name{font-size:18px; margin-bottom:4px}
-.director-title{font-size:14px; color:rgba(252,252,253,.75)}
-@media (max-width:1100px){.director-cards-container{grid-template-columns:repeat(3,1fr)}}
-@media (max-width:700px){.director-cards-container{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:520px){.director-cards-container{grid-template-columns:1fr}}
 
+.directors-section .directors-heading{
+  font-family:'Syne', sans-serif;
+  font-size:40px;
+  margin:0 0 10px;
+}
+
+.directors-section .directors-subheading{
+  font-family:'Oxanium', sans-serif;
+  font-size:16px;
+  color:rgba(252,252,253,.75);
+  line-height:1.7;
+  max-width:900px;
+  margin:0 auto 28px;
+}
+
+/* Grid (auto-resizes; no fixed widths) */
+.directors-section .director-cards-container{
+  width:min(1100px,92vw);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:18px;
+}
+@media (max-width:1100px){ .directors-section .director-cards-container{ grid-template-columns:repeat(3,1fr) } }
+@media (max-width:700px){  .directors-section .director-cards-container{ grid-template-columns:repeat(2,1fr) } }
+@media (max-width:520px){  .directors-section .director-cards-container{ grid-template-columns:1fr } }
+
+/* Card */
+.directors-section .director-card{
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:14px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  padding:0;                 /* let image fill top edge */
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.directors-section .director-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 28px rgba(0,0,0,.35);
+}
+
+/* Image area — works with either:
+   <figure class="director-photo"><img ...></figure>
+   OR  <img class="director-image" ...>
+   OR  <div class="director-image-placeholder"> */
+.directors-section .director-photo,
+.directors-section .director-image-placeholder{
+  width:100%;
+  aspect-ratio:4/5; /* consistent height across cards */
+  background:linear-gradient(180deg,#17172a 0%, #101020 100%);
+  display:block;
+  overflow:hidden;
+}
+.directors-section .director-photo img{
+  width:100%; height:100%; object-fit:cover; display:block;
+}
+/* If your markup uses img.director-image directly */
+.directors-section img.director-image{
+  width:100%; height:100%;
+  aspect-ratio:4/5;
+  object-fit:cover; display:block;
+}
+
+/* Text */
+.directors-section .director-info{
+  padding:14px 12px 18px;
+  text-align:center;
+}
+.directors-section .director-name{
+  font-family:'Syne', sans-serif;
+  font-size:20px;
+  font-weight:700;
+  color:#9B8AFB;            /* brand purple */
+  margin:0 0 4px;
+}
+.directors-section .director-title{
+  font-family:'Oxanium', sans-serif;
+  font-size:14px;
+  color:rgba(252,252,253,.6);
+  margin:0;
+}
+
+/* Mobile padding tune-up */
+@media (max-width:768px){
+  .directors-section{ padding:60px 16px; }
+}
 /* ==========================================================
    NEWSLETTER (reused)
    ========================================================== */
@@ -450,4 +531,5 @@ footer{background:#0A0A1A;color:#FCFCFD}
   .footer-column h4{margin-bottom:15px}
   .footer-bottom{padding:25px 15px}
 }
+
 
